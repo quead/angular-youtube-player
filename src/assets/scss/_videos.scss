@@ -1,0 +1,54 @@
+.video-list {
+    position: absolute;
+    width: 100%;
+    top: 91px;
+    bottom: 85px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 8px;
+        transform: translate3d(0, 0, 0);
+    }
+    
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba($c-black, 0.2);
+    }
+}
+
+    iframe {
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .video-item {
+        display: flex;
+        align-items: center;
+        background-color: $c-white;
+        border-bottom: 1px solid rgba($c-black,0.05);
+        padding: 10px 15px;
+        cursor: pointer;
+        h2 {
+            font-size: $f-14;
+            margin: 0;
+        }
+        p {
+            margin: 0;
+        }
+        .author {
+            color: rgba($c-black, 0.5);
+        }
+    }
+
+    .video-item-image {
+        flex: 0 0 55px;
+        margin: 0 10px 0 0;
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }

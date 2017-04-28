@@ -1,0 +1,39 @@
+#main-nav {
+    background-color: $c-white;
+    position: fixed;
+    padding: 10px 15px;
+    box-shadow: 5px 0px 10px 0px rgba($c-black, 0.05);
+    top: 0;
+    left: -215px;
+    width: 200px;
+    height: 100%;
+    transition: left 0.1s ease-out;
+    z-index: 9999;
+    h2 {
+        margin: 2px 0;
+        padding-right: 20px;
+        font-size: 16px;
+    }
+    &.active {
+        left: 0;
+        + .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998;
+        }
+    }
+}
+
+.nav-overlay {
+    background-color: rgba($c-black,0.1);
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.2s ease-out;
+    z-index: 9998;
+}
