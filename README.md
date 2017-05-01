@@ -31,7 +31,9 @@ For SCSS development (after you downloaded/cloned the project)
 
 ## Future features
 - Add your videos in playlist
-- Changing volume
+- Next/prev video from your playlist
+- Change volume volume
+- Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux
 - **Settings**
 - *Show/hide video*
 - *Show/hide debugging features*
