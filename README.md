@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/IQmoEIA.png" width="100%" height="auto" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/IQmoEIA.png" width="auto" height="100%" />
 </p>
 
 # Angular2 YT Player
