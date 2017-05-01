@@ -33,10 +33,10 @@ For SCSS development (after you downloaded/cloned the project)
 - Add your videos in playlist
 - Changing volume
 - Settings
--- Show/hide video
--- Show/hide debugging features
--- Show/hide thumbnails in search
--- Set how many results to show in search (max 50)
+⋅⋅* Show/hide video
+⋅⋅* Show/hide debugging features
+⋅⋅* Show/hide thumbnails in search
+⋅⋅* Set how many results to show in search (max 50)
 
 ## License
 MIT
