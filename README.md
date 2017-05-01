@@ -23,8 +23,10 @@ For SCSS development (after you downloaded/cloned the project)
 `gulp`
 
 ## Changelog
----
 **Angular2 YT Player 1.0.0**
 - Search and play video from youtube
 - Play/pause video
 - Change time of your video that you want to listen
+
+## License
+MIT
