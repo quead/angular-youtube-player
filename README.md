@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="react-sketchapp" src="docs/logo.png" height="163px" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/IQmoEIA.png" height="163px" />
 </p>
 
 # Angular2 YT Player
