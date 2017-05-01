@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="react-sketchapp" src="docs/logo.png" height="163px" />
+</p>
+
 # Angular2 YT Player
 This is a simple youtube player based on latest version of [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
