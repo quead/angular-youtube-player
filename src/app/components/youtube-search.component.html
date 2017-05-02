@@ -26,7 +26,7 @@
 <footer>
     <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
       <p class="volume-range-name">Volume</p>
-      <input type="range" id="youtube-volume-range" class="player-range" [value]="videoCurVolume" min="0" max="{{videoCurVolume}}" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+      <input type="range" id="youtube-volume-range" class="player-range" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
     </div>
     <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
     <p *ngIf="!currentVideoName" class="current-video-name">Not Playing</p>
