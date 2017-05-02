@@ -46,7 +46,7 @@ Angular2 YT Player v1.0.0
 - Play/pause video
 - Change time of your video that you want to listen
 
-## Future features
+## Future features for 2.0
 - Add your videos in playlist
 - Next/prev video from your playlist
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux
