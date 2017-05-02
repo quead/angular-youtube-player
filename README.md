@@ -56,6 +56,7 @@ Angular2 YT Player v1.0.0
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 - *Set how many results to show in search (max 50)*
+- *Change/add YOUR_API Key*
 
 ## License
 MIT
