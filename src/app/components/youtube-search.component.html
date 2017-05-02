@@ -24,14 +24,14 @@
 </main>
 <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
 <footer>
-    <div class="volume-range-value">
+    <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
       <p class="volume-range-name">Volume</p>
-      <input type="range" id="youtube-volume-range" class="player-range" [value]="videoCurVolume" min="0" max="{{videoCurVolume}}" (mouseup)="volumeRangeMouseUp(videoRange.value)">
+      <input type="range" id="youtube-volume-range" class="player-range" [value]="videoCurVolume" min="0" max="{{videoCurVolume}}" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
     </div>
     <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
     <p *ngIf="!currentVideoName" class="current-video-name">Not Playing</p>
     <div class="current-video-range">
-      <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active' " [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" (mouseup)="RangeMouseUp(videoRange.value)">
+      <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
       <p class="current-video-range-value">{{videoCurFull}}</p>
       <p class="current-video-range-max-value">{{videoMaxFull}}</p>
     </div>

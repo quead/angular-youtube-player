@@ -299,13 +299,19 @@ footer {
 .volume-range-value {
   color: #ffffff;
   width: 50px;
-  margin: 0 auto;
-  float: right;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .volume-range-value p {
   color: inherit;
   margin: 0;
+}
+
+.volume-range-value.inactive input[type="range"]::-webkit-slider-thumb {
+  display: none;
 }
 
 #main-nav {

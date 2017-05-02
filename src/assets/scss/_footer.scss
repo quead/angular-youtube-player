@@ -112,10 +112,15 @@ footer {
 .volume-range-value {
     color: $c-white;
     width: 50px;
-    margin: 0 auto;
-    float: right;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     p {
         color: inherit;
         margin: 0;
+    }
+    &.inactive input[type="range"]::-webkit-slider-thumb {
+        display: none;
     }
 }

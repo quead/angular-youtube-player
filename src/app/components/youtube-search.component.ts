@@ -26,7 +26,7 @@ export class SearchComponent {
   videoCurFull: string = '00:00:00';
   videoMaxFull: string = '00:00:00';
 
-  videoCurVolume: number = 0;
+  videoCurVolume: number = -1;
   
   constructor(private youtube: YoutubeGetVideo, ref: ChangeDetectorRef) {
     this.ref = ref;
@@ -128,6 +128,7 @@ export class SearchComponent {
 
   volumeRangeMouseUp(value: number) {
     console.log(value);
+    this.player.setVolume(value);
   }
 
   timeFormat(time: number) {
