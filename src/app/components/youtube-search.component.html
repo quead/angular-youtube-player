@@ -6,24 +6,22 @@
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>
-      <div *ngIf="searchForm.valid" class="video-list">
+      <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
         <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i)">
-          <div class="video-item-image">
-            <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
-          </div>
           <div class="video-item-content">
             <h2>{{ video.snippet.title }}</h2>
-            <p class="author">By {{ video.snippet.channelTitle }}</p>
           </div>
         </div>
       </div>
-      <!-- De stilizat/aranjat -->
-      <div *ngFor="let relatedVideo of relatedVideos" class="related-video-list">
-        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="related-video-item">
-          <div class="related-video-item-image">
+      <div *ngIf="relatedVideos" id="related-video-list" class="video-list">
+        <div class="video-item-head">
+            Recommended videos
+        </div>
+        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
+          <div class="video-item-image">
             <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="video thumbnail" />
           </div>
-          <div class="related-video-item-content">
+          <div class="video-item-content">
             <h2>{{ relatedVideo.snippet.title }}</h2>
             <p class="author">By {{ relatedVideo.snippet.channelTitle }}</p>
           </div>
@@ -33,8 +31,8 @@
   <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
   <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
   <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+  <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
 </main>
-<youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
 <footer>
     <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
       <p class="volume-range-name">Volume</p>

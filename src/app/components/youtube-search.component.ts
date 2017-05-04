@@ -13,7 +13,7 @@ export class SearchComponent {
   searchForm: FormGroup;
 
   videos: any;
-  relatedVideos: any;
+  relatedVideos: any = false;
   player: YT.Player;
   currentVideoID: string = 'Not Exist';
   currentVideoName: string;
@@ -34,6 +34,7 @@ export class SearchComponent {
   }
  
   ngOnInit() {
+    console.log(this.relatedVideos);
     this.searchForm = new FormGroup({
       searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
@@ -70,6 +71,7 @@ export class SearchComponent {
     this.currentVideoName = clickedVideo.snippet.title;
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
+    this.clearSearch();
   }
 
   savePlayer (player) {
