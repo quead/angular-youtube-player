@@ -51,12 +51,14 @@ Angular2 YT Player v1.0.0
 - Next/prev video from your playlist
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux
 - Hotkeys for application in desktop (play/pause/next/prev/volume)
+- Related videos
 - **Settings**
 - *Show/hide video*
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 - *Set how many results to show in search (max 50)*
 - *Change/add YOUR_API Key*
+- *Max related videos*
 
 ## License
 MIT
