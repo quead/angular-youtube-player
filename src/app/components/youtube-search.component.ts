@@ -13,6 +13,7 @@ export class SearchComponent {
   searchForm: FormGroup;
 
   videos: any;
+  relatedVideos: any;
   player: YT.Player;
   currentVideoID: string = 'Not Exist';
   currentVideoName: string;
@@ -117,7 +118,7 @@ export class SearchComponent {
   getRelatedVideos() {
       this.youtube.relatedVideos(this.currentVideoID).subscribe(
           result => {
-            console.log(result.items);
+            this.relatedVideos = result.items;
           },
           error => {
             console.log('error');

@@ -17,6 +17,18 @@
           </div>
         </div>
       </div>
+      <!-- De stilizat/aranjat -->
+      <div *ngFor="let relatedVideo of relatedVideos" class="related-video-list">
+        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="related-video-item">
+          <div class="related-video-item-image">
+            <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="video thumbnail" />
+          </div>
+          <div class="related-video-item-content">
+            <h2>{{ relatedVideo.snippet.title }}</h2>
+            <p class="author">By {{ relatedVideo.snippet.channelTitle }}</p>
+          </div>
+        </div>
+      </div>
   </form>
   <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
   <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
