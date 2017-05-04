@@ -68,7 +68,7 @@ export class SearchComponent {
     this.currentVideoID = clickedVideo.id.videoId;
     this.currentVideoName = clickedVideo.snippet.title;
     this.player.loadVideoById(this.currentVideoID);
-    console.log(clickedVideo);
+    this.getRelatedVideos();
   }
 
   savePlayer (player) {
@@ -114,6 +114,17 @@ export class SearchComponent {
      clearTimeout(this.videoRangeTimer);
   }
 
+  getRelatedVideos() {
+      this.youtube.relatedVideos(this.currentVideoID).subscribe(
+          result => {
+            console.log(result.items);
+          },
+          error => {
+            console.log('error');
+          }
+        );
+  }
+
   RangeNouseDown(event: Event) {
     if(event['buttons'] === 1) {
       this.stopRange();
@@ -127,7 +138,6 @@ export class SearchComponent {
   }
 
   volumeRangeMouseUp(value: number) {
-    console.log(value);
     this.player.setVolume(value);
   }
 
