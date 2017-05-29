@@ -17,9 +17,9 @@
         <div class="video-item-head">
             Recommended videos
         </div>
-        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
+        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelatedVideo($event, i)">
           <div class="video-item-image">
-            <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="video thumbnail" />
+            <img src="{{ relatedVideo.snippet.thumbnails.high.url }}" alt="video thumbnail" />
           </div>
           <div class="video-item-content">
             <h2>{{ relatedVideo.snippet.title }}</h2>
