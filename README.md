@@ -38,8 +38,9 @@ For SCSS development (after you downloaded/cloned the project)
 
 ## Changelog
 *Current version*
-**Angular2 YT Player v1.0.1**
+**Angular2 YT Player v1.0.2**
 - Change volume on your video
+- Related videos
 
 Angular2 YT Player v1.0.0
 - Search and play video from youtube
@@ -51,7 +52,6 @@ Angular2 YT Player v1.0.0
 - Next/prev video from your playlist
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux
 - Hotkeys for application in desktop (play/pause/next/prev/volume)
-- Related videos
 - **Settings**
 - *Show/hide video*
 - *Show/hide debugging features*
