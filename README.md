@@ -54,12 +54,12 @@ Angular2 YT Player v1.0.0
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - **Settings**
 - *Show/hide video **(possible v1.3)***
-- *Show/hide debugging features (in v1.1)*
-- *Show/hide thumbnails in search (in v1.1)*
-- *Set how many results to show in search (0 to 50) **(in v1.3***
-- *Change/add YOUR_API Key **(in v1.3***
+- *Show/hide debugging features **(in v1.1)***
+- *Show/hide thumbnails in search **(in v1.1)***
+- *Set how many results to show in search (0 to 50) **(in v1.3)***
+- *Change/add YOUR_API Key **(in v1.3)***
 - *Max related videos (0 to 50) **(in v1.3)***
-- *Save your settings (in v1.1)*
+- *Save your settings **(in v1.1)***
 
 ## License
 MIT
