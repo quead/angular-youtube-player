@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { YoutubeGetVideo } from '../config/youtube.config';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
@@ -96,7 +96,6 @@ export class SearchComponent {
 
   savePlayer (player) {
     this.player = player;
-    console.log(this.player);
   }
   
   onStateChange(event){
