@@ -3,7 +3,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.0.2-brightgreen.svg?style=flat)]()
+[![Version](https://img.shields.io/badge/Current%20version-v1.0.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Next version](https://img.shields.io/badge/Next%20version-v1.1-e52d27.svg)](https://github.com/quead/angular2-yt-player#changelog)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
@@ -14,7 +14,7 @@ This is a simple youtube player based on latest version of [angular-cli](https:/
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
-*This is a pre-alpha release.*
+*This is pre-alpha.*
 
 ## Usage
 
