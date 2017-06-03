@@ -18,7 +18,7 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 ## Usage
 
-For angular2/typescript development
+**For angular2/typescript development**
 1. Install [NodeJS 6.10.2+](https://nodejs.org/en/download/ "Node JS Download")
 2. Install latest version of [angular-cli](https://github.com/angular/angular-cli "Angular Cli")
 
@@ -32,7 +32,9 @@ For angular2/typescript development
 
 `npm start` in root folder
 
-For SASS development
+------
+
+**For SASS development**
 
 *You must go in **src** folder*
 1. Install [Sass](http://sass-lang.com/install "Sass website")
