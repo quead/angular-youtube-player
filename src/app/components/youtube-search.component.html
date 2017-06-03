@@ -28,9 +28,11 @@
         </div>
       </div>
   </form>
-  <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
-  <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
-  <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+  <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
+    <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
+    <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
+    <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+  </div>
   <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
 </main>
 <footer>

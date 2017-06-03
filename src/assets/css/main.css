@@ -51,6 +51,14 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
+.debugging-info {
+  display: none;
+}
+
+.debugging-info.active {
+  display: block;
+}
+
 header {
   position: absolute;
   height: 45px;

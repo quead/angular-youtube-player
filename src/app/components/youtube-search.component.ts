@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { YoutubeGetVideo } from '../config/youtube.config';
+import { SettingsComponent } from './youtube-settings.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -10,18 +11,25 @@ import 'rxjs/add/operator/map';
 
 export class SearchComponent {
 
+  @Input() set showStates(event: string){
+        this.changeStates(event);
+  }
+
   searchForm: FormGroup;
 
   videos: any;
   
-  relatedVideos: any = false;
+  relatedVideos: boolean = false;
+  debuggingInfo: boolean = true;
 
   player: YT.Player;
   currentVideoID: string = 'Not Exist';
   currentVideoName: string;
   currentState: number;
 
-  ref: any;
+  _ref: any;
+  _settings: any;
+
   videoRangeTimer: any;
   videoCurRange: number = 0;
   videoMaxRange: number = 0;
@@ -31,14 +39,21 @@ export class SearchComponent {
 
   videoCurVolume: number = -1;
   
-  constructor(private youtube: YoutubeGetVideo, ref: ChangeDetectorRef) {
-    this.ref = ref;
+  constructor(private youtube: YoutubeGetVideo, private settings: SettingsComponent, ref: ChangeDetectorRef) {
+    this._settings = settings;
+    this._ref = ref;
   }
  
   ngOnInit() {    
     this.searchForm = new FormGroup({
       searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
+
+    if(this._settings.getSettings.value[0]) {
+      this.changeStates(1);
+    } else {
+      this.changeStates(0);
+    }
     
     this.searchForm.valueChanges.subscribe((form) => {
         this.youtube.searchVideo(form.searchInput).subscribe(
@@ -55,6 +70,16 @@ export class SearchComponent {
         );
     })
     
+  }
+
+  
+  changeStates(event) {
+    console.log(event);
+    if(event === 1) {
+      this.debuggingInfo = true;
+    } else {
+      this.debuggingInfo = false;
+    }
   }
 
   getRelatedVideos() {
@@ -128,7 +153,7 @@ export class SearchComponent {
     this.videoRangeTimer = setInterval(() => {  
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
-      this.ref.markForCheck();
+      this._ref.markForCheck();
     }, 1000);
   }
 

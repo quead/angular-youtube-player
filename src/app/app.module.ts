@@ -23,7 +23,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     SearchComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo ]
+  providers:    [ YoutubeGetVideo, SettingsComponent ]
 })
 
 export class AppModule { }

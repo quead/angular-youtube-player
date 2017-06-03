@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+  event:any = '';
 
+  getStates(event) {
+    this.event = event;
+  }
 }

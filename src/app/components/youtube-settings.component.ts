@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,9 @@ import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } f
 
 export class SettingsComponent {
 
-    menuOpened: boolean = false;
+    @Output() states = new EventEmitter();
+
+    private menuOpened: boolean = false;
 
     settingsForm: FormGroup;
     // This is temporary, soon will be from JSON
@@ -47,7 +49,11 @@ export class SettingsComponent {
     }
 
     showSettings(data: any) {
-        console.log(data);
+        if(data.settings[0]) {
+            this.states.emit(1);
+        } else {
+            this.states.emit(0);
+        }
     }
 
 }
