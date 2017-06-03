@@ -14,8 +14,11 @@ This is a simple youtube player based on latest version of [angular-cli](https:/
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
+*This is a candidate release.*
+
 ## Usage
-For typescript/angular2 development
+
+For angular2/typescript development
 1. Install [NodeJS 6.10.2+](https://nodejs.org/en/download/ "Node JS Download")
 2. Install latest version of [angular-cli](https://github.com/angular/angular-cli "Angular Cli")
 
@@ -29,7 +32,9 @@ For typescript/angular2 development
 
 `npm start` in root folder
 
-For SCSS development (after you downloaded/cloned the project)
+For SASS development
+
+*You must go in **src** folder*
 1. Install [Sass](http://sass-lang.com/install "Sass website")
 2. Install [Gulp](https://github.com/gulpjs/gulp "Gulp download")
 
