@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { YoutubeGetVideo } from '../config/youtube.config';
-import { SettingsComponent } from './youtube-settings.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -28,7 +27,6 @@ export class SearchComponent {
   currentState: number;
 
   _ref: any;
-  _settings: any;
 
   videoRangeTimer: any;
   videoCurRange: number = 0;
@@ -39,8 +37,7 @@ export class SearchComponent {
 
   videoCurVolume: number = -1;
   
-  constructor(private youtube: YoutubeGetVideo, private settings: SettingsComponent, ref: ChangeDetectorRef) {
-    this._settings = settings;
+  constructor(private youtube: YoutubeGetVideo, ref: ChangeDetectorRef) {
     this._ref = ref;
   }
  
@@ -49,12 +46,6 @@ export class SearchComponent {
       searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
 
-    if(this._settings.getSettings.value[0]) {
-      this.changeStates(1);
-    } else {
-      this.changeStates(0);
-    }
-    
     this.searchForm.valueChanges.subscribe((form) => {
         this.youtube.searchVideo(form.searchInput).subscribe(
           result => {
@@ -72,14 +63,17 @@ export class SearchComponent {
     
   }
 
+  playerVars() {
+    let playerVars = {
+      'controls': 0,
+      'disablekb': 1,
+      'rel': 0
+    }
+    return playerVars;
+  }
   
   changeStates(event) {
     console.log(event);
-    if(event === 1) {
-      this.debuggingInfo = true;
-    } else {
-      this.debuggingInfo = false;
-    }
   }
 
   getRelatedVideos() {

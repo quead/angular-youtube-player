@@ -59,6 +59,47 @@ a:active {
   display: block;
 }
 
+.round-check {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+}
+
+.round-check:before {
+  content: '';
+  display: block;
+  background-color: #d8dde6;
+  height: 20px;
+  width: 40px;
+  border-radius: 50px;
+  transition: background-color 0.1s ease-out;
+}
+
+.round-check:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background-color: #ffffff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  z-index: 1;
+  left: 2px;
+  top: 2px;
+  transition: left 0.1s ease-out;
+}
+
+input[type="checkbox"]:checked + label .round-check:before,
+input[type="radio"]:checked + label .round-check:before {
+  background-color: #167ac6;
+}
+
+input[type="checkbox"]:checked + label .round-check:after,
+input[type="radio"]:checked + label .round-check:after {
+  left: 22px;
+}
+
 header {
   position: absolute;
   height: 45px;
@@ -342,8 +383,8 @@ footer {
   padding: 10px 15px;
   box-shadow: 5px 0px 10px 0px rgba(33, 33, 33, 0.05);
   top: 0;
-  left: -215px;
-  width: 200px;
+  left: -295px;
+  width: 280px;
   height: 100%;
   transition: left 0.1s ease-out;
   z-index: 9999;
@@ -377,6 +418,25 @@ footer {
   height: 100%;
   transition: left 0.2s ease-out;
   z-index: 9998;
+}
+
+#settingsForm {
+  margin-top: 15px;
+}
+
+#settingsForm input[type="checkbox"],
+#settingsForm input[type="radio"] {
+  display: none;
+}
+
+#settingsForm label {
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+#settingsForm .form-group {
+  padding: 5px 0;
 }
 
 #main-search .form-group {

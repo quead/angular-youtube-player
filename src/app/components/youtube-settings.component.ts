@@ -28,8 +28,12 @@ export class SettingsComponent {
     }
 
     ngOnInit() {
+        this.states.emit(this.playerAttr);
         this.settingsForm.valueChanges.subscribe((data) => {
-            this.showSettings(data);
+            for (let i in data.settings) {
+                this.playerAttr.settings[i].selected = data.settings[i];
+            }
+            this.showSettings(this.playerAttr);
         });
     }
 
@@ -49,11 +53,7 @@ export class SettingsComponent {
     }
 
     showSettings(data: any) {
-        if(data.settings[0]) {
-            this.states.emit(1);
-        } else {
-            this.states.emit(0);
-        }
+        this.states.emit(this.playerAttr);
     }
 
 }

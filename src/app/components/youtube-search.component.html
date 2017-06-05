@@ -9,7 +9,7 @@
       <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
         <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i)">
           <div class="video-item-content">
-            <h2>{{ video.snippet.title }}</h2>
+            <p>{{ video.snippet.title }}</p>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
     <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
     <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
   </div>
-  <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+  <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
 </main>
 <footer>
     <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">

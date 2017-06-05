@@ -4,8 +4,8 @@
     padding: 10px 15px;
     box-shadow: 5px 0px 10px 0px rgba($c-black, 0.05);
     top: 0;
-    left: -215px;
-    width: 200px;
+    left: -295px;
+    width: 280px;
     height: 100%;
     transition: left 0.1s ease-out;
     z-index: 9999;
@@ -36,4 +36,20 @@
     height: 100%;
     transition: left 0.2s ease-out;
     z-index: 9998;
+}
+
+#settingsForm {
+    margin-top: 15px;
+    input[type="checkbox"],
+    input[type="radio"] {
+        display: none;
+    }
+    label {
+        position: relative;
+        cursor: pointer;
+        display: block;
+    }
+    .form-group {
+        padding: 5px 0;
+    }
 }
