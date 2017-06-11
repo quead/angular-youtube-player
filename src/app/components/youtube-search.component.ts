@@ -184,6 +184,7 @@ export class SearchComponent {
   volumeRangeMouseUp(value: number) {
     if (this.currentMuteState) {
       this.player.unMute();
+      this.currentMuteState = false;
     }
     this.player.setVolume(value);
   }

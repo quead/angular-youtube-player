@@ -410,6 +410,10 @@ footer {
   transition: all 0.1s ease-out;
 }
 
+.volume-input-container .volume-input-shadow.inactive {
+  display: none;
+}
+
 #main-nav {
   background-color: #ffffff;
   position: fixed;

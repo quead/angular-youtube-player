@@ -40,7 +40,7 @@
       <span class="fa" (click)="toggleMute()" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
       <div class="volume-input-container">
         <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
-        <span class="volume-input-shadow" [style.width]="volumeRange.value + '%'"></span>
+        <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
       </div>
     </div>
     <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
