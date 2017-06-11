@@ -42,7 +42,8 @@ footer {
         }
     }
     #play-song { 
-        border: 2px solid $c-white;
+        background-color: white;
+        color: $c-primary;
         border-radius: 50%;
         transition: all 0.1s ease-out;
         span {
@@ -159,7 +160,7 @@ footer {
         background-color: $c-white;
         transition: all 0.1s ease-out;
         &.inactive {
-            display: none;
+            width: 0% !important;
         }
     }
 }

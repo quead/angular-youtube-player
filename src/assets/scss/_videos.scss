@@ -95,8 +95,16 @@ iframe {
         &:hover {
             z-index: 1;
             box-shadow: 0px 3px 10px 2px rgba($c-black, 0.1);
-            .video-item-image:after {
-                transform: translateX(-50%) scale(1.2);
+            .video-item-image {
+                &:before {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                &:after {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                    visibility: visible;
+                }
             }
         }
     }
@@ -104,12 +112,26 @@ iframe {
         flex: inherit;
         margin: 0;
         position: relative;
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            background: rgba($c-black, 0.6);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.1s ease-out;
+        }
         &:after {
             @extend .fontawesome;
             content: "\f04b";
             position: absolute;
             background-color: $c-primary;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%) scale(0);
+            top: 50%;
             left: 50%;
             color: $c-white;
             height: 30px;
@@ -117,10 +139,11 @@ iframe {
             font-size: 12px;
             text-align: center;
             line-height: 30px;
-            border-radius: 3px;
+            border-radius: 5px;
             bottom: -15px;
-            box-shadow: 0px 3px 10px 2px rgba($c-primary, 0.5);
             transition: transform 0.1s ease-out;
+            opacity: 0;
+            visibility: hidden;
         }
     }
     .video-item-content {

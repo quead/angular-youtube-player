@@ -43,6 +43,10 @@ export class SearchComponent {
   }
  
   ngOnInit() {    
+    this.searchFunction();
+  }
+
+  searchFunction() {
     this.searchForm = new FormGroup({
       searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
     });
@@ -61,7 +65,6 @@ export class SearchComponent {
           }
         );
     })
-    
   }
 
   playerVars() {
@@ -79,15 +82,17 @@ export class SearchComponent {
   }
 
   getRelatedVideos() {
-      this.youtube.relatedVideos(this.currentVideoID).subscribe(
-          result => {
-            this.relatedVideos = result.items;
-          },
-          error => {
-            console.log('error on related videos');
-          }
-        );
+    this.youtube.relatedVideos(this.currentVideoID).subscribe(
+        result => {
+          this.relatedVideos = result.items;
+        },
+        error => {
+          console.log('error on related videos');
+        }
+      );
   }
+
+  
 
   clearSearch() {
     this.searchForm.reset();

@@ -1,3 +1,15 @@
+.nav-overlay {
+    background-color: rgba($c-black, 0.6);
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s ease-out;
+    z-index: 9998;
+}
+
 #main-nav {
     background-color: $c-white;
     position: fixed;
@@ -7,7 +19,7 @@
     left: -295px;
     width: 280px;
     height: 100%;
-    transition: left 0.1s ease-out;
+    transition: left 0.2s ease-out;
     z-index: 9999;
     h2 {
         margin: 2px 0;
@@ -18,6 +30,7 @@
         left: 0;
         + .nav-overlay {
             position: fixed;
+            opacity: 1;
             top: 0;
             left: 0;
             right: 0;
@@ -25,17 +38,6 @@
             z-index: 9998;
         }
     }
-}
-
-.nav-overlay {
-    background-color: rgba($c-black,0.1);
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: left 0.2s ease-out;
-    z-index: 9998;
 }
 
 #settingsForm {
