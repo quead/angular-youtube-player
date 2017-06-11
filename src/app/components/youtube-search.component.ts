@@ -25,6 +25,7 @@ export class SearchComponent {
   currentVideoID: string = 'Not Exist';
   currentVideoName: string;
   currentState: number;
+  currentMuteState: boolean = true;
 
   _ref: any;
 
@@ -56,7 +57,7 @@ export class SearchComponent {
             }
           },
           error => {
-            console.log('error');
+            console.log('error on search');
           }
         );
     })
@@ -73,6 +74,7 @@ export class SearchComponent {
   }
   
   changeStates(event) {
+    //Trigger from youtube-settings.component
     console.log(event);
   }
 
@@ -82,7 +84,7 @@ export class SearchComponent {
             this.relatedVideos = result.items;
           },
           error => {
-            console.log('error');
+            console.log('error on related videos');
           }
         );
   }
@@ -113,6 +115,16 @@ export class SearchComponent {
     this.getRelatedVideos();
   }
 
+  toggleMute() {
+    if(this.currentMuteState) {
+      this.player.unMute();
+      this.currentMuteState = false;
+    } else {
+      this.player.mute();
+      this.currentMuteState = true;
+    }
+  }
+
   savePlayer (player) {
     this.player = player;
   }
@@ -123,6 +135,7 @@ export class SearchComponent {
     if(this.currentState === 1) {
       this.videoMaxFull = this.timeFormat(this.videoMaxRange);
       this.videoCurVolume = this.player.getVolume();
+      this.currentMuteState = this.player.isMuted(); 
       this.startRange();
     }
     if(this.currentState === 0) {
@@ -169,6 +182,9 @@ export class SearchComponent {
   }
 
   volumeRangeMouseUp(value: number) {
+    if (this.currentMuteState) {
+      this.player.unMute();
+    }
     this.player.setVolume(value);
   }
 
