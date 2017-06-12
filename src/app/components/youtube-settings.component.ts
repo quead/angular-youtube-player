@@ -19,25 +19,34 @@ export class SettingsComponent {
     settingsForm: FormGroup;
     // This is temporary, soon will be from JSON
     playerAttr = {
-        settings: []
+        settings: [
+            {
+                name: "Toggle debugging info",
+                selected: false,
+            },
+            {
+                name: "Toggle search thumbnails",
+                selected: false,
+            }
+        ]
     }
 
     constructor(private fb: FormBuilder, private http: Http) {     
-        this.fetchJSONsettings().subscribe(
+        /*this.fetchJSONsettings().subscribe(
             data =>  { 
-                this.playerAttr.settings = data;
-                this.settingsForm = this.fb.group({
-                    settings: this.mapSettings()
-                });
+                this.playerAttr.settings = data
                 this.test = true;
-                this.sendToInput() 
             },
             err => console.log('JSON Settings ' + err),
             () => console.log('JSON settings completed')
-        );
+        );*/
     }
 
     ngOnInit() {
+        this.settingsForm = this.fb.group({
+            settings: this.mapSettings()
+        });
+        this.sendToInput(); 
     }
 
     get getSettings(): FormArray {

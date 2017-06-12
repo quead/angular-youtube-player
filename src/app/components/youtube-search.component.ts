@@ -107,6 +107,7 @@ export class SearchComponent {
     let clickedVideo = this.videos[i];
     this.currentVideoID = clickedVideo.id.videoId;
     this.currentVideoName = clickedVideo.snippet.title;
+    console.log(this.currentVideoID);
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
     this.clearSearch();
