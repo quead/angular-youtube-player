@@ -372,14 +372,19 @@ var SettingsComponent = (function () {
         var _this = this;
         this.http.get('assets/settings.json')
             .map(function (res) { return res.json(); })
-            .subscribe(function (data) { _this.playerAttr.settings = data; }, function (err) { return console.log('JSON Settings ' + err); }, function () { _this.finished = true; _this.setForm(); });
+            .subscribe(function (data) {
+            _this.playerAttr.settings = data;
+        }, function (err) { return console.log('JSON Settings ' + err); }, function () {
+            _this.finished = true;
+            _this.setForm();
+        });
     };
     SettingsComponent.prototype.checkInputs = function () {
         var _this = this;
         this.showSettings(this.playerAttr);
         this.settingsForm.valueChanges.subscribe(function (data) {
             Object.keys(data.settings).map(function (i) {
-                _this.playerAttr.settings[i] = data.settings[i];
+                _this.playerAttr.settings[i].selected = data.settings[i];
             });
             _this.showSettings(data);
         });
@@ -395,6 +400,7 @@ var SettingsComponent = (function () {
         this.menuOpened = !this.menuOpened;
     };
     SettingsComponent.prototype.showSettings = function (data) {
+        console.log(data);
         this.states.emit(data);
     };
     return SettingsComponent;

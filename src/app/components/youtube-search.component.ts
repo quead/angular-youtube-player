@@ -97,6 +97,10 @@ export class SearchComponent implements OnInit {
       );
   }
 
+  clearRelatedVideos() {
+    this.relatedVideos = null;
+  }
+
   clearSearch() {
     this.searchForm.reset();
     this.videos = null;
@@ -110,7 +114,6 @@ export class SearchComponent implements OnInit {
     const clickedVideo = this.videos[i];
     this.currentVideoID = clickedVideo.id.videoId;
     this.currentVideoName = clickedVideo.snippet.title;
-    console.log(this.currentVideoID);
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
     this.clearSearch();

@@ -19,7 +19,7 @@
 }
 
 #search-video-list {
-    z-index: 1;
+    z-index: 9;
     .video-item:last-child {
         box-shadow: 0px 10px 10px 0px rgba($c-black,0.1);
     }
@@ -148,5 +148,17 @@ iframe {
     }
     .video-item-content {
         margin-top: 20px;
+    }
+}
+
+.video-list-clear {
+    float: right;
+    cursor: pointer;
+    background-color: $c-white;
+    color: $c-black;
+    padding: 2px 10px;
+    border-radius: 20px;
+    .fa {
+        margin-right: 5px;
     }
 }

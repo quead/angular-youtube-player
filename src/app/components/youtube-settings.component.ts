@@ -43,9 +43,13 @@ export class SettingsComponent implements OnInit {
         this.http.get('assets/settings.json')
             .map(res => res.json())
             .subscribe(
-            data => { this.playerAttr.settings = data },
+            data => {
+                this.playerAttr.settings = data
+            },
             err => console.log('JSON Settings ' + err),
-            () => { this.finished = true; this.setForm(); }
+            () => {
+                this.finished = true; this.setForm();
+            }
         );
     }
 
@@ -53,7 +57,7 @@ export class SettingsComponent implements OnInit {
         this.showSettings(this.playerAttr);
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
-                this.playerAttr.settings[i] = data.settings[i];
+                this.playerAttr.settings[i].selected = data.settings[i];
             });
             this.showSettings(data);
         });
