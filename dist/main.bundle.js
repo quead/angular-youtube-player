@@ -104,7 +104,7 @@ exports.AppModule = AppModule;
 /***/ "../../../../../src/app/components/youtube-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main>\r\n  <form id=\"main-search\" role=\"search\" [formGroup]=\"searchForm\" (ngSubmit)=\"onSubmit($event)\" novalidate>\r\n      <div class=\"form-group\">\r\n        <div class=\"input-group\">\r\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search\" autofocus formControlName=\"searchInput\">\r\n          <button class=\"clear-button\" (click)=\"clearSearch()\"><span class=\"fa fa-times\"></span></button>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"searchForm.valid\" id=\"search-video-list\" class=\"video-list\">\r\n        <div *ngFor=\"let video of videos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i)\">\r\n          <div class=\"video-item-content\">\r\n            <p>{{ video.snippet.title }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"relatedVideos\" id=\"related-video-list\" class=\"video-list\">\r\n        <div class=\"video-item-head\">\r\n            Recommended videos\r\n        </div>\r\n        <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickRelatedVideo($event, i)\">\r\n          <div class=\"video-item-image\">\r\n            <img src=\"{{ relatedVideo.snippet.thumbnails.high.url }}\" alt=\"video thumbnail\" />\r\n          </div>\r\n          <div class=\"video-item-content\">\r\n            <h2>{{ relatedVideo.snippet.title }}</h2>\r\n            <p class=\"author\">By {{ relatedVideo.snippet.channelTitle }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </form>\r\n  <div class=\"debugging-info\" [ngClass]=\"{'active': debuggingInfo }\">\r\n    <p *ngIf=\"currentVideoID\">Current video ID: {{ currentVideoID }}</p>\r\n    <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>\r\n    <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>\r\n    <a href=\"#\" class=\"btn btn-primary btn-round\">Button Primary</a>\r\n    <a href=\"#\" class=\"btn btn-secondary\">Button Secondary</a>\r\n    <a href=\"#\" class=\"btn btn-default btn-round\">Button Secondary</a>\r\n  </div>\r\n  <youtube-player [videoId]=\"currentVideoID\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n</main>\r\n<footer>\r\n    <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n      <span class=\"fa\" (click)=\"toggleMute()\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n      <div class=\"volume-input-container\">\r\n        <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n        <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n      </div>\r\n    </div>\r\n    <p *ngIf=\"currentVideoName\" class=\"current-video-name\">{{ currentVideoName }}</p>\r\n    <p *ngIf=\"!currentVideoName\" class=\"current-video-name\">Not Playing</p>\r\n    <div class=\"current-video-range\">\r\n      <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n      <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n      <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n    </div>\r\n    <div id=\"player-controls\">\r\n        <div class=\"player-buttons\">\r\n            <button id=\"previous-song\" ondragstart=\"return false;\"><span class=\"fa fa-backward\"></span></button>\r\n            <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n            <button id=\"next-song\"><span class=\"fa fa-forward\"></span></button>\r\n        </div>\r\n    </div>\r\n</footer>"
+module.exports = "<main>\r\n  <form id=\"main-search\" role=\"search\" [formGroup]=\"searchForm\" (ngSubmit)=\"onSubmit($event)\" novalidate>\r\n      <div class=\"form-group\">\r\n        <div class=\"input-group\">\r\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search\" autofocus formControlName=\"searchInput\">\r\n          <button class=\"clear-button\" (click)=\"clearSearch()\"><span class=\"fa fa-times\"></span></button>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"searchForm.valid\" id=\"search-video-list\" class=\"video-list\">\r\n        <div *ngFor=\"let video of videos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i)\">\r\n          <div *ngIf=\"searchVideoImage\" class=\"video-item-image\">\r\n            <img src=\"{{ video.snippet.thumbnails.default.url }}\" alt=\"video thumbnail\" />\r\n          </div>\r\n          <div class=\"video-item-content\">\r\n            <p>{{ video.snippet.title }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"relatedVideos\" id=\"related-video-list\" class=\"video-list\">\r\n        <div class=\"video-item-head\">\r\n            Recommended videos\r\n            <span (click)=\"clearRelatedVideos()\" class=\"video-list-clear\"><span class=\"fa fa-close\"></span>Clear</span>\r\n        </div>\r\n        <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickRelatedVideo($event, i)\">\r\n          <div class=\"video-item-image\">\r\n            <img src=\"{{ relatedVideo.snippet.thumbnails.high.url }}\" alt=\"related video thumbnail\" />\r\n          </div>\r\n          <div class=\"video-item-content\">\r\n            <h2>{{ relatedVideo.snippet.title }}</h2>\r\n            <p class=\"author\">By {{ relatedVideo.snippet.channelTitle }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </form>\r\n  <div class=\"debugging-info\" [ngClass]=\"{'active': debuggingInfo }\">\r\n    <p *ngIf=\"currentVideoID\">Current video ID: {{ currentVideoID }}</p>\r\n    <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>\r\n    <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>\r\n    <a href=\"#\" class=\"btn btn-primary btn-round\">Button Primary</a>\r\n    <a href=\"#\" class=\"btn btn-secondary\">Button Secondary</a>\r\n    <a href=\"#\" class=\"btn btn-default btn-round\">Button Secondary</a>\r\n  </div>\r\n  <youtube-player [videoId]=\"currentVideoID\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n</main>\r\n<footer>\r\n    <div class=\"col col-3\">\r\n      <div *ngIf=\"currentVideoName\" class=\"current-video-details\">\r\n        <img src=\"{{ currentVideoImage }}\" class=\"current-video-thumbnail\" alt=\"current video thumbnail\" />\r\n        <p class=\"current-video-name\">{{ currentVideoName }}</p>\r\n      </div>\r\n      <p *ngIf=\"!currentVideoName\" class=\"current-video-none\">Not Playing</p>\r\n    </div>\r\n    <div class=\"col col-6\">\r\n      <div id=\"player-controls\">\r\n          <div class=\"player-buttons\">\r\n              <button id=\"previous-song\" ondragstart=\"return false;\"><span class=\"fa fa-backward\"></span></button>\r\n              <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n              <button id=\"next-song\"><span class=\"fa fa-forward\"></span></button>\r\n          </div>\r\n      </div>\r\n      <div class=\"current-video-range\">\r\n        <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n        <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n        <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n      </div>\r\n    </div>\r\n    <div class=\"col col-2\">\r\n      <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n        <span class=\"fa\" (click)=\"toggleMute()\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n        <div class=\"volume-input-container\">\r\n          <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n          <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n</footer>"
 
 /***/ }),
 
@@ -131,7 +131,6 @@ var SearchComponent = (function () {
     function SearchComponent(youtube, ref) {
         this.youtube = youtube;
         this.relatedVideos = false;
-        this.debuggingInfo = true;
         this.currentVideoID = 'Not Exist';
         this.currentMuteState = true;
         this.videoCurRange = 0;
@@ -187,6 +186,12 @@ var SearchComponent = (function () {
         else {
             this.debuggingInfo = event.settings[0];
         }
+        if (event.settings[1].selected != null) {
+            this.searchVideoImage = event.settings[1].selected;
+        }
+        else {
+            this.searchVideoImage = event.settings[1];
+        }
     };
     SearchComponent.prototype.getRelatedVideos = function () {
         var _this = this;
@@ -195,6 +200,9 @@ var SearchComponent = (function () {
         }, function (error) {
             console.log('error on related videos');
         });
+    };
+    SearchComponent.prototype.clearRelatedVideos = function () {
+        this.relatedVideos = null;
     };
     SearchComponent.prototype.clearSearch = function () {
         this.searchForm.reset();
@@ -207,7 +215,7 @@ var SearchComponent = (function () {
         var clickedVideo = this.videos[i];
         this.currentVideoID = clickedVideo.id.videoId;
         this.currentVideoName = clickedVideo.snippet.title;
-        console.log(this.currentVideoID);
+        this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
         this.player.loadVideoById(this.currentVideoID);
         this.getRelatedVideos();
         this.clearSearch();
@@ -216,6 +224,7 @@ var SearchComponent = (function () {
         var clickedVideo = this.relatedVideos[i];
         this.currentVideoID = clickedVideo.id.videoId;
         this.currentVideoName = clickedVideo.snippet.title;
+        this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
         this.player.loadVideoById(this.currentVideoID);
         this.getRelatedVideos();
     };
@@ -400,7 +409,6 @@ var SettingsComponent = (function () {
         this.menuOpened = !this.menuOpened;
     };
     SettingsComponent.prototype.showSettings = function (data) {
-        console.log(data);
         this.states.emit(data);
     };
     return SettingsComponent;
