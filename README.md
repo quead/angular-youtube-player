@@ -55,8 +55,6 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 Just take files from ***dist*** folder
 
-**Demo**
-
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
 
 ## Changelog
