@@ -83,5 +83,4 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(possible in v1.9)***
 
 ## Copyright and License
-Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE)
-.
+Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).
