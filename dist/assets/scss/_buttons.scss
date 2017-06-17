@@ -1,0 +1,61 @@
+.btn {
+    display: inline-block;
+    color: $c-gray;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    text-decoration: none;
+    transition: all .1s ease-out;
+    outline: 0;
+
+    &-round {
+        border-radius: 50px;
+    }
+
+    &-small {
+        padding: 5px 17px;
+    }
+
+    &-primary {
+        background-color: $c-primary;
+        color: $c-white;
+        &:hover {
+            background-color: darken($c-primary, 5%);
+        }
+        &:active {
+            color: $c-white;
+            background-color: darken($c-primary, 10%);
+        }
+    }
+
+    &-secondary {
+        background-color: $c-secondary;
+        color: $c-white;
+        &:hover {
+            background-color: darken($c-secondary, 5%);
+        }
+        &:active {
+            color: $c-white;
+            background-color: darken($c-secondary, 10%);
+        }
+    }
+
+    &-default {
+        background-color: darken($c-base, 20%);
+        color: $c-white;
+        &:hover {
+            background-color: darken($c-base, 25%);
+        }
+        &:active {
+            color: $c-white;
+            background-color: darken($c-base, 30%);
+        }
+    }
+}
