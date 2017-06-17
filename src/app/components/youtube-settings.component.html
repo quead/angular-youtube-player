@@ -2,7 +2,7 @@
 <nav id="main-nav" [class.active]="menuOpened">
     <button class="close-menu" (click)="toggleMenu()"><span class="fa fa-bars"></span></button>
     <h2>Settings</h2>
-    <form [formGroup]="settingsForm" id="settingsForm" novalidate>
+    <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
         <div *ngFor="let setting of getSettings.controls; let i=index" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>
             <label [attr.for]="'setting-' + i">{{playerAttr.settings[i].name}}<span class="round-check"></span></label>
