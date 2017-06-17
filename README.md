@@ -51,6 +51,12 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `gulp`
 
+**For personal use**
+Just take files from *dist* folder
+
+**Demo**
+<a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
+
 ## Changelog
 
 Angular2 YT Player v1.1
