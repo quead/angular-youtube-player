@@ -77,6 +77,7 @@ Angular2 YT Player v1.0.0
 - Change time of your video that you want to listen
 
 ## Future features
+- Repeat video **(in v1.3)**
 - Copy link for current video and related videos **(in v1.6)** 
 - Copy link for current video at your playing time **(in v1.6)**
 - Video details for current video and related videos like number of views, likes and dislikes **(in v1.6)**
