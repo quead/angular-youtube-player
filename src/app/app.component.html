@@ -1,5 +1,5 @@
 <header>
-    <yt-settings (states)="getStates($event)"></yt-settings>
+    <app-settings (states)="getStates($event)"></app-settings>
     <img src="assets/img/logo.svg" height="25" id="logo"/>
     <div class="win-controls">
         <button id="win-minimize"><span class="fa fa-window-minimize"></span></button>
@@ -8,4 +8,4 @@
         <button id="win-close"><span class="fa fa-close"></span></button>
     </div>
 </header>
-<yt-search [showStates]="event"></yt-search>
+<app-search [showStates]="event"></app-search>

@@ -1,19 +1,18 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Http } from "@angular/http";
+import { Http } from '@angular/http';
 
 @Component({
-  selector: 'yt-settings',
+  selector: 'app-settings',
   templateUrl: 'youtube-settings.component.html'
 })
 
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
 
     @Output() states = new EventEmitter();
 
-    private menuOpened: boolean = false;
-    private finished: boolean = false;
-    private fuck: boolean = true;
+    private menuOpened = false;
+    private finished = false;
 
     settingsForm: FormGroup;
 
@@ -21,8 +20,8 @@ export class SettingsComponent {
         settings: []
     }
 
-    constructor(private fb: FormBuilder, private http: Http) {    
-        this.fb = fb; 
+    constructor(private fb: FormBuilder, private http: Http) {
+        this.fb = fb;
     }
 
     ngOnInit() {
@@ -44,23 +43,18 @@ export class SettingsComponent {
         this.http.get('assets/settings.json')
             .map(res => res.json())
             .subscribe(
-            data =>  { 
-                this.playerAttr.settings = data
-            },
+            data => { this.playerAttr.settings = data },
             err => console.log('JSON Settings ' + err),
-            () => { 
-                this.finished = true; 
-                this.setForm(); 
-            }
+            () => { this.finished = true; this.setForm(); }
         );
     }
 
     checkInputs() {
         this.showSettings(this.playerAttr);
         this.settingsForm.valueChanges.subscribe((data) => {
-            for (let i in data.settings) {
-                this.playerAttr.settings[i].selected = data.settings[i];
-            }
+            Object.keys(data.settings).map(i => {
+                this.playerAttr.settings[i] = data.settings[i];
+            });
             this.showSettings(data);
         });
     }
@@ -78,10 +72,6 @@ export class SettingsComponent {
 
     showSettings(data: any) {
         this.states.emit(data);
-    }
-
-    save() {
-
     }
 
 }
