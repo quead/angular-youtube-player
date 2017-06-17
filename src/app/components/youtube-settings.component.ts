@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Http } from "@angular/http";
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'yt-settings',
@@ -13,11 +12,11 @@ export class SettingsComponent {
     @Output() states = new EventEmitter();
 
     private menuOpened: boolean = false;
-    playerSettings: any[];
     private finished: boolean = false;
+    private fuck: boolean = true;
 
     settingsForm: FormGroup;
-    // This is temporary, soon will be from JSON
+
     playerAttr = {
         settings: []
     }
@@ -34,7 +33,7 @@ export class SettingsComponent {
         this.settingsForm = this.fb.group({
             settings: this.mapSettings()
         });
-        this.sendToInput();
+        this.checkInputs();
     }
 
     get getSettings(): FormArray {
@@ -56,13 +55,13 @@ export class SettingsComponent {
         );
     }
 
-    sendToInput() {
-        this.states.emit(this.playerAttr);
+    checkInputs() {
+        this.showSettings(this.playerAttr);
         this.settingsForm.valueChanges.subscribe((data) => {
             for (let i in data.settings) {
                 this.playerAttr.settings[i].selected = data.settings[i];
             }
-            this.showSettings(this.playerAttr);
+            this.showSettings(data);
         });
     }
 
@@ -78,7 +77,11 @@ export class SettingsComponent {
     }
 
     showSettings(data: any) {
-        this.states.emit(this.playerAttr);
+        this.states.emit(data);
+    }
+
+    save() {
+
     }
 
 }

@@ -10,8 +10,11 @@ import 'rxjs/add/operator/map';
 
 export class SearchComponent {
 
-  @Input() set showStates(event: string){
-        this.changeStates(event);
+  @Input() 
+  set showStates(event: string){
+    if(event){
+      this.changeStates(event);
+    }
   }
 
   searchForm: FormGroup;
@@ -78,7 +81,11 @@ export class SearchComponent {
   
   changeStates(event) {
     //Trigger from youtube-settings.component
-    console.log(event);
+    if(event.settings[0].selected != null) {
+      this.debuggingInfo = event.settings[0].selected;
+    } else {
+      this.debuggingInfo = event.settings[0];
+    }
   }
 
   getRelatedVideos() {
@@ -91,8 +98,6 @@ export class SearchComponent {
         }
       );
   }
-
-  
 
   clearSearch() {
     this.searchForm.reset();
