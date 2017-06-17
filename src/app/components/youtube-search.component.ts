@@ -20,11 +20,14 @@ export class SearchComponent implements OnInit {
 
   videos: any;
   relatedVideos = false;
-  debuggingInfo = true;
+
+  debuggingInfo: boolean;
+  searchVideoImage: boolean;
 
   player: YT.Player;
   currentVideoID = 'Not Exist';
   currentVideoName: string;
+  currentVideoImage: string;
   currentState: number;
   currentMuteState = true;
 
@@ -65,7 +68,7 @@ export class SearchComponent implements OnInit {
             console.log('error on search');
           }
         );
-    })
+    });
   }
 
   playerVars() {
@@ -73,7 +76,7 @@ export class SearchComponent implements OnInit {
       'controls': 0,
       'disablekb': 1,
       'rel': 0
-    }
+    };
     return playerVars;
   }
 
@@ -83,6 +86,12 @@ export class SearchComponent implements OnInit {
       this.debuggingInfo = event.settings[0].selected;
     } else {
       this.debuggingInfo = event.settings[0];
+    }
+
+    if (event.settings[1].selected != null) {
+      this.searchVideoImage = event.settings[1].selected;
+    } else {
+      this.searchVideoImage = event.settings[1];
     }
   }
 
@@ -114,6 +123,7 @@ export class SearchComponent implements OnInit {
     const clickedVideo = this.videos[i];
     this.currentVideoID = clickedVideo.id.videoId;
     this.currentVideoName = clickedVideo.snippet.title;
+    this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
     this.clearSearch();
@@ -123,6 +133,7 @@ export class SearchComponent implements OnInit {
     const clickedVideo = this.relatedVideos[i];
     this.currentVideoID = clickedVideo.id.videoId;
     this.currentVideoName = clickedVideo.snippet.title;
+    this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
   }

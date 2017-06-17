@@ -12,11 +12,11 @@ export class YoutubeGetVideo {
 
     searchVideo(query: string) {
         return this.http.get(this.url + '&q=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
-            .map(response => response.json())
+            .map(response => response.json());
     }
 
     relatedVideos(query: string) {
         return this.http.get(this.url + '&relatedToVideoId=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
-            .map(response => response.json())
+            .map(response => response.json());
     }
 }

@@ -1,20 +1,51 @@
 footer {
+    background-color: $c-primary;
     position: absolute;
+    display: flex;
+    align-items: center;
     height: 85px;
     width: 100%;
     bottom: 0;
-    padding: 5px 0;
-    text-align: center;
-    background-color: $c-primary;
+    padding: 5px 15px;
+    .col {
+        padding: 0 15px;
+        &-2 {
+            width: 16.666667%;
+        }
+        &-3 {
+            width: 25%;
+        }
+        &-6 {
+            width: 50%;
+        }
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            margin-left: auto;
+            padding-right: 0;
+        }
+    }
+}
+
+.current-video-details {
+    display: flex;
+    align-items: center;
+}
+
+.current-video-thumbnail {
+    height: 45px;
+    width: auto;
 }
 
 .current-video-name {
     color: $c-white;
-    margin: 0 0 4px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin: 0 15px 0 15px;
+    margin: 0 0 0 10px;
+}
+
+.current-video-none {
+    margin: 0;
+    color: $c-white;
 }
 
 .player-buttons {
@@ -60,7 +91,8 @@ footer {
 
 .current-video-range {
     position: relative;
-    width: 350px;
+    width: calc(100% - 130px);
+    max-width: 350px;
     margin: 0 auto;
     .current-video-range-max-value,
     .current-video-range-value {
@@ -113,11 +145,8 @@ footer {
     color: $c-white;
     display: flex;
     align-items: center;
-    position: absolute;
+    margin-left: auto;
     width: 100px;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
     span {
         width: 15px;
         margin-right: auto;

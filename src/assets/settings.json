@@ -1,7 +1,7 @@
 [{
-  "name": "Toggle debugging info",
+  "name": "Toggle Debugging Info",
   "selected": true
 }, {
-  "name": "Toggle search thumbnails",
-  "selected": false
+  "name": "Toggle Search Thumbnails",
+  "selected": true
 }]

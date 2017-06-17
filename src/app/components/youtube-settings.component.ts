@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
 
     playerAttr = {
         settings: []
-    }
+    };
 
     constructor(private fb: FormBuilder, private http: Http) {
         this.fb = fb;
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
             .map(res => res.json())
             .subscribe(
             data => {
-                this.playerAttr.settings = data
+                this.playerAttr.settings = data;
             },
             err => console.log('JSON Settings ' + err),
             () => {
@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
     mapSettings() {
         const arr = this.playerAttr.settings.map(s => {
             return this.fb.control(s.selected);
-        })
+        });
         return this.fb.array(arr);
     }
 
