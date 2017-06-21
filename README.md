@@ -5,7 +5,6 @@
 
 # About Player
 [![Version](https://img.shields.io/badge/Current%20version-v1.1-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
-[![Next version](https://img.shields.io/badge/Next%20version-v1.3-e52d27.svg)](https://github.com/quead/angular2-yt-player#changelog)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
