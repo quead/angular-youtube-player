@@ -81,6 +81,7 @@ Angular2 YT Player v1.0.0
 - Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.3)**
 - Share link for current video and related videos **(in v1.6)** 
 - Share link for current video at your playing time **(in v1.6)**
+- Notifications for important actions you do **(in v1.6)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
