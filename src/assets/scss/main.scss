@@ -4,6 +4,7 @@
 @import 'global';
 
 @import 'buttons';
+@import 'grid';
 @import 'common';
 
 @import 'header';
@@ -12,3 +13,7 @@
 @import 'navbar';
 @import 'search';
 @import 'videos';
+
+app-yt {
+    display: none; 
+}

@@ -2,8 +2,14 @@
     box-sizing: border-box;
 }
 
+body,
+html {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
 body {
-    background-color: $c-base;
+    background-color: $c-white;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: $f-14;
     line-height: 1.5;
@@ -12,9 +18,6 @@ body {
     user-select: none;
     cursor: default;
     color: $c-black;
-    width: 100%;
-    height: 45px;
-    padding-top: 45px;
     -webkit-app-region: drag;
     overflow: hidden;
 }

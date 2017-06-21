@@ -13,8 +13,15 @@
   box-sizing: border-box;
 }
 
+body,
+html {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 body {
-  background-color: #f7f8fa;
+  background-color: #ffffff;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.5;
@@ -23,9 +30,6 @@ body {
   user-select: none;
   cursor: default;
   color: #212121;
-  width: 100%;
-  height: 45px;
-  padding-top: 45px;
   -webkit-app-region: drag;
   overflow: hidden;
 }
@@ -111,9 +115,31 @@ a:active {
   background-color: #99a6bf;
 }
 
+.container {
+  height: 100%;
+  display: flex;
+}
+
+.col {
+  position: relative;
+  height: 100%;
+}
+
+.col-2 {
+  width: 16.666667%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
 .loading-app {
   position: fixed;
-  color: #e52d27;
+  color: #ffffff;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -166,6 +192,36 @@ input[type="radio"]:checked + label .round-check:before {
 input[type="checkbox"]:checked + label .round-check:after,
 input[type="radio"]:checked + label .round-check:after {
   left: 22px;
+}
+
+.app-yt-2 {
+  height: 100%;
+}
+
+.app {
+  position: relative;
+  height: 100%;
+  color: #ffffff;
+}
+
+.app-content {
+  height: calc(100% - 120px);
+  display: block;
+  position: absolute;
+  overflow: auto;
+  bottom: 0;
+}
+
+.app-services {
+  background-color: #212121;
+}
+
+.app-feed {
+  background-color: #212121;
+}
+
+.app-player {
+  background-color: #e52d27;
 }
 
 header {
@@ -312,18 +368,6 @@ footer {
 
 footer .col {
   padding: 0 15px;
-}
-
-footer .col-2 {
-  width: 16.666667%;
-}
-
-footer .col-3 {
-  width: 25%;
-}
-
-footer .col-6 {
-  width: 50%;
 }
 
 footer .col:first-child {
@@ -816,4 +860,8 @@ iframe {
 
 .video-list-clear .fa {
   margin-right: 5px;
+}
+
+app-yt {
+  display: none;
 }

@@ -1,6 +1,6 @@
 .loading-app {
     position: fixed;
-    color: $c-primary;
+    color: $c-white;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
@@ -53,3 +53,37 @@ input[type="radio"]:checked {
         }
     }
 }
+
+
+// app-yt-2
+
+.app-yt-2 {
+    height: 100%;
+}
+
+.app {
+    position: relative;
+    height: 100%;
+    color: $c-white;
+    &-content {
+        height: calc(100% - 120px);
+        display: block;
+        position: absolute;
+        overflow: auto;
+        bottom: 0;
+
+    }
+    &-head {
+
+    }
+    &-services {
+        background-color: $c-black;
+    }
+    &-feed {
+        background-color: $c-black;
+    }
+    &-player {
+        background-color: $c-primary;
+    }
+}
+
