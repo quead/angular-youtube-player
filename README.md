@@ -93,7 +93,7 @@ Angular2 YT Player v1.0.0
 - *Enable loop video **(in v1.3)***
 - *Change/add YOUR_API Key **(in v1.3)***
 - *Max related videos (0 to 50) **(in v1.3)***
-- *Save your settings **(unversioned)****
+- *Save your settings **(unversioned)***
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).
