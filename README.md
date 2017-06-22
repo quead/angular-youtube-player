@@ -87,6 +87,7 @@ Angular2 YT Player v1.0.0
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - Save your playlists **(unversioned)**
+- History of your watched videos **(unversioned)**
 - **Settings**
 - *Change country for trending feed by country **(in v1.3)***
 - *Show/hide video **(possible in v1.3)***
