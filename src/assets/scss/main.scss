@@ -14,6 +14,9 @@
 @import 'search';
 @import 'videos';
 
-app-yt {
+.app-yt-1 {
     display: none; 
+}
+body {
+    padding-top: 0;
 }

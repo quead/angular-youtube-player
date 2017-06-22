@@ -36,9 +36,6 @@
     <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
     <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
     <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
-    <a href="#" class="btn btn-primary btn-round">Button Primary</a>
-    <a href="#" class="btn btn-secondary">Button Secondary</a>
-    <a href="#" class="btn btn-default btn-round">Button Secondary</a>
   </div>
   <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
 </main>

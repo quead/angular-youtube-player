@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.col {
+    &-3 {
+        width: 25%;
+    }
+    &-6 {
+        width: 50%;
+    }
+    &-3 {
+        width: 25%;
+    }
+}

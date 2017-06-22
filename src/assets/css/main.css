@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #212121;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.5;
@@ -32,6 +32,7 @@ body {
   color: #212121;
   -webkit-app-region: drag;
   overflow: hidden;
+  padding-top: 45px;
 }
 
 a,
@@ -116,17 +117,8 @@ a:active {
 }
 
 .container {
-  height: 100%;
   display: flex;
-}
-
-.col {
-  position: relative;
   height: 100%;
-}
-
-.col-2 {
-  width: 16.666667%;
 }
 
 .col-3 {
@@ -135,6 +127,10 @@ a:active {
 
 .col-6 {
   width: 50%;
+}
+
+.col-3 {
+  width: 25%;
 }
 
 .loading-app {
@@ -194,12 +190,13 @@ input[type="radio"]:checked + label .round-check:after {
   left: 22px;
 }
 
-.app-yt-2 {
+x .app-yt-2 {
   height: 100%;
 }
 
 .app {
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: 100%;
   color: #ffffff;
 }
@@ -210,14 +207,6 @@ input[type="radio"]:checked + label .round-check:after {
   position: absolute;
   overflow: auto;
   bottom: 0;
-}
-
-.app-services {
-  background-color: #212121;
-}
-
-.app-feed {
-  background-color: #212121;
 }
 
 .app-player {
@@ -353,6 +342,15 @@ header h1 {
 
 .close-menu:active {
   background-color: rgba(33, 33, 33, 0.15);
+}
+
+.app-head p {
+  font-size: 24px;
+  text-transform: uppercase;
+  display: block;
+  margin: 0;
+  padding: 30px 20px 0 30px;
+  font-weight: 300;
 }
 
 footer {
@@ -862,6 +860,10 @@ iframe {
   margin-right: 5px;
 }
 
-app-yt {
+.app-yt-1 {
   display: none;
+}
+
+body {
+  padding-top: 0;
 }

@@ -117,3 +117,18 @@ header {
         background-color: rgba($c-black, 0.15);
     }
 }
+
+// app-yt-2
+
+.app {
+    &-head {
+        p {
+            font-size: 24px;
+            text-transform: uppercase;
+            display: block;
+            margin: 0;
+            padding: 30px 20px 0 30px;
+            font-weight: 300;
+        }
+    }
+}

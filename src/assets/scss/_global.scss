@@ -9,7 +9,7 @@ html {
     display: block;
 }
 body {
-    background-color: $c-white;
+    background-color: $c-black;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: $f-14;
     line-height: 1.5;
@@ -20,6 +20,7 @@ body {
     color: $c-black;
     -webkit-app-region: drag;
     overflow: hidden;
+    padding-top: 45px;
 }
 
 a,
