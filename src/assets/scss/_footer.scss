@@ -1,32 +1,6 @@
-footer {
-    background-color: $c-primary;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    height: 85px;
-    width: 100%;
-    bottom: 0;
-    padding: 5px 15px;
-    .col {
-        padding: 0 15px;
-        &:first-child {
-            padding-left: 0;
-        }
-        &:last-child {
-            margin-left: auto;
-            padding-right: 0;
-        }
-    }
-}
-
 .current-video-details {
     display: flex;
     align-items: center;
-}
-
-.current-video-thumbnail {
-    height: 45px;
-    width: auto;
 }
 
 .current-video-name {

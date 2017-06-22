@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   currentVideoID = 'Not Exist';
   currentVideoName: string;
   currentVideoImage: string;
-  currentState: number;
+  currentState = 0;
   currentMuteState = true;
 
   _ref: any;

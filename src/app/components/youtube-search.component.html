@@ -1,44 +1,4 @@
-<main>
-  <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
-      <div class="form-group">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" autofocus formControlName="searchInput">
-          <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
-        </div>
-      </div>
-      <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
-        <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i)">
-          <div *ngIf="searchVideoImage" class="video-item-image">
-            <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
-          </div>
-          <div class="video-item-content">
-            <p>{{ video.snippet.title }}</p>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="relatedVideos" id="related-video-list" class="video-list">
-        <div class="video-item-head">
-            Recommended videos
-            <span (click)="clearRelatedVideos()" class="video-list-clear"><span class="fa fa-close"></span>Clear</span>
-        </div>
-        <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelatedVideo($event, i)">
-          <div class="video-item-image">
-            <img src="{{ relatedVideo.snippet.thumbnails.high.url }}" alt="related video thumbnail" />
-          </div>
-          <div class="video-item-content">
-            <h2>{{ relatedVideo.snippet.title }}</h2>
-            <p class="author">By {{ relatedVideo.snippet.channelTitle }}</p>
-          </div>
-        </div>
-      </div>
-  </form>
-  <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
-    <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
-    <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
-    <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
-  </div>
-  <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
-</main>
+<!--<main>
 <footer>
     <div class="col col-3">
       <div *ngIf="currentVideoName" class="current-video-details">
@@ -48,26 +8,103 @@
       <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
     </div>
     <div class="col col-6">
-      <div id="player-controls">
-          <div class="player-buttons">
-              <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
-              <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
-              <button id="next-song"><span class="fa fa-forward"></span></button>
-          </div>
-      </div>
-      <div class="current-video-range">
-        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
-        <p class="current-video-range-value">{{videoCurFull}}</p>
-        <p class="current-video-range-max-value">{{videoMaxFull}}</p>
-      </div>
+
     </div>
     <div class="col col-2">
-      <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-        <span class="fa" (click)="toggleMute()" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
-        <div class="volume-input-container">
-          <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
-          <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
-        </div>
-      </div>
     </div>
-</footer>
+</footer>-->
+
+<div class="container">
+  <div class="col col-3">
+      <div class="app app-services">
+          <div class="app-head">
+              <img src="assets/img/logo.svg" height="35" id="logo"/>
+          </div>
+          <div class="app-content">
+          </div>
+      </div>
+  </div>
+  <div class="col col-6">
+      <div class="app app-feed">
+          <div class="app-head">
+              <p>Feed</p>
+          </div>
+          <div class="app-content">
+            <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" autofocus formControlName="searchInput">
+                    <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
+                  </div>
+                </div>
+                <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
+                  <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i)">
+                    <div *ngIf="searchVideoImage" class="video-item-image">
+                      <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
+                    </div>
+                    <div class="video-item-content">
+                      <p>{{ video.snippet.title }}</p>
+                    </div>
+                  </div>
+                </div>
+            </form>
+            <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
+              <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
+              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
+              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="col col-3">
+      <div class="app app-player">
+          <div class="app-head">
+              <p>Player</p>
+          </div>
+          <div class="app-content">
+            <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+            <div class="current-video-all">
+              <div *ngIf="currentVideoName" class="current-video-details">
+                <p class="current-video-name">{{ currentVideoName }}</p>
+              </div>
+              <!---->
+              <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
+                <div id="player-controls">
+                    <div class="player-buttons">
+                        <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
+                        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+                        <button id="next-song"><span class="fa fa-forward"></span></button>
+                    </div>
+                </div>
+                <div class="current-video-range">
+                  <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
+                  <p class="current-video-range-value">{{videoCurFull}}</p>
+                  <p class="current-video-range-max-value">{{videoMaxFull}}</p>
+                </div>
+                <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
+                  <span class="fa" (click)="toggleMute()" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
+                  <div class="volume-input-container">
+                    <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                    <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
+                  </div>
+                </div>
+            </div>  
+            <!---->
+            <div *ngIf="relatedVideos" id="related-video-list" class="video-list">
+              <div class="video-item-head">
+                  Recommended videos
+                  <span (click)="clearRelatedVideos()" class="video-list-clear"><span class="fa fa-close"></span>Clear</span>
+              </div>
+              <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelatedVideo($event, i)">
+                <div class="video-item-image">
+                  <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
+                </div>
+                <div class="video-item-content">
+                  <h2>{{ relatedVideo.snippet.title }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

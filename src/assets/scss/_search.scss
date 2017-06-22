@@ -1,4 +1,8 @@
 #main-search {
+    width: 100%;
+    display: block;
+    position: relative;
+    color: $c-black;
     .form-group {
         position: relative;
         z-index: 10;

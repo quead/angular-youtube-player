@@ -1,6 +1,6 @@
 /* --- Colors --- */
 /* --- Fonts --- */
-.fontawesome, #related-video-list .video-item-image:after {
+.fontawesome {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -32,7 +32,6 @@ body {
   color: #212121;
   -webkit-app-region: drag;
   overflow: hidden;
-  padding-top: 45px;
 }
 
 a,
@@ -121,16 +120,16 @@ a:active {
   height: 100%;
 }
 
+.col {
+  position: relative;
+}
+
 .col-3 {
   width: 25%;
 }
 
 .col-6 {
   width: 50%;
-}
-
-.col-3 {
-  width: 25%;
 }
 
 .loading-app {
@@ -190,7 +189,7 @@ input[type="radio"]:checked + label .round-check:after {
   left: 22px;
 }
 
-x .app-yt-2 {
+.app-yt-2 {
   height: 100%;
 }
 
@@ -203,42 +202,27 @@ x .app-yt-2 {
 
 .app-content {
   height: calc(100% - 120px);
+  width: 100%;
   display: block;
   position: absolute;
   overflow: auto;
   bottom: 0;
 }
 
+.app-services {
+  background-color: #1c1c1c;
+}
+
+.app-services .app-head {
+  position: relative;
+}
+
+.app-feed .app-content {
+  padding: 0 20px;
+}
+
 .app-player {
   background-color: #e52d27;
-}
-
-header {
-  position: absolute;
-  height: 45px;
-  top: 0;
-  width: 100%;
-  padding: 10px 0;
-  display: flex;
-  justify-content: center;
-  background-color: #e52d27;
-}
-
-header h1 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 14px;
-  font-weight: 900;
-}
-
-#logo {
-  cursor: pointer;
-  transition: all 0.1s ease-out;
-}
-
-#logo:hover {
-  transform: scale(1.1);
 }
 
 .win-controls {
@@ -344,47 +328,36 @@ header h1 {
   background-color: rgba(33, 33, 33, 0.15);
 }
 
+#logo {
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#logo:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.app-head {
+  height: 120px;
+  display: block;
+}
+
 .app-head p {
-  font-size: 24px;
+  font-size: 28px;
   text-transform: uppercase;
   display: block;
   margin: 0;
-  padding: 30px 20px 0 30px;
+  padding: 40px 20px 0 20px;
   font-weight: 300;
-}
-
-footer {
-  background-color: #e52d27;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  height: 85px;
-  width: 100%;
-  bottom: 0;
-  padding: 5px 15px;
-}
-
-footer .col {
-  padding: 0 15px;
-}
-
-footer .col:first-child {
-  padding-left: 0;
-}
-
-footer .col:last-child {
-  margin-left: auto;
-  padding-right: 0;
 }
 
 .current-video-details {
   display: flex;
   align-items: center;
-}
-
-.current-video-thumbnail {
-  height: 45px;
-  width: auto;
 }
 
 .current-video-name {
@@ -624,6 +597,13 @@ footer .col:last-child {
   padding: 5px 0;
 }
 
+#main-search {
+  width: 100%;
+  display: block;
+  position: relative;
+  color: #212121;
+}
+
 #main-search .form-group {
   position: relative;
   z-index: 10;
@@ -672,21 +652,8 @@ footer .col:last-child {
 .video-list {
   position: absolute;
   width: 100%;
-  top: 91px;
-  bottom: 85px;
+  top: 45px;
   overflow-y: auto;
-  /*&::-webkit-scrollbar {
-        width: 8px;
-        transform: translate3d(0, 0, 0);
-    }
-    
-    &::-webkit-scrollbar-track {
-        -webkit-box-shadow: none;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba($c-black, 0.2);
-    }*/
 }
 
 #search-video-list {
@@ -699,15 +666,12 @@ footer .col:last-child {
 
 iframe {
   width: 100%;
-  visibility: hidden;
-  opacity: 0;
+  max-height: 350px;
 }
 
 .video-item-head {
   background-color: #212121;
   color: #ffffff;
-  position: fixed;
-  top: 91px;
   width: 100%;
   height: 39px;
   padding: 8px;
@@ -731,10 +695,6 @@ iframe {
   margin: 0;
 }
 
-.video-item .author {
-  color: rgba(33, 33, 33, 0.5);
-}
-
 .video-item-image {
   flex: 0 0 55px;
   margin: 0 10px 0 0;
@@ -747,104 +707,30 @@ iframe {
 }
 
 #related-video-list {
-  background-color: #f7f8fa;
-  top: 130px;
   display: flex;
   flex-wrap: wrap;
+  top: inherit;
+  bottom: 0;
+  max-height: 200px;
 }
 
 #related-video-list .video-item {
-  display: block;
-  align-items: inherit;
+  display: flex;
+  background-color: transparent;
+  flex-wrap: nowrap;
   border-bottom: none;
   transition: box-shadow 0.1s ease-out;
 }
 
-@media (min-width: 1200px) {
-  #related-video-list .video-item {
-    width: 20%;
-  }
-}
-
-@media (max-width: 1199px) and (min-width: 992px) {
-  #related-video-list .video-item {
-    width: 33.333333%;
-  }
-}
-
-@media (max-width: 991px) and (min-width: 768px) {
-  #related-video-list .video-item {
-    width: 50%;
-  }
-}
-
-@media (max-width: 767px) {
-  #related-video-list .video-item {
-    width: 100%;
-  }
-}
-
-#related-video-list .video-item:hover {
-  z-index: 1;
-}
-
-#related-video-list .video-item:hover .video-item-image:before {
-  opacity: 1;
-  visibility: visible;
-}
-
-#related-video-list .video-item:hover .video-item-image:after {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-  visibility: visible;
-}
-
-#related-video-list .video-item:hover h2 {
-  color: #e52d27;
-}
-
 #related-video-list .video-item-image {
   flex: inherit;
-  margin: 0;
+  margin: 0 10px 0 0;
   position: relative;
 }
 
-#related-video-list .video-item-image:before {
-  content: '';
-  display: block;
-  position: absolute;
-  background: rgba(33, 33, 33, 0.6);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.1s ease-out;
-}
-
-#related-video-list .video-item-image:after {
-  content: "\f04b";
-  position: absolute;
-  background-color: #e52d27;
-  transform: translate(-50%, -50%) scale(0);
-  top: 50%;
-  left: 50%;
-  color: #ffffff;
-  height: 30px;
-  width: 30px;
-  font-size: 12px;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 5px;
-  bottom: -15px;
-  transition: transform 0.1s ease-out;
-  opacity: 0;
-  visibility: hidden;
-}
-
-#related-video-list .video-item-content {
-  margin-top: 20px;
+#related-video-list .video-item-image img {
+  width: 60px;
+  height: auto;
 }
 
 .video-list-clear {
@@ -858,12 +744,4 @@ iframe {
 
 .video-list-clear .fa {
   margin-right: 5px;
-}
-
-.app-yt-1 {
-  display: none;
-}
-
-body {
-  padding-top: 0;
 }

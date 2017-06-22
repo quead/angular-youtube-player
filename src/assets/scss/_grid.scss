@@ -4,13 +4,11 @@
 }
 
 .col {
+    position: relative;
     &-3 {
         width: 25%;
     }
     &-6 {
         width: 50%;
-    }
-    &-3 {
-        width: 25%;
     }
 }

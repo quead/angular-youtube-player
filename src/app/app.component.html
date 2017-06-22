@@ -1,6 +1,4 @@
-<div class="app-yt-1">
 <header>
-    <img src="assets/img/logo.svg" height="25" id="logo"/>
     <div class="win-controls">
         <button id="win-minimize"><span class="fa fa-window-minimize"></span></button>
         <button id="win-maximize"><span class="fa fa-window-maximize"></span></button>
@@ -8,43 +6,5 @@
         <button id="win-close"><span class="fa fa-close"></span></button>
     </div>
 </header>
-<a routerLink="home" class="btn btn-default btn-small btn-round">Home</a>
-<a routerLink="about" class="btn btn-default btn-small btn-round">About</a>
-<a routerLink="settings" class="btn btn-default btn-small btn-round">Settings</a>
-<router-outlet></router-outlet>
-</div>
-
-<div class="app-yt-2">
-    <div class="container">
-        <div class="col col-3">
-            <div class="app app-services">
-                <div class="app-head">
-                    <p>YouTube</p>
-                </div>
-                <div class="app-content">
-
-                </div>
-            </div>
-        </div>
-        <div class="col col-6">
-            <div class="app app-feed">
-                <div class="app-head">
-                    <p>Feed</p>
-                </div>
-                <div class="app-content">
-
-                </div>
-            </div>
-        </div>
-        <div class="col col-3">
-            <div class="app app-player">
-                <div class="app-head">
-                    <p>Player</p>
-                </div>
-                <div class="app-content">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-settings (states)="getStates($event)"></app-settings>
+<app-search [showStates]="event"></app-search>

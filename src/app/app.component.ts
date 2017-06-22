@@ -10,5 +10,6 @@ export class AppComponent {
 
   getStates(event) {
     this.event = event;
+    console.log(event);
   }
 }
