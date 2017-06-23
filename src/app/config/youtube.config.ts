@@ -7,6 +7,8 @@ export class YoutubeGetVideo {
 
     private url = 'https://www.googleapis.com/youtube/v3/';
     private regionCode = 'RO';
+    private videoDetails = 'part=snippet,contentDetails,statistics,status';
+    private feedDetails = '&chart=mostPopular&regionCode=' + this.regionCode;
     private apiKey = 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc';
 
     constructor(private http: Http) {}
@@ -22,7 +24,7 @@ export class YoutubeGetVideo {
     }
 
     feedVideos() {
-        return this.http.get(this.url + 'videos?part=snippet,contentDetails,statistics,status&chart=mostPopular&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)
+        return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&maxResults=25&key=' + this.apiKey)
             .map(response => response.json());
     }
 }

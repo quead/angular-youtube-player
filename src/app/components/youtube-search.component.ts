@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
     };
     return playerVars;
   }
-  
+
   changeStates(event) {
     // Trigger from youtube-settings.component
     if (event.settings[0].selected != null) {
@@ -131,15 +131,16 @@ export class SearchComponent implements OnInit {
     event.preventDefault();
   }
 
-  onClickVideo(event: Event, i: any, list: number) {  
+  onClickVideo(event: Event, i: any, list: number) {
+    let clickedVideo;
     if (list === 1) {
-      var clickedVideo = this.videos[i];
+      clickedVideo = this.videos[i];
       this.currentVideoID = clickedVideo.id.videoId;
     } else if (list === 2) {
-      var clickedVideo = this.relatedVideos[i];
+      clickedVideo = this.relatedVideos[i];
       this.currentVideoID = clickedVideo.id.videoId;
     } else if (list === 3) {
-      var clickedVideo = this.feedVideos[i];
+      clickedVideo = this.feedVideos[i];
       this.currentVideoID = clickedVideo.id;
     }
     this.currentVideoName = clickedVideo.snippet.title;

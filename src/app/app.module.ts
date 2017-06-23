@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
-//import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
 import { YoutubeGetVideo } from './config/youtube.config';
@@ -17,7 +16,6 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     HttpModule,
     ReactiveFormsModule,
     YoutubePlayerModule
-    //routes
   ],
   declarations: [
     AppComponent,
