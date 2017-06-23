@@ -142,15 +142,3 @@ iframe {
         }
     }
 }
-
-.video-list-clear {
-    float: right;
-    cursor: pointer;
-    background-color: $c-white;
-    color: $c-black;
-    padding: 1px 10px;
-    border-radius: 20px;
-    .fa {
-        margin-right: 5px;
-    }
-}

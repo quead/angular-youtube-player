@@ -824,16 +824,3 @@ iframe {
 #feed-video-list::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.6);
 }
-
-.video-list-clear {
-  float: right;
-  cursor: pointer;
-  background-color: #ffffff;
-  color: #212121;
-  padding: 1px 10px;
-  border-radius: 20px;
-}
-
-.video-list-clear .fa {
-  margin-right: 5px;
-}

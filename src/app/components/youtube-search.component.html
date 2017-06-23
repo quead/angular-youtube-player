@@ -105,7 +105,6 @@
             <div *ngIf="relatedVideos" id="related-video-list" class="video-list">
               <div class="video-item-head">
                   Recommended videos
-                  <span (click)="clearRelatedVideos()" class="video-list-clear"><span class="fa fa-close"></span>Clear</span>
               </div>
               <div class="related-video-content">
                 <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 2)">

@@ -122,10 +122,6 @@ export class SearchComponent implements OnInit {
     )
   }
 
-  clearRelatedVideos() {
-    this.relatedVideos = null;
-  }
-
   clearSearch() {
     this.searchForm.reset();
     this.videos = null;
@@ -168,7 +164,6 @@ export class SearchComponent implements OnInit {
   }
 
   onStateChange(event) {
-    console.log(event.data)
     this.currentState = event.data;
     this.videoMaxRange = this.player.getDuration();
 
