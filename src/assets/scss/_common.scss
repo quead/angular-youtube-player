@@ -73,8 +73,8 @@ input[type="radio"]:checked {
         overflow: auto;
         bottom: 0;
     }
-    &-services {
-        background-color: darken($c-black, 2%);
+    &-services {        
+        background: linear-gradient(to right, darken($c-black, 2%) 85%,darken($c-black, 4%) 100%);
         .app-head {
             position: relative;
         }
@@ -82,6 +82,7 @@ input[type="radio"]:checked {
     &-feed {
         .app-content {
             padding: 0 20px;
+            background: linear-gradient(to bottom, $c-black 0%,darken($c-black, 5%) 100%);
         }
     }
     &-player {

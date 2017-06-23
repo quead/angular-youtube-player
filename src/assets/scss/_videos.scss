@@ -7,8 +7,25 @@
 
 #search-video-list {
     z-index: 9;
+    max-height: 430px;
     .video-item:last-child {
         box-shadow: 0px 10px 10px 0px rgba($c-black,0.1);
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        background-color: $c-white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: rgba($c-black, 0.5);
+        &:hover {
+            background-color: rgba($c-black, 0.8);
+        }
     }
 }
 
@@ -56,7 +73,8 @@ iframe {
     flex-wrap: wrap;
     top: inherit;
     bottom: 0;
-    max-height: 200px;
+    max-height: none;
+    height: calc(100% - 380px);
     .video-item {
         display: flex;
         background-color: transparent;
@@ -71,6 +89,56 @@ iframe {
         img {
             width: 60px;
             height: auto;
+        }
+    }
+    .related-video-content {
+        position: absolute;
+        bottom: 0;
+        height: calc(100% - 39px);
+        overflow: auto;
+        background-color: darken($c-black, 2%);
+        &::-webkit-scrollbar-track {
+            border-radius: 2px;
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            background-color: darken($c-black, 2%);;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background-color: $c-white;
+        }
+    }
+}
+
+#feed-video-list {
+    top: inherit;
+    bottom: 0;
+    height: calc(100% - 70px);
+    width: calc(100% - 20px);
+    max-height: none;
+    left: 0;
+    .video-item {
+        background-color: transparent;
+        padding: 10px 20px;
+        border-bottom: none;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.6);
         }
     }
 }

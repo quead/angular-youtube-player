@@ -21,6 +21,11 @@
               <img src="assets/img/logo.svg" height="35" id="logo"/>
           </div>
           <div class="app-content">
+            <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
+              <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
+              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
+              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+            </div>
           </div>
       </div>
   </div>
@@ -38,7 +43,7 @@
                   </div>
                 </div>
                 <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
-                  <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i)">
+                  <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 1)">
                     <div *ngIf="searchVideoImage" class="video-item-image">
                       <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
                     </div>
@@ -48,10 +53,15 @@
                   </div>
                 </div>
             </form>
-            <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
-              <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
-              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
-              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
+            <div *ngIf="feedVideos" id="feed-video-list" class="video-list">
+              <div *ngFor="let feedVideo of feedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 3)">
+                <div class="video-item-image">
+                  <img src="{{ feedVideo.snippet.thumbnails.default.url }}" alt="feed video thumbnail" />
+                </div>
+                <div class="video-item-content">
+                  <h2>{{ feedVideo.snippet.title }}</h2>
+                </div>
+              </div>
             </div>
           </div>
       </div>
@@ -62,13 +72,15 @@
               <p>Player</p>
           </div>
           <div class="app-content">
-            <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+            <div *ngIf="feedVideos">
+              <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+            </div>
             <div class="current-video-all">
-              <div *ngIf="currentVideoName" class="current-video-details">
-                <p class="current-video-name">{{ currentVideoName }}</p>
+              <div class="current-video-details">
+                <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
+                <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
               </div>
               <!---->
-              <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
                 <div id="player-controls">
                     <div class="player-buttons">
                         <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
@@ -95,12 +107,14 @@
                   Recommended videos
                   <span (click)="clearRelatedVideos()" class="video-list-clear"><span class="fa fa-close"></span>Clear</span>
               </div>
-              <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelatedVideo($event, i)">
-                <div class="video-item-image">
-                  <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
-                </div>
-                <div class="video-item-content">
-                  <h2>{{ relatedVideo.snippet.title }}</h2>
+              <div class="related-video-content">
+                <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 2)">
+                  <div class="video-item-image">
+                    <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
+                  </div>
+                  <div class="video-item-content">
+                    <h2>{{ relatedVideo.snippet.title }}</h2>
+                  </div>
                 </div>
               </div>
             </div>

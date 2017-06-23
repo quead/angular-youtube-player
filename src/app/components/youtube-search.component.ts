@@ -21,11 +21,13 @@ export class SearchComponent implements OnInit {
   videos: any;
   relatedVideos = false;
 
+  feedVideos = false;
+
   debuggingInfo: boolean;
   searchVideoImage: boolean;
 
   player: YT.Player;
-  currentVideoID = 'Not Exist';
+  currentVideoID: string;
   currentVideoName: string;
   currentVideoImage: string;
   currentState = 0;
@@ -48,6 +50,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchFunction();
+    this.getFeedVideos();
   }
 
   searchFunction() {
@@ -79,7 +82,7 @@ export class SearchComponent implements OnInit {
     };
     return playerVars;
   }
-
+  
   changeStates(event) {
     // Trigger from youtube-settings.component
     if (event.settings[0].selected != null) {
@@ -106,6 +109,19 @@ export class SearchComponent implements OnInit {
       );
   }
 
+  getFeedVideos() {
+    this.youtube.feedVideos().subscribe(
+      result => {
+        this.feedVideos = result.items;
+        this.currentVideoID = this.feedVideos[0].id;
+        this.getRelatedVideos();
+      },
+      error => {
+        console.log('error on feed videos');
+      }
+    )
+  }
+
   clearRelatedVideos() {
     this.relatedVideos = null;
   }
@@ -119,23 +135,22 @@ export class SearchComponent implements OnInit {
     event.preventDefault();
   }
 
-  onClickVideo(event: Event, i: any) {
-    const clickedVideo = this.videos[i];
-    this.currentVideoID = clickedVideo.id.videoId;
+  onClickVideo(event: Event, i: any, list: number) {  
+    if (list === 1) {
+      var clickedVideo = this.videos[i];
+      this.currentVideoID = clickedVideo.id.videoId;
+    } else if (list === 2) {
+      var clickedVideo = this.relatedVideos[i];
+      this.currentVideoID = clickedVideo.id.videoId;
+    } else if (list === 3) {
+      var clickedVideo = this.feedVideos[i];
+      this.currentVideoID = clickedVideo.id;
+    }
     this.currentVideoName = clickedVideo.snippet.title;
     this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
     this.player.loadVideoById(this.currentVideoID);
     this.getRelatedVideos();
     this.clearSearch();
-  }
-
-  onClickRelatedVideo(event: Event, i: any) {
-    const clickedVideo = this.relatedVideos[i];
-    this.currentVideoID = clickedVideo.id.videoId;
-    this.currentVideoName = clickedVideo.snippet.title;
-    this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
-    this.player.loadVideoById(this.currentVideoID);
-    this.getRelatedVideos();
   }
 
   toggleMute() {
@@ -153,6 +168,7 @@ export class SearchComponent implements OnInit {
   }
 
   onStateChange(event) {
+    console.log(event.data)
     this.currentState = event.data;
     this.videoMaxRange = this.player.getDuration();
 
