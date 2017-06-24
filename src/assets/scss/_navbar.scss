@@ -1,47 +1,5 @@
-.nav-overlay {
-    background-color: rgba($c-black, 0.6);
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: all 0.4s ease-out;
-    z-index: 9998;
-}
-
-#main-nav {
-    background-color: $c-white;
-    position: fixed;
-    padding: 10px 15px;
-    box-shadow: 5px 0px 10px 0px rgba($c-black, 0.05);
-    top: 0;
-    left: -295px;
-    width: 280px;
-    height: 100%;
-    transition: left 0.2s ease-out;
-    z-index: 9999;
-    h2 {
-        margin: 2px 0;
-        padding-right: 20px;
-        font-size: 16px;
-    }
-    &.active {
-        left: 0;
-        + .nav-overlay {
-            position: fixed;
-            opacity: 1;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 9998;
-        }
-    }
-}
-
 #settingsForm {
-    margin-top: 15px;
+    margin-top: 0;
     input[type="checkbox"],
     input[type="radio"] {
         display: none;
@@ -56,36 +14,40 @@
     }
 }
 
-// app-yt-2
-
 nav {
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
     }
-    li.is-active a {
-        color: $c-primary;
-        &:hover {
-            color: $c-white;
-        }
+    li {
+        padding-left: 15px;
     }
     a {
         display: block;
         text-decoration: none;
-        color: $c-white;
+        color: rgba($c-white, 0.4);
         text-transform: uppercase;
-        padding: 10px 15px;
+        padding: 5px 15px;
+        margin: 10px 0;
         transition: all 0.1s ease-out;
+        border-left: 3px solid transparent;
         .fa {
             margin-right: 10px;
         }
         &:hover {
-            background-color: $c-primary;
+            color: $c-white;
         }
         &:active {
-            background-color: darken($c-primary, 5%);
+            border-left-color: $c-primary;
             color: $c-white;
+        }
+        &.is-active {
+            border-left-color: $c-primary;
+            color: $c-white;
+            &:hover {
+                color: $c-white;
+            }
         }
     }
 }

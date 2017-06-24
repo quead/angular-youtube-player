@@ -166,35 +166,36 @@ a:active {
 .round-check:before {
   content: '';
   display: block;
-  background-color: #d8dde6;
+  background-color: #000;
   height: 20px;
   width: 40px;
   border-radius: 50px;
-  transition: background-color 0.1s ease-out;
+  transition: background-color 0.2s ease-out;
 }
 
 .round-check:after {
   content: '';
   position: absolute;
   display: block;
-  background-color: #ffffff;
+  background-color: #999999;
   height: 16px;
   width: 16px;
   border-radius: 50%;
   z-index: 1;
   left: 2px;
   top: 2px;
-  transition: left 0.1s ease-out;
+  transition: left 0.2s ease-out;
 }
 
 input[type="checkbox"]:checked + label .round-check:before,
 input[type="radio"]:checked + label .round-check:before {
-  background-color: #167ac6;
+  background-color: #e52d27;
 }
 
 input[type="checkbox"]:checked + label .round-check:after,
 input[type="radio"]:checked + label .round-check:after {
   left: 22px;
+  background-color: #ffffff;
 }
 
 .app-yt-2 {
@@ -554,53 +555,8 @@ input[type="radio"]:checked + label .round-check:after {
   font-weight: 300;
 }
 
-.nav-overlay {
-  background-color: rgba(33, 33, 33, 0.6);
-  position: fixed;
-  opacity: 0;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  transition: all 0.4s ease-out;
-  z-index: 9998;
-}
-
-#main-nav {
-  background-color: #ffffff;
-  position: fixed;
-  padding: 10px 15px;
-  box-shadow: 5px 0px 10px 0px rgba(33, 33, 33, 0.05);
-  top: 0;
-  left: -295px;
-  width: 280px;
-  height: 100%;
-  transition: left 0.2s ease-out;
-  z-index: 9999;
-}
-
-#main-nav h2 {
-  margin: 2px 0;
-  padding-right: 20px;
-  font-size: 16px;
-}
-
-#main-nav.active {
-  left: 0;
-}
-
-#main-nav.active + .nav-overlay {
-  position: fixed;
-  opacity: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9998;
-}
-
 #settingsForm {
-  margin-top: 15px;
+  margin-top: 0;
 }
 
 #settingsForm input[type="checkbox"],
@@ -624,21 +580,19 @@ nav ul {
   margin: 0;
 }
 
-nav li.is-active a {
-  color: #e52d27;
-}
-
-nav li.is-active a:hover {
-  color: #ffffff;
+nav li {
+  padding-left: 15px;
 }
 
 nav a {
   display: block;
   text-decoration: none;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
-  padding: 10px 15px;
+  padding: 5px 15px;
+  margin: 10px 0;
   transition: all 0.1s ease-out;
+  border-left: 3px solid transparent;
 }
 
 nav a .fa {
@@ -646,11 +600,20 @@ nav a .fa {
 }
 
 nav a:hover {
-  background-color: #e52d27;
+  color: #ffffff;
 }
 
 nav a:active {
-  background-color: #d8201a;
+  border-left-color: #e52d27;
+  color: #ffffff;
+}
+
+nav a.is-active {
+  border-left-color: #e52d27;
+  color: #ffffff;
+}
+
+nav a.is-active:hover {
   color: #ffffff;
 }
 

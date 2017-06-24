@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from '../app.component';
 import { Http } from '@angular/http';
 
 @Component({
@@ -9,10 +10,10 @@ import { Http } from '@angular/http';
 
 export class SettingsComponent implements OnInit {
 
-    @Output() states = new EventEmitter();
-
-    private menuOpened = false;
     private finished = false;
+
+    _fb: any;
+    _app: any;
 
     settingsForm: FormGroup;
 
@@ -20,8 +21,9 @@ export class SettingsComponent implements OnInit {
         settings: []
     };
 
-    constructor(private fb: FormBuilder, private http: Http) {
-        this.fb = fb;
+    constructor(private fb: FormBuilder, private http: Http, private app: AppComponent) {
+        this._fb = fb;
+        this._app = app;
     }
 
     ngOnInit() {
@@ -29,7 +31,7 @@ export class SettingsComponent implements OnInit {
     }
 
     setForm() {
-        this.settingsForm = this.fb.group({
+        this.settingsForm = this._fb.group({
             settings: this.mapSettings()
         });
         this.checkInputs();
@@ -54,28 +56,20 @@ export class SettingsComponent implements OnInit {
     }
 
     checkInputs() {
-        this.showSettings(this.playerAttr);
+        this._app.setSettings(this.playerAttr.settings, 1);
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
                 this.playerAttr.settings[i].selected = data.settings[i];
             });
-            this.showSettings(data);
+            console.log('se schimba ceva prin settings');
         });
     }
 
     mapSettings() {
         const arr = this.playerAttr.settings.map(s => {
-            return this.fb.control(s.selected);
+            return this._fb.control(s.selected);
         });
         return this.fb.array(arr);
-    }
-
-    toggleMenu() {
-        this.menuOpened = !this.menuOpened;
-    }
-
-    showSettings(data: any) {
-        this.states.emit(data);
     }
 
 }

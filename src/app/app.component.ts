@@ -1,5 +1,6 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './config/youtube.config';
+import { AboutComponent } from './components/youtube-about.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -8,14 +9,14 @@ import 'rxjs/add/operator/map';
   templateUrl: 'app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   searchForm: FormGroup;
 
   relatedVideos = false;
   feedVideos = false;
 
-  debuggingInfo: boolean;
+  debuggingInfo = false;
 
   player: YT.Player;
   currentVideoID: string;
@@ -25,6 +26,7 @@ export class AppComponent {
   currentMuteState = true;
 
   _ref: any;
+  _set: any;
 
   videoRangeTimer: any;
   videoCurRange = 0;
@@ -35,8 +37,12 @@ export class AppComponent {
 
   videoCurVolume = -1;
 
-  constructor(private youtube: YoutubeGetVideo, ref: ChangeDetectorRef) {
+  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef) {
     this._ref = ref;
+  }
+
+  ngOnInit() {
+    console.log(AboutComponent);
   }
 
   onClickRelated(event: Event, i: number) {
@@ -79,6 +85,12 @@ export class AppComponent {
         this.currentVideoName = this.feedVideos[0].snippet.title;
         this.getRelatedVideos();
       }
+  }
+  
+  setSettings(data: any, from: number) {
+    if(from === 1) {
+      console.log(data);
+    }
   }
 
   toggleMute() {
