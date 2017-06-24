@@ -19,8 +19,8 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 ## Usage
 
 **For angular2/typescript development**
-1. Install [NodeJS 6.10.2+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install latest version of [angular-cli](https://github.com/angular/angular-cli "Angular Cli")
+1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
+2. Install [angular-cli 1.1.2+](https://github.com/angular/angular-cli "Angular Cli")
 
 `npm install -g @angular/cli`
 
