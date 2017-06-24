@@ -12,8 +12,7 @@ export class AppComponent {
 
   searchForm: FormGroup;
 
-  relatedVideos: any;
-
+  relatedVideos = false;
   feedVideos = false;
 
   debuggingInfo: boolean;
@@ -22,7 +21,7 @@ export class AppComponent {
   currentVideoID: string;
   currentVideoName: string;
   currentVideoImage: string;
-  currentState = 0;
+  currentState = -1;
   currentMuteState = true;
 
   _ref: any;
@@ -74,7 +73,7 @@ export class AppComponent {
   }
 
   setDefaultPlayer(data: any) {
-      if(this.currentState === 0) {
+      if (this.currentState < 0) {
         this.feedVideos = data;
         this.currentVideoID = this.feedVideos[0].id;
         this.currentVideoName = this.feedVideos[0].snippet.title;

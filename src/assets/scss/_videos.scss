@@ -97,6 +97,7 @@ iframe {
         position: absolute;
         bottom: 0;
         height: calc(100% - 39px);
+        width: 100%;
         overflow: auto;
         background-color: darken($c-black, 2%);
         &::-webkit-scrollbar-track {

@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
       error => {
         console.log('error on feed videos');
       }
-    )
+    );
   }
 
   clearSearch() {
@@ -75,7 +75,7 @@ export class SearchComponent implements OnInit {
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 1) {
       const videoID = this.videos[i].id.videoId;
-      const videoName = this.videos[i].snippet.title
+      const videoName = this.videos[i].snippet.title;
       this._app.getVideo(videoID, videoName);
     } else if (list === 3) {
       const videoID = this.feedVideos[i].id;
