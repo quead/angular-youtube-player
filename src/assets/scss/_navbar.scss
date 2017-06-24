@@ -64,6 +64,12 @@ nav {
         padding: 0;
         margin: 0;
     }
+    li.is-active a {
+        color: $c-primary;
+        &:hover {
+            color: $c-white;
+        }
+    }
     a {
         display: block;
         text-decoration: none;
@@ -76,6 +82,10 @@ nav {
         }
         &:hover {
             background-color: $c-primary;
+        }
+        &:active {
+            background-color: darken($c-primary, 5%);
+            color: $c-white;
         }
     }
 }
