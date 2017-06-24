@@ -5,8 +5,14 @@
 
 .col {
     position: relative;
+    &-2 {
+        width: 16.66666667%;
+    }
     &-3 {
         width: 25%;
+    }
+    &-4 {
+        width: 33.33333333%;
     }
     &-6 {
         width: 50%;
