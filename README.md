@@ -4,7 +4,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -19,8 +19,8 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 ## Usage
 
 **For angular2/typescript development**
-1. Install [NodeJS 6.10.2+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install latest version of [angular-cli](https://github.com/angular/angular-cli "Angular Cli")
+1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
+2. Install [angular-cli 1.1.3+](https://github.com/angular/angular-cli "Angular Cli")
 
 `npm install -g @angular/cli`
 
