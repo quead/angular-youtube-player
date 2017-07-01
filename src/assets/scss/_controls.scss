@@ -10,7 +10,8 @@
 }
 
 .current-video-name {
-    color: $c-white;
+    color: $c-black;
+    font-weight: bold;
     margin: 0;
     overflow: hidden;
     width: 100%;
@@ -20,7 +21,7 @@
 
 .current-video-none {
     margin: 0;
-    color: $c-white;
+    color: $c-black;
 }
 
 .player-buttons {
@@ -32,7 +33,7 @@
         position: relative;
         border: none;
         outline: none;
-        color: $c-white;
+        color: $c-primary;
         height: 30px;
         width: 30px;
         font-size: $f-12;
@@ -48,8 +49,8 @@
         }
     }
     #play-song { 
-        background-color: white;
-        color: $c-primary;
+        background-color: $c-primary;
+        color: $c-white;
         border-radius: 50%;
         transition: all 0.1s ease-out;
         span {
@@ -74,7 +75,7 @@
         position: absolute;
         top: 0;
         margin: 0;
-        color: $c-white;
+        color: $c-primary;
     }
     .current-video-range-value {
         right: calc(100% + 15px);
@@ -100,14 +101,14 @@
     &::-webkit-slider-runnable-track {
         width: 100%;
         height: 3px;
-        background: $c-white;
+        background: $c-primary;
     }
     &::-webkit-slider-thumb {
         position: relative;
         height: 15px;
         width: 15px;
         margin-top: -6px;
-        background: $c-white;
+        background: $c-primary;
         border-radius: 50%;
         transition: all 0.2s ease-out;
     }
@@ -117,7 +118,7 @@
 }
 
 .volume-range-value {
-    color: $c-white;
+    color: $c-primary;
     display: flex;
     align-items: center;
     margin-left: auto;
@@ -137,7 +138,7 @@
     position: relative;
     width: 80px;
     height: 8px;
-    background-color: darken($c-primary, 10%);
+    background-color: darken($c-white, 10%);
     border-radius: 5px;
     overflow: hidden;
     .volume-input {
@@ -163,7 +164,7 @@
         left: 0;
         height: 100%;
         border-radius: 20px;
-        background-color: $c-white;
+        background-color: $c-primary;
         transition: all 0.1s ease-out;
         &.inactive {
             width: 0% !important;

@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './config/youtube.config';
 import { AboutComponent } from './components/youtube-about.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -37,12 +38,34 @@ export class AppComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef) {
+  loading: boolean = true;
+
+  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private router: Router) {
     this._ref = ref;
+    router.events.subscribe((event: RouterEvent) => {
+        this.navigationInterceptor(event);
+    });
   }
 
   ngOnInit() {
     console.log(AboutComponent);
+  }
+
+  navigationInterceptor(event: RouterEvent) {
+        if (event instanceof NavigationStart) {
+            this.loading = true;
+        }
+        if (event instanceof NavigationEnd) {
+            this.loading = false;
+        }
+
+        // Set loading state to false in both of the below events to hide the spinner in case a request fails
+        if (event instanceof NavigationCancel) {
+            this.loading = false;
+        }
+        if (event instanceof NavigationError) {
+            this.loading = false;
+        }
   }
 
   onClickRelated(event: Event, i: number) {
@@ -124,14 +147,11 @@ export class AppComponent implements OnInit {
   }
 
   playPauseVideo() {
-    if (this.currentState === 0) {
+    if (this.currentState === 0 || this.currentState === 2 || this.currentState === -1 ) {
       this.player.playVideo();
     }
     if (this.currentState === 1) {
       this.player.pauseVideo();
-    }
-    if (this.currentState === 2) {
-      this.player.playVideo();
     }
   }
 

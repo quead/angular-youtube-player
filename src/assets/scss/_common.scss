@@ -1,9 +1,46 @@
 .loading-app {
     position: fixed;
-    color: $c-white;
+    color: $c-primary;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+@keyframes loading-animation {
+  0% { opacity: 0; width: 0% }
+  20% { opacity: 1; }
+  80% { opacity: 1; } 
+  100% { opacity: 0; width: 100%; }
+}
+
+.loading-bar {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    &:before {
+        content: '';
+        display: block;
+        margin: 0;
+        padding: 0;
+        z-index: 99998;
+        background-color: $c-primary;
+        color: $c-primary;
+        box-shadow: 0 0 10px 0;
+        height: 2px;
+        opacity: 0;
+        width: 0%;
+        transition: all 0.5s ease-in-out;
+    }
+    &.active {
+        &:before {
+            animation: loading-animation 2s 1;
+        }
+    }
 }
 
 .debugging-info {
@@ -21,7 +58,7 @@
     &:before {
         content: '';
         display: block;
-        background-color: #000;
+        background-color: darken($c-white, 10%);
         height: 20px;
         width: 40px;
         border-radius: 50px;
@@ -31,7 +68,7 @@
         content: '';
         position: absolute;
         display: block;
-        background-color: darken($c-white, 40%);
+        background-color: $c-white;
         height: 16px;
         width: 16px;
         border-radius: 50%;
@@ -65,7 +102,7 @@ input[type="radio"]:checked {
     position: absolute;
     width: 100%;
     height: 100%;
-    color: $c-white;
+    color: $c-black;
     &-content {
         height: calc(100% - 100px);
         width: 100%;
@@ -75,19 +112,22 @@ input[type="radio"]:checked {
         bottom: 0;
     }
     &-services {        
-        background: linear-gradient(to right, darken($c-black, 2%) 85%,darken($c-black, 4%) 100%);
+        background: $c-default;
         .app-head {
             position: relative;
         }
     }
     &-feed {
+        box-shadow: rgba($c-black, 0.03) 0 0 10px 5px;
+        z-index: 1;
         .app-content {
             padding: 0 20px;
-            background: linear-gradient(to bottom, $c-black 0%,darken($c-black, 5%) 100%);
+            background: $c-white;
         }
     }
     &-player {
-        background-color: $c-primary;
+        background-color: $c-white;
+        color: $c-black;
     }
 }
 

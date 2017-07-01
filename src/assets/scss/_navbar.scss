@@ -26,7 +26,8 @@ nav {
     a {
         display: block;
         text-decoration: none;
-        color: rgba($c-white, 0.4);
+        color: $c-black;
+        font-size: 14px;
         text-transform: uppercase;
         padding: 5px 15px;
         margin: 10px 0;
@@ -36,17 +37,17 @@ nav {
             margin-right: 10px;
         }
         &:hover {
-            color: $c-white;
+            color: $c-primary;
         }
         &:active {
             border-left-color: $c-primary;
-            color: $c-white;
+            color: $c-black;
         }
         &.is-active {
             border-left-color: $c-primary;
-            color: $c-white;
+            color: $c-black;
             &:hover {
-                color: $c-white;
+                color: $c-primary;
             }
         }
     }
