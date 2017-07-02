@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './config/youtube.config';
-import { AboutComponent } from './components/youtube-about.component';
+import { SharedService } from './config/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   currentMuteState = true;
 
   _ref: any;
-  _set: any;
+  _shared: any;
 
   videoRangeTimer: any;
   videoCurRange = 0;
@@ -40,15 +40,19 @@ export class AppComponent implements OnInit {
 
   loading: boolean = true;
 
-  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private router: Router) {
+  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private router: Router, private shared:SharedService) {
     this._ref = ref;
+    this._shared = shared;
     router.events.subscribe((event: RouterEvent) => {
         this.navigationInterceptor(event);
     });
   }
 
   ngOnInit() {
-    console.log(AboutComponent);
+      console.log('app comp');
+      console.log(this._shared);
+      this.feedVideos = this._shared.feedVideos;
+      this.setDefaultPlayer();
   }
 
   navigationInterceptor(event: RouterEvent) {
@@ -101,9 +105,9 @@ export class AppComponent implements OnInit {
       );
   }
 
-  setDefaultPlayer(data: any) {
+  setDefaultPlayer() {
       if (this.currentState < 0) {
-        this.feedVideos = data;
+        this.feedVideos = this._shared.feedVideos;
         this.currentVideoID = this.feedVideos[0].id;
         this.currentVideoName = this.feedVideos[0].snippet.title;
         this.getRelatedVideos();

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 
 import { AppComponent } from './app.component';
+import { SharedService } from './config/shared.module';
 import { YoutubeGetVideo } from './config/youtube.config';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
@@ -27,7 +28,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     AboutComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo ]
+  providers:    [ YoutubeGetVideo, SharedService ]
 })
 
 export class AppModule { }

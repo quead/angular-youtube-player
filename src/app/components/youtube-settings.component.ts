@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from '../app.component';
+import { SharedService } from '../config/shared.module';
 import { Http } from '@angular/http';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: 'youtube-settings.component.html'
+    selector: 'app-settings',
+    templateUrl: 'youtube-settings.component.html'
 })
 
 export class SettingsComponent implements OnInit {
@@ -13,7 +13,7 @@ export class SettingsComponent implements OnInit {
     private finished = false;
 
     _fb: any;
-    _app: any;
+    _shared: any;
 
     settingsForm: FormGroup;
 
@@ -21,12 +21,14 @@ export class SettingsComponent implements OnInit {
         settings: []
     };
 
-    constructor(private fb: FormBuilder, private http: Http, private app: AppComponent) {
+    constructor(private fb: FormBuilder, private http: Http, private shared: SharedService) {
         this._fb = fb;
-        this._app = app;
+        this._shared = shared;
     }
 
     ngOnInit() {
+        console.log('settings');
+        console.log(this._shared);
         this.fetchJSONsettings();
     }
 
@@ -56,7 +58,8 @@ export class SettingsComponent implements OnInit {
     }
 
     checkInputs() {
-        this._app.setSettings(this.playerAttr.settings, 1);
+        this._shared.settings = this.playerAttr.settings;
+        //this._app.setSettings(this.playerAttr.settings, 1);
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
                 this.playerAttr.settings[i].selected = data.settings[i];

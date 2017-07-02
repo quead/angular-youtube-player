@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../config/youtube.config';
-import { AppComponent } from '../app.component';
+import { SharedService } from '../config/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -19,13 +19,15 @@ export class SearchComponent implements OnInit {
   videos: any;
   feedVideos: any;
 
-  _app: any;
+  _shared: any;
 
-  constructor(private youtube: YoutubeGetVideo, app: AppComponent) {
-    this._app = app;
+  constructor(private youtube: YoutubeGetVideo, shared: SharedService) {
+    this._shared = shared;
   }
 
   ngOnInit() {
+    console.log('search');
+    console.log(this._shared);
     this.searchFunction();
     this.getFeedVideos();
   }
@@ -55,7 +57,8 @@ export class SearchComponent implements OnInit {
     this.youtube.feedVideos().subscribe(
       result => {
         this.feedVideos = result.items;
-        this._app.setDefaultPlayer(this.feedVideos);
+        this._shared.feedVideos = this.feedVideos;
+        //this._app.setDefaultPlayer(this.feedVideos);
       },
       error => {
         console.log('error on feed videos');
@@ -76,11 +79,11 @@ export class SearchComponent implements OnInit {
     if (list === 1) {
       const videoID = this.videos[i].id.videoId;
       const videoName = this.videos[i].snippet.title;
-      this._app.getVideo(videoID, videoName);
+      //this._app.getVideo(videoID, videoName);
     } else if (list === 3) {
       const videoID = this.feedVideos[i].id;
       const videoName = this.feedVideos[i].snippet.title;
-      this._app.getVideo(videoID, videoName);
+      //this._app.getVideo(videoID, videoName);
     }
     this.clearSearch();
   }
