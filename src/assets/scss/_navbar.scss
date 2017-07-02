@@ -26,7 +26,7 @@ nav {
     a {
         display: block;
         text-decoration: none;
-        color: $c-black;
+        color: $c-white;
         font-size: 14px;
         text-transform: uppercase;
         padding: 5px 15px;
@@ -41,11 +41,11 @@ nav {
         }
         &:active {
             border-left-color: $c-primary;
-            color: $c-black;
+            color: $c-white;
         }
         &.is-active {
             border-left-color: $c-primary;
-            color: $c-black;
+            color: $c-white;
             &:hover {
                 color: $c-primary;
             }

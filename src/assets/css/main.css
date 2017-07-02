@@ -49,7 +49,7 @@ a:active {
 
 .btn {
   display: inline-block;
-  color: #292929;
+  color: #111111;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.25;
@@ -266,7 +266,7 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 .app-services {
-  background: #f5f5f5;
+  background: black;
 }
 
 .app-services .app-head {
@@ -641,7 +641,7 @@ nav li {
 nav a {
   display: block;
   text-decoration: none;
-  color: #000;
+  color: #ffffff;
   font-size: 14px;
   text-transform: uppercase;
   padding: 5px 15px;
@@ -660,12 +660,12 @@ nav a:hover {
 
 nav a:active {
   border-left-color: #e52d27;
-  color: #000;
+  color: #ffffff;
 }
 
 nav a.is-active {
   border-left-color: #e52d27;
-  color: #000;
+  color: #ffffff;
 }
 
 nav a.is-active:hover {
