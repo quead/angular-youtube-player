@@ -27,7 +27,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
-    console.log(this._shared);
     this.searchFunction();
     this.getFeedVideos();
   }
@@ -54,16 +53,11 @@ export class SearchComponent implements OnInit {
   }
 
   getFeedVideos() {
-    this.youtube.feedVideos().subscribe(
-      result => {
-        this.feedVideos = result.items;
-        this._shared.feedVideos = this.feedVideos;
-        //this._app.setDefaultPlayer(this.feedVideos);
-      },
-      error => {
-        console.log('error on feed videos');
-      }
-    );
+      this._shared.getFeed().subscribe(data => {
+        if(data) {
+          this.feedVideos = data;
+        }
+      });
   }
 
   clearSearch() {
@@ -76,6 +70,7 @@ export class SearchComponent implements OnInit {
   }
 
   onClickVideo(event: Event, i: any, list: number) {
+    console.log(i, list);
     if (list === 1) {
       const videoID = this.videos[i].id.videoId;
       const videoName = this.videos[i].snippet.title;

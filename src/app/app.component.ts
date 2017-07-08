@@ -2,8 +2,6 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './config/youtube.config';
 import { SharedService } from './config/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-yt',
@@ -14,8 +12,8 @@ export class AppComponent implements OnInit {
 
   searchForm: FormGroup;
 
-  relatedVideos = false;
-  feedVideos = false;
+  relatedVideos: Array<any>;
+  feedVideos: Array<any>;
 
   debuggingInfo = false;
 
@@ -40,36 +38,14 @@ export class AppComponent implements OnInit {
 
   loading: boolean = true;
 
-  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private router: Router, private shared:SharedService) {
+  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private shared:SharedService) {
     this._ref = ref;
     this._shared = shared;
-    router.events.subscribe((event: RouterEvent) => {
-        this.navigationInterceptor(event);
-    });
   }
 
   ngOnInit() {
       console.log('app comp');
-      console.log(this._shared);
-      this.feedVideos = this._shared.feedVideos;
-      this.setDefaultPlayer();
-  }
-
-  navigationInterceptor(event: RouterEvent) {
-        if (event instanceof NavigationStart) {
-            this.loading = true;
-        }
-        if (event instanceof NavigationEnd) {
-            this.loading = false;
-        }
-
-        // Set loading state to false in both of the below events to hide the spinner in case a request fails
-        if (event instanceof NavigationCancel) {
-            this.loading = false;
-        }
-        if (event instanceof NavigationError) {
-            this.loading = false;
-        }
+      this.getFeedVideos();
   }
 
   onClickRelated(event: Event, i: number) {
@@ -92,6 +68,15 @@ export class AppComponent implements OnInit {
       'rel': 0
     };
     return playerVars;
+  }
+
+  getFeedVideos() {
+      this._shared.getFeed().subscribe(data => {
+        if(data) {
+          this.feedVideos = data;
+          this.setDefaultPlayer();
+        }
+      });
   }
 
   getRelatedVideos() {

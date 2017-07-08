@@ -1,44 +1,57 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.config';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
-export interface Todo {
-    id: number | string;
-    createdAt: number;
-    value: string;
-}
-
 @Injectable()
-export class SharedService implements OnInit{
+export class SharedService {
 
-    todos: Observable<Todo[]>
-    private _todos: BehaviorSubject<Todo[]>;
-    private baseUrl: string;
-    private dataStore: {
-        todos: Todo[]
-    };
+    videoID: string;
+    feedVideos: Array<Object>;
+    settings: Array<Object>;
 
+    constructor(private youtube: YoutubeGetVideo, private http: Http) {
 
-    constructor(private youtube: YoutubeGetVideo) {
-        this._todos = <BehaviorSubject<Todo[]>>new BehaviorSubject([]);
-        this._todos.asObservable();
     }
 
-    ngOnInit(){
-        this.player();
-    }
-
-    player() {
-        this.youtube.feedVideos().subscribe(
-            result => {
-                this.dataStore.todos = result.items;
-                this._todos.next(Object.assign({}, this.dataStore).todos);
-            },
-            error => {
-            console.log('error on feed videos');
+    getFeed(): Observable<any> {
+        return new Observable(observer => {
+            if (this.feedVideos) {
+                observer.next(this.feedVideos);
+                return observer.complete();
             }
-        );
+            this.youtube.feedVideos().subscribe(
+                result => {
+                    this.feedVideos = result.items;
+                    observer.next(this.feedVideos);
+                    observer.complete();
+                },
+                error => {
+                    console.log('error on feed videos');
+                }
+            );
+        });
+    }
+
+    getSettings(): Observable<any> {
+        return new Observable(observer => {
+            if (this.settings) {
+                observer.next(this.settings);
+                return observer.complete();
+            }
+            this.http.get('assets/settings.json')
+                .map(res => res.json())
+                .subscribe(
+                data => {
+                    this.settings = data;
+                    observer.next(this.settings);
+                    observer.complete();
+                },
+                err => { 
+                    console.log('JSON Settings ' + err);
+                }
+            );
+        });
     }
 }

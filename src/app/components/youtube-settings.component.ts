@@ -28,8 +28,13 @@ export class SettingsComponent implements OnInit {
 
     ngOnInit() {
         console.log('settings');
-        console.log(this._shared);
-        this.fetchJSONsettings();
+        this._shared.getSettings().subscribe(data => {
+            if(data) {
+                this.playerAttr.settings = data;
+                this.finished = true;
+                this.setForm();
+            }
+        });
     }
 
     setForm() {
@@ -42,20 +47,6 @@ export class SettingsComponent implements OnInit {
     get getSettings(): FormArray {
         return this.settingsForm.get('settings') as FormArray;
     };
-
-    fetchJSONsettings() {
-        this.http.get('assets/settings.json')
-            .map(res => res.json())
-            .subscribe(
-            data => {
-                this.playerAttr.settings = data;
-            },
-            err => console.log('JSON Settings ' + err),
-            () => {
-                this.finished = true; this.setForm();
-            }
-        );
-    }
 
     checkInputs() {
         this._shared.settings = this.playerAttr.settings;
