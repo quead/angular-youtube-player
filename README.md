@@ -58,9 +58,17 @@ Just take files from ***dist*** folder
 
 ## Changelog
 
+Angular2 YT Player v1.2
+- Introducing treding videos, currently default trending videos are from United States
+- Refactoring the code
+- Adding routes for future components which it will show in left navbar
+- Default video will be first from trending videos
+- Update the design to match the new features
+
 Angular2 YT Player v1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
+- Adding settings functionality, the settings will get from ***assets/settings.json***
 - **Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
@@ -77,6 +85,7 @@ Angular2 YT Player v1.0.0
 
 ## Future features
 - Repeat mode **(in v1.3)**
+- Grid/list mode for trending videos **(in v1.3)**
 - Copy link for current video and related videos **(in v1.6)** 
 - Copy link for current video at your playing time **(in v1.6)**
 - Video details for current video and related videos like number of views, likes and dislikes **(in v1.6)**
