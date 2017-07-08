@@ -87,20 +87,24 @@ Angular2 YT Player v1.0.0
 ## Future features
 - Repeat mode **(in v1.3)**
 - Grid/list mode for trending videos **(in v1.3)**
-- Copy link for current video and related videos **(in v1.6)** 
-- Copy link for current video at your playing time **(in v1.6)**
-- Video details for current video and related videos like number of views, likes and dislikes **(in v1.6)**
+- Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.3)**
+- Share link for current video and related videos **(in v1.6)** 
+- Share link for current video at your playing time **(in v1.6)**
+- Notifications for important actions you do **(in v1.6)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
+- Save your playlists **(unversioned)**
+- History of your watched videos **(unversioned)**
 - **Settings**
+- *Change country for trending feed **(in v1.3)***
 - *Show/hide video player **(possible in v1.3)***
 - *Set how many results to show in search (0 to 50) **(in v1.3)***
 - *Enable loop video **(in v1.3)***
 - *Change/add YOUR_API Key **(in v1.3)***
 - *Max related videos (0 to 50) **(in v1.3)***
-- *Save your settings **(possible in v1.9)***
+- *Save your settings **(unversioned)***
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).
