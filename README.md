@@ -87,7 +87,7 @@ Angular2 YT Player v1.0.0
 ## Future features
 - Repeat mode **(in v1.3)**
 - Grid/list mode for trending videos **(in v1.3)**
-- Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.3)**
+- Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.6)**
 - Share link for current video and related videos **(in v1.6)** 
 - Share link for current video at your playing time **(in v1.6)**
 - Notifications for important actions you do **(in v1.6)**
