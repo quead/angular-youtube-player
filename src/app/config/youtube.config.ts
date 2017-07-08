@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 export class YoutubeGetVideo {
 
     private url = 'https://www.googleapis.com/youtube/v3/';
-    private regionCode = 'RO';
+    private regionCode = 'US';
     private videoDetails = 'part=snippet,contentDetails,statistics,status';
     private feedDetails = '&chart=mostPopular&regionCode=' + this.regionCode;
     private apiKey = 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc';
