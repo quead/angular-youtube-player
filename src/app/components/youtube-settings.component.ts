@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from '../app.component';
+import { SearchComponent } from './youtube-search.component';
 import { SharedService } from '../config/shared.module';
 import { Http } from '@angular/http';
 
 @Component({
     selector: 'app-settings',
-    templateUrl: 'youtube-settings.component.html'
+    templateUrl: 'youtube-settings.component.html',
+    providers: [ SearchComponent ]
 })
 
 export class SettingsComponent implements OnInit {
 
     private finished = false;
 
-    _fb: any;
     _shared: any;
+    _fb: any;
+    _app: any;
+    _search: any;
 
     settingsForm: FormGroup;
 
@@ -21,20 +26,22 @@ export class SettingsComponent implements OnInit {
         settings: []
     };
 
-    constructor(private fb: FormBuilder, private http: Http, private shared: SharedService) {
-        this._fb = fb;
+    constructor(
+        private fb: FormBuilder,
+        private http: Http,
+        private shared: SharedService,
+        private app: AppComponent,
+        private search: SearchComponent
+    ) {
         this._shared = shared;
+        this._fb = fb;
+        this._app = app;
+        this._search = search;
     }
 
     ngOnInit() {
         console.log('settings');
-        this._shared.getSettings().subscribe(data => {
-            if(data) {
-                this.playerAttr.settings = data;
-                this.finished = true;
-                this.setForm();
-            }
-        });
+        this.getDefaultSettings();
     }
 
     setForm() {
@@ -50,12 +57,12 @@ export class SettingsComponent implements OnInit {
 
     checkInputs() {
         this._shared.settings = this.playerAttr.settings;
-        //this._app.setSettings(this.playerAttr.settings, 1);
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
                 this.playerAttr.settings[i].selected = data.settings[i];
             });
-            console.log('se schimba ceva prin settings');
+            this._app.setSettings(this.playerAttr.settings, 0);
+            this._search.setSettings(this.playerAttr.settings, 1);
         });
     }
 
@@ -64,6 +71,16 @@ export class SettingsComponent implements OnInit {
             return this._fb.control(s.selected);
         });
         return this.fb.array(arr);
+    }
+
+    getDefaultSettings() {
+        this._shared.getSettings().subscribe(data => {
+            if (data) {
+                this.playerAttr.settings = data;
+                this.finished = true;
+                this.setForm();
+            }
+        });
     }
 
 }

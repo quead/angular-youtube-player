@@ -7,11 +7,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SharedService {
 
-    videoID: string;
     feedVideos: Array<Object>;
     settings: Array<Object>;
 
-    constructor(private youtube: YoutubeGetVideo, private http: Http) {
+    constructor(
+        private youtube: YoutubeGetVideo,
+        private http: Http
+    ) {
 
     }
 
@@ -20,17 +22,18 @@ export class SharedService {
             if (this.feedVideos) {
                 observer.next(this.feedVideos);
                 return observer.complete();
+            } else {
+                this.youtube.feedVideos().subscribe(
+                    result => {
+                        this.feedVideos = result.items;
+                        observer.next(this.feedVideos);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log('error on feed videos' + error);
+                    }
+                );
             }
-            this.youtube.feedVideos().subscribe(
-                result => {
-                    this.feedVideos = result.items;
-                    observer.next(this.feedVideos);
-                    observer.complete();
-                },
-                error => {
-                    console.log('error on feed videos');
-                }
-            );
         });
     }
 
@@ -39,19 +42,20 @@ export class SharedService {
             if (this.settings) {
                 observer.next(this.settings);
                 return observer.complete();
+            } else {
+                this.http.get('assets/settings.json')
+                    .map(res => res.json())
+                    .subscribe(
+                    data => {
+                        this.settings = data;
+                        observer.next(this.settings);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log('error on get settings ' + error);
+                    }
+                );
             }
-            this.http.get('assets/settings.json')
-                .map(res => res.json())
-                .subscribe(
-                data => {
-                    this.settings = data;
-                    observer.next(this.settings);
-                    observer.complete();
-                },
-                err => { 
-                    console.log('JSON Settings ' + err);
-                }
-            );
         });
     }
 }

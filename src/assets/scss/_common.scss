@@ -45,6 +45,7 @@
 
 .debugging-info {
     display: none;
+    color: $c-white;
     &.active {
         display: block;
     }

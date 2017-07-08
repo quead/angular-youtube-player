@@ -1,34 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../config/youtube.config';
+import { AppComponent } from '../app.component';
 import { SharedService } from '../config/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-search',
-  templateUrl: 'youtube-search.component.html',
+  templateUrl: 'youtube-search.component.html'
 })
 
 export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
 
-  debuggingInfo = false;
   searchVideoImage = false;
 
   videos: any;
   feedVideos: any;
 
   _shared: any;
+  _app: any;
 
-  constructor(private youtube: YoutubeGetVideo, shared: SharedService) {
+  constructor(
+    private youtube: YoutubeGetVideo,
+    private shared: SharedService,
+    private app: AppComponent
+  ) {
     this._shared = shared;
+    this._app = app;
   }
 
   ngOnInit() {
     console.log('search');
     this.searchFunction();
     this.getFeedVideos();
+    this.getSettings();
   }
 
   searchFunction() {
@@ -52,9 +59,17 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  getSettings() {
+    this._shared.getSettings().subscribe(data => {
+      if (data) {
+        this.searchVideoImage = data[1].selected;
+      }
+    });
+  }
+
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
-        if(data) {
+        if (data) {
           this.feedVideos = data;
         }
       });
@@ -70,31 +85,21 @@ export class SearchComponent implements OnInit {
   }
 
   onClickVideo(event: Event, i: any, list: number) {
-    console.log(i, list);
     if (list === 1) {
       const videoID = this.videos[i].id.videoId;
       const videoName = this.videos[i].snippet.title;
-      //this._app.getVideo(videoID, videoName);
+      this._app.getVideo(videoID, videoName);
+      this.clearSearch();
     } else if (list === 3) {
       const videoID = this.feedVideos[i].id;
       const videoName = this.feedVideos[i].snippet.title;
-      //this._app.getVideo(videoID, videoName);
+      this._app.getVideo(videoID, videoName);
     }
-    this.clearSearch();
   }
 
-  changeStates(event) {
-    // Trigger from youtube-settings.component
-    if (event.settings[0].selected != null) {
-      this.debuggingInfo = event.settings[0].selected;
-    } else {
-      this.debuggingInfo = event.settings[0];
-    }
-
-    if (event.settings[1].selected != null) {
-      this.searchVideoImage = event.settings[1].selected;
-    } else {
-      this.searchVideoImage = event.settings[1];
+  setSettings(data: any, from: number) {
+    if (from === 0) {
+      this.searchVideoImage = data[from].selected;
     }
   }
 

@@ -36,9 +36,13 @@ export class AppComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  loading: boolean = true;
+  loading = true;
 
-  constructor(private youtube: YoutubeGetVideo, private ref: ChangeDetectorRef, private shared:SharedService) {
+  constructor(
+    private youtube: YoutubeGetVideo,
+    private ref: ChangeDetectorRef,
+    private shared: SharedService
+  ) {
     this._ref = ref;
     this._shared = shared;
   }
@@ -46,6 +50,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
       console.log('app comp');
       this.getFeedVideos();
+      this.getSettings();
   }
 
   onClickRelated(event: Event, i: number) {
@@ -70,9 +75,17 @@ export class AppComponent implements OnInit {
     return playerVars;
   }
 
+  getSettings() {
+    this._shared.getSettings().subscribe(data => {
+      if (data) {
+        this.debuggingInfo = data[0].selected;
+      }
+    });
+  }
+
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
-        if(data) {
+        if (data) {
           this.feedVideos = data;
           this.setDefaultPlayer();
         }
@@ -98,10 +111,10 @@ export class AppComponent implements OnInit {
         this.getRelatedVideos();
       }
   }
-  
+
   setSettings(data: any, from: number) {
-    if(from === 1) {
-      console.log(data);
+    if (from === 0) {
+      this.debuggingInfo = data[from].selected;
     }
   }
 

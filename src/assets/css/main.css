@@ -197,6 +197,7 @@ a:active {
 
 .debugging-info {
   display: none;
+  color: #ffffff;
 }
 
 .debugging-info.active {
