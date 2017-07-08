@@ -22,9 +22,7 @@ export class SettingsComponent implements OnInit {
 
     settingsForm: FormGroup;
 
-    playerAttr = {
-        settings: []
-    };
+    settings: Array<any>;
 
     constructor(
         private fb: FormBuilder,
@@ -56,19 +54,19 @@ export class SettingsComponent implements OnInit {
     };
 
     checkInputs() {
-        this._shared.settings = this.playerAttr.settings;
+        this._shared.settings = this.settings;
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
-                this.playerAttr.settings[i].selected = data.settings[i];
+                this.settings[i].value = data.settings[i];
             });
-            this._app.setSettings(this.playerAttr.settings, 0);
-            this._search.setSettings(this.playerAttr.settings, 1);
+            this._app.setSettings(this.settings, 0);
+            this._search.setSettings(this.settings, 1);
         });
     }
 
     mapSettings() {
-        const arr = this.playerAttr.settings.map(s => {
-            return this._fb.control(s.selected);
+        const arr = this.settings.map(s => {
+            return this._fb.control(s.value);
         });
         return this.fb.array(arr);
     }
@@ -76,7 +74,7 @@ export class SettingsComponent implements OnInit {
     getDefaultSettings() {
         this._shared.getSettings().subscribe(data => {
             if (data) {
-                this.playerAttr.settings = data;
+                this.settings = data.form_settings;
                 this.finished = true;
                 this.setForm();
             }

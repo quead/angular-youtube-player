@@ -51,52 +51,21 @@
     }
 }
 
-.round-check {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: block;
-    &:before {
-        content: '';
-        display: block;
-        background-color: darken($c-white, 10%);
-        height: 20px;
-        width: 40px;
-        border-radius: 50px;
-        transition: background-color 0.2s ease-out;
-    }
-    &:after {
-        content: '';
-        position: absolute;
-        display: block;
-        background-color: $c-white;
-        height: 16px;
-        width: 16px;
-        border-radius: 50%;
-        z-index: 1;
-        left: 2px;
-        top: 2px;
-        transition: left 0.2s ease-out;
-    }
+.fa-color-danger {
+    color: $c-primary;
 }
 
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
-    + label .round-check {
-        &:before {
-            background-color: $c-primary;
-        }
-        &:after {
-            left: 22px;
-            background-color: $c-white;
-        }
+.alert {
+    padding: .75rem 1.25rem;
+    margin: 1rem 0;
+    .fa {
+        margin-right: 10px;
     }
-}
-
-// app-yt-2
-
-.app-yt-2 {
-    height: 100%;
+    &.alert-danger {
+        background-color: rgba($c-primary, 0.2);
+        color: darken($c-primary, 10%);
+        border-radius: 5px;
+    }
 }
 
 .app {

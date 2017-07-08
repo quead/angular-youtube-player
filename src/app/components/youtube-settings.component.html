@@ -5,7 +5,33 @@
     <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
         <div *ngFor="let setting of getSettings.controls; let i=index" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>
-            <label [attr.for]="'setting-' + i">{{playerAttr.settings[i].name}}<span class="round-check"></span></label>
+            <label [attr.for]="'setting-' + i">{{ settings[i].name }}<span class="round-check"></span></label>
+        </div>
+        <div class="form-group form-select">
+            <label for="val-search-results">Trending sort by country</label>
+            <select class="form-field">
+                <option value="US">United States</option>
+                <option value="GB">United Kingdom</option>
+                <option value="RO">Romania</option>
+            </select>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-api-key">Api Key</label>
+            <input type="text" id="val-api-key" class="form-field" placeholder="Your key">
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-search-results">Results for search (Max. 50)</label>
+            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50">
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-related-results">Results for related videos (Max. 50)</label>
+            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50">
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="alert alert-danger" role="alert">
+            <span class="fa fa-exclamation-circle"></span>All marked fields will can change from here. Now you can only change it from "assets/settings.json".
         </div>
     </form>
 </div>

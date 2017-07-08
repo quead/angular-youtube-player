@@ -49,8 +49,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
       console.log('app comp');
-      this.getFeedVideos();
       this.getSettings();
+      this.getFeedVideos();
   }
 
   onClickRelated(event: Event, i: number) {
@@ -78,7 +78,8 @@ export class AppComponent implements OnInit {
   getSettings() {
     this._shared.getSettings().subscribe(data => {
       if (data) {
-        this.debuggingInfo = data[0].selected;
+        this.youtube.api_settings = data.api_settings;
+        this.debuggingInfo = data.form_settings[0].value;
       }
     });
   }
@@ -114,7 +115,7 @@ export class AppComponent implements OnInit {
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.debuggingInfo = data[from].selected;
+      this.debuggingInfo = data[from].value;
     }
   }
 

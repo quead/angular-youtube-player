@@ -204,50 +204,23 @@ a:active {
   display: block;
 }
 
-.round-check {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
+.fa-color-danger {
+  color: #e52d27;
 }
 
-.round-check:before {
-  content: '';
-  display: block;
-  background-color: #e6e6e6;
-  height: 20px;
-  width: 40px;
-  border-radius: 50px;
-  transition: background-color 0.2s ease-out;
+.alert {
+  padding: .75rem 1.25rem;
+  margin: 1rem 0;
 }
 
-.round-check:after {
-  content: '';
-  position: absolute;
-  display: block;
-  background-color: #ffffff;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  z-index: 1;
-  left: 2px;
-  top: 2px;
-  transition: left 0.2s ease-out;
+.alert .fa {
+  margin-right: 10px;
 }
 
-input[type="checkbox"]:checked + label .round-check:before,
-input[type="radio"]:checked + label .round-check:before {
-  background-color: #e52d27;
-}
-
-input[type="checkbox"]:checked + label .round-check:after,
-input[type="radio"]:checked + label .round-check:after {
-  left: 22px;
-  background-color: #ffffff;
-}
-
-.app-yt-2 {
-  height: 100%;
+.alert.alert-danger {
+  background-color: rgba(229, 45, 39, 0.2);
+  color: #c21d17;
+  border-radius: 5px;
 }
 
 .app {
@@ -478,6 +451,67 @@ input[type="radio"]:checked + label .round-check:after {
 
 .volume-input-container .volume-input-shadow.inactive {
   width: 0% !important;
+}
+
+.round-check {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+}
+
+.round-check:before {
+  content: '';
+  display: block;
+  background-color: #e6e6e6;
+  height: 20px;
+  width: 40px;
+  border-radius: 50px;
+  transition: background-color 0.2s ease-out;
+}
+
+.round-check:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background-color: #ffffff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  z-index: 1;
+  left: 2px;
+  top: 2px;
+  transition: left 0.2s ease-out;
+}
+
+input[type="checkbox"]:checked + label .round-check:before,
+input[type="radio"]:checked + label .round-check:before {
+  background-color: #e52d27;
+}
+
+input[type="checkbox"]:checked + label .round-check:after,
+input[type="radio"]:checked + label .round-check:after {
+  left: 22px;
+  background-color: #ffffff;
+}
+
+.form-select,
+.form-text {
+  display: flex;
+  align-items: center;
+}
+
+.form-select .form-field,
+.form-text .form-field {
+  margin-left: auto;
+  padding: 10px 15px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-select .fa-color-danger,
+.form-text .fa-color-danger {
+  margin-left: 10px;
 }
 
 .win-controls {

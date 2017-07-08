@@ -9,6 +9,7 @@ export class SharedService {
 
     feedVideos: Array<Object>;
     settings: Array<Object>;
+    apiSettings: Array<Object>;
 
     constructor(
         private youtube: YoutubeGetVideo,
@@ -16,6 +17,7 @@ export class SharedService {
     ) {
 
     }
+
 
     getFeed(): Observable<any> {
         return new Observable(observer => {

@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit {
   getSettings() {
     this._shared.getSettings().subscribe(data => {
       if (data) {
-        this.searchVideoImage = data[1].selected;
+        this.searchVideoImage = data[1].value;
       }
     });
   }
@@ -99,7 +99,7 @@ export class SearchComponent implements OnInit {
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.searchVideoImage = data[from].selected;
+      this.searchVideoImage = data[from].value;
     }
   }
 
