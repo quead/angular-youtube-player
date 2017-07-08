@@ -59,10 +59,11 @@ Just take files from ***dist*** folder
 ## Changelog
 
 Angular2 YT Player v1.2
-- Introducing treding videos, currently default trending videos are from United States
+- Introducing trending videos, currently default trending videos are from United States
 - Refactoring the code
 - Adding routes for future components which it will show in left navbar
 - Default video will be first from trending videos
+- Adding the video player
 - Update the design to match the new features
 
 Angular2 YT Player v1.1
@@ -94,7 +95,7 @@ Angular2 YT Player v1.0.0
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - **Settings**
-- *Show/hide video **(possible in v1.3)***
+- *Show/hide video player **(possible in v1.3)***
 - *Set how many results to show in search (0 to 50) **(in v1.3)***
 - *Enable loop video **(in v1.3)***
 - *Change/add YOUR_API Key **(in v1.3)***
