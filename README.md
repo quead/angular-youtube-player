@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/5DS0zFh.jpg" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/HciUBN3.jpg" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
@@ -58,9 +58,18 @@ Just take files from ***dist*** folder
 
 ## Changelog
 
+Angular2 YT Player v1.2
+- Introducing trending videos, currently default trending videos are from United States
+- Refactoring the code
+- Adding routes for future components which it will show in left navbar
+- Default video will be first from trending videos
+- Adding the video player
+- Update the design to match the new features
+
 Angular2 YT Player v1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
+- Adding settings functionality, the settings will get from ***assets/settings.json***
 - **Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
@@ -77,6 +86,7 @@ Angular2 YT Player v1.0.0
 
 ## Future features
 - Repeat mode **(in v1.3)**
+- Grid/list mode for trending videos **(in v1.3)**
 - Copy link for current video and related videos **(in v1.6)** 
 - Copy link for current video at your playing time **(in v1.6)**
 - Video details for current video and related videos like number of views, likes and dislikes **(in v1.6)**
@@ -85,7 +95,7 @@ Angular2 YT Player v1.0.0
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - **Settings**
-- *Show/hide video **(possible in v1.3)***
+- *Show/hide video player **(possible in v1.3)***
 - *Set how many results to show in search (0 to 50) **(in v1.3)***
 - *Enable loop video **(in v1.3)***
 - *Change/add YOUR_API Key **(in v1.3)***
