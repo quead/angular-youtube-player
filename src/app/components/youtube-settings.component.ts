@@ -1,18 +1,24 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from '../app.component';
+import { SearchComponent } from './youtube-search.component';
+import { SharedService } from '../config/shared.module';
 import { Http } from '@angular/http';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: 'youtube-settings.component.html'
+    selector: 'app-settings',
+    templateUrl: 'youtube-settings.component.html',
+    providers: [ SearchComponent ]
 })
 
 export class SettingsComponent implements OnInit {
 
-    @Output() states = new EventEmitter();
-
-    private menuOpened = false;
     private finished = false;
+
+    _shared: any;
+    _fb: any;
+    _app: any;
+    _search: any;
 
     settingsForm: FormGroup;
 
@@ -20,16 +26,26 @@ export class SettingsComponent implements OnInit {
         settings: []
     };
 
-    constructor(private fb: FormBuilder, private http: Http) {
-        this.fb = fb;
+    constructor(
+        private fb: FormBuilder,
+        private http: Http,
+        private shared: SharedService,
+        private app: AppComponent,
+        private search: SearchComponent
+    ) {
+        this._shared = shared;
+        this._fb = fb;
+        this._app = app;
+        this._search = search;
     }
 
     ngOnInit() {
-        this.fetchJSONsettings();
+        console.log('settings');
+        this.getDefaultSettings();
     }
 
     setForm() {
-        this.settingsForm = this.fb.group({
+        this.settingsForm = this._fb.group({
             settings: this.mapSettings()
         });
         this.checkInputs();
@@ -39,43 +55,32 @@ export class SettingsComponent implements OnInit {
         return this.settingsForm.get('settings') as FormArray;
     };
 
-    fetchJSONsettings() {
-        this.http.get('assets/settings.json')
-            .map(res => res.json())
-            .subscribe(
-            data => {
-                this.playerAttr.settings = data;
-            },
-            err => console.log('JSON Settings ' + err),
-            () => {
-                this.finished = true; this.setForm();
-            }
-        );
-    }
-
     checkInputs() {
-        this.showSettings(this.playerAttr);
+        this._shared.settings = this.playerAttr.settings;
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
                 this.playerAttr.settings[i].selected = data.settings[i];
             });
-            this.showSettings(data);
+            this._app.setSettings(this.playerAttr.settings, 0);
+            this._search.setSettings(this.playerAttr.settings, 1);
         });
     }
 
     mapSettings() {
         const arr = this.playerAttr.settings.map(s => {
-            return this.fb.control(s.selected);
+            return this._fb.control(s.selected);
         });
         return this.fb.array(arr);
     }
 
-    toggleMenu() {
-        this.menuOpened = !this.menuOpened;
-    }
-
-    showSettings(data: any) {
-        this.states.emit(data);
+    getDefaultSettings() {
+        this._shared.getSettings().subscribe(data => {
+            if (data) {
+                this.playerAttr.settings = data;
+                this.finished = true;
+                this.setForm();
+            }
+        });
     }
 
 }

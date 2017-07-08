@@ -5,18 +5,26 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class YoutubeGetVideo {
 
-    private url = 'https://www.googleapis.com/youtube/v3/search?part=snippet';
+    private url = 'https://www.googleapis.com/youtube/v3/';
+    private regionCode = 'US';
+    private videoDetails = 'part=snippet,contentDetails,statistics,status';
+    private feedDetails = '&chart=mostPopular&regionCode=' + this.regionCode;
     private apiKey = 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc';
 
     constructor(private http: Http) {}
 
     searchVideo(query: string) {
-        return this.http.get(this.url + '&q=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
+        return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
             .map(response => response.json());
     }
 
     relatedVideos(query: string) {
-        return this.http.get(this.url + '&relatedToVideoId=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
+        return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
+            .map(response => response.json());
+    }
+
+    feedVideos() {
+        return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&maxResults=25&key=' + this.apiKey)
             .map(response => response.json());
     }
 }

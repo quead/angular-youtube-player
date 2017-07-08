@@ -1,51 +1,27 @@
-footer {
-    background-color: $c-primary;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    height: 85px;
-    width: 100%;
-    bottom: 0;
-    padding: 5px 15px;
-    .col {
-        padding: 0 15px;
-        &-2 {
-            width: 16.666667%;
-        }
-        &-3 {
-            width: 25%;
-        }
-        &-6 {
-            width: 50%;
-        }
-        &:first-child {
-            padding-left: 0;
-        }
-        &:last-child {
-            margin-left: auto;
-            padding-right: 0;
-        }
-    }
+.current-video-all {
+  padding: 0px 10px;
+  display: inline-block;
+  width: 100%;
 }
 
 .current-video-details {
-    display: flex;
-    align-items: center;
-}
-
-.current-video-thumbnail {
-    height: 45px;
-    width: auto;
+    text-align: center;
+    padding: 5px 0;
 }
 
 .current-video-name {
-    color: $c-white;
-    margin: 0 0 0 10px;
+    color: $c-black;
+    font-weight: bold;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .current-video-none {
     margin: 0;
-    color: $c-white;
+    color: $c-black;
 }
 
 .player-buttons {
@@ -57,7 +33,7 @@ footer {
         position: relative;
         border: none;
         outline: none;
-        color: $c-white;
+        color: $c-primary;
         height: 30px;
         width: 30px;
         font-size: $f-12;
@@ -73,8 +49,8 @@ footer {
         }
     }
     #play-song { 
-        background-color: white;
-        color: $c-primary;
+        background-color: $c-primary;
+        color: $c-white;
         border-radius: 50%;
         transition: all 0.1s ease-out;
         span {
@@ -99,7 +75,7 @@ footer {
         position: absolute;
         top: 0;
         margin: 0;
-        color: $c-white;
+        color: $c-primary;
     }
     .current-video-range-value {
         right: calc(100% + 15px);
@@ -125,14 +101,14 @@ footer {
     &::-webkit-slider-runnable-track {
         width: 100%;
         height: 3px;
-        background: $c-white;
+        background: $c-primary;
     }
     &::-webkit-slider-thumb {
         position: relative;
         height: 15px;
         width: 15px;
         margin-top: -6px;
-        background: $c-white;
+        background: $c-primary;
         border-radius: 50%;
         transition: all 0.2s ease-out;
     }
@@ -142,11 +118,12 @@ footer {
 }
 
 .volume-range-value {
-    color: $c-white;
+    color: $c-primary;
     display: flex;
     align-items: center;
     margin-left: auto;
     width: 100px;
+    margin-top: 0;
     span {
         width: 15px;
         margin-right: auto;
@@ -161,7 +138,7 @@ footer {
     position: relative;
     width: 80px;
     height: 8px;
-    background-color: darken($c-primary, 10%);
+    background-color: darken($c-white, 10%);
     border-radius: 5px;
     overflow: hidden;
     .volume-input {
@@ -186,7 +163,8 @@ footer {
         top: 0;
         left: 0;
         height: 100%;
-        background-color: $c-white;
+        border-radius: 20px;
+        background-color: $c-primary;
         transition: all 0.1s ease-out;
         &.inactive {
             width: 0% !important;

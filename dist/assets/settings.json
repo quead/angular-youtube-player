@@ -1,6 +1,6 @@
 [{
   "name": "Toggle Debugging Info",
-  "selected": true
+  "selected": false
 }, {
   "name": "Toggle Search Thumbnails",
   "selected": true

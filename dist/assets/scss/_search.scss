@@ -1,4 +1,8 @@
 #main-search {
+    width: 100%;
+    display: block;
+    position: relative;
+    color: $c-black;
     .form-group {
         position: relative;
         z-index: 10;
@@ -13,7 +17,7 @@
         padding: 15px 40px 15px 15px;
         margin: 0;
         outline: 0;
-        box-shadow: 0px 5px 10px 0px rgba($c-black,0.05);
+        box-shadow: 0px 5px 10px 0px rgba($c-black,0.1);
         position: relative;
         z-index: 1;
     }

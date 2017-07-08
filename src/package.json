@@ -1,6 +1,6 @@
 {
   "main": "index.html",
-  "name": "nw-app",
+  "name": "angular2-youtube-player",
   "description": "Youtube App 0.1",
   "version": "0.1.0",
   "keywords": [ "youtube app", "node-webkit" ],
