@@ -11,7 +11,10 @@
   <div class="col col-2">
       <div class="app app-services">
           <div class="app-head">
-              <img src="assets/img/logo.svg" height="35" id="logo"/>
+              <div id="logo">
+                <img src="assets/img/logo.svg" height="35"/>
+                <small *ngIf="regionCode">{{ regionCode }}</small>
+              </div>
           </div>
           <div class="app-content">
             <nav>

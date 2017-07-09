@@ -223,6 +223,10 @@ a:active {
   border-radius: 5px;
 }
 
+.alert.alert-danger a {
+  color: inherit;
+}
+
 .app {
   position: absolute;
   width: 100%;
@@ -509,6 +513,13 @@ input[type="radio"]:checked + label .round-check:after {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 
+.form-select .form-field:disabled,
+.form-text .form-field:disabled {
+  background-color: #fafafa;
+  cursor: no-drop;
+  user-select: none;
+}
+
 .form-select .fa-color-danger,
 .form-text .fa-color-danger {
   margin-left: 10px;
@@ -628,6 +639,13 @@ input[type="radio"]:checked + label .round-check:after {
 
 #logo:hover {
   transform: translate(-50%, -50%) scale(1.1);
+}
+
+#logo small {
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 0;
+  color: #ffffff;
 }
 
 .app-head {

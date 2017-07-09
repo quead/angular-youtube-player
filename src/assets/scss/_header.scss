@@ -103,7 +103,13 @@
     transform: translate(-50%, -50%);
     &:hover {
         transform: translate(-50%, -50%) scale(1.1);
-    }    
+    }
+    small {
+        position: absolute;
+        left: calc(100% + 5px);
+        top: 0;
+        color: $c-white;
+    }
 }
 
 .app {

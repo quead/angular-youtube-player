@@ -65,6 +65,9 @@
         background-color: rgba($c-primary, 0.2);
         color: darken($c-primary, 10%);
         border-radius: 5px;
+        a {
+            color: inherit;
+        }
     }
 }
 

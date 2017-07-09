@@ -9,7 +9,6 @@ export class SharedService {
 
     feedVideos: Array<Object>;
     settings: Array<Object>;
-    apiSettings: Array<Object>;
 
     constructor(
         private youtube: YoutubeGetVideo,
@@ -18,23 +17,27 @@ export class SharedService {
 
     }
 
-
     getFeed(): Observable<any> {
         return new Observable(observer => {
             if (this.feedVideos) {
                 observer.next(this.feedVideos);
                 return observer.complete();
             } else {
-                this.youtube.feedVideos().subscribe(
-                    result => {
-                        this.feedVideos = result.items;
-                        observer.next(this.feedVideos);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log('error on feed videos' + error);
-                    }
-                );
+                this.getSettings().subscribe(data => {
+                    this.setApiSettings();
+                    this.settings = data;
+                    this.youtube.feedVideos().subscribe(
+                        result => {
+                            console.log('fac feed de');
+                            this.feedVideos = result.items;
+                            observer.next(this.feedVideos);
+                            observer.complete();
+                        },
+                        error => {
+                            console.log('error on feed videos' + error);
+                        }
+                    );
+                });
             }
         });
     }
@@ -49,6 +52,7 @@ export class SharedService {
                     .map(res => res.json())
                     .subscribe(
                     data => {
+                        console.log('fac settings de')
                         this.settings = data;
                         observer.next(this.settings);
                         observer.complete();
@@ -59,5 +63,9 @@ export class SharedService {
                 );
             }
         });
+    }
+
+    setApiSettings() {
+        this.youtube.defaultApiSet(this.settings);
     }
 }

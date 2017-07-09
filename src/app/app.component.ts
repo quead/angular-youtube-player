@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   feedVideos: Array<any>;
 
   debuggingInfo = false;
+  regionCode: string;
 
   player: YT.Player;
   currentVideoID: string;
@@ -68,8 +69,11 @@ export class AppComponent implements OnInit {
 
   playerVars() {
     const playerVars = {
+      'enablejsapi': 1,
       'controls': 0,
-      'disablekb': 1,
+      'disablekb': 0,
+      'showinfo': 0,
+      'playsinline': 1,
       'rel': 0
     };
     return playerVars;
@@ -77,19 +81,15 @@ export class AppComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-      if (data) {
-        this.youtube.api_settings = data.api_settings;
         this.debuggingInfo = data.form_settings[0].value;
-      }
+        this.regionCode = data.api_settings[1].value;
     });
   }
 
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
-        if (data) {
           this.feedVideos = data;
           this.setDefaultPlayer();
-        }
       });
   }
 

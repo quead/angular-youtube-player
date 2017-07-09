@@ -21,8 +21,13 @@ export class SettingsComponent implements OnInit {
     _search: any;
 
     settingsForm: FormGroup;
+    RegionSettings = new FormControl();
 
-    settings: Array<any>;
+    private settings: Array<any>;
+    private apiKey: string;
+    private regionCode: string;
+    private numSearchRes: string;
+    private numRelatedRes: string;
 
     constructor(
         private fb: FormBuilder,
@@ -44,7 +49,8 @@ export class SettingsComponent implements OnInit {
 
     setForm() {
         this.settingsForm = this._fb.group({
-            settings: this.mapSettings()
+            settings: this.mapSettings(),
+            RegionSettings: this.regionCode
         });
         this.checkInputs();
     }
@@ -54,7 +60,6 @@ export class SettingsComponent implements OnInit {
     };
 
     checkInputs() {
-        this._shared.settings = this.settings;
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
                 this.settings[i].value = data.settings[i];
@@ -73,12 +78,19 @@ export class SettingsComponent implements OnInit {
 
     getDefaultSettings() {
         this._shared.getSettings().subscribe(data => {
-            if (data) {
-                this.settings = data.form_settings;
-                this.finished = true;
-                this.setForm();
-            }
+            this.settings = data.form_settings;
+            this.apiKey = data.api_settings[0].value;
+            this.regionCode = data.api_settings[1].value;
+            this.numSearchRes = data.api_settings[2].value;
+            this.numRelatedRes = data.api_settings[3].value;
+            this.finished = true;
+            this.setForm();
         });
     }
 
+    changeRegion(data: any) {
+        this._shared.settings.api_settings[1].value = data;
+        this._shared.setApiSettings();
+        console.log(this.shared.settings);
+    }
 }

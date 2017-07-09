@@ -9,7 +9,7 @@
         </div>
         <div class="form-group form-select">
             <label for="val-search-results">Trending sort by country</label>
-            <select class="form-field">
+            <select class="form-field" [value]="regionCode" [formControl]="RegionSettings" (change)="changeRegion($event.target.value)">
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="RO">Romania</option>
@@ -17,21 +17,21 @@
         </div>
         <div class="form-group form-text">
             <label for="val-api-key">Api Key</label>
-            <input type="text" id="val-api-key" class="form-field" placeholder="Your key">
+            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" [value]="apiKey" disabled>
             <span class="fa fa-exclamation-circle fa-color-danger"></span>
         </div>
         <div class="form-group form-text">
             <label for="val-search-results">Results for search (Max. 50)</label>
-            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50">
+            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" [value]="numSearchRes" disabled>
             <span class="fa fa-exclamation-circle fa-color-danger"></span>
         </div>
         <div class="form-group form-text">
             <label for="val-related-results">Results for related videos (Max. 50)</label>
-            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50">
+            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" [value]="numRelatedRes" disabled>
             <span class="fa fa-exclamation-circle fa-color-danger"></span>
         </div>
         <div class="alert alert-danger" role="alert">
-            <span class="fa fa-exclamation-circle"></span>All marked fields will can change from here when you can save the settings. Now you can only change it from "assets/settings.json".
+            <span class="fa fa-exclamation-circle"></span>All marked fields you can change in next version (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). Now you can only change it from "assets/settings.json".
         </div>
     </form>
 </div>

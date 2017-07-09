@@ -6,56 +6,45 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class YoutubeGetVideo {
 
-    public api_settings: Array<any>;
+    private apiKey: string;
     private url = 'https://www.googleapis.com/youtube/v3/';
-    private regionCode = 'RO';
+    private regionCode: string;
+    private numSearchRes: string;
+    private numRelatedRes: string;
     private videoDetails = 'part=snippet,contentDetails,statistics,status';
-    private feedDetails = '&chart=mostPopular&regionCode=' + this.regionCode;
-    private apiKey = 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc';
+    private feedDetails = '&chart=mostPopular';
+    private settings: Array<any>;
 
     constructor(
         private http: Http,
     ) {}
 
+    defaultApiSet(data: any) {
+        this.settings = data.api_settings;
+        this.apiKey = this.settings[0].value;
+        this.regionCode = this.settings[1].value;
+        this.numSearchRes = this.settings[2].value;
+        this.numRelatedRes = this.settings[3].value;
+    }
+
     searchVideo(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
+            return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=' + this.numSearchRes + '&type=video&key=' + this.apiKey)
                 .map(response => response.json());
         }
     }
 
     relatedVideos(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults=15&type=video&key=' + this.apiKey)
+            return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults='+ this.numRelatedRes +'&type=video&key=' + this.apiKey)
                 .map(response => response.json());
         }
     }
 
     feedVideos() {
         if (this.apiKey) {
-            return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&maxResults=25&key=' + this.apiKey)
+            return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)
                 .map(response => response.json());
         }
-    }
-
-    getFeed(): Observable<any> {
-        return new Observable(observer => {
-            if (this.feedVideos) {
-                observer.next(this.feedVideos);
-                return observer.complete();
-            } else {
-                this.feedVideos().subscribe(
-                    result => {
-                        this.feedVideos = result.items;
-                        observer.next(this.feedVideos);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log('error on feed videos' + error);
-                    }
-                );
-            }
-        });
-    }
-    
+    }    
 }

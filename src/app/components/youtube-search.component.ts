@@ -33,9 +33,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
+    this.getSettings();
     this.searchFunction();
     this.getFeedVideos();
-    this.getSettings();
   }
 
   searchFunction() {
@@ -61,17 +61,13 @@ export class SearchComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-      if (data) {
-        this.searchVideoImage = data[1].value;
-      }
+        this.searchVideoImage = data.form_settings[1].value;
     });
   }
 
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
-        if (data) {
           this.feedVideos = data;
-        }
       });
   }
 
