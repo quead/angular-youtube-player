@@ -13,7 +13,7 @@
           <div class="app-head">
               <div id="logo">
                 <img src="assets/img/logo.svg" height="35"/>
-                <small *ngIf="regionCode">{{ regionCode }}</small>
+                <small *ngIf="nregionCode">{{ regionCode }}</small>
               </div>
           </div>
           <div class="app-content">
@@ -41,9 +41,13 @@
       <div class="app app-player">
           <div class="app-head">
               <p>Player</p>
+              <div class="settings">
+                  <p id="toggle-video-player" [ngClass]="{'active': displayVideoPlayer }" (click)="toggleHeadSettings(0)"><span class="fa fa-youtube-play"></span>Toggle video</p>
+                  <p id="toggle-repeat-mode" [ngClass]="{'active': repeatMode }" (click)="toggleHeadSettings(1)"><span class="fa fa-refresh"></span>Repeat</p>
+              </div>
           </div>
           <div class="app-content">
-            <div *ngIf="feedVideos">
+            <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
               <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
             </div>
             <div class="current-video-all">
@@ -51,7 +55,6 @@
                 <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
                 <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
               </div>
-              <!---->
                 <div id="player-controls">
                     <div class="player-buttons">
                         <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
@@ -65,7 +68,7 @@
                   <p class="current-video-range-max-value">{{videoMaxFull}}</p>
                 </div>
                 <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-                  <span class="fa" (click)="toggleMute()" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
+                  <span class="fa" (click)="toggleHeadSettings(3)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
                   <div class="volume-input-container">
                     <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                     <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
@@ -73,7 +76,7 @@
                 </div>
             </div>  
             <!---->
-            <div *ngIf="relatedVideos" id="related-video-list" class="video-list">
+            <div *ngIf="relatedVideos" id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
               <div class="video-item-head">
                   Recommended videos
               </div>

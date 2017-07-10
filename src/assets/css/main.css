@@ -266,6 +266,20 @@ a:active {
   color: #000;
 }
 
+#youtube-player {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
+}
+
+#youtube-player.active {
+  height: 270px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+}
+
 .current-video-all {
   padding: 0px 10px;
   display: inline-block;
@@ -570,64 +584,6 @@ input[type="radio"]:checked + label .round-check:after {
   transform: scale(0.8);
 }
 
-.open-menu {
-  background: transparent;
-  color: #ffffff;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  outline: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10px;
-  transition: all 0.1s ease-out;
-}
-
-.open-menu .fa {
-  font-size: 18px;
-}
-
-.open-menu:hover {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.open-menu:active {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.close-menu {
-  background: transparent;
-  color: #000;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  outline: 0;
-  position: absolute;
-  top: 25px;
-  transform: translateY(-50%);
-  right: 10px;
-  transition: all 0.1s ease-out;
-}
-
-.close-menu .fa {
-  font-size: 18px;
-}
-
-.close-menu:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.close-menu:active {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
 #logo {
   cursor: pointer;
   transition: all 0.1s ease-out;
@@ -650,16 +606,46 @@ input[type="radio"]:checked + label .round-check:after {
 
 .app-head {
   height: 100px;
-  display: block;
+  display: flex;
+  padding: 30px 20px 0 20px;
 }
 
-.app-head p {
+.app-head > p {
   font-size: 28px;
   text-transform: uppercase;
   display: block;
   margin: 0;
-  padding: 30px 20px 0 20px;
   font-weight: 300;
+}
+
+.app-head .settings {
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.app-head .settings .fa {
+  margin-right: 3px;
+}
+
+.app-head .settings p {
+  margin: 0;
+  opacity: 0.3;
+  cursor: pointer;
+  display: inline-block;
+  transition: 0.1s ease-out;
+}
+
+.app-head .settings p + p {
+  margin-left: 10px;
+}
+
+.app-head .settings p:hover {
+  opacity: 1;
+}
+
+.app-head .settings p.active {
+  opacity: 1;
+  color: #e52d27;
 }
 
 #settingsForm {
@@ -857,8 +843,9 @@ iframe {
   top: inherit;
   bottom: 0;
   max-height: none;
-  height: calc(100% - 380px);
+  height: calc(100% - 110px);
   width: 100%;
+  transition: height 0.1s ease-out 0.1s;
 }
 
 #related-video-list .video-item {
@@ -901,6 +888,11 @@ iframe {
 #related-video-list .related-video-content::-webkit-scrollbar-thumb {
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+#related-video-list.activePlayer {
+  height: calc(100% - 380px);
+  transition: height 0.1s ease-out 0s;
 }
 
 #feed-video-list {

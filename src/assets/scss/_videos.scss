@@ -73,8 +73,9 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 380px);
+    height: calc(100% - 110px);
     width: 100%;
+    transition: height 0.1s ease-out 0.1s;
     .video-item {
         display: flex;
         background-color: transparent;
@@ -111,6 +112,10 @@ iframe {
             border-radius: 20px;
             background-color: rgba($c-black, 0.3);
         }
+    }
+    &.activePlayer {
+        height: calc(100% - 380px);
+        transition: height 0.1s ease-out 0s;
     }
 }
 

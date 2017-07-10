@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   feedVideos: Array<any>;
 
   debuggingInfo = false;
+  displayVideoPlayer = true;
+  repeatMode = true;
   regionCode: string;
 
   player: YT.Player;
@@ -120,12 +122,32 @@ export class AppComponent implements OnInit {
   }
 
   toggleMute() {
-    if (this.currentMuteState) {
-      this.player.unMute();
-      this.currentMuteState = false;
-    } else {
-      this.player.mute();
-      this.currentMuteState = true;
+
+  }
+
+  toggleHeadSettings(int: number) {
+    if (int === 0) {
+      if (this.displayVideoPlayer) {
+        this.displayVideoPlayer = false;
+      } else {
+        this.displayVideoPlayer = true;
+      }
+    }
+    if (int === 1) {
+      if (this.repeatMode) {
+        this.repeatMode = false;
+      } else {
+        this.repeatMode = true;
+      }
+    }
+    if (int === 2) {
+      if (this.currentMuteState) {
+        this.player.unMute();
+        this.currentMuteState = false;
+      } else {
+        this.player.mute();
+        this.currentMuteState = true;
+      }
     }
   }
 
@@ -146,6 +168,9 @@ export class AppComponent implements OnInit {
 
     if (this.currentState === 0) {
       this.stopRange();
+      if (this.repeatMode) {
+        this.player.playVideo();
+      }
     }
   }
 
