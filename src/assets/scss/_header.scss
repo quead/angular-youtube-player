@@ -73,26 +73,38 @@
         .settings {
             margin-left: auto;
             margin-top: 10px;
-            .fa {
-                margin-right: 3px;
-            }
-            p {
-                margin: 0;
-                opacity: 0.3;
-                cursor: pointer;
-                display: inline-block;
-                transition: 0.1s ease-out;
-                + p {
-                    margin-left: 10px;
-                }
-                &:hover {
-                    opacity: 1;
-                }
-                &.active {
-                    opacity: 1;
-                    color: $c-primary;
-                }
-            }
+        }
+    }
+}
+
+.settings {
+    .fa {
+        margin-right: 3px;
+    }
+    p {
+        margin: 0;
+        opacity: 0.3;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.1s ease-out;
+        + p {
+            margin-left: 10px;
+        }
+        &:hover {
+            opacity: 1;
+        }
+        &.active {
+            opacity: 1;
+            color: $c-primary;
+        }
+    }
+    #toggle-repeat-mode {
+        .fa {
+            transform: rotate(0deg);
+            transition: transform 0.1s ease-out;
+        }
+        &.active .fa {
+            transform: rotate(180deg);
         }
     }
 }

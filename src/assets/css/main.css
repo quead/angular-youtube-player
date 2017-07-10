@@ -623,29 +623,38 @@ input[type="radio"]:checked + label .round-check:after {
   margin-top: 10px;
 }
 
-.app-head .settings .fa {
+.settings .fa {
   margin-right: 3px;
 }
 
-.app-head .settings p {
+.settings p {
   margin: 0;
   opacity: 0.3;
   cursor: pointer;
   display: inline-block;
-  transition: 0.1s ease-out;
+  transition: all 0.1s ease-out;
 }
 
-.app-head .settings p + p {
+.settings p + p {
   margin-left: 10px;
 }
 
-.app-head .settings p:hover {
+.settings p:hover {
   opacity: 1;
 }
 
-.app-head .settings p.active {
+.settings p.active {
   opacity: 1;
   color: #e52d27;
+}
+
+.settings #toggle-repeat-mode .fa {
+  transform: rotate(0deg);
+  transition: transform 0.1s ease-out;
+}
+
+.settings #toggle-repeat-mode.active .fa {
+  transform: rotate(180deg);
 }
 
 #settingsForm {
