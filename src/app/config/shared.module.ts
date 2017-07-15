@@ -22,7 +22,7 @@ export class SharedService {
             if (this.feedVideos) {
                 observer.next(this.feedVideos);
                 return observer.complete();
-            } 
+            }
             this.getSettings().subscribe(data => {
                 this.setApiSettings();
                 this.settings = data;

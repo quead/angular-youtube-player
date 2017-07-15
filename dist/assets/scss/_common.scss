@@ -1,0 +1,135 @@
+.loading-app {
+    position: fixed;
+    color: $c-primary;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+@keyframes loading-animation {
+  0% { opacity: 0; width: 0% }
+  20% { opacity: 1; }
+  80% { opacity: 1; } 
+  100% { opacity: 0; width: 100%; }
+}
+
+.loading-bar {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    &:before {
+        content: '';
+        display: block;
+        margin: 0;
+        padding: 0;
+        z-index: 99998;
+        background-color: $c-primary;
+        color: $c-primary;
+        box-shadow: 0 0 10px 0;
+        height: 2px;
+        opacity: 0;
+        width: 0%;
+        transition: all 0.5s ease-in-out;
+    }
+    &.active {
+        &:before {
+            animation: loading-animation 2s 1;
+        }
+    }
+}
+
+.loading-region {
+    position: absolute;
+    right: 165px;
+    color: $c-gray;
+}
+
+.debugging-info {
+    display: none;
+    color: $c-white;
+    &.active {
+        display: block;
+    }
+}
+
+.fa-color-danger {
+    color: $c-primary;
+}
+
+.fa-color-info {
+    color: $c-secondary;
+}
+
+.alert {
+    padding: .75rem 1.25rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    .fa {
+        margin-right: 10px;
+    }
+    &.alert-danger {
+        background-color: rgba($c-primary, 0.2);
+        color: darken($c-primary, 10%);
+        a {
+            color: inherit;
+        }
+    }
+    &.alert-info {
+        background-color: rgba($c-secondary, 0.2);
+        color: darken($c-secondary, 10%);
+        a {
+            color: inherit;
+        }
+    }
+}
+
+.app {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: $c-black;
+    &-content {
+        height: calc(100% - 100px);
+        width: 100%;
+        display: block;
+        position: absolute;
+        overflow: auto;
+        bottom: 0;
+    }
+    &-services {        
+        background: darken($c-gray, 10%);
+        .app-head {
+            position: relative;
+        }
+    }
+    &-feed {
+        box-shadow: rgba($c-black, 0.03) 0 0 10px 5px;
+        z-index: 1;
+        .app-content {
+            padding: 0 20px;
+            background: $c-white;
+        }
+    }
+    &-player {
+        background-color: $c-white;
+        color: $c-black;
+    }
+}
+
+#youtube-player {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
+    &.active {
+        height: 270px;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+    }
+}

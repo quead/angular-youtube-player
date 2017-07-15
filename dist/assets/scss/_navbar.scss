@@ -1,0 +1,54 @@
+#settingsForm {
+    margin-top: 0;
+    input[type="checkbox"],
+    input[type="radio"] {
+        display: none;
+    }
+    label {
+        position: relative;
+        cursor: pointer;
+        display: block;
+    }
+    .form-group {
+        padding: 5px 0;
+    }
+}
+
+nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        padding-left: 15px;
+    }
+    a {
+        display: block;
+        text-decoration: none;
+        color: $c-white;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 5px 15px;
+        margin: 10px 0;
+        transition: all 0.1s ease-out;
+        border-left: 3px solid transparent;
+        .fa {
+            margin-right: 10px;
+        }
+        &:hover {
+            color: $c-primary;
+        }
+        &:active {
+            border-left-color: $c-primary;
+            color: $c-white;
+        }
+        &.is-active {
+            border-left-color: $c-primary;
+            color: $c-white;
+            &:hover {
+                color: $c-primary;
+            }
+        }
+    }
+}
