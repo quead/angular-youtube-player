@@ -43,6 +43,12 @@
     }
 }
 
+.loading-region {
+    position: absolute;
+    right: 165px;
+    color: $c-gray;
+}
+
 .debugging-info {
     display: none;
     color: $c-white;
@@ -55,16 +61,27 @@
     color: $c-primary;
 }
 
+.fa-color-info {
+    color: $c-secondary;
+}
+
 .alert {
     padding: .75rem 1.25rem;
     margin: 1rem 0;
+    border-radius: 5px;
     .fa {
         margin-right: 10px;
     }
     &.alert-danger {
         background-color: rgba($c-primary, 0.2);
         color: darken($c-primary, 10%);
-        border-radius: 5px;
+        a {
+            color: inherit;
+        }
+    }
+    &.alert-info {
+        background-color: rgba($c-secondary, 0.2);
+        color: darken($c-secondary, 10%);
         a {
             color: inherit;
         }

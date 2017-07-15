@@ -13,7 +13,6 @@ import 'rxjs/add/operator/map';
 export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
-
   searchVideoImage = false;
 
   videos: any;
@@ -21,6 +20,8 @@ export class SearchComponent implements OnInit {
 
   _shared: any;
   _app: any;
+
+  private listGrid = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
@@ -96,6 +97,14 @@ export class SearchComponent implements OnInit {
   setSettings(data: any, from: number) {
     if (from === 0) {
       this.searchVideoImage = data[from].value;
+    }
+  }
+
+  toggleList(int: number) {
+    if (int === 1) {
+      this.listGrid = false;
+    } else {
+      this.listGrid = true;
     }
   }
 

@@ -122,13 +122,14 @@ iframe {
 #feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 70px);
+    height: calc(100% - 100px);
     width: calc(100% - 20px);
     max-height: none;
     left: 0;
+    padding-left: 15px;
     .video-item {
         background-color: transparent;
-        padding: 10px 20px;
+        padding: 10px 5px;
         border-bottom: none;
     }
     &::-webkit-scrollbar-track {
@@ -145,6 +146,21 @@ iframe {
         background-color: rgba($c-black, 0.1);
         &:hover {
             background-color: rgba($c-black, 0.6);
+        }
+    }
+    &.grid-list {
+        display: flex;
+        flex-wrap: wrap;
+        .video-item {
+            width: 20%;
+            display: block;
+            padding: 0 5px;
+            .video-item-image {
+                margin: 0;
+            }
+            .video-item-content {
+                margin: 5px 0 15px 0;
+            }
         }
     }
 }

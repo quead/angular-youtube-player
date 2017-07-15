@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
 import { SharedService } from '../config/shared.module';
@@ -28,6 +28,7 @@ export class SettingsComponent implements OnInit {
     private regionCode: string;
     private numSearchRes: string;
     private numRelatedRes: string;
+    private loadingRegion = false;
 
     constructor(
         private fb: FormBuilder,
@@ -49,8 +50,7 @@ export class SettingsComponent implements OnInit {
 
     setForm() {
         this.settingsForm = this._fb.group({
-            settings: this.mapSettings(),
-            RegionSettings: this.regionCode
+            settings: this.mapSettings()
         });
         this.checkInputs();
     }
@@ -89,8 +89,12 @@ export class SettingsComponent implements OnInit {
     }
 
     changeRegion(data: any) {
+        this.loadingRegion = true;
         this._shared.settings.api_settings[1].value = data;
         this._shared.setApiSettings();
-        console.log(this.shared.settings);
+        this._shared.feedVideos = null;
+        this._app.getSettings();
+        this._app.getFeedVideos();
+        setTimeout(() => this.loadingRegion = false, 3000);
     }
 }

@@ -89,10 +89,12 @@ export class AppComponent implements OnInit {
   }
 
   getFeedVideos() {
-      this._shared.getFeed().subscribe(data => {
-          this.feedVideos = data;
-          this.setDefaultPlayer();
-      });
+    this._shared.getFeed().subscribe(data => {
+      this.feedVideos = data;
+      if (typeof this.currentVideoID === 'undefined') {
+        this.setDefaultPlayer();
+      }
+    });
   }
 
   getRelatedVideos() {
@@ -107,12 +109,10 @@ export class AppComponent implements OnInit {
   }
 
   setDefaultPlayer() {
-      if (this.currentState < 0) {
-        this.feedVideos = this._shared.feedVideos;
-        this.currentVideoID = this.feedVideos[0].id;
-        this.currentVideoName = this.feedVideos[0].snippet.title;
-        this.getRelatedVideos();
-      }
+      this.feedVideos = this._shared.feedVideos;
+      this.currentVideoID = this.feedVideos[0].id;
+      this.currentVideoName = this.feedVideos[0].snippet.title;
+      this.getRelatedVideos();
   }
 
   setSettings(data: any, from: number) {
@@ -189,6 +189,7 @@ export class AppComponent implements OnInit {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
       this._ref.markForCheck();
+      console.log('test');
     }, 1000);
   }
 

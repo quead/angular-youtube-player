@@ -195,6 +195,12 @@ a:active {
   animation: loading-animation 2s 1;
 }
 
+.loading-region {
+  position: absolute;
+  right: 165px;
+  color: #111111;
+}
+
 .debugging-info {
   display: none;
   color: #ffffff;
@@ -208,9 +214,14 @@ a:active {
   color: #e52d27;
 }
 
+.fa-color-info {
+  color: #167ac6;
+}
+
 .alert {
   padding: .75rem 1.25rem;
   margin: 1rem 0;
+  border-radius: 5px;
 }
 
 .alert .fa {
@@ -220,10 +231,18 @@ a:active {
 .alert.alert-danger {
   background-color: rgba(229, 45, 39, 0.2);
   color: #c21d17;
-  border-radius: 5px;
 }
 
 .alert.alert-danger a {
+  color: inherit;
+}
+
+.alert.alert-info {
+  background-color: rgba(22, 122, 198, 0.2);
+  color: #115e98;
+}
+
+.alert.alert-info a {
   color: inherit;
 }
 
@@ -517,6 +536,7 @@ input[type="radio"]:checked + label .round-check:after {
 .form-text {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .form-select .form-field,
@@ -534,7 +554,9 @@ input[type="radio"]:checked + label .round-check:after {
   user-select: none;
 }
 
+.form-select .fa-color-info,
 .form-select .fa-color-danger,
+.form-text .fa-color-info,
 .form-text .fa-color-danger {
   margin-left: 10px;
 }
@@ -772,6 +794,20 @@ nav a.is-active:hover {
   transform: translateY(-50%) scale(0);
 }
 
+#main-search .settings {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+
+#main-search #toggle-list-mode {
+  height: 17px;
+}
+
+#main-search #toggle-list-mode p {
+  margin: 0 0 0 10px;
+}
+
 .video-list {
   position: absolute;
   width: 100%;
@@ -907,15 +943,16 @@ iframe {
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 70px);
+  height: calc(100% - 100px);
   width: calc(100% - 20px);
   max-height: none;
   left: 0;
+  padding-left: 15px;
 }
 
 #feed-video-list .video-item {
   background-color: transparent;
-  padding: 10px 20px;
+  padding: 10px 5px;
   border-bottom: none;
 }
 
@@ -935,4 +972,23 @@ iframe {
 
 #feed-video-list::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.6);
+}
+
+#feed-video-list.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#feed-video-list.grid-list .video-item {
+  width: 20%;
+  display: block;
+  padding: 0 5px;
+}
+
+#feed-video-list.grid-list .video-item .video-item-image {
+  margin: 0;
+}
+
+#feed-video-list.grid-list .video-item .video-item-content {
+  margin: 5px 0 15px 0;
 }

@@ -8,8 +8,9 @@
             <label [attr.for]="'setting-' + i">{{ settings[i].name }}<span class="round-check"></span></label>
         </div>
         <div class="form-group form-select">
-            <label for="val-search-results">Trending sort by country</label>
-            <select class="form-field" [value]="regionCode" [formControl]="RegionSettings" (change)="changeRegion($event.target.value)">
+            <label for="val-search-results">Set trending country</label>
+            <span *ngIf="loadingRegion" class="loading-region fa fa-circle-o-notch fa-spin fa-fw"></span>
+            <select class="form-field" [value]="regionCode" (change)="changeRegion($event.target.value)" [disabled]="loadingRegion">
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="RO">Romania</option>
@@ -31,7 +32,10 @@
             <span class="fa fa-exclamation-circle fa-color-danger"></span>
         </div>
         <div class="alert alert-danger" role="alert">
-            <span class="fa fa-exclamation-circle"></span>All marked fields you can change in next version (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). Now you can only change it from "assets/settings.json".
+            <span class="fa fa-exclamation-circle"></span>All marked fields you can change in upcoming verions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). Now you can only change it from "assets/settings.json".
+        </div>
+        <div class="alert alert-info" role="alert">
+            <span class="fa fa-info-circle"></span>The settings will be saved in upcoming versions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). You can set default settings from "assets/settings.json".
         </div>
     </form>
 </div>

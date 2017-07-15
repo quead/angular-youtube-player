@@ -8,7 +8,7 @@ export class YoutubeGetVideo {
 
     private apiKey: string;
     private url = 'https://www.googleapis.com/youtube/v3/';
-    private regionCode: string;
+    public regionCode: string;
     private numSearchRes: string;
     private numRelatedRes: string;
     private videoDetails = 'part=snippet,contentDetails,statistics,status';
@@ -28,23 +28,20 @@ export class YoutubeGetVideo {
     }
 
     searchVideo(query: string) {
-        if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=' + this.numSearchRes + '&type=video&key=' + this.apiKey)
-                .map(response => response.json());
-        }
+        return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=' + this.numSearchRes + '&type=video&key=' + this.apiKey)
+            .map(response => response.json());
+        
     }
 
     relatedVideos(query: string) {
-        if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults='+ this.numRelatedRes +'&type=video&key=' + this.apiKey)
-                .map(response => response.json());
-        }
+        return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults='+ this.numRelatedRes +'&type=video&key=' + this.apiKey)
+            .map(response => response.json());
+        
     }
 
     feedVideos() {
-        if (this.apiKey) {
-            return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)
-                .map(response => response.json());
-        }
+        return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)
+            .map(response => response.json());
+    
     }    
 }
