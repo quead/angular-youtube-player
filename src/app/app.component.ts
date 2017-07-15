@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
   feedVideos: Array<any>;
 
   debuggingInfo = false;
+  displayVideoPlayer = true;
+  repeatMode = true;
+  regionCode: string;
 
   player: YT.Player;
   currentVideoID: string;
@@ -49,8 +52,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
       console.log('app comp');
-      this.getFeedVideos();
       this.getSettings();
+      this.getFeedVideos();
   }
 
   onClickRelated(event: Event, i: number) {
@@ -68,8 +71,11 @@ export class AppComponent implements OnInit {
 
   playerVars() {
     const playerVars = {
+      'enablejsapi': 1,
       'controls': 0,
-      'disablekb': 1,
+      'disablekb': 0,
+      'showinfo': 0,
+      'playsinline': 1,
       'rel': 0
     };
     return playerVars;
@@ -77,19 +83,18 @@ export class AppComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-      if (data) {
-        this.debuggingInfo = data[0].selected;
-      }
+        this.debuggingInfo = data.form_settings[0].value;
+        this.regionCode = data.api_settings[1].value;
     });
   }
 
   getFeedVideos() {
-      this._shared.getFeed().subscribe(data => {
-        if (data) {
-          this.feedVideos = data;
-          this.setDefaultPlayer();
-        }
-      });
+    this._shared.getFeed().subscribe(data => {
+      this.feedVideos = data;
+      if (typeof this.currentVideoID === 'undefined') {
+        this.setDefaultPlayer();
+      }
+    });
   }
 
   getRelatedVideos() {
@@ -104,27 +109,45 @@ export class AppComponent implements OnInit {
   }
 
   setDefaultPlayer() {
-      if (this.currentState < 0) {
-        this.feedVideos = this._shared.feedVideos;
-        this.currentVideoID = this.feedVideos[0].id;
-        this.currentVideoName = this.feedVideos[0].snippet.title;
-        this.getRelatedVideos();
-      }
+      this.feedVideos = this._shared.feedVideos;
+      this.currentVideoID = this.feedVideos[0].id;
+      this.currentVideoName = this.feedVideos[0].snippet.title;
+      this.getRelatedVideos();
   }
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.debuggingInfo = data[from].selected;
+      this.debuggingInfo = data[from].value;
     }
   }
 
   toggleMute() {
-    if (this.currentMuteState) {
-      this.player.unMute();
-      this.currentMuteState = false;
-    } else {
-      this.player.mute();
-      this.currentMuteState = true;
+
+  }
+
+  toggleHeadSettings(int: number) {
+    if (int === 0) {
+      if (this.displayVideoPlayer) {
+        this.displayVideoPlayer = false;
+      } else {
+        this.displayVideoPlayer = true;
+      }
+    }
+    if (int === 1) {
+      if (this.repeatMode) {
+        this.repeatMode = false;
+      } else {
+        this.repeatMode = true;
+      }
+    }
+    if (int === 2) {
+      if (this.currentMuteState) {
+        this.player.unMute();
+        this.currentMuteState = false;
+      } else {
+        this.player.mute();
+        this.currentMuteState = true;
+      }
     }
   }
 
@@ -145,6 +168,9 @@ export class AppComponent implements OnInit {
 
     if (this.currentState === 0) {
       this.stopRange();
+      if (this.repeatMode) {
+        this.player.playVideo();
+      }
     }
   }
 
@@ -163,6 +189,7 @@ export class AppComponent implements OnInit {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
       this._ref.markForCheck();
+      console.log('test');
     }, 1000);
   }
 

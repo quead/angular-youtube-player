@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
 import { SharedService } from '../config/shared.module';
@@ -21,10 +21,14 @@ export class SettingsComponent implements OnInit {
     _search: any;
 
     settingsForm: FormGroup;
+    RegionSettings = new FormControl();
 
-    playerAttr = {
-        settings: []
-    };
+    private settings: Array<any>;
+    private apiKey: string;
+    private regionCode: string;
+    private numSearchRes: string;
+    private numRelatedRes: string;
+    private loadingRegion = false;
 
     constructor(
         private fb: FormBuilder,
@@ -56,31 +60,41 @@ export class SettingsComponent implements OnInit {
     };
 
     checkInputs() {
-        this._shared.settings = this.playerAttr.settings;
         this.settingsForm.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
-                this.playerAttr.settings[i].selected = data.settings[i];
+                this.settings[i].value = data.settings[i];
             });
-            this._app.setSettings(this.playerAttr.settings, 0);
-            this._search.setSettings(this.playerAttr.settings, 1);
+            this._app.setSettings(this.settings, 0);
+            this._search.setSettings(this.settings, 1);
         });
     }
 
     mapSettings() {
-        const arr = this.playerAttr.settings.map(s => {
-            return this._fb.control(s.selected);
+        const arr = this.settings.map(s => {
+            return this._fb.control(s.value);
         });
         return this.fb.array(arr);
     }
 
     getDefaultSettings() {
         this._shared.getSettings().subscribe(data => {
-            if (data) {
-                this.playerAttr.settings = data;
-                this.finished = true;
-                this.setForm();
-            }
+            this.settings = data.form_settings;
+            this.apiKey = data.api_settings[0].value;
+            this.regionCode = data.api_settings[1].value;
+            this.numSearchRes = data.api_settings[2].value;
+            this.numRelatedRes = data.api_settings[3].value;
+            this.finished = true;
+            this.setForm();
         });
     }
 
+    changeRegion(data: any) {
+        this.loadingRegion = true;
+        this._shared.settings.api_settings[1].value = data;
+        this._shared.setApiSettings();
+        this._shared.feedVideos = null;
+        this._app.getSettings();
+        this._app.getFeedVideos();
+        setTimeout(() => this.loadingRegion = false, 3000);
+    }
 }

@@ -13,7 +13,6 @@ import 'rxjs/add/operator/map';
 export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
-
   searchVideoImage = false;
 
   videos: any;
@@ -21,6 +20,8 @@ export class SearchComponent implements OnInit {
 
   _shared: any;
   _app: any;
+
+  private listGrid = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
@@ -33,9 +34,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
+    this.getSettings();
     this.searchFunction();
     this.getFeedVideos();
-    this.getSettings();
   }
 
   searchFunction() {
@@ -61,17 +62,13 @@ export class SearchComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-      if (data) {
-        this.searchVideoImage = data[1].selected;
-      }
+        this.searchVideoImage = data.form_settings[1].value;
     });
   }
 
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
-        if (data) {
           this.feedVideos = data;
-        }
       });
   }
 
@@ -99,7 +96,15 @@ export class SearchComponent implements OnInit {
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.searchVideoImage = data[from].selected;
+      this.searchVideoImage = data[from].value;
+    }
+  }
+
+  toggleList(int: number) {
+    if (int === 1) {
+      this.listGrid = false;
+    } else {
+      this.listGrid = true;
     }
   }
 

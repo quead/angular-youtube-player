@@ -4,7 +4,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -58,6 +58,16 @@ Just take files from ***dist*** folder
 
 ## Changelog
 
+Angular2 YT Player v1.3
+ - Show/hide video player
+ - Repeat video
+ - Grid/list mode for trending videos
+- **Settings (It will work when you can save the settings because now isn't relevant, (you can set default from "assets/settings.json")**
+- *Change country for trending feed (currently only three countries, US, UK and RO)*
+- *Max results show in search (0 to 50)*
+- *YOUR_API Key*
+- *Max related videos (0 to 50)*
+
 Angular2 YT Player v1.2
 - Introducing trending videos, currently default trending videos are from United States
 - Refactoring the code
@@ -85,12 +95,12 @@ Angular2 YT Player v1.0.0
 - Change time of your video that you want to listen
 
 ## Future features
-- Repeat mode **(in v1.3)**
-- Grid/list mode for trending videos **(in v1.3)**
+#### Roadmap to 2.0
 - Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.6)**
 - Share link for current video and related videos **(in v1.6)** 
 - Share link for current video at your playing time **(in v1.6)**
-- Notifications for important actions you do **(in v1.6)**
+- Notifications for important actions you do **(in v1.7)**
+- Change and create theme **(in v1.7)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
@@ -98,13 +108,15 @@ Angular2 YT Player v1.0.0
 - Save your playlists **(unversioned)**
 - History of your watched videos **(unversioned)**
 - **Settings**
-- *Change country for trending feed **(in v1.3)***
-- *Show/hide video player **(possible in v1.3)***
-- *Set how many results to show in search (0 to 50) **(in v1.3)***
-- *Enable loop video **(in v1.3)***
-- *Change/add YOUR_API Key **(in v1.3)***
-- *Max related videos (0 to 50) **(in v1.3)***
 - *Save your settings **(unversioned)***
+
+#### Roadmap to 3.0
+- **Rooms (in v3.0)**
+- *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
+- *Set private/public room **(in v3.0)***
+- *List of public rooms **(in v3.0)***
+- *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v3.3)***
+- *Room chat, **(unversioned)***
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

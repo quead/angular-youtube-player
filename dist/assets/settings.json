@@ -1,7 +1,26 @@
-[{
-  "name": "Toggle Debugging Info",
-  "selected": false
-}, {
-  "name": "Toggle Search Thumbnails",
-  "selected": true
-}]
+{
+  "form_settings": [
+    {
+      "name": "Toggle Debugging Info",
+      "value": false
+    }, {
+      "name": "Toggle Search Thumbnails",
+      "value": true
+    }
+  ],
+  "api_settings": [
+    {
+      "name": "Api key",
+      "value": "AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc"
+    }, {
+      "name": "Country trending",
+      "value": "RO"
+    }, {
+      "name": "Number of search results",
+      "value": 15
+    }, {
+      "name": "Number of related results",
+      "value": 15
+    }
+  ]
+}

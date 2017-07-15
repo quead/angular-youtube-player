@@ -5,7 +5,37 @@
     <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
         <div *ngFor="let setting of getSettings.controls; let i=index" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>
-            <label [attr.for]="'setting-' + i">{{playerAttr.settings[i].name}}<span class="round-check"></span></label>
+            <label [attr.for]="'setting-' + i">{{ settings[i].name }}<span class="round-check"></span></label>
+        </div>
+        <div class="form-group form-select">
+            <label for="val-search-results">Set trending country</label>
+            <span *ngIf="loadingRegion" class="loading-region fa fa-circle-o-notch fa-spin fa-fw"></span>
+            <select class="form-field" [value]="regionCode" (change)="changeRegion($event.target.value)" [disabled]="loadingRegion">
+                <option value="US">United States</option>
+                <option value="GB">United Kingdom</option>
+                <option value="RO">Romania</option>
+            </select>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-api-key">Api Key</label>
+            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" [value]="apiKey" disabled>
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-search-results">Results for search (Max. 50)</label>
+            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" [value]="numSearchRes" disabled>
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="form-group form-text">
+            <label for="val-related-results">Results for related videos (Max. 50)</label>
+            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" [value]="numRelatedRes" disabled>
+            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+        </div>
+        <div class="alert alert-danger" role="alert">
+            <span class="fa fa-exclamation-circle"></span>All marked fields you can change in upcoming verions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). Now you can only change it from "assets/settings.json".
+        </div>
+        <div class="alert alert-info" role="alert">
+            <span class="fa fa-info-circle"></span>The settings will be saved in upcoming versions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). You can set default settings from "assets/settings.json".
         </div>
     </form>
 </div>

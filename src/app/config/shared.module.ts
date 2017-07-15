@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SharedService {
 
-    feedVideos: Array<Object>;
+    public feedVideos: Array<Object>;
     settings: Array<Object>;
 
     constructor(
@@ -22,7 +22,10 @@ export class SharedService {
             if (this.feedVideos) {
                 observer.next(this.feedVideos);
                 return observer.complete();
-            } else {
+            }
+            this.getSettings().subscribe(data => {
+                this.setApiSettings();
+                this.settings = data;
                 this.youtube.feedVideos().subscribe(
                     result => {
                         this.feedVideos = result.items;
@@ -33,7 +36,7 @@ export class SharedService {
                         console.log('error on feed videos' + error);
                     }
                 );
-            }
+            });
         });
     }
 
@@ -57,5 +60,9 @@ export class SharedService {
                 );
             }
         });
+    }
+
+    setApiSettings() {
+        this.youtube.defaultApiSet(this.settings);
     }
 }

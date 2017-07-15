@@ -40,60 +40,6 @@
     }
 }
 
-.open-menu {
-    background: transparent;
-    color: $c-white;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    outline: 0;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 10px;
-    transition: all 0.1s ease-out;
-    .fa {
-        font-size: $f-18;
-    }
-    &:hover {
-        background-color: rgba($c-black, 0.15);
-    }
-    &:active {
-        background-color: rgba($c-black, 0.3);
-    }
-}
-
-.close-menu {
-    background: transparent;
-    color: $c-black;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    outline: 0;
-    position: absolute;
-    top: 25px;
-    transform: translateY(-50%);
-    right: 10px;
-    transition: all 0.1s ease-out;
-    .fa {
-        font-size: $f-18;
-    }
-    &:hover {
-        background-color: rgba($c-black, 0.05);
-    }
-    &:active {
-        background-color: rgba($c-black, 0.15);
-    }
-}
-
-// app-yt-2
-
 #logo {
     cursor: pointer;
     transition: all 0.1s ease-out;
@@ -103,20 +49,62 @@
     transform: translate(-50%, -50%);
     &:hover {
         transform: translate(-50%, -50%) scale(1.1);
-    }    
+    }
+    small {
+        position: absolute;
+        left: calc(100% + 5px);
+        top: 0;
+        color: $c-white;
+    }
 }
 
 .app {
     &-head {
         height: 100px;
-        display: block;
-        p {
+        display: flex;
+        padding: 30px 20px 0 20px;
+        > p {
             font-size: 28px;
             text-transform: uppercase;
             display: block;
             margin: 0;
-            padding: 30px 20px 0 20px;
             font-weight: 300;
+        }
+        .settings {
+            margin-left: auto;
+            margin-top: 10px;
+        }
+    }
+}
+
+.settings {
+    .fa {
+        margin-right: 3px;
+    }
+    p {
+        margin: 0;
+        opacity: 0.3;
+        cursor: pointer;
+        display: inline-block;
+        transition: all 0.1s ease-out;
+        + p {
+            margin-left: 10px;
+        }
+        &:hover {
+            opacity: 1;
+        }
+        &.active {
+            opacity: 1;
+            color: $c-primary;
+        }
+    }
+    #toggle-repeat-mode {
+        .fa {
+            transform: rotate(0deg);
+            transition: transform 0.1s ease-out;
+        }
+        &.active .fa {
+            transform: rotate(180deg);
         }
     }
 }

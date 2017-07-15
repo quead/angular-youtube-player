@@ -44,4 +44,15 @@
             transform: translateY(-50%) scale(0);
         }
     }
+    .settings {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+    }
+    #toggle-list-mode {
+        height: 17px;
+        p {
+            margin: 0 0 0 10px;
+        }
+    }
 }

@@ -195,6 +195,12 @@ a:active {
   animation: loading-animation 2s 1;
 }
 
+.loading-region {
+  position: absolute;
+  right: 165px;
+  color: #111111;
+}
+
 .debugging-info {
   display: none;
   color: #ffffff;
@@ -204,50 +210,40 @@ a:active {
   display: block;
 }
 
-.round-check {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: block;
+.fa-color-danger {
+  color: #e52d27;
 }
 
-.round-check:before {
-  content: '';
-  display: block;
-  background-color: #e6e6e6;
-  height: 20px;
-  width: 40px;
-  border-radius: 50px;
-  transition: background-color 0.2s ease-out;
+.fa-color-info {
+  color: #167ac6;
 }
 
-.round-check:after {
-  content: '';
-  position: absolute;
-  display: block;
-  background-color: #ffffff;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  z-index: 1;
-  left: 2px;
-  top: 2px;
-  transition: left 0.2s ease-out;
+.alert {
+  padding: .75rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 5px;
 }
 
-input[type="checkbox"]:checked + label .round-check:before,
-input[type="radio"]:checked + label .round-check:before {
-  background-color: #e52d27;
+.alert .fa {
+  margin-right: 10px;
 }
 
-input[type="checkbox"]:checked + label .round-check:after,
-input[type="radio"]:checked + label .round-check:after {
-  left: 22px;
-  background-color: #ffffff;
+.alert.alert-danger {
+  background-color: rgba(229, 45, 39, 0.2);
+  color: #c21d17;
 }
 
-.app-yt-2 {
-  height: 100%;
+.alert.alert-danger a {
+  color: inherit;
+}
+
+.alert.alert-info {
+  background-color: rgba(22, 122, 198, 0.2);
+  color: #115e98;
+}
+
+.alert.alert-info a {
+  color: inherit;
 }
 
 .app {
@@ -287,6 +283,20 @@ input[type="radio"]:checked + label .round-check:after {
 .app-player {
   background-color: #ffffff;
   color: #000;
+}
+
+#youtube-player {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
+}
+
+#youtube-player.active {
+  height: 270px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
 }
 
 .current-video-all {
@@ -480,6 +490,77 @@ input[type="radio"]:checked + label .round-check:after {
   width: 0% !important;
 }
 
+.round-check {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+}
+
+.round-check:before {
+  content: '';
+  display: block;
+  background-color: #e6e6e6;
+  height: 20px;
+  width: 40px;
+  border-radius: 50px;
+  transition: background-color 0.2s ease-out;
+}
+
+.round-check:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background-color: #ffffff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  z-index: 1;
+  left: 2px;
+  top: 2px;
+  transition: left 0.2s ease-out;
+}
+
+input[type="checkbox"]:checked + label .round-check:before,
+input[type="radio"]:checked + label .round-check:before {
+  background-color: #e52d27;
+}
+
+input[type="checkbox"]:checked + label .round-check:after,
+input[type="radio"]:checked + label .round-check:after {
+  left: 22px;
+  background-color: #ffffff;
+}
+
+.form-select,
+.form-text {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.form-select .form-field,
+.form-text .form-field {
+  margin-left: auto;
+  padding: 10px 15px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-select .form-field:disabled,
+.form-text .form-field:disabled {
+  background-color: #fafafa;
+  cursor: no-drop;
+  user-select: none;
+}
+
+.form-select .fa-color-info,
+.form-select .fa-color-danger,
+.form-text .fa-color-info,
+.form-text .fa-color-danger {
+  margin-left: 10px;
+}
+
 .win-controls {
   margin-left: auto;
   display: flex;
@@ -525,64 +606,6 @@ input[type="radio"]:checked + label .round-check:after {
   transform: scale(0.8);
 }
 
-.open-menu {
-  background: transparent;
-  color: #ffffff;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  outline: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10px;
-  transition: all 0.1s ease-out;
-}
-
-.open-menu .fa {
-  font-size: 18px;
-}
-
-.open-menu:hover {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
-.open-menu:active {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.close-menu {
-  background: transparent;
-  color: #000;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  outline: 0;
-  position: absolute;
-  top: 25px;
-  transform: translateY(-50%);
-  right: 10px;
-  transition: all 0.1s ease-out;
-}
-
-.close-menu .fa {
-  font-size: 18px;
-}
-
-.close-menu:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.close-menu:active {
-  background-color: rgba(0, 0, 0, 0.15);
-}
-
 #logo {
   cursor: pointer;
   transition: all 0.1s ease-out;
@@ -596,18 +619,64 @@ input[type="radio"]:checked + label .round-check:after {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-.app-head {
-  height: 100px;
-  display: block;
+#logo small {
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 0;
+  color: #ffffff;
 }
 
-.app-head p {
+.app-head {
+  height: 100px;
+  display: flex;
+  padding: 30px 20px 0 20px;
+}
+
+.app-head > p {
   font-size: 28px;
   text-transform: uppercase;
   display: block;
   margin: 0;
-  padding: 30px 20px 0 20px;
   font-weight: 300;
+}
+
+.app-head .settings {
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.settings .fa {
+  margin-right: 3px;
+}
+
+.settings p {
+  margin: 0;
+  opacity: 0.3;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.1s ease-out;
+}
+
+.settings p + p {
+  margin-left: 10px;
+}
+
+.settings p:hover {
+  opacity: 1;
+}
+
+.settings p.active {
+  opacity: 1;
+  color: #e52d27;
+}
+
+.settings #toggle-repeat-mode .fa {
+  transform: rotate(0deg);
+  transition: transform 0.1s ease-out;
+}
+
+.settings #toggle-repeat-mode.active .fa {
+  transform: rotate(180deg);
 }
 
 #settingsForm {
@@ -725,6 +794,20 @@ nav a.is-active:hover {
   transform: translateY(-50%) scale(0);
 }
 
+#main-search .settings {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+
+#main-search #toggle-list-mode {
+  height: 17px;
+}
+
+#main-search #toggle-list-mode p {
+  margin: 0 0 0 10px;
+}
+
 .video-list {
   position: absolute;
   width: 100%;
@@ -775,7 +858,7 @@ iframe {
   align-items: center;
   background-color: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 10px 15px;
+  padding: 10px 10px 0;
   cursor: pointer;
 }
 
@@ -786,6 +869,10 @@ iframe {
 
 .video-item p {
   margin: 0;
+}
+
+.video-item:last-child {
+  padding-bottom: 10px;
 }
 
 .video-item-image {
@@ -805,8 +892,9 @@ iframe {
   top: inherit;
   bottom: 0;
   max-height: none;
-  height: calc(100% - 380px);
+  height: calc(100% - 110px);
   width: 100%;
+  transition: height 0.1s ease-out 0.1s;
 }
 
 #related-video-list .video-item {
@@ -834,7 +922,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-track {
@@ -851,18 +939,23 @@ iframe {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+#related-video-list.activePlayer {
+  height: calc(100% - 380px);
+  transition: height 0.1s ease-out 0s;
+}
+
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 70px);
+  height: calc(100% - 100px);
   width: calc(100% - 20px);
   max-height: none;
   left: 0;
+  padding-left: 15px;
 }
 
 #feed-video-list .video-item {
   background-color: transparent;
-  padding: 10px 20px;
   border-bottom: none;
 }
 
@@ -882,4 +975,23 @@ iframe {
 
 #feed-video-list::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.6);
+}
+
+#feed-video-list.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#feed-video-list.grid-list .video-item {
+  width: 20%;
+  display: block;
+  padding: 0 5px;
+}
+
+#feed-video-list.grid-list .video-item .video-item-image {
+  margin: 0;
+}
+
+#feed-video-list.grid-list .video-item .video-item-content {
+  margin: 5px 0 15px 0;
 }
