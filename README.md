@@ -63,7 +63,7 @@ Angular2 YT Player v1.3
  - Repeat video
  - Grid/list mode for trending videos
 - **Settings (It will work when you can save the settings because now isn't relevant, (you can set default from "assets/settings.json")**
-- *Change country for trending feed*
+- *Change country for trending feed (currently only three countries, US, UK and RO)*
 - *Max results show in search (0 to 50)*
 - *YOUR_API Key*
 - *Max related videos (0 to 50)*
