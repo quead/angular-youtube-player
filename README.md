@@ -62,7 +62,7 @@ Angular2 YT Player v1.3
  - Show/hide video player
  - Repeat video
  - Grid/list mode for trending videos
-- **Settings (It will work when you can save the settings because now isn't relevant, (you can set default from "assets/settings.json")**
+- **Settings (you can set default from "assets/settings.json", soon will be directly from settings)**
 - *Change country for trending feed (currently only three countries, US, UK and RO)*
 - *Max results show in search (0 to 50)*
 - *YOUR_API Key*
@@ -95,7 +95,15 @@ Angular2 YT Player v1.0.0
 - Change time of your video that you want to listen
 
 ## Future features
+#### Backlog
+- Save your playlists **(unversioned)**
+- **Rooms**
+- *Room chat **(unversioned)***
+- **Settings**
+- *Save your settings **(unversioned)***
+
 #### Roadmap to 2.0
+- History of your watched videos **(in v1.4)**
 - Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.6)**
 - Share link for current video and related videos **(in v1.6)** 
 - Share link for current video at your playing time **(in v1.6)**
@@ -105,18 +113,13 @@ Angular2 YT Player v1.0.0
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
-- Save your playlists **(unversioned)**
-- History of your watched videos **(unversioned)**
-- **Settings**
-- *Save your settings **(unversioned)***
 
 #### Roadmap to 3.0
-- **Rooms (in v3.0)**
+- **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
 - *Set private/public room **(in v3.0)***
 - *List of public rooms **(in v3.0)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v3.3)***
-- *Room chat, **(unversioned)***
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).
