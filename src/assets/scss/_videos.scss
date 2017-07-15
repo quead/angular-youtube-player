@@ -46,7 +46,7 @@ iframe {
     align-items: center;
     background-color: $c-white;
     border-bottom: 1px solid rgba($c-black,0.05);
-    padding: 10px 15px;
+    padding: 10px 10px 0;
     cursor: pointer;
     h2 {
         font-size: $f-14;
@@ -54,6 +54,9 @@ iframe {
     }
     p {
         margin: 0;
+    }
+    &:last-child {
+        padding-bottom: 10px;
     }
 }
 
@@ -98,7 +101,7 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: $c-default;
+        background-color: $c-white;
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
@@ -129,7 +132,6 @@ iframe {
     padding-left: 15px;
     .video-item {
         background-color: transparent;
-        padding: 10px 5px;
         border-bottom: none;
     }
     &::-webkit-scrollbar-track {
