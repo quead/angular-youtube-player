@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
+  historyVideos = [];
 
   debuggingInfo = false;
   displayVideoPlayer = true;
@@ -56,9 +57,30 @@ export class AppComponent implements OnInit {
       this.getFeedVideos();
   }
 
+  addHistoryVideo(data: any) {
+      let key;
+      for (key in this.historyVideos) {
+        if (this.historyVideos[key].id === data.id) {
+          console.log(this.historyVideos[key].id);
+          console.log(key);
+          //this.historyVideos
+          this.historyVideos.splice(key, 1)
+        }
+      }
+      this.historyVideos.unshift(data);
+  }
+
+
   onClickRelated(event: Event, i: number) {
     const videoID = this.relatedVideos[i].id.videoId;
     const videoName = this.relatedVideos[i].snippet.title;
+    //this.addHistoryVideo(this.relatedVideos[i]);
+    this.getVideo(videoID, videoName);
+  }
+  
+  onClickHistory(event: Event, i: number) {
+    const videoID = this.historyVideos[i].id;
+    const videoName = this.historyVideos[i].snippet.title;
     this.getVideo(videoID, videoName);
   }
 
@@ -119,10 +141,6 @@ export class AppComponent implements OnInit {
     if (from === 0) {
       this.debuggingInfo = data[from].value;
     }
-  }
-
-  toggleMute() {
-
   }
 
   toggleHeadSettings(int: number) {
@@ -189,7 +207,6 @@ export class AppComponent implements OnInit {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
       this._ref.markForCheck();
-      console.log('test');
     }, 1000);
   }
 

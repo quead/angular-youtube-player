@@ -29,6 +29,24 @@
               <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
               <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
             </div>
+            <div id="history-video-list" class="video-list">
+              <div class="video-item-head">
+                  Recently played
+              </div>
+              <div class="history-video-content">
+                <div *ngIf="historyVideos.length === 0" class="video-list-info">
+                  No history
+                </div>
+                <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
+                  <div class="video-item-image">
+                    <img src="{{ historyVideo.snippet.thumbnails.default.url }}" alt="history video thumbnail" />
+                  </div>
+                  <div class="video-item-content">
+                    <p>{{ historyVideo.snippet.title }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
   </div>
@@ -68,14 +86,14 @@
                   <p class="current-video-range-max-value">{{videoMaxFull}}</p>
                 </div>
                 <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-                  <span class="fa" (click)="toggleHeadSettings(3)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
+                  <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
                   <div class="volume-input-container">
                     <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                     <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
                   </div>
                 </div>
             </div>  
-            <div *ngIf="relatedVideos" id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
+            <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
               <div class="video-item-head">
                   Recommended videos
               </div>
@@ -85,7 +103,7 @@
                     <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
                   </div>
                   <div class="video-item-content">
-                    <h2>{{ relatedVideo.snippet.title }}</h2>
+                    <p>{{ relatedVideo.snippet.title }}</p>
                   </div>
                 </div>
               </div>

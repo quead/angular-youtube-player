@@ -86,11 +86,13 @@ export class SearchComponent implements OnInit {
       const videoID = this.videos[i].id.videoId;
       const videoName = this.videos[i].snippet.title;
       this._app.getVideo(videoID, videoName);
+      this._app.addHistoryVideo(this.videos[i]);
       this.clearSearch();
     } else if (list === 3) {
       const videoID = this.feedVideos[i].id;
       const videoName = this.feedVideos[i].snippet.title;
       this._app.getVideo(videoID, videoName);
+      this._app.addHistoryVideo(this.feedVideos[i]);
     }
   }
 

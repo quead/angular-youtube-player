@@ -58,6 +58,11 @@ Just take files from ***dist*** folder
 
 ## Changelog
 
+
+Angular2 YT Player v1.4
+- History of your watched videos
+- Small fixes
+
 Angular2 YT Player v1.3
  - Show/hide video player
  - Repeat video
@@ -106,7 +111,6 @@ Angular2 YT Player v1.0.0
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - Save your playlists **(unversioned)**
-- History of your watched videos **(unversioned)**
 - **Settings**
 - *Save your settings **(unversioned)***
 
