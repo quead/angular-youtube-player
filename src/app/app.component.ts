@@ -85,10 +85,12 @@ export class AppComponent implements OnInit {
   }
 
   getVideo(videoID: string, videoName: string) {
-    this.currentVideoID = videoID;
-    this.currentVideoName = videoName;
-    this.player.loadVideoById(videoID);
-    this.getRelatedVideos();
+    if (videoID != this.currentVideoID) {
+      this.currentVideoID = videoID;
+      this.currentVideoName = videoName;
+      this.player.loadVideoById(videoID);
+      this.getRelatedVideos();
+    }
   }
 
   playerVars() {
