@@ -4,7 +4,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.4`-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.4-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -108,7 +108,6 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
-- History of your watched videos **(in v1.4)**
 - Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.6)**
 - Share link for current video and related videos **(in v1.6)** 
 - Share link for current video at your playing time **(in v1.6)**
