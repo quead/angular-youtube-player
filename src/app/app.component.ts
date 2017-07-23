@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
+  historyVideos: Array<any> = [];
 
   debuggingInfo = false;
   displayVideoPlayer = true;
@@ -23,7 +24,6 @@ export class AppComponent implements OnInit {
   player: YT.Player;
   currentVideoID: string;
   currentVideoName: string;
-  currentVideoImage: string;
   currentState = -1;
   currentMuteState = true;
 
@@ -56,17 +56,53 @@ export class AppComponent implements OnInit {
       this.getFeedVideos();
   }
 
-  onClickRelated(event: Event, i: number) {
-    const videoID = this.relatedVideos[i].id.videoId;
-    const videoName = this.relatedVideos[i].snippet.title;
-    this.getVideo(videoID, videoName);
+  addHistoryVideo(data: any) {
+      let key;
+      for (key in this.historyVideos) {
+        if (this.historyVideos[key].id === data.id) {
+            this.historyVideos.splice(key, 1);
+            if (this.historyVideos[this.historyVideos.length - 1] === data) {
+              this.historyVideos.splice(-1, 1);
+            }
+        }
+      }
+      this.historyVideos.unshift(data);
   }
 
-  getVideo(videoID: string, videoName: string) {
-    this.currentVideoID = videoID;
-    this.currentVideoName = videoName;
-    this.player.loadVideoById(videoID);
-    this.getRelatedVideos();
+
+  onClickRelated(event: Event, i: number) {
+    this.getVideo(this.relatedVideos[i]);
+  }
+
+  onClickHistory(event: Event, i: number) {
+    this.playVideo(this.historyVideos[i]);
+  }
+
+  getVideo(data: any) {
+    const tempData = {
+      id: '',
+      title: '',
+      thumbnail: ''
+    };
+    if (data.id.videoId) {
+      tempData.id = data.id.videoId;
+    } else if (data.id) {
+      tempData.id = data.id;
+    }
+    tempData.title = data.snippet.title;
+    tempData.thumbnail = data.snippet.thumbnails.medium.url;
+    this.playVideo(tempData);
+  }
+
+  playVideo(data: any) {
+    if (data.id !== this.currentVideoID || this.currentState === -1) {
+      this.currentVideoID = data.id;
+      this.currentVideoName = data.title;
+      this.historyVideos.push(data);
+      this.addHistoryVideo(data);
+      this.player.loadVideoById(this.currentVideoID);
+      this.getRelatedVideos();
+    }
   }
 
   playerVars() {
@@ -121,10 +157,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  toggleMute() {
-
-  }
-
   toggleHeadSettings(int: number) {
     if (int === 0) {
       if (this.displayVideoPlayer) {
@@ -175,11 +207,10 @@ export class AppComponent implements OnInit {
   }
 
   playPauseVideo() {
-    if (this.currentState === 0 || this.currentState === 2 || this.currentState === -1 ) {
-      this.player.playVideo();
-    }
     if (this.currentState === 1) {
       this.player.pauseVideo();
+    } else {
+      this.player.playVideo();
     }
   }
 
@@ -189,7 +220,6 @@ export class AppComponent implements OnInit {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
       this._ref.markForCheck();
-      console.log('test');
     }, 1000);
   }
 

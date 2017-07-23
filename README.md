@@ -4,7 +4,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.4`-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -28,7 +28,7 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm install` in root folder
 
-4. Run the player by
+4. Run the player by`
 
 `npm start` in root folder
 
@@ -57,6 +57,11 @@ Just take files from ***dist*** folder
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
 
 ## Changelog
+
+
+Angular2 YT Player v1.4
+- History of your watched videos
+- Small fixes
 
 Angular2 YT Player v1.3
  - Show/hide video player
@@ -113,6 +118,9 @@ Angular2 YT Player v1.0.0
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
+- Save your playlists **(unversioned)**
+- **Settings**
+- *Save your settings **(unversioned)***
 
 #### Roadmap to 3.0
 - **Rooms**

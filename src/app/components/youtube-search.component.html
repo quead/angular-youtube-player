@@ -30,10 +30,10 @@
   <div *ngIf="feedVideos" id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
     <div *ngFor="let feedVideo of feedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 3)">
       <div class="video-item-image">
-        <img src="{{ feedVideo.snippet.thumbnails.default.url }}" alt="feed video thumbnail" />
+        <img src="{{ feedVideo.snippet.thumbnails.medium.url }}" alt="feed video thumbnail" />
       </div>
       <div class="video-item-content">
-        <h2>{{ feedVideo.snippet.title }}</h2>
+        <p>{{ feedVideo.snippet.title }}</p>
       </div>
     </div>
   </div>
