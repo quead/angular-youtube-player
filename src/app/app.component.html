@@ -39,10 +39,10 @@
                 </div>
                 <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
                   <div class="video-item-image">
-                    <img src="{{ historyVideo.snippet.thumbnails.default.url }}" alt="history video thumbnail" />
+                    <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
                   </div>
                   <div class="video-item-content">
-                    <p>{{ historyVideo.snippet.title }}</p>
+                    <p>{{ historyVideo.title }}</p>
                   </div>
                 </div>
               </div>
