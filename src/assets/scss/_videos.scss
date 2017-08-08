@@ -75,6 +75,19 @@ iframe {
     }
 }
 
+.video-item-details {
+    display: flex;
+    p {
+        margin: 0 15px 0 0;
+        line-height: 14px;
+        font-size: 12px;
+        color: $c-light-gray;
+    }
+    .fa {
+        margin-right: 3px;
+    }
+}
+
 #related-video-list {
     display: flex;
     flex-wrap: wrap;

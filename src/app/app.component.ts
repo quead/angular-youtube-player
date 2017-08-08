@@ -69,7 +69,6 @@ export class AppComponent implements OnInit {
       this.historyVideos.unshift(data);
   }
 
-
   onClickRelated(event: Event, i: number) {
     this.getVideo(this.relatedVideos[i]);
   }
@@ -130,7 +129,19 @@ export class AppComponent implements OnInit {
       if (typeof this.currentVideoID === 'undefined') {
         this.setDefaultPlayer();
       }
+      this.getStatsVideos(this.currentVideoID);
     });
+  }
+
+  getStatsVideos(query: string) {
+    this.youtube.statsVideos(query).subscribe(
+        result => {
+          console.log(result);
+        },
+        error => {
+          console.log('error on related videos');
+        }
+    );
   }
 
   getRelatedVideos() {

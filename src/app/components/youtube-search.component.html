@@ -34,6 +34,11 @@
       </div>
       <div class="video-item-content">
         <p>{{ feedVideo.snippet.title }}</p>
+        <div class="video-item-details">
+            <p><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
+            <p><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
+            <p><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
+        </div>
       </div>
     </div>
   </div>
