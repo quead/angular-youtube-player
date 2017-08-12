@@ -1,10 +1,10 @@
 {
   "form_settings": [
     {
-      "name": "Toggle Debugging Info",
+      "name": "Show Debugging Info",
       "value": false
     }, {
-      "name": "Toggle Search Thumbnails",
+      "name": "Show Thumbnails",
       "value": true
     }
   ],

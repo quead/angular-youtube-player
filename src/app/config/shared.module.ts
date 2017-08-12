@@ -10,6 +10,11 @@ export class SharedService {
     public feedVideos: Array<Object>;
     settings: Array<Object>;
 
+    notify = {
+        enabled: false,
+        message: 'No message'
+    };
+
     constructor(
         private youtube: YoutubeGetVideo,
         private http: Http
@@ -64,5 +69,12 @@ export class SharedService {
 
     setApiSettings() {
         this.youtube.defaultApiSet(this.settings);
+    }
+
+    // Not finished
+    triggerNotify(message: string) {
+        this.notify.enabled = true;
+        this.notify.message = message;
+        setTimeout(() => this.notify.enabled = false, 1000);
     }
 }

@@ -95,6 +95,6 @@ export class SettingsComponent implements OnInit {
         this._shared.feedVideos = null;
         this._app.getSettings();
         this._app.getFeedVideos();
-        setTimeout(() => this.loadingRegion = false, 3000);
+        setTimeout(() => this.loadingRegion = false, 100);
     }
 }

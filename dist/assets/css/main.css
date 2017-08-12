@@ -27,7 +27,6 @@ body {
   line-height: 1.5;
   margin: 0;
   padding: 0;
-  user-select: none;
   cursor: default;
   color: #ffffff;
   -webkit-app-region: drag;
@@ -299,6 +298,28 @@ a:active {
   transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
 }
 
+.notif {
+  position: absolute;
+  bottom: -41px;
+  background-color: #111111;
+  color: #ffffff;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 10px 15px;
+  text-align: center;
+  transition: all 0.1s ease-in-out;
+  z-index: 1;
+}
+
+.notif p {
+  margin: 0;
+}
+
+.notif.active {
+  bottom: 0;
+}
+
 .current-video-all {
   padding: 0px 10px;
   display: inline-block;
@@ -325,10 +346,52 @@ a:active {
   color: #000;
 }
 
+.current-video-stats {
+  display: flex;
+}
+
+.current-video-stats .stats-views {
+  margin-right: auto;
+}
+
+.current-video-stats p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.current-video-stats p + p {
+  margin-left: 15px;
+}
+
+.current-video-stats .fa {
+  margin-right: 3px;
+}
+
+.current-video-share {
+  display: flex;
+  margin-top: 3px;
+}
+
+.current-video-share label {
+  margin: 0 15px 0 0;
+  white-space: nowrap;
+  padding: 9px 0;
+  cursor: pointer;
+}
+
+.current-video-share input[type=text] {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid #e52d27;
+  padding: 10px;
+  margin: 0;
+}
+
 .player-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 5px;
 }
 
 .player-buttons button {
@@ -891,13 +954,28 @@ iframe {
   height: auto;
 }
 
+.video-item-details {
+  display: flex;
+}
+
+.video-item-details p {
+  margin: 0 15px 0 0;
+  line-height: 14px;
+  font-size: 12px;
+  color: #969696;
+}
+
+.video-item-details .fa {
+  margin-right: 3px;
+}
+
 #related-video-list {
   display: flex;
   flex-wrap: wrap;
   top: inherit;
   bottom: 0;
   max-height: none;
-  height: calc(100% - 110px);
+  height: calc(100% - 190px);
   width: 100%;
   transition: height 0.1s ease-out 0.1s;
 }
@@ -961,7 +1039,7 @@ iframe {
 }
 
 #history-video-list .video-item-head {
-  background-color: #191919;
+  background-color: #111111;
 }
 
 #history-video-list .video-item {
@@ -990,7 +1068,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: #111111;
+  background-color: #0c0c0c;
   color: #ffffff;
 }
 

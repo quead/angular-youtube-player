@@ -94,7 +94,7 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 110px);
+    height: calc(100% - 190px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item {
@@ -150,7 +150,7 @@ iframe {
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item-head {
-        background-color: lighten($c-gray, 3%);
+        background-color: $c-gray;
     }
     .video-item {
         display: flex;
@@ -175,7 +175,7 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: $c-gray;
+        background-color: darken($c-gray, 2%);
         color: $c-white;
         &::-webkit-scrollbar-track {
             border-radius: 2px;

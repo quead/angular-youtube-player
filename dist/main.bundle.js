@@ -16,7 +16,7 @@ webpackEmptyContext.id = "../../../../../src async recursive";
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"loading-bar inactive\"></div>\r\n<header>\r\n    <div class=\"win-controls\">\r\n        <button id=\"win-minimize\"><span class=\"fa fa-window-minimize\"></span></button>\r\n        <button id=\"win-maximize\"><span class=\"fa fa-window-maximize\"></span></button>\r\n        <!--<button id=\"win-unmaximize\"><span class=\"fa fa-window-restore\"></span></button>-->\r\n        <button id=\"win-close\"><span class=\"fa fa-close\"></span></button>\r\n    </div>\r\n</header>\r\n<div class=\"container\">\r\n  <div class=\"col col-2\">\r\n      <div class=\"app app-services\">\r\n          <div class=\"app-head\">\r\n              <div id=\"logo\">\r\n                <img src=\"assets/img/logo.svg\" height=\"35\"/>\r\n                <small *ngIf=\"regionCode\">{{ regionCode }}</small>\r\n              </div>\r\n          </div>\r\n          <div class=\"app-content\">\r\n            <nav>\r\n              <ul>\r\n                <li><a routerLink=\"/home\" [routerLinkActive]=\"['is-active']\" title=\"Homepage\"><span class=\"fa fa-home\"></span>Home</a></li>\r\n                <li><a routerLink=\"/about\" [routerLinkActive]=\"['is-active']\" title=\"About application page\"><span class=\"fa fa-info-circle\"></span>About</a></li>\r\n                <li><a routerLink=\"/settings\" [routerLinkActive]=\"['is-active']\" title=\"Settings page\"><span class=\"fa fa-gear\"></span>Settings</a></li>\r\n              </ul>\r\n            </nav>\r\n            <div class=\"debugging-info\" [ngClass]=\"{'active': debuggingInfo }\">\r\n              <p *ngIf=\"currentVideoID\">Current video ID: {{ currentVideoID }}</p>\r\n              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>\r\n              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>\r\n            </div>\r\n            <div id=\"history-video-list\" class=\"video-list\">\r\n              <div class=\"video-item-head\">\r\n                  Recently played\r\n              </div>\r\n              <div class=\"history-video-content\">\r\n                <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\r\n                  No history\r\n                </div>\r\n                <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickHistory($event, i)\">\r\n                  <div class=\"video-item-image\">\r\n                    <img src=\"{{ historyVideo.thumbnail }}\" alt=\"history video thumbnail\" />\r\n                  </div>\r\n                  <div class=\"video-item-content\">\r\n                    <p>{{ historyVideo.title }}</p>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n  <div class=\"col col-6\">\r\n      <div class=\"app app-feed\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n  </div>\r\n  <div class=\"col col-4\">\r\n      <div class=\"app app-player\">\r\n          <div class=\"app-head\">\r\n              <p>Player</p>\r\n              <div class=\"settings\">\r\n                  <p id=\"toggle-video-player\" [ngClass]=\"{'active': displayVideoPlayer }\" (click)=\"toggleHeadSettings(0)\"><span class=\"fa fa-youtube-play\"></span>Toggle video</p>\r\n                  <p id=\"toggle-repeat-mode\" [ngClass]=\"{'active': repeatMode }\" (click)=\"toggleHeadSettings(1)\"><span class=\"fa fa-refresh\"></span>Repeat</p>\r\n              </div>\r\n          </div>\r\n          <div class=\"app-content\">\r\n            <div id=\"youtube-player\" *ngIf=\"feedVideos\" [ngClass]=\"{'active': displayVideoPlayer }\">\r\n              <youtube-player [videoId]=\"currentVideoID\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n            </div>\r\n            <div class=\"current-video-all\">\r\n              <div class=\"current-video-details\">\r\n                <p *ngIf=\"currentVideoName\" class=\"current-video-name\">{{ currentVideoName }}</p>\r\n                <p *ngIf=\"!currentVideoName\" class=\"current-video-none\">Not Playing</p>\r\n              </div>\r\n                <div id=\"player-controls\">\r\n                    <div class=\"player-buttons\">\r\n                        <button id=\"previous-song\" ondragstart=\"return false;\"><span class=\"fa fa-backward\"></span></button>\r\n                        <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n                        <button id=\"next-song\"><span class=\"fa fa-forward\"></span></button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"current-video-range\">\r\n                  <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n                  <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n                  <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n                </div>\r\n                <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n                  <span class=\"fa\" (click)=\"toggleHeadSettings(2)\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n                  <div class=\"volume-input-container\">\r\n                    <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n                    <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n                  </div>\r\n                </div>\r\n            </div>  \r\n            <div id=\"related-video-list\" class=\"video-list\" [ngClass]=\"{'activePlayer': displayVideoPlayer }\">\r\n              <div class=\"video-item-head\">\r\n                  Recommended videos\r\n              </div>\r\n              <div class=\"related-video-content\">\r\n                <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickRelated($event, i)\">\r\n                  <div class=\"video-item-image\">\r\n                    <img src=\"{{ relatedVideo.snippet.thumbnails.default.url }}\" alt=\"related video thumbnail\" />\r\n                  </div>\r\n                  <div class=\"video-item-content\">\r\n                    <p>{{ relatedVideo.snippet.title }}</p>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"loading-bar inactive\"></div>\r\n<header>\r\n    <div class=\"win-controls\">\r\n        <button id=\"win-minimize\"><span class=\"fa fa-window-minimize\"></span></button>\r\n        <button id=\"win-maximize\"><span class=\"fa fa-window-maximize\"></span></button>\r\n        <!--<button id=\"win-unmaximize\"><span class=\"fa fa-window-restore\"></span></button>-->\r\n        <button id=\"win-close\"><span class=\"fa fa-close\"></span></button>\r\n    </div>\r\n</header>\r\n<div class=\"container\">\r\n  <div class=\"col col-2\">\r\n      <div class=\"app app-services\">\r\n          <div class=\"app-head\">\r\n              <div id=\"logo\">\r\n                <img src=\"assets/img/logo.svg\" height=\"35\"/>\r\n                <small *ngIf=\"regionCode\">{{ regionCode }}</small>\r\n              </div>\r\n          </div>\r\n          <div class=\"app-content\">\r\n            <nav>\r\n              <ul>\r\n                <li><a routerLink=\"/home\" [routerLinkActive]=\"['is-active']\" title=\"Homepage\"><span class=\"fa fa-home\"></span>Home</a></li>\r\n                <li><a routerLink=\"/about\" [routerLinkActive]=\"['is-active']\" title=\"About application page\"><span class=\"fa fa-info-circle\"></span>About</a></li>\r\n                <li><a routerLink=\"/settings\" [routerLinkActive]=\"['is-active']\" title=\"Settings page\"><span class=\"fa fa-gear\"></span>Settings</a></li>\r\n              </ul>\r\n            </nav>\r\n            <div class=\"debugging-info\" [ngClass]=\"{'active': debuggingInfo }\">\r\n              <p *ngIf=\"currentVideo.id\">Current video ID: {{ currentVideo.id }}</p>\r\n              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>\r\n              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>\r\n            </div>\r\n            <div id=\"history-video-list\" class=\"video-list\">\r\n              <div class=\"video-item-head\">\r\n                  Recently played\r\n              </div>\r\n              <div class=\"history-video-content\">\r\n                <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\r\n                  No history\r\n                </div>\r\n                <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickHistory($event, i)\">\r\n                  <div class=\"video-item-image\">\r\n                    <img src=\"{{ historyVideo.thumbnail }}\" alt=\"history video thumbnail\" />\r\n                  </div>\r\n                  <div class=\"video-item-content\">\r\n                    <p>{{ historyVideo.title }}</p>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n  <div class=\"col col-6\">\r\n      <div class=\"app app-feed\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n      <div [ngClass]=\"{'active': notify.enabled }\" class=\"notif notif-primary\">\r\n        <p>{{ notify.message }}</p>\r\n      </div>\r\n  </div>\r\n  <div class=\"col col-4\">\r\n      <div class=\"app app-player\">\r\n          <div class=\"app-head\">\r\n              <p>Player</p>\r\n              <div class=\"settings\">\r\n                  <p id=\"toggle-video-player\" [ngClass]=\"{'active': displayVideoPlayer }\" (click)=\"toggleHeadSettings(0)\"><span class=\"fa fa-youtube-play\"></span>Toggle video</p>\r\n                  <p id=\"toggle-repeat-mode\" [ngClass]=\"{'active': repeatMode }\" (click)=\"toggleHeadSettings(1)\"><span class=\"fa fa-refresh\"></span>Repeat</p>\r\n              </div>\r\n          </div>\r\n          <div class=\"app-content\">\r\n            <div id=\"youtube-player\" *ngIf=\"feedVideos\" [ngClass]=\"{'active': displayVideoPlayer }\">\r\n              <youtube-player [videoId]=\"currentVideo.id\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n            </div>\r\n            <div *ngIf=\"currentVideo.id\" class=\"current-video-all\">\r\n                <div *ngIf=\"!displayVideoPlayer\" id=\"player-controls\">\r\n                  <div class=\"player-buttons\">\r\n                      <button id=\"previous-song\" ondragstart=\"return false;\"><span class=\"fa fa-backward\"></span></button>\r\n                      <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n                      <button id=\"next-song\"><span class=\"fa fa-forward\"></span></button>\r\n                  </div>\r\n                  <div class=\"current-video-range\">\r\n                    <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n                    <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n                    <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n                  </div>\r\n                  <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n                    <span class=\"fa\" (click)=\"toggleHeadSettings(2)\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n                    <div class=\"volume-input-container\">\r\n                      <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n                      <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"current-video-details\">\r\n                  <p class=\"current-video-name\">{{ currentVideo.name }}</p>\r\n                </div>\r\n                <div class=\"current-video-stats\">\r\n                    <p class=\"stats-views\"><span class=\"fa fa-eye\"></span> {{ currentVideo.stats.views | number:'1.0' }} views</p>\r\n                    <p class=\"stats-likes\"><span class=\"fa fa-thumbs-up\"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>\r\n                    <p class=\"stats-dislikes\"><span class=\"fa fa-thumbs-down\"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>\r\n                </div>\r\n                <div class=\"current-video-share\">\r\n                  <label for=\"shareInput\">Share link</label>\r\n                  <input id=\"shareInput\" type=\"text\" name=\"current video share\" #shareInput [value]=\"shareLink\" (click)=\"copyShareLink(shareInput.select())\">\r\n                </div>\r\n            </div>\r\n            <div id=\"related-video-list\" class=\"video-list\" [ngClass]=\"{'activePlayer': displayVideoPlayer }\">\r\n              <div class=\"video-item-head\">\r\n                  Recommended videos\r\n              </div>\r\n              <div class=\"related-video-content\">\r\n                <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickRelated($event, i)\">\r\n                  <div class=\"video-item-image\">\r\n                    <img src=\"{{ relatedVideo.snippet.thumbnails.default.url }}\" alt=\"related video thumbnail\" />\r\n                  </div>\r\n                  <div class=\"video-item-content\">\r\n                    <p>{{ relatedVideo.snippet.title }}</p>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -47,8 +47,18 @@ var AppComponent = (function () {
         this.debuggingInfo = false;
         this.displayVideoPlayer = true;
         this.repeatMode = true;
+        this.shareLink = '';
+        this.currentVideo = {
+            id: '',
+            name: '',
+            stats: {
+                likes: '',
+                dislikes: '',
+                views: ''
+            }
+        };
         this.currentState = -1;
-        this.currentMuteState = true;
+        this.currentMuteState = false;
         this.videoCurRange = 0;
         this.videoMaxRange = 0;
         this.videoCurFull = '00:00:00';
@@ -57,60 +67,21 @@ var AppComponent = (function () {
         this.loading = true;
         this._ref = ref;
         this._shared = shared;
+        this.notify = this._shared.notify;
     }
     AppComponent.prototype.ngOnInit = function () {
         console.log('app comp');
         this.getSettings();
         this.getFeedVideos();
     };
-    AppComponent.prototype.addHistoryVideo = function (data) {
-        var key;
-        for (key in this.historyVideos) {
-            if (this.historyVideos[key].id === data.id) {
-                this.historyVideos.splice(key, 1);
-                if (this.historyVideos[this.historyVideos.length - 1] === data) {
-                    this.historyVideos.splice(-1, 1);
-                }
-            }
-        }
-        this.historyVideos.unshift(data);
-    };
-    AppComponent.prototype.onClickRelated = function (event, i) {
-        this.getVideo(this.relatedVideos[i]);
-    };
-    AppComponent.prototype.onClickHistory = function (event, i) {
-        this.playVideo(this.historyVideos[i]);
-    };
-    AppComponent.prototype.getVideo = function (data) {
-        var tempData = {
-            id: '',
-            title: '',
-            thumbnail: ''
-        };
-        if (data.id.videoId) {
-            tempData.id = data.id.videoId;
-        }
-        else if (data.id) {
-            tempData.id = data.id;
-        }
-        tempData.title = data.snippet.title;
-        tempData.thumbnail = data.snippet.thumbnails.medium.url;
-        this.playVideo(tempData);
-    };
-    AppComponent.prototype.playVideo = function (data) {
-        if (data.id !== this.currentVideoID || this.currentState === -1) {
-            this.currentVideoID = data.id;
-            this.currentVideoName = data.title;
-            this.historyVideos.push(data);
-            this.addHistoryVideo(data);
-            this.player.loadVideoById(this.currentVideoID);
-            this.getRelatedVideos();
-        }
+    // ---------------- Init player ----------------
+    AppComponent.prototype.savePlayer = function (player) {
+        this.player = player;
     };
     AppComponent.prototype.playerVars = function () {
         var playerVars = {
             'enablejsapi': 1,
-            'controls': 0,
+            'controls': 1,
             'disablekb': 0,
             'showinfo': 0,
             'playsinline': 1,
@@ -118,35 +89,60 @@ var AppComponent = (function () {
         };
         return playerVars;
     };
+    AppComponent.prototype.getFeedVideos = function () {
+        var _this = this;
+        this._shared.getFeed().subscribe(function (data) {
+            _this.feedVideos = data;
+            if (!_this.currentVideo.id) {
+                _this.setDefaultPlayer();
+            }
+        });
+    };
+    AppComponent.prototype.setDefaultPlayer = function () {
+        this.feedVideos = this._shared.feedVideos;
+        this.currentVideo.id = this.feedVideos[0].id;
+        this.currentVideo.name = this.feedVideos[0].snippet.title;
+        this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
+        this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+        this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
+        this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        this.getRelatedVideos();
+    };
+    AppComponent.prototype.onStateChange = function (event) {
+        this.currentState = event.data;
+        this.videoMaxRange = this.player.getDuration();
+        if (this.currentState === 1) {
+            this.videoMaxFull = this.timeFormat(this.videoMaxRange);
+            this.videoCurVolume = this.player.getVolume();
+            this.currentMuteState = this.player.isMuted();
+            this.startRange();
+        }
+        if (this.currentState === 0) {
+            this.stopRange();
+            if (this.repeatMode) {
+                this.player.playVideo();
+            }
+        }
+    };
+    AppComponent.prototype.startRange = function () {
+        var _this = this;
+        this.stopRange();
+        this.videoRangeTimer = setInterval(function () {
+            _this.videoCurRange = _this.player.getCurrentTime();
+            _this.videoCurFull = _this.timeFormat(_this.videoCurRange);
+            _this._ref.markForCheck();
+        }, 1000);
+    };
+    AppComponent.prototype.stopRange = function () {
+        clearTimeout(this.videoRangeTimer);
+    };
+    // ---------------- Init settings ----------------
     AppComponent.prototype.getSettings = function () {
         var _this = this;
         this._shared.getSettings().subscribe(function (data) {
             _this.debuggingInfo = data.form_settings[0].value;
             _this.regionCode = data.api_settings[1].value;
         });
-    };
-    AppComponent.prototype.getFeedVideos = function () {
-        var _this = this;
-        this._shared.getFeed().subscribe(function (data) {
-            _this.feedVideos = data;
-            if (typeof _this.currentVideoID === 'undefined') {
-                _this.setDefaultPlayer();
-            }
-        });
-    };
-    AppComponent.prototype.getRelatedVideos = function () {
-        var _this = this;
-        this.youtube.relatedVideos(this.currentVideoID).subscribe(function (result) {
-            _this.relatedVideos = result.items;
-        }, function (error) {
-            console.log('error on related videos');
-        });
-    };
-    AppComponent.prototype.setDefaultPlayer = function () {
-        this.feedVideos = this._shared.feedVideos;
-        this.currentVideoID = this.feedVideos[0].id;
-        this.currentVideoName = this.feedVideos[0].snippet.title;
-        this.getRelatedVideos();
     };
     AppComponent.prototype.setSettings = function (data, from) {
         if (from === 0) {
@@ -181,25 +177,75 @@ var AppComponent = (function () {
             }
         }
     };
-    AppComponent.prototype.savePlayer = function (player) {
-        this.player = player;
+    // ---------------- Video fetching ----------------
+    AppComponent.prototype.onClickRelated = function (event, i) {
+        this.getVideo(this.relatedVideos[i]);
     };
-    AppComponent.prototype.onStateChange = function (event) {
-        this.currentState = event.data;
-        this.videoMaxRange = this.player.getDuration();
-        if (this.currentState === 1) {
-            this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-            this.videoCurVolume = this.player.getVolume();
-            this.currentMuteState = this.player.isMuted();
-            this.startRange();
+    AppComponent.prototype.onClickHistory = function (event, i) {
+        this.playVideo(this.historyVideos[i]);
+    };
+    AppComponent.prototype.getVideo = function (data) {
+        var tempData = {
+            id: '',
+            title: '',
+            thumbnail: ''
+        };
+        if (data.id.videoId) {
+            tempData.id = data.id.videoId;
+            this.getStatsVideos(data.id.videoId);
         }
-        if (this.currentState === 0) {
-            this.stopRange();
-            if (this.repeatMode) {
-                this.player.playVideo();
+        else if (data.id) {
+            tempData.id = data.id;
+            this.getStatsVideos(data.id);
+        }
+        tempData.title = data.snippet.title;
+        tempData.thumbnail = data.snippet.thumbnails.medium.url;
+        this.playVideo(tempData);
+    };
+    AppComponent.prototype.playVideo = function (data) {
+        if (data.id !== this.currentVideo.id || this.currentState === -1) {
+            this.currentVideo.id = data.id;
+            this.currentVideo.name = data.title;
+            this.historyVideos.push(data);
+            this.addHistoryVideo(data);
+            this.player.loadVideoById(this.currentVideo.id);
+            this.getRelatedVideos();
+        }
+    };
+    AppComponent.prototype.addHistoryVideo = function (data) {
+        var key;
+        for (key in this.historyVideos) {
+            if (this.historyVideos[key].id === data.id) {
+                this.historyVideos.splice(key, 1);
+                if (this.historyVideos[this.historyVideos.length - 1] === data) {
+                    this.historyVideos.splice(-1, 1);
+                }
             }
         }
+        this.historyVideos.unshift(data);
     };
+    AppComponent.prototype.getStatsVideos = function (query) {
+        var _this = this;
+        this.youtube.statsVideos(query).subscribe(function (result) {
+            _this.currentVideo.id = result.items[0].id;
+            _this.currentVideo.name = result.items[0].snippet.title;
+            _this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
+            _this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
+            _this.currentVideo.stats.views = result.items[0].statistics.viewCount;
+            _this.shareLink = 'https://youtu.be/' + _this.currentVideo.id;
+        }, function (error) {
+            console.log('error on related videos');
+        });
+    };
+    AppComponent.prototype.getRelatedVideos = function () {
+        var _this = this;
+        this.youtube.relatedVideos(this.currentVideo.id).subscribe(function (result) {
+            _this.relatedVideos = result.items;
+        }, function (error) {
+            console.log('error on related videos');
+        });
+    };
+    // ---------------- Player controls ----------------
     AppComponent.prototype.playPauseVideo = function () {
         if (this.currentState === 1) {
             this.player.pauseVideo();
@@ -207,18 +253,6 @@ var AppComponent = (function () {
         else {
             this.player.playVideo();
         }
-    };
-    AppComponent.prototype.startRange = function () {
-        var _this = this;
-        this.stopRange();
-        this.videoRangeTimer = setInterval(function () {
-            _this.videoCurRange = _this.player.getCurrentTime();
-            _this.videoCurFull = _this.timeFormat(_this.videoCurRange);
-            _this._ref.markForCheck();
-        }, 1000);
-    };
-    AppComponent.prototype.stopRange = function () {
-        clearTimeout(this.videoRangeTimer);
     };
     AppComponent.prototype.RangeNouseDown = function (event) {
         if (event['buttons'] === 1) {
@@ -236,6 +270,19 @@ var AppComponent = (function () {
             this.currentMuteState = false;
         }
         this.player.setVolume(value);
+    };
+    // ---------------- Related functions ----------------
+    AppComponent.prototype.copyShareLink = function () {
+        if (!this.notify.enabled) {
+            document.execCommand('Copy');
+            this._shared.triggerNotify('Copied');
+            this.updateNotify();
+        }
+    };
+    AppComponent.prototype.updateNotify = function () {
+        var _this = this;
+        this.notify = this._shared.notify;
+        setTimeout(function () { return _this.notify = _this._shared.notify; }, 1000);
     };
     AppComponent.prototype.timeFormat = function (time) {
         var hours = Math.floor(time / 3600);
@@ -338,7 +385,7 @@ exports.routes = router_1.RouterModule.forRoot(exports.router);
 /***/ "../../../../../src/app/components/youtube-about.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <p>About</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    this\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <p>About</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    <p>This is a simple youtube player based on angular-cli 1.0, ng2-youtube-player 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.</p>\r\n    <p>This player is compatible only with Chrome/webkit browsers because in future I want to implement NW.js for compiling the code in Windows/Mac OS X/Linux desktop app.</p>\r\n    <p>The current state is pre-alpha.</p>\r\n</div>"
 
 /***/ }),
 
@@ -374,7 +421,7 @@ exports.AboutComponent = AboutComponent;
 /***/ "../../../../../src/app/components/youtube-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <p>Home</p>\r\n</div>\r\n<div class=\"app-content\">\r\n  <form id=\"main-search\" role=\"search\" [formGroup]=\"searchForm\" (ngSubmit)=\"onSubmit($event)\" novalidate>\r\n      <div class=\"form-group\">\r\n        <div class=\"input-group\">\r\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search\" autofocus formControlName=\"searchInput\">\r\n          <button class=\"clear-button\" (click)=\"clearSearch()\"><span class=\"fa fa-times\"></span></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"settings\">\r\n        <span>List mode:</span>\r\n        <div id=\"toggle-list-mode\">\r\n          <p class=\"fa fa-list\" [ngClass]=\"{'active': listGrid }\" (click)=\"toggleList(0)\"></p>\r\n          <p class=\"fa fa-th\" [ngClass]=\"{'active': !listGrid }\" (click)=\"toggleList(1)\"></p>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"searchForm.valid\" id=\"search-video-list\" class=\"video-list\">\r\n        <div *ngFor=\"let video of videos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i, 1)\">\r\n          <div *ngIf=\"searchVideoImage\" class=\"video-item-image\">\r\n            <img src=\"{{ video.snippet.thumbnails.default.url }}\" alt=\"video thumbnail\" />\r\n          </div>\r\n          <div class=\"video-item-content\">\r\n            <p>{{ video.snippet.title }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </form>\r\n  <div *ngIf=\"feedVideos\" id=\"feed-video-list\" class=\"video-list\" [ngClass]=\"{'grid-list': !listGrid }\">\r\n    <div *ngFor=\"let feedVideo of feedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i, 3)\">\r\n      <div class=\"video-item-image\">\r\n        <img src=\"{{ feedVideo.snippet.thumbnails.medium.url }}\" alt=\"feed video thumbnail\" />\r\n      </div>\r\n      <div class=\"video-item-content\">\r\n        <p>{{ feedVideo.snippet.title }}</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <p>Home</p>\r\n</div>\r\n<div class=\"app-content\">\r\n  <form id=\"main-search\" role=\"search\" [formGroup]=\"searchForm\" (ngSubmit)=\"onSubmit($event)\" novalidate>\r\n      <div class=\"form-group\">\r\n        <div class=\"input-group\">\r\n          <input type=\"text\" class=\"form-control\" placeholder=\"Search\" autofocus formControlName=\"searchInput\">\r\n          <button class=\"clear-button\" (click)=\"clearSearch()\"><span class=\"fa fa-times\"></span></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"settings\">\r\n        <span>List mode:</span>\r\n        <div id=\"toggle-list-mode\">\r\n          <p class=\"fa fa-list\" [ngClass]=\"{'active': listGrid }\" (click)=\"toggleList(0)\"></p>\r\n          <p class=\"fa fa-th\" [ngClass]=\"{'active': !listGrid }\" (click)=\"toggleList(1)\"></p>\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"searchForm.valid\" id=\"search-video-list\" class=\"video-list\">\r\n        <div *ngFor=\"let video of videos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i, 1)\">\r\n          <div *ngIf=\"searchVideoImage\" class=\"video-item-image\">\r\n            <img src=\"{{ video.snippet.thumbnails.default.url }}\" alt=\"video thumbnail\" />\r\n          </div>\r\n          <div class=\"video-item-content\">\r\n            <p>{{ video.snippet.title }}</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  </form>\r\n  <div *ngIf=\"feedVideos\" id=\"feed-video-list\" class=\"video-list\" [ngClass]=\"{'grid-list': !listGrid }\">\r\n    <div *ngFor=\"let feedVideo of feedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickVideo($event, i, 3)\">\r\n      <div class=\"video-item-image\">\r\n        <img src=\"{{ feedVideo.snippet.thumbnails.medium.url }}\" alt=\"feed video thumbnail\" />\r\n      </div>\r\n      <div class=\"video-item-content\">\r\n        <p>{{ feedVideo.snippet.title }}</p>\r\n        <div class=\"video-item-details\">\r\n            <p class=\"stats-views\"><span class=\"fa fa-eye\"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>\r\n            <p class=\"stats-likes\"><span class=\"fa fa-thumbs-up\"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>\r\n            <p class=\"stats-dislikes\"><span class=\"fa fa-thumbs-down\"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -587,7 +634,7 @@ var SettingsComponent = (function () {
         this._shared.feedVideos = null;
         this._app.getSettings();
         this._app.getFeedVideos();
-        setTimeout(function () { return _this.loadingRegion = false; }, 3000);
+        setTimeout(function () { return _this.loadingRegion = false; }, 100);
     };
     return SettingsComponent;
 }());
@@ -629,6 +676,10 @@ var SharedService = (function () {
     function SharedService(youtube, http) {
         this.youtube = youtube;
         this.http = http;
+        this.notify = {
+            enabled: false,
+            message: 'No message'
+        };
     }
     SharedService.prototype.getFeed = function () {
         var _this = this;
@@ -672,6 +723,13 @@ var SharedService = (function () {
     };
     SharedService.prototype.setApiSettings = function () {
         this.youtube.defaultApiSet(this.settings);
+    };
+    // Not finished
+    SharedService.prototype.triggerNotify = function (message) {
+        var _this = this;
+        this.notify.enabled = true;
+        this.notify.message = message;
+        setTimeout(function () { return _this.notify.enabled = false; }, 1000);
     };
     return SharedService;
 }());
@@ -726,6 +784,12 @@ var YoutubeGetVideo = (function () {
     YoutubeGetVideo.prototype.relatedVideos = function (query) {
         if (this.apiKey) {
             return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults=' + this.numRelatedRes + '&type=video&key=' + this.apiKey)
+                .map(function (response) { return response.json(); });
+        }
+    };
+    YoutubeGetVideo.prototype.statsVideos = function (query) {
+        if (this.apiKey) {
+            return this.http.get(this.url + 'videos?' + this.videoDetails + '&id=' + query + '&key=' + this.apiKey)
                 .map(function (response) { return response.json(); });
         }
     };

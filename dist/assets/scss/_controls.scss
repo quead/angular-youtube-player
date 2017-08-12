@@ -24,10 +24,46 @@
     color: $c-black;
 }
 
+.current-video-stats {
+    display: flex;
+    .stats-views {
+        margin-right: auto;
+    }
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    p + p {
+        margin-left: 15px;
+    }
+    .fa {
+        margin-right: 3px;
+    }
+}
+
+.current-video-share {
+    display: flex;
+    margin-top: 3px;
+    label {
+        margin: 0 15px 0 0;
+        white-space: nowrap;
+        padding: 9px 0;
+        cursor: pointer;
+    }
+    input[type=text] {
+        width: 100%;
+        border: none;
+        border-bottom: 3px solid $c-primary;
+        padding: 10px;
+        margin: 0;
+    }
+}
+
 .player-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 5px;
     button {
         background: transparent;
         position: relative;

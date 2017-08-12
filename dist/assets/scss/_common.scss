@@ -133,3 +133,23 @@
         transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
     }
 }
+
+.notif {
+    position: absolute;
+    bottom: -41px;
+    background-color: $c-gray;
+    color: $c-white;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 300px;
+    padding: 10px 15px;
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+    z-index: 1;
+    p {
+        margin: 0;
+    }
+    &.active {
+        bottom: 0;
+    }
+}
