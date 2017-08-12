@@ -72,6 +72,9 @@
               <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
             </div>
             <div *ngIf="currentVideo.id" class="current-video-all">
+                <div class="current-video-details">
+                  <p class="current-video-name">{{ currentVideo.name }}</p>
+                </div>
                 <div *ngIf="!displayVideoPlayer" id="player-controls">
                   <div class="player-buttons">
                       <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
@@ -91,11 +94,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="current-video-details">
-                  <p class="current-video-name">{{ currentVideo.name }}</p>
-                </div>
                 <div class="current-video-stats">
-                    <p class="stats-views"><span class="fa fa-eye"></span> {{ currentVideo.stats.views | number:'1.0' }} views</p>
+                    <p class="stats-views"><span class="fa fa-eye"></span> {{ currentVideo.stats.views | number:'1.0' }}</p>
                     <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>
                     <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>
                 </div>

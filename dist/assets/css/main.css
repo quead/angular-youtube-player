@@ -357,6 +357,7 @@ a:active {
 .current-video-stats p {
   margin-top: 5px;
   margin-bottom: 5px;
+  color: #5a5a5a;
 }
 
 .current-video-stats p + p {
@@ -365,6 +366,7 @@ a:active {
 
 .current-video-stats .fa {
   margin-right: 3px;
+  color: #000;
 }
 
 .current-video-share {
@@ -375,16 +377,18 @@ a:active {
 .current-video-share label {
   margin: 0 15px 0 0;
   white-space: nowrap;
-  padding: 9px 0;
+  padding: 7px 0;
   cursor: pointer;
 }
 
 .current-video-share input[type=text] {
   width: 100%;
   border: none;
-  border-bottom: 3px solid #e52d27;
-  padding: 10px;
+  padding: 3px 20px;
+  background: #efefef;
   margin: 0;
+  outline: 0;
+  border-radius: 30px;
 }
 
 .player-buttons {
@@ -962,11 +966,12 @@ iframe {
   margin: 0 15px 0 0;
   line-height: 14px;
   font-size: 12px;
-  color: #969696;
+  color: #5a5a5a;
 }
 
 .video-item-details .fa {
   margin-right: 3px;
+  color: #000;
 }
 
 #related-video-list {
@@ -1136,4 +1141,16 @@ iframe {
 
 #feed-video-list.grid-list .video-item .video-item-content {
   margin: 5px 0 15px 0;
+}
+
+#feed-video-list.grid-list .video-item-details {
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+#feed-video-list.grid-list .video-item-details p {
+  font-size: 14px;
+  width: 100%;
+  margin-right: 0;
+  margin-bottom: 5px;
 }

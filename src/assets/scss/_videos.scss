@@ -85,6 +85,7 @@ iframe {
     }
     .fa {
         margin-right: 3px;
+        color: $c-black;
     }
 }
 
@@ -233,6 +234,16 @@ iframe {
             }
             .video-item-content {
                 margin: 5px 0 15px 0;
+            }
+        }
+        .video-item-details {
+            flex-wrap: wrap;
+            margin-top: 8px;
+            p {
+                font-size: 14px;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 5px;
             }
         }
     }
