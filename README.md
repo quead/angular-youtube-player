@@ -115,7 +115,6 @@ Angular2 YT Player v1.0.0
 
 #### Roadmap to 2.0
 - Notifications for important actions you do **(in v1.7)**
-- Change and create theme **(in v1.7)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
@@ -126,6 +125,7 @@ Angular2 YT Player v1.0.0
 
 #### Roadmap to 3.0
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in 2.1)**
+- Change and create theme **(in v2.2)**
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
 - *Set private/public room **(in v3.0)***
