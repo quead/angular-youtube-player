@@ -25,7 +25,7 @@
               </ul>
             </nav>
             <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
-              <p *ngIf="currentVideoID">Current video ID: {{ currentVideoID }}</p>
+              <p *ngIf="currentVideo.id">Current video ID: {{ currentVideo.id }}</p>
               <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
               <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
             </div>
@@ -38,7 +38,7 @@
                   No history
                 </div>
                 <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
-                  <div class="video-item-image">
+                  <div *ngIf="thumbnails" class="video-item-image">
                     <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
                   </div>
                   <div class="video-item-content">
@@ -54,6 +54,9 @@
       <div class="app app-feed">
         <router-outlet></router-outlet>
       </div>
+      <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
+        <p>{{ notify.message }}</p>
+      </div>
   </div>
   <div class="col col-4">
       <div class="app app-player">
@@ -66,40 +69,48 @@
           </div>
           <div class="app-content">
             <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
-              <youtube-player [videoId]="currentVideoID" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+              <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
             </div>
-            <div class="current-video-all">
-              <div class="current-video-details">
-                <p *ngIf="currentVideoName" class="current-video-name">{{ currentVideoName }}</p>
-                <p *ngIf="!currentVideoName" class="current-video-none">Not Playing</p>
-              </div>
-                <div id="player-controls">
-                    <div class="player-buttons">
-                        <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
-                        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
-                        <button id="next-song"><span class="fa fa-forward"></span></button>
+            <div *ngIf="currentVideo.id" class="current-video-all">
+                <div class="current-video-details">
+                  <p class="current-video-name">{{ currentVideo.name }}</p>
+                </div>
+                <div *ngIf="!displayVideoPlayer" id="player-controls">
+                  <div class="player-buttons">
+                      <button id="previous-song" ondragstart="return false;"><span class="fa fa-backward"></span></button>
+                      <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+                      <button id="next-song"><span class="fa fa-forward"></span></button>
+                  </div>
+                  <div class="current-video-range">
+                    <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
+                    <p class="current-video-range-value">{{videoCurFull}}</p>
+                    <p class="current-video-range-max-value">{{videoMaxFull}}</p>
+                  </div>
+                  <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
+                    <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
+                    <div class="volume-input-container">
+                      <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                      <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
                     </div>
-                </div>
-                <div class="current-video-range">
-                  <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
-                  <p class="current-video-range-value">{{videoCurFull}}</p>
-                  <p class="current-video-range-max-value">{{videoMaxFull}}</p>
-                </div>
-                <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-                  <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
-                  <div class="volume-input-container">
-                    <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
-                    <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
                   </div>
                 </div>
-            </div>  
+                <div class="current-video-stats">
+                    <p class="stats-views"><span class="fa fa-eye"></span> {{ currentVideo.stats.views | number:'1.0' }}</p>
+                    <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>
+                    <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>
+                </div>
+                <div class="current-video-share">
+                  <label for="shareInput">Share link</label>
+                  <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())">
+                </div>
+            </div>
             <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
               <div class="video-item-head">
                   Recommended videos
               </div>
               <div class="related-video-content">
                 <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelated($event, i)">
-                  <div class="video-item-image">
+                  <div *ngIf="thumbnails" class="video-item-image">
                     <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
                   </div>
                   <div class="video-item-content">

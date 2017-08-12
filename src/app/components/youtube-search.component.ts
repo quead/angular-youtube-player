@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
-  searchVideoImage = false;
+  thumbnails = false;
 
   videos: any;
   feedVideos: any;
@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-        this.searchVideoImage = data.form_settings[1].value;
+        this.thumbnails = data.form_settings[1].value;
     });
   }
 
@@ -92,7 +92,7 @@ export class SearchComponent implements OnInit {
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.searchVideoImage = data[from].value;
+      this.thumbnails = data[from].value;
     }
   }
 

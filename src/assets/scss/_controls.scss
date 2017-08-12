@@ -24,10 +24,50 @@
     color: $c-black;
 }
 
+.current-video-stats {
+    display: flex;
+    .stats-views {
+        margin-right: auto;
+    }
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: $c-light-gray;
+    }
+    p + p {
+        margin-left: 15px;
+    }
+    .fa {
+        margin-right: 3px;
+        color: $c-black;
+    }
+}
+
+.current-video-share {
+    display: flex;
+    margin-top: 3px;
+    label {
+        margin: 0 15px 0 0;
+        white-space: nowrap;
+        padding: 7px 0;
+        cursor: pointer;
+    }
+    input[type=text] {
+        width: 100%;
+        border: none;
+        padding: 3px 20px;
+        background: #efefef;
+        margin: 0;
+        outline: 0;
+        border-radius: 30px;
+    }
+}
+
 .player-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 5px;
     button {
         background: transparent;
         position: relative;

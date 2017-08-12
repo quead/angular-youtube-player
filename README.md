@@ -1,10 +1,10 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/HciUBN3.jpg" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/2HIN6MY.jpg" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.4-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.6-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -58,6 +58,12 @@ Just take files from ***dist*** folder
 
 ## Changelog
 
+Angular2 YT Player v1.6
+- History of your watched videos
+- Video details for current video and trending videos like number of views, likes and dislikes
+- Share link for current video
+- Added new setting for hiding all thumbnails
+- Custom player buttons shows now only when you hide video
 
 Angular2 YT Player v1.4
 - History of your watched videos
@@ -68,7 +74,7 @@ Angular2 YT Player v1.3
  - Repeat video
  - Grid/list mode for trending videos
 - **Settings (you can set default from "assets/settings.json", soon will be directly from settings)**
-- *Change country for trending feed (currently only three countries, US, UK and RO)*
+- *Change country for trending videos (currently only three countries, US, UK and RO)*
 - *Max results show in search (0 to 50)*
 - *YOUR_API Key*
 - *Max related videos (0 to 50)*
@@ -108,9 +114,6 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
-- Video details for current video, related videos and trending feed like number of views, likes and dislikes **(in v1.6)**
-- Share link for current video and related videos **(in v1.6)** 
-- Share link for current video at your playing time **(in v1.6)**
 - Notifications for important actions you do **(in v1.7)**
 - Change and create theme **(in v1.7)**
 - Add your videos in playlist **(in v1.9)**
@@ -122,6 +125,7 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 3.0
+- Categories with videos like (music, gaming, autos, films, sports, much more) **(in 2.1)**
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
 - *Set private/public room **(in v3.0)***

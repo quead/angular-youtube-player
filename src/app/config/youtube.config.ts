@@ -41,6 +41,13 @@ export class YoutubeGetVideo {
         }
     }
 
+    statsVideos(query: string) {
+        if (this.apiKey) {
+            return this.http.get(this.url + 'videos?' + this.videoDetails + '&id=' + query + '&key=' + this.apiKey)
+                .map(response => response.json());
+        }
+    }
+
     feedVideos() {
         if (this.apiKey) {
             return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)

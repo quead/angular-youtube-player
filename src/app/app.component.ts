@@ -10,6 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class AppComponent implements OnInit {
 
+  notify: any;
+
   searchForm: FormGroup;
 
   relatedVideos: Array<any>;
@@ -17,18 +19,27 @@ export class AppComponent implements OnInit {
   historyVideos: Array<any> = [];
 
   debuggingInfo = false;
+  thumbnails = true;
+
   displayVideoPlayer = true;
   repeatMode = true;
   regionCode: string;
+  shareLink = '';
 
   player: YT.Player;
-  currentVideoID: string;
-  currentVideoName: string;
-  currentState = -1;
-  currentMuteState = true;
 
-  _ref: any;
-  _shared: any;
+  currentVideo = {
+      id: '',
+      name: '',
+      stats: {
+        likes: '',
+        dislikes: '',
+        views: ''
+      }
+  }
+
+  currentState = -1;
+  currentMuteState = false;
 
   videoRangeTimer: any;
   videoCurRange = 0;
@@ -39,6 +50,10 @@ export class AppComponent implements OnInit {
 
   videoCurVolume = -1;
 
+  _ref: any;
+  _shared: any;
+  _dom: any;
+
   loading = true;
 
   constructor(
@@ -48,6 +63,7 @@ export class AppComponent implements OnInit {
   ) {
     this._ref = ref;
     this._shared = shared;
+    this.notify = this._shared.notify;
   }
 
   ngOnInit() {
@@ -56,59 +72,16 @@ export class AppComponent implements OnInit {
       this.getFeedVideos();
   }
 
-  addHistoryVideo(data: any) {
-      let key;
-      for (key in this.historyVideos) {
-        if (this.historyVideos[key].id === data.id) {
-            this.historyVideos.splice(key, 1);
-            if (this.historyVideos[this.historyVideos.length - 1] === data) {
-              this.historyVideos.splice(-1, 1);
-            }
-        }
-      }
-      this.historyVideos.unshift(data);
-  }
+  // ---------------- Init player ----------------
 
-
-  onClickRelated(event: Event, i: number) {
-    this.getVideo(this.relatedVideos[i]);
-  }
-
-  onClickHistory(event: Event, i: number) {
-    this.playVideo(this.historyVideos[i]);
-  }
-
-  getVideo(data: any) {
-    const tempData = {
-      id: '',
-      title: '',
-      thumbnail: ''
-    };
-    if (data.id.videoId) {
-      tempData.id = data.id.videoId;
-    } else if (data.id) {
-      tempData.id = data.id;
-    }
-    tempData.title = data.snippet.title;
-    tempData.thumbnail = data.snippet.thumbnails.medium.url;
-    this.playVideo(tempData);
-  }
-
-  playVideo(data: any) {
-    if (data.id !== this.currentVideoID || this.currentState === -1) {
-      this.currentVideoID = data.id;
-      this.currentVideoName = data.title;
-      this.historyVideos.push(data);
-      this.addHistoryVideo(data);
-      this.player.loadVideoById(this.currentVideoID);
-      this.getRelatedVideos();
-    }
+  savePlayer(player) {
+      this.player = player;
   }
 
   playerVars() {
     const playerVars = {
       'enablejsapi': 1,
-      'controls': 0,
+      'controls': 1,
       'disablekb': 0,
       'showinfo': 0,
       'playsinline': 1,
@@ -117,6 +90,60 @@ export class AppComponent implements OnInit {
     return playerVars;
   }
 
+  getFeedVideos() {
+    this._shared.getFeed().subscribe(data => {
+      this.feedVideos = data;
+      if (!this.currentVideo.id) {
+        this.setDefaultPlayer();
+      }
+    });
+  }
+
+  setDefaultPlayer() {
+      this.feedVideos = this._shared.feedVideos;
+      this.currentVideo.id = this.feedVideos[0].id;
+      this.currentVideo.name = this.feedVideos[0].snippet.title;
+      this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
+      this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+      this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
+      this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+      this.getRelatedVideos();
+  }
+
+  onStateChange(event) {
+    this.currentState = event.data;
+    this.videoMaxRange = this.player.getDuration();
+
+    if (this.currentState === 1) {
+      this.videoMaxFull = this.timeFormat(this.videoMaxRange);
+      this.videoCurVolume = this.player.getVolume();
+      this.currentMuteState = this.player.isMuted();
+      this.startRange();
+    }
+
+    if (this.currentState === 0) {
+      this.stopRange();
+      if (this.repeatMode) {
+        this.player.playVideo();
+      }
+    }
+  }
+
+  startRange() {
+    this.stopRange();
+    this.videoRangeTimer = setInterval(() => {
+      this.videoCurRange = this.player.getCurrentTime();
+      this.videoCurFull = this.timeFormat(this.videoCurRange);
+      this._ref.markForCheck();
+    }, 1000);
+  }
+
+  stopRange() {
+     clearTimeout(this.videoRangeTimer);
+  }
+
+  // ---------------- Init settings ----------------
+
   getSettings() {
     this._shared.getSettings().subscribe(data => {
         this.debuggingInfo = data.form_settings[0].value;
@@ -124,36 +151,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getFeedVideos() {
-    this._shared.getFeed().subscribe(data => {
-      this.feedVideos = data;
-      if (typeof this.currentVideoID === 'undefined') {
-        this.setDefaultPlayer();
-      }
-    });
-  }
-
-  getRelatedVideos() {
-    this.youtube.relatedVideos(this.currentVideoID).subscribe(
-        result => {
-          this.relatedVideos = result.items;
-        },
-        error => {
-          console.log('error on related videos');
-        }
-      );
-  }
-
-  setDefaultPlayer() {
-      this.feedVideos = this._shared.feedVideos;
-      this.currentVideoID = this.feedVideos[0].id;
-      this.currentVideoName = this.feedVideos[0].snippet.title;
-      this.getRelatedVideos();
-  }
-
   setSettings(data: any, from: number) {
     if (from === 0) {
       this.debuggingInfo = data[from].value;
+      this.thumbnails = data[1].value;
     }
   }
 
@@ -183,28 +184,87 @@ export class AppComponent implements OnInit {
     }
   }
 
-  savePlayer(player) {
-    this.player = player;
+
+  // ---------------- Video fetching ----------------
+
+  onClickRelated(event: Event, i: number) {
+    this.getVideo(this.relatedVideos[i]);
   }
 
-  onStateChange(event) {
-    this.currentState = event.data;
-    this.videoMaxRange = this.player.getDuration();
+  onClickHistory(event: Event, i: number) {
+    this.playVideo(this.historyVideos[i]);
+  }
 
-    if (this.currentState === 1) {
-      this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.videoCurVolume = this.player.getVolume();
-      this.currentMuteState = this.player.isMuted();
-      this.startRange();
+  getVideo(data: any) {
+    const tempData = {
+      id: '',
+      title: '',
+      thumbnail: ''
+    };
+    if (data.id.videoId) {
+      tempData.id = data.id.videoId;
+      this.getStatsVideos(data.id.videoId);
+    } else if (data.id) {
+      tempData.id = data.id;
+      this.getStatsVideos(data.id);
     }
+    tempData.title = data.snippet.title;
+    tempData.thumbnail = data.snippet.thumbnails.medium.url;
+    this.playVideo(tempData);
+  }
 
-    if (this.currentState === 0) {
-      this.stopRange();
-      if (this.repeatMode) {
-        this.player.playVideo();
+  playVideo(data: any) {
+    if (data.id !== this.currentVideo.id || this.currentState === -1) {
+      this.currentVideo.id = data.id;
+      this.currentVideo.name = data.title;
+      this.historyVideos.push(data);
+      this.addHistoryVideo(data);
+      this.player.loadVideoById(this.currentVideo.id);
+      this.getRelatedVideos();
+    }
+  }
+
+  addHistoryVideo(data: any) {
+      let key;
+      for (key in this.historyVideos) {
+        if (this.historyVideos[key].id === data.id) {
+            this.historyVideos.splice(key, 1);
+            if (this.historyVideos[this.historyVideos.length - 1] === data) {
+              this.historyVideos.splice(-1, 1);
+            }
+        }
       }
-    }
+      this.historyVideos.unshift(data);
   }
+
+  getStatsVideos(query: string) {
+    this.youtube.statsVideos(query).subscribe(
+        result => {
+          this.currentVideo.id = result.items[0].id;
+          this.currentVideo.name = result.items[0].snippet.title;
+          this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
+          this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
+          this.currentVideo.stats.views = result.items[0].statistics.viewCount;
+          this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        },
+        error => {
+          console.log('error on related videos');
+        }
+    );
+  }
+
+  getRelatedVideos() {
+    this.youtube.relatedVideos(this.currentVideo.id).subscribe(
+        result => {
+          this.relatedVideos = result.items;
+        },
+        error => {
+          console.log('error on related videos');
+        }
+      );
+  }
+
+  // ---------------- Player controls ----------------
 
   playPauseVideo() {
     if (this.currentState === 1) {
@@ -213,20 +273,6 @@ export class AppComponent implements OnInit {
       this.player.playVideo();
     }
   }
-
-  startRange() {
-    this.stopRange();
-    this.videoRangeTimer = setInterval(() => {
-      this.videoCurRange = this.player.getCurrentTime();
-      this.videoCurFull = this.timeFormat(this.videoCurRange);
-      this._ref.markForCheck();
-    }, 1000);
-  }
-
-  stopRange() {
-     clearTimeout(this.videoRangeTimer);
-  }
-
 
   RangeNouseDown(event: Event) {
     if (event['buttons'] === 1) {
@@ -246,6 +292,21 @@ export class AppComponent implements OnInit {
       this.currentMuteState = false;
     }
     this.player.setVolume(value);
+  }
+
+  // ---------------- Related functions ----------------
+
+  copyShareLink() {
+    if (!this.notify.enabled) {
+      document.execCommand('Copy');
+      this._shared.triggerNotify('Copied');
+      this.updateNotify();
+    }
+  }
+
+  updateNotify() {
+    this.notify = this._shared.notify;
+    setTimeout(() => this.notify = this._shared.notify, 1000);
   }
 
   timeFormat(time: number) {
