@@ -59,7 +59,6 @@ Just take files from ***dist*** folder
 ## Changelog
 
 Angular2 YT Player v1.6
-- History of your watched videos
 - Video details for current video and trending videos like number of views, likes and dislikes
 - Share link for current video
 - Added new setting for hiding all thumbnails
