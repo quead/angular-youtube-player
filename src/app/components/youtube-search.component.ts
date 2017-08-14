@@ -112,7 +112,6 @@ export class SearchComponent implements OnInit {
           }
           this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
           this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
-          this.feedVideos.shift();
       });
   }
 

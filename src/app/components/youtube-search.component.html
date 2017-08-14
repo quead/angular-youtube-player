@@ -29,7 +29,7 @@
   </form>
   <ng-container *ngIf="feedVideos">
     <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
-        <div class="video-item" (click)="onClickVideo($event, i, 3)">
+        <div class="video-item" [attr.data-index]="0"  (click)="onClickVideo($event, 0, 3)">
           <div *ngIf="thumbnails" class="video-item-image">
             <img src="{{ trendingFirst.video.img }}" alt="feed video thumbnail" />
           </div>
