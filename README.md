@@ -112,6 +112,7 @@ Angular2 YT Player v1.0.0
 ## Future features
 #### Backlog
 - Save your playlists **(unversioned)**
+- iOS 8+ / android 5+ app **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
 - **Settings**
