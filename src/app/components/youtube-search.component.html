@@ -27,32 +27,40 @@
         </div>
       </div>
   </form>
-  <div *ngIf="feedVideos" id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
-    <div *ngIf="trendingFirst.video.id" class="video-list-featured">
-      <p>{{ trendingFirst.bannerURL }}</p>
-      <p>{{ trendingFirst.video.title }}</p>
-      <p>{{ trendingFirst.video.img }}</p>
-      <p>{{ trendingFirst.stats.subscribers | number:'1.0' }}</p>
-      <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
-      <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>
-      <div class="video-item-details">
-          <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
-          <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
-          <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes| number:'1.0' }}</p>
-      </div>
+  <ng-container *ngIf="feedVideos">
+    <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
+        <div class="video-item" (click)="onClickVideo($event, i, 3)">
+          <div *ngIf="thumbnails" class="video-item-image">
+            <img src="{{ trendingFirst.video.img }}" alt="feed video thumbnail" />
+          </div>
+          <div class="video-item-content">
+            <p>{{ trendingFirst.video.title }}</p>
+            <div class="video-item-details">
+                <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
+                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
+                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes | number:'1.0' }}</p>
+            </div>
+          </div>
+        </div>
+       <!--
+        <p>{{ trendingFirst.stats.subscribers | number:'1.0' }}</p>
+        <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
+        <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
     </div>
-    <div *ngFor="let feedVideo of feedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 3)">
-      <div *ngIf="thumbnails" class="video-item-image">
-        <img src="{{ feedVideo.snippet.thumbnails.medium.url }}" alt="feed video thumbnail" />
-      </div>
-      <div class="video-item-content">
-        <p>{{ feedVideo.snippet.title }}</p>
-        <div class="video-item-details">
-            <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
-            <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
-            <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
+    <div id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
+      <div *ngFor="let feedVideo of feedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 3)">
+        <div *ngIf="thumbnails" class="video-item-image">
+          <img src="{{ feedVideo.snippet.thumbnails.medium.url }}" alt="feed video thumbnail" />
+        </div>
+        <div class="video-item-content">
+          <p>{{ feedVideo.snippet.title }}</p>
+          <div class="video-item-details">
+              <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
+              <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
+              <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>

@@ -38,7 +38,6 @@ export class SharedService {
                         this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
                         result => {
                             this.channel = result;
-                            console.log(result);
                         });
                         observer.next(this.feedVideos);
                         observer.complete();

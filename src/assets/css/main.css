@@ -1086,10 +1086,36 @@ iframe {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.video-list-featured {
+  margin: 10px -20px 0;
+  height: 200px;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+}
+
+.video-list-featured .video-item {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: auto;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.video-list-featured .video-item-image {
+  width: 55px;
+  height: auto;
+}
+
+.video-list-featured .video-item > div {
+  display: inline-block;
+}
+
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 100px);
+  height: calc(100% - 300px);
   width: calc(100% - 20px);
   max-height: none;
   left: 0;
