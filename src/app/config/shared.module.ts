@@ -8,7 +8,8 @@ import 'rxjs/add/operator/map';
 export class SharedService {
 
     public feedVideos: Array<Object>;
-    settings: Array<Object>;
+    public settings: Array<Object>;
+    public channel: Array<Object>;
 
     notify = {
         enabled: false,
@@ -34,6 +35,11 @@ export class SharedService {
                 this.youtube.feedVideos().subscribe(
                     result => {
                         this.feedVideos = result.items;
+                        this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
+                        result => {
+                            this.channel = result;
+                            console.log(result);
+                        });
                         observer.next(this.feedVideos);
                         observer.complete();
                     },
@@ -42,6 +48,26 @@ export class SharedService {
                     }
                 );
             });
+        });
+    }
+
+    getChannel(query: any): Observable<any> {
+        return new Observable(observer => {
+            if (this.channel) {
+                observer.next(this.channel);
+                return observer.complete();
+            } else {
+                this.youtube.getChannel(query).subscribe(
+                    result => {
+                        this.channel = result;
+                        observer.next(this.channel);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log('error on get channel ' + error);
+                    }
+                );
+            }
         });
     }
 

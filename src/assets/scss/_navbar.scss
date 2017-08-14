@@ -21,33 +21,30 @@ nav {
         margin: 0;
     }
     li {
-        padding-left: 15px;
+        padding-left: 0;
     }
     a {
         display: block;
         text-decoration: none;
         color: $c-white;
         font-size: 14px;
-        text-transform: uppercase;
-        padding: 5px 15px;
-        margin: 10px 0;
+        padding: 10px 15px;
         transition: all 0.1s ease-out;
         border-left: 3px solid transparent;
         .fa {
             margin-right: 10px;
-        }
-        &:hover {
             color: $c-primary;
         }
-        &:active {
+        &:hover {
             border-left-color: $c-primary;
-            color: $c-white;
         }
-        &.is-active {
+        &.is-active,
+        &:active {
+            background: $c-primary;
             border-left-color: $c-primary;
             color: $c-white;
-            &:hover {
-                color: $c-primary;
+            .fa {
+                color: $c-white;
             }
         }
     }

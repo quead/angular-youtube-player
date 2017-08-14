@@ -772,7 +772,7 @@ nav ul {
 }
 
 nav li {
-  padding-left: 15px;
+  padding-left: 0;
 }
 
 nav a {
@@ -780,33 +780,28 @@ nav a {
   text-decoration: none;
   color: #ffffff;
   font-size: 14px;
-  text-transform: uppercase;
-  padding: 5px 15px;
-  margin: 10px 0;
+  padding: 10px 15px;
   transition: all 0.1s ease-out;
   border-left: 3px solid transparent;
 }
 
 nav a .fa {
   margin-right: 10px;
+  color: #e52d27;
 }
 
 nav a:hover {
-  color: #e52d27;
+  border-left-color: #e52d27;
 }
 
-nav a:active {
+nav a.is-active, nav a:active {
+  background: #e52d27;
   border-left-color: #e52d27;
   color: #ffffff;
 }
 
-nav a.is-active {
-  border-left-color: #e52d27;
+nav a.is-active .fa, nav a:active .fa {
   color: #ffffff;
-}
-
-nav a.is-active:hover {
-  color: #e52d27;
 }
 
 #main-search {

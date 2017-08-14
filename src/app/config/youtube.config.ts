@@ -12,6 +12,7 @@ export class YoutubeGetVideo {
     private numSearchRes: string;
     private numRelatedRes: string;
     private videoDetails = 'part=snippet,contentDetails,statistics,status';
+    private channelDetails = 'part=brandingSettings,snippet,contentDetails,statistics'
     private feedDetails = '&chart=mostPopular';
     private settings: Array<any>;
 
@@ -25,6 +26,13 @@ export class YoutubeGetVideo {
         this.regionCode = this.settings[1].value;
         this.numSearchRes = this.settings[2].value;
         this.numRelatedRes = this.settings[3].value;
+    }
+
+    getChannel(query: string) {
+        if (this.apiKey) {
+            return this.http.get(this.url + 'channels?'+ this.channelDetails +'&id=' + query + '&key=' + this.apiKey)
+                .map(response => response.json());
+        }
     }
 
     searchVideo(query: string) {

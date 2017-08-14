@@ -17,9 +17,29 @@ export class SearchComponent implements OnInit {
 
   videos: any;
   feedVideos: any;
+  channel: any;
 
   _shared: any;
   _app: any;
+
+  trendingFirst = {
+      bannerURL: '',
+      video: {
+        id: '',
+        title: '',
+        img: '',
+        stats: {
+          views: '',
+          likes: '',
+          dislikes: ''
+        }
+      },
+      stats: {
+        subscribers: '',
+        views: '',
+        videoCount: ''
+      }
+  }
 
   private listGrid = true;
 
@@ -69,6 +89,30 @@ export class SearchComponent implements OnInit {
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
           this.feedVideos = data;
+          this.getChannelTrending(this.feedVideos[0].snippet.channelId);
+      });
+  }
+
+  getChannelTrending(query: any) {
+      this._shared.getChannel(query).subscribe(data => {
+          this.feedVideos = this._shared.feedVideos;
+          this.channel = this._shared.channel;
+          this.trendingFirst.video.id = this.feedVideos[0].id;
+          this.trendingFirst.video.title = this.feedVideos[0].snippet.title;
+          this.trendingFirst.video.img = this.feedVideos[0].snippet.thumbnails.medium.url;
+          this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
+          this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+          this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
+
+          this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
+          if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
+            this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
+          } else {
+            this.trendingFirst.stats.subscribers = '0';
+          }
+          this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
+          this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
+          this.feedVideos.shift();
       });
   }
 
