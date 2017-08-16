@@ -301,6 +301,12 @@ export class AppComponent implements OnInit {
       document.execCommand('Copy');
       this._shared.triggerNotify('Copied');
       this.updateNotify();
+    } else {
+      setTimeout(() => {
+          document.execCommand('Copy');
+          this._shared.triggerNotify('Copied');
+          this.updateNotify();
+      }, 1000);
     }
   }
 
