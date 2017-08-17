@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-        this.thumbnails = data.form_settings[1].value;
+        this.thumbnails = data.form_settings[0].value;
     });
   }
 

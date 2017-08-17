@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   feedVideos: Array<any>;
   historyVideos: Array<any> = [];
 
-  debuggingInfo = false;
   thumbnails = true;
 
   displayVideoPlayer = true;
@@ -146,15 +145,13 @@ export class AppComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-        this.debuggingInfo = data.form_settings[0].value;
         this.regionCode = data.api_settings[1].value;
     });
   }
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.debuggingInfo = data[from].value;
-      this.thumbnails = data[1].value;
+      this.thumbnails = data[0].value;
     }
   }
 

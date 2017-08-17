@@ -49,14 +49,6 @@
     color: $c-gray;
 }
 
-.debugging-info {
-    display: none;
-    color: $c-white;
-    &.active {
-        display: block;
-    }
-}
-
 .fa-color-danger {
     color: $c-primary;
 }
@@ -108,7 +100,7 @@
         }
     }
     &-feed {
-        box-shadow: rgba($c-black, 0.03) 0 0 10px 5px;
+        box-shadow: rgba($c-black, 0.05) 0 0 10px 10px;
         z-index: 1;
         .app-content {
             padding: 0 20px;
@@ -137,13 +129,15 @@
 .notif {
     position: absolute;
     bottom: -41px;
-    background-color: $c-gray;
+    background-color: $c-primary-inverse;
     color: $c-white;
     left: 50%;
     transform: translateX(-50%);
     min-width: 300px;
     padding: 10px 15px;
     text-align: center;
+    opacity: 0;
+    visibility: hidden;
     transition: all 0.1s ease-in-out;
     z-index: 1;
     p {
@@ -151,5 +145,7 @@
     }
     &.active {
         bottom: 0;
+        opacity: 1;
+        visibility: visible;
     }
 }

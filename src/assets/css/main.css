@@ -200,15 +200,6 @@ a:active {
   color: #111111;
 }
 
-.debugging-info {
-  display: none;
-  color: #ffffff;
-}
-
-.debugging-info.active {
-  display: block;
-}
-
 .fa-color-danger {
   color: #e52d27;
 }
@@ -270,7 +261,7 @@ a:active {
 }
 
 .app-feed {
-  box-shadow: rgba(0, 0, 0, 0.03) 0 0 10px 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 0 10px 10px;
   z-index: 1;
 }
 
@@ -301,13 +292,15 @@ a:active {
 .notif {
   position: absolute;
   bottom: -41px;
-  background-color: #111111;
+  background-color: #232228;
   color: #ffffff;
   left: 50%;
   transform: translateX(-50%);
   min-width: 300px;
   padding: 10px 15px;
   text-align: center;
+  opacity: 0;
+  visibility: hidden;
   transition: all 0.1s ease-in-out;
   z-index: 1;
 }
@@ -318,6 +311,8 @@ a:active {
 
 .notif.active {
   bottom: 0;
+  opacity: 1;
+  visibility: visible;
 }
 
 .current-video-all {
@@ -680,10 +675,6 @@ input[type="radio"]:checked + label .round-check:after {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-#logo:hover {
-  transform: translate(-50%, -50%) scale(1.1);
 }
 
 #logo small {
@@ -1183,16 +1174,6 @@ iframe {
   padding-top: 10px;
 }
 
-#feed-video-list.grid-list .video-item-count {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 7px 12px;
-  color: #ffffff;
-  z-index: 1;
-}
-
 #feed-video-list.grid-list .video-item {
   width: calc(33.333% - 10px);
   display: block;
@@ -1210,10 +1191,31 @@ iframe {
   margin: 5px 0 15px 0;
 }
 
+#feed-video-list.grid-list .video-item .video-item-count {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 7px 12px;
+  color: #ffffff;
+  z-index: 1;
+}
+
+#feed-video-list.grid-list .video-item:not(.hidden-thumbnails) .video-item-count {
+  top: 10px;
+  left: 10px;
+  height: 40px;
+  width: 40px;
+  line-height: 27px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 50%;
+}
+
 #feed-video-list.grid-list .video-item.hidden-thumbnails .video-item-count {
   position: relative;
   text-align: center;
-  background-color: #232228;
+  background-color: #000;
   padding: 5px;
 }
 

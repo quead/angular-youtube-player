@@ -268,15 +268,6 @@ iframe {
         display: flex;
         flex-wrap: wrap;
         padding-top: 10px;
-        .video-item-count {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba($c-black, 0.7);
-            padding: 7px 12px;
-            color: $c-white;
-            z-index: 1;
-        }
         .video-item {
             width: calc(33.333% - 10px);
             display: block;
@@ -290,11 +281,32 @@ iframe {
             .video-item-content {
                 margin: 5px 0 15px 0;
             }
+            .video-item-count {
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: rgba($c-black, 0.7);
+                padding: 7px 12px;
+                color: $c-white;
+                z-index: 1;
+            }
+            &:not(.hidden-thumbnails) {
+                .video-item-count {
+                    top: 10px;
+                    left: 10px;
+                    height: 40px;
+                    width: 40px;
+                    line-height: 27px;
+                    font-size: 12px;
+                    text-align: center;
+                    border-radius: 50%;
+                }
+            }
             &.hidden-thumbnails {
                 .video-item-count {
                     position: relative;
                     text-align: center;
-                    background-color: $c-primary-inverse;
+                    background-color: $c-black;
                     padding: 5px;
                 }
             }

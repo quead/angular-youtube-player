@@ -99,7 +99,7 @@ export class SettingsComponent implements OnInit {
         this._app.getSettings();
         this._app.getFeedVideos();
         this.notifySettings();
-        setTimeout(() => this.loadingRegion = false, 100);
+        setTimeout(() => this.loadingRegion = false, 500);
     }
 
     notifySettings() {

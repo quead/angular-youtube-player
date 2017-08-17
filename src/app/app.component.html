@@ -24,11 +24,6 @@
                 <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
               </ul>
             </nav>
-            <div class="debugging-info" [ngClass]="{'active': debuggingInfo }">
-              <p *ngIf="currentVideo.id">Current video ID: {{ currentVideo.id }}</p>
-              <p>MaxRange {{videoMaxFull}} - {{videoMaxRange}}</p>
-              <p>CurRange {{videoCurFull}} - {{videoCurRange}}</p>
-            </div>
             <div id="history-video-list" class="video-list">
               <div class="video-item-head">
                   Recently played

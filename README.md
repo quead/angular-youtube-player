@@ -60,6 +60,8 @@ Just take files from ***dist*** folder
 
 Angular2 YT Player v1.7
 - Added featured video as first video from trending
+- Notifications for important actions you do
+- Removed debugging details
 - Improved UI/UX
 
 Angular2 YT Player v1.6
@@ -119,7 +121,6 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
-- Notifications for important actions you do **(in v1.7)**
 - Change and create theme **(in v1.7)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
