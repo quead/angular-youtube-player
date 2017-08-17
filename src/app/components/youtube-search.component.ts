@@ -39,9 +39,9 @@ export class SearchComponent implements OnInit {
         views: '',
         videoCount: ''
       }
-  }
+  };
 
-  private listGrid = false;
+  public listGrid = false;
 
   constructor(
     private youtube: YoutubeGetVideo,

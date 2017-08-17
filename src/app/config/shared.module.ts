@@ -19,9 +19,7 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private http: Http
-    ) {
-
-    }
+    ) {}
 
     getFeed(): Observable<any> {
         return new Observable(observer => {
@@ -36,8 +34,8 @@ export class SharedService {
                     result => {
                         this.feedVideos = result.items;
                         this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
-                        result => {
-                            this.channel = result;
+                        resultChannel => {
+                            this.channel = resultChannel;
                         });
                         observer.next(this.feedVideos);
                         observer.complete();

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
         dislikes: '',
         views: ''
       }
-  }
+  };
 
   currentState = -1;
   currentMuteState = false;

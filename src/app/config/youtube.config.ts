@@ -12,7 +12,7 @@ export class YoutubeGetVideo {
     private numSearchRes: string;
     private numRelatedRes: string;
     private videoDetails = 'part=snippet,contentDetails,statistics,status';
-    private channelDetails = 'part=brandingSettings,snippet,contentDetails,statistics'
+    private channelDetails = 'part=brandingSettings,snippet,contentDetails,statistics';
     private feedDetails = '&chart=mostPopular';
     private settings: Array<any>;
 
@@ -30,35 +30,60 @@ export class YoutubeGetVideo {
 
     getChannel(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'channels?'+ this.channelDetails +'&id=' + query + '&key=' + this.apiKey)
+            return this.http.get(
+                    this.url + 'channels?'
+                    + this.channelDetails + '&id='
+                    + query + '&key='
+                    + this.apiKey
+                )
                 .map(response => response.json());
         }
     }
 
     searchVideo(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&q=' + query + '&maxResults=' + this.numSearchRes + '&type=video&key=' + this.apiKey)
+            return this.http.get(
+                    this.url + 'search?part=snippet&q='
+                    + query + '&maxResults='
+                    + this.numSearchRes + '&type=video&key='
+                    + this.apiKey
+                )
                 .map(response => response.json());
         }
     }
 
     relatedVideos(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'search?part=snippet&relatedToVideoId=' + query + '&maxResults=' + this.numRelatedRes + '&type=video&key=' + this.apiKey)
+            return this.http.get(
+                    this.url + 'search?part=snippet&relatedToVideoId='
+                    + query + '&maxResults='
+                    + this.numRelatedRes + '&type=video&key='
+                    + this.apiKey
+                )
                 .map(response => response.json());
         }
     }
 
     statsVideos(query: string) {
         if (this.apiKey) {
-            return this.http.get(this.url + 'videos?' + this.videoDetails + '&id=' + query + '&key=' + this.apiKey)
+            return this.http.get(
+                    this.url + 'videos?'
+                    + this.videoDetails + '&id='
+                    + query + '&key='
+                    + this.apiKey
+                )
                 .map(response => response.json());
         }
     }
 
     feedVideos() {
         if (this.apiKey) {
-            return this.http.get(this.url + 'videos?' + this.videoDetails + this.feedDetails + '&regionCode=' + this.regionCode + '&maxResults=25&key=' + this.apiKey)
+            return this.http.get(
+                    this.url + 'videos?'
+                    + this.videoDetails + this.feedDetails + '&regionCode='
+                    + this.regionCode + '&maxResults=25&key='
+                    + this.apiKey
+                )
                 .map(response => response.json());
         }
     }

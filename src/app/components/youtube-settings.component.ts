@@ -59,7 +59,7 @@ export class SettingsComponent implements OnInit {
 
     get getSettings(): FormArray {
         return this.settingsForm.get('settings') as FormArray;
-    };
+    }
 
     checkInputs() {
         this.settingsForm.valueChanges.subscribe((data) => {
