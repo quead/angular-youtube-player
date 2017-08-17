@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from './config/youtube.config';
-import { SharedService } from './config/shared.module';
+import { YoutubeGetVideo } from './shared/youtube.service';
+import { SharedService } from './shared/lists.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({

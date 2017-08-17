@@ -56,8 +56,9 @@ Just take files from ***dist*** folder
 Angular2 YT Player v1.7
 - Added featured video as first video from trending
 - Notifications for important actions you do
-- Removed debugging details
-- Improved UI/UX
+- Removed debugging mode
+- Preparing packages, code and files for v2.0
+- Improved UI/UX for lists
 
 Angular2 YT Player v1.6
 - History of your watched videos

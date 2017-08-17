@@ -27,7 +27,7 @@ nav {
         display: block;
         text-decoration: none;
         color: $c-white;
-        font-size: 14px;
+        font-size: $f-14;
         position: relative;
         padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;
@@ -41,7 +41,7 @@ nav {
         }
         .description {
             display: block;
-            font-size: 12px;
+            font-size: $f-12;
             color: rgba($c-white, 0.5);
         }
         &:hover {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
-import { SharedService } from '../config/shared.module';
+import { SharedService } from '../shared/lists.service';
 import { Http } from '@angular/http';
 
 @Component({

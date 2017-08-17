@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from '../config/youtube.config';
+import { YoutubeGetVideo } from '../shared/youtube.service';
 import { AppComponent } from '../app.component';
-import { SharedService } from '../config/shared.module';
+import { SharedService } from '../shared/lists.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 

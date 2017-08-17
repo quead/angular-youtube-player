@@ -84,7 +84,7 @@ iframe {
     p {
         margin: 0 15px 0 0;
         line-height: 14px;
-        font-size: 12px;
+        font-size: $f-12;
         color: $c-light-gray;
     }
     .fa {
@@ -155,7 +155,7 @@ iframe {
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item-head {
-        background-color: darken($c-primary-inverse, 3%);
+        background-color: darken($c-primary-inverse, 2%);
     }
     .video-item {
         display: flex;
@@ -297,7 +297,7 @@ iframe {
                     height: 40px;
                     width: 40px;
                     line-height: 27px;
-                    font-size: 12px;
+                    font-size: $f-12;
                     text-align: center;
                     border-radius: 50%;
                 }
@@ -330,7 +330,7 @@ iframe {
             text-align: center;
             margin-top: 8px;
             p {
-                font-size: 14px;
+                font-size: $f-14;
                 width: 100%;
                 margin-right: 0;
                 margin-bottom: 5px;

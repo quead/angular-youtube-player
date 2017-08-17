@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { YoutubeGetVideo } from './youtube.config';
+import { YoutubeGetVideo } from './youtube.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,9 +7,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SharedService {
 
-    public feedVideos: Array<Object>;
-    public settings: Array<Object>;
-    public channel: Array<Object>;
+    public feedVideos: Array<any>;
+    public settings: Array<any>;
+    public channel: Array<any>;
 
     notify = {
         enabled: false,

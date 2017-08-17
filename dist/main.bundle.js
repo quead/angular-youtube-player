@@ -26,8 +26,8 @@ module.exports = "<div class=\"loading-bar inactive\"></div>\r\n<header>\r\n    
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__ = __webpack_require__("../../../../../src/app/config/youtube.config.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_shared_module__ = __webpack_require__("../../../../../src/app/config/shared.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -309,7 +309,7 @@ AppComponent = __decorate([
         selector: 'app-yt',
         template: __webpack_require__("../../../../../src/app/app.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__config_shared_module__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__config_shared_module__["a" /* SharedService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["l" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object])
 ], AppComponent);
 
 var _a, _b, _c;
@@ -328,8 +328,8 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_router__ = __webpack_require__("../../../../../src/app/app.router.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_shared_module__ = __webpack_require__("../../../../../src/app/config/shared.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__config_youtube_config__ = __webpack_require__("../../../../../src/app/config/youtube.config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_youtube_settings_component__ = __webpack_require__("../../../../../src/app/components/youtube-settings.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_youtube_search_component__ = __webpack_require__("../../../../../src/app/components/youtube-search.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_youtube_about_component__ = __webpack_require__("../../../../../src/app/components/youtube-about.component.ts");
@@ -373,7 +373,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_10__components_youtube_about_component__["a" /* AboutComponent */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
-        providers: [__WEBPACK_IMPORTED_MODULE_7__config_youtube_config__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__config_shared_module__["a" /* SharedService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_7__shared_youtube_service__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__["a" /* SharedService */]]
     })
 ], AppModule);
 
@@ -409,7 +409,7 @@ var routes = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModule *
 /***/ "../../../../../src/app/components/youtube-about.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <p>About</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    <p>This is a simple youtube player based on angular-cli 1.0, ng2-youtube-player 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.</p>\r\n    <p>This player is compatible only with Chrome/webkit browsers because in future I want to implement NW.js for compiling the code in Windows/Mac OS X/Linux desktop app.</p>\r\n    <p>The current state is pre-alpha.</p>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <p>About</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    <p>This is a simple youtube player based on angular-cli 1.3, ng2-youtube-player 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.</p>\r\n    <p>This player is compatible only with Chrome/webkit browsers because in future I want to implement NW.js for compiling the code in Windows/Mac OS X/Linux desktop app.</p>\r\n    <p>The current state is pre-alpha.</p>\r\n</div>"
 
 /***/ }),
 
@@ -455,9 +455,9 @@ module.exports = "<div class=\"app-head\">\r\n    <p>Home</p>\r\n</div>\r\n<div 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__ = __webpack_require__("../../../../../src/app/config/youtube.config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_shared_module__ = __webpack_require__("../../../../../src/app/config/shared.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
@@ -599,7 +599,7 @@ SearchComponent = __decorate([
         selector: 'app-search',
         template: __webpack_require__("../../../../../src/app/components/youtube-search.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_youtube_config__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__config_shared_module__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__config_shared_module__["a" /* SharedService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _c || Object])
 ], SearchComponent);
 
 var _a, _b, _c;
@@ -623,7 +623,7 @@ module.exports = "<div class=\"app-head\">\r\n    <p>Settings</p>\r\n</div>\r\n<
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__ = __webpack_require__("../../../../../src/app/components/youtube-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_shared_module__ = __webpack_require__("../../../../../src/app/config/shared.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -740,7 +740,7 @@ SettingsComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/youtube-settings.component.html"),
         providers: [__WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__config_shared_module__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__config_shared_module__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
 ], SettingsComponent);
 
 var _a, _b, _c, _d, _e;
@@ -748,13 +748,13 @@ var _a, _b, _c, _d, _e;
 
 /***/ }),
 
-/***/ "../../../../../src/app/config/shared.module.ts":
+/***/ "../../../../../src/app/shared/lists.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SharedService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__youtube_config__ = __webpack_require__("../../../../../src/app/config/youtube.config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -858,15 +858,15 @@ var SharedService = (function () {
 }());
 SharedService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__youtube_config__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__youtube_config__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _b || Object])
 ], SharedService);
 
 var _a, _b;
-//# sourceMappingURL=shared.module.js.map
+//# sourceMappingURL=lists.service.js.map
 
 /***/ }),
 
-/***/ "../../../../../src/app/config/youtube.config.ts":
+/***/ "../../../../../src/app/shared/youtube.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -955,7 +955,7 @@ YoutubeGetVideo = __decorate([
 ], YoutubeGetVideo);
 
 var _a;
-//# sourceMappingURL=youtube.config.js.map
+//# sourceMappingURL=youtube.service.js.map
 
 /***/ }),
 
