@@ -102,7 +102,7 @@
         bottom: 0;
     }
     &-services {        
-        background: darken($c-gray, 10%);
+        background: $c-primary-inverse;
         .app-head {
             position: relative;
         }

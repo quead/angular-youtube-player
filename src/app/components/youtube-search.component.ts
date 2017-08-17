@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
       }
   }
 
-  private listGrid = true;
+  private listGrid = false;
 
   constructor(
     private youtube: YoutubeGetVideo,
