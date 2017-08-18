@@ -28,7 +28,7 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm install` in root folder
 
-4. Run the player by`
+4. Run the player by
 
 `npm start` in root folder
 
