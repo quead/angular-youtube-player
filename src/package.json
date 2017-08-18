@@ -15,10 +15,5 @@
   },
   "webkit": {
     "plugin": true
-  },
-  "devDependencies": {
-    "gulp": "latest",
-    "gulp-sass": "latest",
-    "gulp-watch": "latest"
   }
 }

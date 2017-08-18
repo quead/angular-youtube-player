@@ -1,9 +1,6 @@
 {
   "form_settings": [
     {
-      "name": "Show Debugging Info",
-      "value": false
-    }, {
       "name": "Show Thumbnails",
       "value": true
     }

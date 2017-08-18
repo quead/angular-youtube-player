@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from '../config/youtube.config';
+import { YoutubeGetVideo } from '../shared/youtube.service';
 import { AppComponent } from '../app.component';
-import { SharedService } from '../config/shared.module';
+import { SharedService } from '../shared/lists.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
@@ -17,11 +17,31 @@ export class SearchComponent implements OnInit {
 
   videos: any;
   feedVideos: any;
+  channel: any;
 
   _shared: any;
   _app: any;
 
-  private listGrid = true;
+  trendingFirst = {
+      bannerURL: '',
+      video: {
+        id: '',
+        title: '',
+        img: '',
+        stats: {
+          views: '',
+          likes: '',
+          dislikes: ''
+        }
+      },
+      stats: {
+        subscribers: '',
+        views: '',
+        videoCount: ''
+      }
+  };
+
+  public listGrid = false;
 
   constructor(
     private youtube: YoutubeGetVideo,
@@ -62,13 +82,36 @@ export class SearchComponent implements OnInit {
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
-        this.thumbnails = data.form_settings[1].value;
+        this.thumbnails = data.form_settings[0].value;
     });
   }
 
   getFeedVideos() {
       this._shared.getFeed().subscribe(data => {
           this.feedVideos = data;
+          this.getChannelTrending(this.feedVideos[0].snippet.channelId);
+      });
+  }
+
+  getChannelTrending(query: any) {
+      this._shared.getChannel(query).subscribe(data => {
+          this.feedVideos = this._shared.feedVideos;
+          this.channel = this._shared.channel;
+          this.trendingFirst.video.id = this.feedVideos[0].id;
+          this.trendingFirst.video.title = this.feedVideos[0].snippet.title;
+          this.trendingFirst.video.img = this.feedVideos[0].snippet.thumbnails.medium.url;
+          this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
+          this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+          this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
+
+          this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
+          if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
+            this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
+          } else {
+            this.trendingFirst.stats.subscribers = '0';
+          }
+          this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
+          this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
       });
   }
 

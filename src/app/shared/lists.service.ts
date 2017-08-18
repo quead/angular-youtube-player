@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { YoutubeGetVideo } from './youtube.config';
+import { YoutubeGetVideo } from './youtube.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,8 +7,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SharedService {
 
-    public feedVideos: Array<Object>;
-    settings: Array<Object>;
+    public feedVideos: Array<any>;
+    public settings: Array<any>;
+    public channel: Array<any>;
 
     notify = {
         enabled: false,
@@ -18,9 +19,7 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private http: Http
-    ) {
-
-    }
+    ) {}
 
     getFeed(): Observable<any> {
         return new Observable(observer => {
@@ -34,6 +33,10 @@ export class SharedService {
                 this.youtube.feedVideos().subscribe(
                     result => {
                         this.feedVideos = result.items;
+                        this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
+                        resultChannel => {
+                            this.channel = resultChannel;
+                        });
                         observer.next(this.feedVideos);
                         observer.complete();
                     },
@@ -42,6 +45,26 @@ export class SharedService {
                     }
                 );
             });
+        });
+    }
+
+    getChannel(query: any): Observable<any> {
+        return new Observable(observer => {
+            if (this.channel) {
+                observer.next(this.channel);
+                return observer.complete();
+            } else {
+                this.youtube.getChannel(query).subscribe(
+                    result => {
+                        this.channel = result;
+                        observer.next(this.channel);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log('error on get channel ' + error);
+                    }
+                );
+            }
         });
     }
 

@@ -21,33 +21,39 @@ nav {
         margin: 0;
     }
     li {
-        padding-left: 15px;
+        padding-left: 0;
     }
     a {
         display: block;
         text-decoration: none;
         color: $c-white;
-        font-size: 14px;
-        text-transform: uppercase;
-        padding: 5px 15px;
-        margin: 10px 0;
+        font-size: $f-14;
+        position: relative;
+        padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;
         border-left: 3px solid transparent;
         .fa {
-            margin-right: 10px;
+            color: $c-white;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .description {
+            display: block;
+            font-size: $f-12;
+            color: rgba($c-white, 0.5);
         }
         &:hover {
-            color: $c-primary;
+            border-left-color: $c-primary;
         }
+        &.is-active,
         &:active {
+            background: $c-primary;
             border-left-color: $c-primary;
             color: $c-white;
-        }
-        &.is-active {
-            border-left-color: $c-primary;
-            color: $c-white;
-            &:hover {
-                color: $c-primary;
+            .fa {
+                color: $c-white;
             }
         }
     }

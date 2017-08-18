@@ -1,16 +1,16 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/2HIN6MY.jpg" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/pPans2y.png" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.6-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.7-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.0, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.3, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
@@ -36,15 +36,10 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 **For SASS development**
 
-*You must go in **src** folder*
 1. Install [Sass](http://sass-lang.com/install "Sass website")
 2. Install [Gulp](https://github.com/gulpjs/gulp "Gulp download")
 
 `npm install -g gulp`
-
-3. Then install all packages
-
-`npm install`
 
 4. Start compiling the SCSS files by
 
@@ -57,6 +52,13 @@ Just take files from ***dist*** folder
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
 
 ## Changelog
+
+Angular2 YT Player v1.7
+- Added featured video as first video from trending
+- Notifications for important actions you do
+- Removed debugging mode
+- Preparing packages, code and files for v2.0
+- Improved UI/UX for lists
 
 Angular2 YT Player v1.6
 - Video details for current video and trending videos like number of views, likes and dislikes
@@ -107,13 +109,13 @@ Angular2 YT Player v1.0.0
 ## Future features
 #### Backlog
 - Save your playlists **(unversioned)**
+- iOS 8+ / android 5+ app **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
 - **Settings**
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
-- Notifications for important actions you do **(in v1.7)**
 - Add your videos in playlist **(in v1.9)**
 - Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**

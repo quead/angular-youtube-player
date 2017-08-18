@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
-import { SharedService } from '../config/shared.module';
+import { SharedService } from '../shared/lists.service';
 import { Http } from '@angular/http';
 
 @Component({
@@ -14,6 +14,7 @@ import { Http } from '@angular/http';
 export class SettingsComponent implements OnInit {
 
     private finished = false;
+    notify: any;
 
     _shared: any;
     _fb: any;
@@ -41,6 +42,7 @@ export class SettingsComponent implements OnInit {
         this._fb = fb;
         this._app = app;
         this._search = search;
+        this.notify = this._shared.notify;
     }
 
     ngOnInit() {
@@ -57,7 +59,7 @@ export class SettingsComponent implements OnInit {
 
     get getSettings(): FormArray {
         return this.settingsForm.get('settings') as FormArray;
-    };
+    }
 
     checkInputs() {
         this.settingsForm.valueChanges.subscribe((data) => {
@@ -66,6 +68,7 @@ export class SettingsComponent implements OnInit {
             });
             this._app.setSettings(this.settings, 0);
             this._search.setSettings(this.settings, 1);
+            this.notifySettings();
         });
     }
 
@@ -95,6 +98,24 @@ export class SettingsComponent implements OnInit {
         this._shared.feedVideos = null;
         this._app.getSettings();
         this._app.getFeedVideos();
-        setTimeout(() => this.loadingRegion = false, 100);
+        this.notifySettings();
+        setTimeout(() => this.loadingRegion = false, 500);
+    }
+
+    notifySettings() {
+        if (!this.notify.enabled) {
+            this._shared.triggerNotify('Changed');
+            this.updateNotify();
+        } else {
+            setTimeout(() => {
+                this._shared.triggerNotify('Changed');
+                this.updateNotify();
+            }, 1000);
+        }
+    }
+
+    updateNotify() {
+        this.notify = this._shared.notify;
+        setTimeout(() => this.notify = this._shared.notify, 1000);
     }
 }

@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
-import { SharedService } from './config/shared.module';
-import { YoutubeGetVideo } from './config/youtube.config';
+import { SharedService } from './shared/lists.service';
+import { YoutubeGetVideo } from './shared/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
