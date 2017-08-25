@@ -45,6 +45,7 @@ var AppComponent = (function () {
         this.youtube = youtube;
         this.ref = ref;
         this.shared = shared;
+        this.playlistVideos = [];
         this.historyVideos = [];
         this.thumbnails = true;
         this.displayVideoPlayer = true;
@@ -79,14 +80,19 @@ var AppComponent = (function () {
     // ---------------- Init player ----------------
     AppComponent.prototype.savePlayer = function (player) {
         this.player = player;
+        if (this.playlistVideos) {
+            this.player.cuePlaylist(this.playlistVideos);
+        }
     };
     AppComponent.prototype.playerVars = function () {
         var playerVars = {
             'enablejsapi': 1,
             'controls': 1,
             'disablekb': 0,
-            'showinfo': 0,
+            'showinfo': 1,
             'playsinline': 1,
+            'autoplay': 0,
+            'loop': 0,
             'rel': 0
         };
         return playerVars;
@@ -137,6 +143,15 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.stopRange = function () {
         clearTimeout(this.videoRangeTimer);
+    };
+    AppComponent.prototype.playlistInit = function () {
+        var _this = this;
+        // this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
+        console.log('playlist init');
+        Object.keys(this.relatedVideos).map(function (i) {
+            _this.playlistVideos.push(_this.relatedVideos[i].id.videoId);
+        });
+        this.playlistVideos.unshift(this.currentVideo.id);
     };
     // ---------------- Init settings ----------------
     AppComponent.prototype.getSettings = function () {
@@ -242,6 +257,7 @@ var AppComponent = (function () {
         var _this = this;
         this.youtube.relatedVideos(this.currentVideo.id).subscribe(function (result) {
             _this.relatedVideos = result.items;
+            _this.playlistInit();
         }, function (error) {
             console.log('error on related videos');
         });

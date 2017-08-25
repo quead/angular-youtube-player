@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
+  playlistVideos: Array<any> = [];
   historyVideos: Array<any> = [];
 
   thumbnails = true;
@@ -75,6 +76,9 @@ export class AppComponent implements OnInit {
 
   savePlayer(player) {
       this.player = player;
+      if (this.playlistVideos) {
+        this.player.cuePlaylist(this.playlistVideos);
+      }
   }
 
   playerVars() {
@@ -82,8 +86,10 @@ export class AppComponent implements OnInit {
       'enablejsapi': 1,
       'controls': 1,
       'disablekb': 0,
-      'showinfo': 0,
+      'showinfo': 1,
       'playsinline': 1,
+      'autoplay': 0,
+      'loop': 0,
       'rel': 0
     };
     return playerVars;
@@ -139,6 +145,15 @@ export class AppComponent implements OnInit {
 
   stopRange() {
      clearTimeout(this.videoRangeTimer);
+  }
+
+  playlistInit() {
+      // this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
+      console.log('playlist init');
+      Object.keys(this.relatedVideos).map(i => {
+          this.playlistVideos.push(this.relatedVideos[i].id.videoId);
+      });
+      this.playlistVideos.unshift(this.currentVideo.id);
   }
 
   // ---------------- Init settings ----------------
@@ -254,6 +269,7 @@ export class AppComponent implements OnInit {
     this.youtube.relatedVideos(this.currentVideo.id).subscribe(
         result => {
           this.relatedVideos = result.items;
+          this.playlistInit();
         },
         error => {
           console.log('error on related videos');
