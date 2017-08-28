@@ -10,6 +10,7 @@ import { YoutubeGetVideo } from './shared/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
+import { HistoryComponent } from './components/youtube-history.component';
 
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 
@@ -25,7 +26,8 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     AppComponent,
     SettingsComponent,
     SearchComponent,
-    AboutComponent
+    AboutComponent,
+    HistoryComponent
   ],
   bootstrap:    [ AppComponent ],
   providers:    [ YoutubeGetVideo, SharedService ]
