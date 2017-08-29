@@ -39,11 +39,11 @@ button {
 }
 
 a {
-  color: #e52d27;
+  color: red;
 }
 
 a:active {
-  color: #c21d17;
+  color: #cc0000;
 }
 
 .btn {
@@ -73,17 +73,17 @@ a:active {
 }
 
 .btn-primary {
-  background-color: #e52d27;
+  background-color: red;
   color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: #d8201a;
+  background-color: #e60000;
 }
 
 .btn-primary:active {
   color: #ffffff;
-  background-color: #c21d17;
+  background-color: #cc0000;
 }
 
 .btn-secondary {
@@ -141,7 +141,7 @@ a:active {
 
 .loading-app {
   position: fixed;
-  color: #e52d27;
+  color: red;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -181,8 +181,8 @@ a:active {
   margin: 0;
   padding: 0;
   z-index: 99998;
-  background-color: #e52d27;
-  color: #e52d27;
+  background-color: red;
+  color: red;
   box-shadow: 0 0 10px 0;
   height: 2px;
   opacity: 0;
@@ -201,7 +201,7 @@ a:active {
 }
 
 .fa-color-danger {
-  color: #e52d27;
+  color: red;
 }
 
 .fa-color-info {
@@ -219,8 +219,8 @@ a:active {
 }
 
 .alert.alert-danger {
-  background-color: rgba(229, 45, 39, 0.2);
-  color: #c21d17;
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #cc0000;
 }
 
 .alert.alert-danger a {
@@ -398,7 +398,7 @@ a:active {
   position: relative;
   border: none;
   outline: none;
-  color: #e52d27;
+  color: red;
   height: 30px;
   width: 30px;
   font-size: 12px;
@@ -416,7 +416,7 @@ a:active {
 }
 
 .player-buttons #play-song {
-  background-color: #e52d27;
+  background-color: red;
   color: #ffffff;
   border-radius: 50%;
   transition: all 0.1s ease-out;
@@ -446,7 +446,7 @@ a:active {
   position: absolute;
   top: 0;
   margin: 0;
-  color: #e52d27;
+  color: red;
 }
 
 .current-video-range .current-video-range-value {
@@ -475,7 +475,7 @@ a:active {
 .player-range::-webkit-slider-runnable-track {
   width: 100%;
   height: 3px;
-  background: #e52d27;
+  background: red;
 }
 
 .player-range::-webkit-slider-thumb {
@@ -483,7 +483,7 @@ a:active {
   height: 15px;
   width: 15px;
   margin-top: -6px;
-  background: #e52d27;
+  background: red;
   border-radius: 50%;
   transition: all 0.2s ease-out;
 }
@@ -493,7 +493,7 @@ a:active {
 }
 
 .volume-range-value {
-  color: #e52d27;
+  color: red;
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -544,7 +544,7 @@ a:active {
   left: 0;
   height: 100%;
   border-radius: 20px;
-  background-color: #e52d27;
+  background-color: red;
   transition: all 0.1s ease-out;
 }
 
@@ -585,7 +585,7 @@ a:active {
 
 input[type="checkbox"]:checked + label .round-check:before,
 input[type="radio"]:checked + label .round-check:before {
-  background-color: #e52d27;
+  background-color: red;
 }
 
 input[type="checkbox"]:checked + label .round-check:after,
@@ -651,7 +651,7 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 #win-close {
-  background-color: #c21d17;
+  background-color: #cc0000;
   width: 40px;
   transform: scale(1);
 }
@@ -661,7 +661,7 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 #win-close:active {
-  background-color: #941612;
+  background-color: #990000;
 }
 
 #win-close:active span {
@@ -725,7 +725,7 @@ input[type="radio"]:checked + label .round-check:after {
 
 .settings p.active {
   opacity: 1;
-  color: #e52d27;
+  color: red;
 }
 
 .settings #toggle-repeat-mode .fa {
@@ -792,12 +792,12 @@ nav a .description {
 }
 
 nav a:hover {
-  border-left-color: #e52d27;
+  border-left-color: red;
 }
 
 nav a.is-active, nav a:active {
-  background: #e52d27;
-  border-left-color: #e52d27;
+  background: red;
+  border-left-color: red;
   color: #ffffff;
 }
 
@@ -922,7 +922,7 @@ iframe {
 }
 
 .video-item-head {
-  background-color: #e52d27;
+  background-color: red;
   color: #ffffff;
   width: 100%;
   height: 39px;
@@ -1002,7 +1002,7 @@ iframe {
 }
 
 .video-item-settings .video-item-remove {
-  background-color: #e52d27;
+  background-color: red;
 }
 
 .video-item-settings .video-item-add {
@@ -1061,6 +1061,10 @@ iframe {
   flex-wrap: nowrap;
   padding: 0;
   transition: box-shadow 0.1s ease-out;
+}
+
+#related-video-list .video-item-info {
+  padding: 5px;
 }
 
 #related-video-list .video-item:hover .video-item-info {

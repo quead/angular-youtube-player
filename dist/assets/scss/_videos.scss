@@ -168,6 +168,9 @@ iframe {
         flex-wrap: nowrap;
         padding: 0;
         transition: box-shadow 0.1s ease-out;
+        &-info {
+            padding: 5px;
+        }
         &:hover {
             .video-item-info {
                 left: -30px;

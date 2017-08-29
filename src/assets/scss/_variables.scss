@@ -2,8 +2,8 @@
 // Base colors
 $c-base: #f7f8fa;
 $c-default: #f5f5f5;
-$c-primary: #e52d27;
-$c-primary-active: darken(#e52d27, 10%);
+$c-primary: red;
+$c-primary-active: darken($c-primary, 10%);
 $c-primary-inverse: #232228;
 $c-secondary: #167ac6;
 
