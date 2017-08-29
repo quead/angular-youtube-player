@@ -17,10 +17,11 @@ export class AppComponent implements OnInit {
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
   playlistVideos: Array<any> = [];
-  historyVideos: Array<any> = [];
 
   thumbnails = true;
 
+  playlistPrefill = true;
+  currentPlaylistItem: number;
   displayVideoPlayer = true;
   repeatMode = true;
   regionCode: string;
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
 
   currentVideo = {
       id: '',
-      name: '',
+      title: '',
       stats: {
         likes: '',
         dislikes: '',
@@ -76,9 +77,6 @@ export class AppComponent implements OnInit {
 
   savePlayer(player) {
       this.player = player;
-      if (this.playlistVideos) {
-        this.player.cuePlaylist(this.playlistVideos);
-      }
   }
 
   playerVars() {
@@ -86,7 +84,7 @@ export class AppComponent implements OnInit {
       'enablejsapi': 1,
       'controls': 1,
       'disablekb': 0,
-      'showinfo': 1,
+      'showinfo': 0,
       'playsinline': 1,
       'autoplay': 0,
       'loop': 0,
@@ -107,12 +105,13 @@ export class AppComponent implements OnInit {
   setDefaultPlayer() {
       this.feedVideos = this._shared.feedVideos;
       this.currentVideo.id = this.feedVideos[0].id;
-      this.currentVideo.name = this.feedVideos[0].snippet.title;
+      this.currentVideo.title = this.feedVideos[0].snippet.title;
       this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
       this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
       this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
+      this.findPlaylistItem();
   }
 
   onStateChange(event) {
@@ -129,7 +128,11 @@ export class AppComponent implements OnInit {
     if (this.currentState === 0) {
       this.stopRange();
       if (this.repeatMode) {
-        this.player.playVideo();
+        if(this.playlistVideos.length) {
+          this.findPlaylistItem();
+        } else {
+          this.player.playVideo();
+        }
       }
     }
   }
@@ -147,13 +150,24 @@ export class AppComponent implements OnInit {
      clearTimeout(this.videoRangeTimer);
   }
 
+  // ---------------- Playlist settings ----------------
+
   playlistInit() {
-      // this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
-      console.log('playlist init');
-      Object.keys(this.relatedVideos).map(i => {
-          this.playlistVideos.push(this.relatedVideos[i].id.videoId);
-      });
-      this.playlistVideos.unshift(this.currentVideo.id);
+      //this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
+      this.playlistVideos = this.relatedVideos;
+  }
+
+  findPlaylistItem() {
+      const playlistItem = this.playlistVideos.find(item => item.id.videoId == this.currentVideo.id);
+      this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
+  }
+
+  removePlaylistItem(i: number) {
+      this._shared.triggerNotify('Video removed');
+      this.updateNotify();
+      setTimeout(() => {
+        this.playlistVideos.splice(i, 1);
+      }, 200);
   }
 
   // ---------------- Init settings ----------------
@@ -161,6 +175,7 @@ export class AppComponent implements OnInit {
   getSettings() {
     this._shared.getSettings().subscribe(data => {
         this.regionCode = data.api_settings[1].value;
+        this.thumbnails = data.form_settings[0].value;
     });
   }
 
@@ -203,8 +218,8 @@ export class AppComponent implements OnInit {
     this.getVideo(this.relatedVideos[i]);
   }
 
-  onClickHistory(event: Event, i: number) {
-    this.playVideo(this.historyVideos[i]);
+  onClickPlaylist(event: Event, i: number) {
+    this.getVideo(this.playlistVideos[i]);
   }
 
   getVideo(data: any) {
@@ -228,32 +243,19 @@ export class AppComponent implements OnInit {
   playVideo(data: any) {
     if (data.id !== this.currentVideo.id || this.currentState === -1) {
       this.currentVideo.id = data.id;
-      this.currentVideo.name = data.title;
-      this.historyVideos.push(data);
-      this.addHistoryVideo(data);
+      this.currentVideo.title = data.title;
+      this._shared.addHistoryVideo(data);
       this.player.loadVideoById(this.currentVideo.id);
       this.getRelatedVideos();
+      this.findPlaylistItem();
     }
-  }
-
-  addHistoryVideo(data: any) {
-      let key;
-      for (key in this.historyVideos) {
-        if (this.historyVideos[key].id === data.id) {
-            this.historyVideos.splice(key, 1);
-            if (this.historyVideos[this.historyVideos.length - 1] === data) {
-              this.historyVideos.splice(-1, 1);
-            }
-        }
-      }
-      this.historyVideos.unshift(data);
   }
 
   getStatsVideos(query: string) {
     this.youtube.statsVideos(query).subscribe(
         result => {
           this.currentVideo.id = result.items[0].id;
-          this.currentVideo.name = result.items[0].snippet.title;
+          this.currentVideo.title = result.items[0].snippet.title;
           this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
           this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
           this.currentVideo.stats.views = result.items[0].statistics.viewCount;
@@ -269,7 +271,10 @@ export class AppComponent implements OnInit {
     this.youtube.relatedVideos(this.currentVideo.id).subscribe(
         result => {
           this.relatedVideos = result.items;
-          this.playlistInit();
+          if (this.playlistPrefill) {
+            this.playlistInit();
+            this.playlistPrefill = false;
+          }
         },
         error => {
           console.log('error on related videos');

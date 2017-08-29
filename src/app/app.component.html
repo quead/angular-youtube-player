@@ -25,20 +25,28 @@
                 <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
               </ul>
             </nav>
-            <div id="history-video-list" class="video-list">
+            <div id="playlist-video-list" class="video-list">
               <div class="video-item-head">
-                  Recently played
+                  Current playlist
+                  <span class="video-item-head-btn" (click)="playlistVideos = []"><span class="fa fa-close"></span>clear</span>
               </div>
-              <div class="history-video-content">
-                <div *ngIf="historyVideos.length === 0" class="video-list-info">
-                  No history
+              <div class="playlist-video-content">
+                <div *ngIf="playlistVideos.length === 0" class="video-list-info">
+                  Empty playlist
                 </div>
-                <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
-                  <div *ngIf="thumbnails" class="video-item-image">
-                    <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
+                <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+                  <div class="video-item-info" (click)="onClickPlaylist($event, i)">
+                    <div *ngIf="thumbnails" class="video-item-image">
+                      <img src="{{ playlistVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
+                    </div>
+                    <div class="video-item-content">
+                      <p>{{ playlistVideo.snippet.title }}</p>
+                    </div>
                   </div>
-                  <div class="video-item-content">
-                    <p>{{ historyVideo.title }}</p>
+                  <div class="video-item-settings" (click)="removePlaylistItem(i)">
+                    <p class="video-item-remove">
+                      <span class="fa fa-times-circle"></span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -102,15 +110,22 @@
             </div>
             <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
               <div class="video-item-head">
-                  Recommended videos
+                  Similar videos
               </div>
               <div class="related-video-content">
-                <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickRelated($event, i)">
-                  <div *ngIf="thumbnails" class="video-item-image">
-                    <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
+                <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
+                  <div class="video-item-info" (click)="onClickRelated($event, i)">
+                    <div *ngIf="thumbnails" class="video-item-image">
+                      <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
+                    </div>
+                    <div class="video-item-content">
+                      <p>{{ relatedVideo.snippet.title }}</p>
+                    </div>
                   </div>
-                  <div class="video-item-content">
-                    <p>{{ relatedVideo.snippet.title }}</p>
+                  <div class="video-item-settings" (click)="addPlaylistItem(i)">
+                    <p class="video-item-add">
+                      <span class="fa fa-plus-circle"></span>
+                    </p>
                   </div>
                 </div>
               </div>

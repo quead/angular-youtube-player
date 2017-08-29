@@ -19,7 +19,7 @@
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 6px;
         background-color: $c-white;
     }
 
@@ -44,6 +44,24 @@ iframe {
     width: 100%;
     height: 39px;
     padding: 8px;
+    &-btn {
+        float: right;
+        background-color: $c-white;
+        cursor: pointer;
+        color: $c-primary-inverse;
+        border-radius: 3px;
+        padding: 1px 7px;
+        margin-top: 2px;
+        text-transform: uppercase;
+        font-size: $f-12;
+        &:active {
+            background-color: darken($c-white, 7%);
+            user-select: none;
+        }
+    }
+    .fa {
+        margin-right: 3px;
+    }
 }
 
 .video-item {
@@ -59,6 +77,34 @@ iframe {
     }
     p {
         margin: 0;
+    }
+    &-info {
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+    }
+    &-settings {
+        height: 100%;
+        position: absolute;
+        right: 0;
+        width: 30px;
+        display: flex;
+        > p {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $c-white;
+        }
+        .video-item-remove {
+            background-color: $c-primary;
+        }
+        .video-item-add {
+            background-color: $c-success;
+        }
     }
     &-count {
         font-family: 'Muli', sans-serif;
@@ -99,15 +145,28 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 190px);
+    height: calc(100% - 170px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item {
         display: flex;
-        background-color: transparent;
+        background-color: inherit;
         flex-wrap: nowrap;
-        padding: 5px 10px;
+        padding: 0;
         transition: box-shadow 0.1s ease-out;
+        position: relative;
+        &-info {
+            background-color: inherit;
+            padding: 5px 10px;
+            position: relative;
+            left: 0;
+            transition: all 0.1s ease-in-out;
+        }
+        &:hover {
+            .video-item-info {
+                left: -30px;
+            }
+        }
     }
     .video-item-image {
         flex: inherit;
@@ -124,13 +183,13 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: $c-white;
+        background-color: $c-base;
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
 
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
             background-color: transparent;
         }
 
@@ -140,18 +199,18 @@ iframe {
         }
     }
     &.activePlayer {
-        height: calc(100% - 380px);
+        height: calc(100% - 370px);
         transition: height 0.1s ease-out 0s;
     }
 }
 
-#history-video-list {
+#playlist-video-list {
     display: flex;
     flex-wrap: wrap;
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 177px);
+    height: calc(100% - 236px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item-head {
@@ -159,11 +218,26 @@ iframe {
     }
     .video-item {
         display: flex;
-        background-color: transparent;
+        background-color: inherit;
         flex-wrap: nowrap;
         border-bottom: 1px solid rgba($c-white, 0.05);
-        transition: box-shadow 0.1s ease-out;
-        padding: 5px;
+        transition: all 0.1s ease-out;
+        position: relative;
+        padding: 0;
+        &-info {
+            background-color: inherit;
+            left: 0;
+            width: 100%;
+            padding: 5px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.1s ease-in-out;
+        }
+        &:hover {
+            .video-item-info {
+                left: -30px;
+            }
+        }
     }
     .video-item-image {
         flex: inherit;
@@ -174,7 +248,7 @@ iframe {
             height: auto;
         }
     }
-    .history-video-content {
+    .playlist-video-content {
         position: absolute;
         bottom: 0;
         height: calc(100% - 39px);
@@ -187,7 +261,7 @@ iframe {
         }
 
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
             background-color: transparent;
         }
 
@@ -253,7 +327,7 @@ iframe {
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 6px;
         background-color: transparent;
     }
 

@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 export class SharedService {
 
     public feedVideos: Array<any>;
+    public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;
 
@@ -94,10 +95,22 @@ export class SharedService {
         this.youtube.defaultApiSet(this.settings);
     }
 
-    // Not finished
     triggerNotify(message: string) {
         this.notify.enabled = true;
         this.notify.message = message;
         setTimeout(() => this.notify.enabled = false, 1000);
+    }
+
+    addHistoryVideo(data: any) {
+        let key;
+        for (key in this.historyVideos) {
+            if (this.historyVideos[key].id === data.id) {
+                this.historyVideos.splice(key, 1);
+                if (this.historyVideos[this.historyVideos.length - 1] === data) {
+                this.historyVideos.splice(-1, 1);
+                }
+            }
+        }
+        this.historyVideos.unshift(data);
     }
 }
