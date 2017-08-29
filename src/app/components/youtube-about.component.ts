@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'youtube-about.component.html'
 })
 
-export class AboutComponent {
+export class AboutComponent implements OnInit {
 
   ngOnInit() {
     console.log('about');

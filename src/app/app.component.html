@@ -28,7 +28,7 @@
             <div id="playlist-video-list" class="video-list">
               <div class="video-item-head">
                   Current playlist
-                  <span class="video-item-head-btn" (click)="playlistVideos = []"><span class="fa fa-close"></span>clear</span>
+                  <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
               </div>
               <div class="playlist-video-content">
                 <div *ngIf="playlistVideos.length === 0" class="video-list-info">
@@ -122,7 +122,7 @@
                       <p>{{ relatedVideo.snippet.title }}</p>
                     </div>
                   </div>
-                  <div class="video-item-settings" (click)="addPlaylistItem(i)">
+                  <div class="video-item-settings" (click)="addPlaylistItem(i, 2)">
                     <p class="video-item-add">
                       <span class="fa fa-plus-circle"></span>
                     </p>

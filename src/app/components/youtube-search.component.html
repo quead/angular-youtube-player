@@ -17,12 +17,19 @@
         </div>
       </div>
       <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
-        <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickVideo($event, i, 1)">
-          <div *ngIf="thumbnails" class="video-item-image">
-            <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
+        <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
+          <div class="video-item-info" (click)="onClickVideo($event, i, 1)">
+            <div *ngIf="thumbnails" class="video-item-image">
+              <img src="{{ video.snippet.thumbnails.default.url }}" alt="video thumbnail" />
+            </div>
+            <div class="video-item-content">
+              <p>{{ video.snippet.title }}</p>
+            </div>
           </div>
-          <div class="video-item-content">
-            <p>{{ video.snippet.title }}</p>
+          <div class="video-item-settings" (click)="addPlaylistItem(i, 1)">
+            <p class="video-item-add">
+              <span class="fa fa-plus-circle"></span>
+            </p>
           </div>
         </div>
       </div>

@@ -107,7 +107,7 @@ export class SharedService {
             if (this.historyVideos[key].id === data.id) {
                 this.historyVideos.splice(key, 1);
                 if (this.historyVideos[this.historyVideos.length - 1] === data) {
-                this.historyVideos.splice(-1, 1);
+                    this.historyVideos.splice(-1, 1);
                 }
             }
         }

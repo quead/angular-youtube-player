@@ -14,7 +14,7 @@ This is a simple youtube player based on [angular-cli](https://github.com/angula
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
-*This is pre-alpha.*
+*The project status is alpha.*
 
 ## Usage
 

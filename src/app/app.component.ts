@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-yt',
@@ -11,8 +10,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
 
   notify: any;
-
-  searchForm: FormGroup;
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
@@ -128,7 +125,7 @@ export class AppComponent implements OnInit {
     if (this.currentState === 0) {
       this.stopRange();
       if (this.repeatMode) {
-        if(this.playlistVideos.length) {
+        if (this.playlistVideos.length) {
           this.findPlaylistItem();
         } else {
           this.player.playVideo();
@@ -153,12 +150,12 @@ export class AppComponent implements OnInit {
   // ---------------- Playlist settings ----------------
 
   playlistInit() {
-      //this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
-      this.playlistVideos = this.relatedVideos;
+      // this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
+      this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
   }
 
   findPlaylistItem() {
-      const playlistItem = this.playlistVideos.find(item => item.id.videoId == this.currentVideo.id);
+      const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideo.id);
       this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
   }
 
@@ -168,6 +165,28 @@ export class AppComponent implements OnInit {
       setTimeout(() => {
         this.playlistVideos.splice(i, 1);
       }, 200);
+  }
+
+  addPlaylistItem(list: number, i: number) {
+      // Relative vidoes
+      const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.relatedVideos[i].id.videoId);
+      if (typeof playlistItem === 'undefined') {
+        if (list === 2) {
+          this.playlistVideos.push(this.relatedVideos[i]);
+        }
+        if (list === 1) {
+
+        }
+        this._shared.triggerNotify('Added to playlist');
+        this.updateNotify();
+      } else {
+        this._shared.triggerNotify('Video is already in playlist');
+        this.updateNotify();
+      }
+  }
+
+  clearPlaylist() {
+      this.playlistVideos = [];
   }
 
   // ---------------- Init settings ----------------

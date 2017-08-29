@@ -133,6 +133,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  addPlaylistItem(i: number, list: number) {
+      this._app.playlistVideos.push(this.videos[i]);
+  }
+
   setSettings(data: any, from: number) {
     if (from === 0) {
       this.thumbnails = data[from].value;

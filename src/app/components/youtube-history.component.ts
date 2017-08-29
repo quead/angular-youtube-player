@@ -7,7 +7,7 @@ import { SharedService } from '../shared/lists.service';
   templateUrl: 'youtube-history.component.html'
 })
 
-export class HistoryComponent {
+export class HistoryComponent implements OnInit {
 
   _shared: any;
   _app: any;

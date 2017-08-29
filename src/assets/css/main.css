@@ -889,6 +889,14 @@ nav a.is-active .fa, nav a:active .fa {
   box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.15);
 }
 
+#search-video-list .video-item {
+  padding: 0;
+}
+
+#search-video-list .video-item-info {
+  padding: 5px 10px;
+}
+
 #search-video-list::-webkit-scrollbar-track {
   border-radius: 2px;
 }
@@ -949,6 +957,7 @@ iframe {
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
   padding: 5px 10px;
   cursor: pointer;
+  position: relative;
 }
 
 .video-item h2 {
@@ -966,6 +975,13 @@ iframe {
   position: relative;
   z-index: 1;
   width: 100%;
+  background-color: inherit;
+  left: 0;
+  transition: all 0.1s ease-in-out;
+}
+
+.video-item:hover .video-item-info {
+  left: -30px;
 }
 
 .video-item-settings {
@@ -1041,20 +1057,10 @@ iframe {
 }
 
 #related-video-list .video-item {
-  display: flex;
   background-color: inherit;
   flex-wrap: nowrap;
   padding: 0;
   transition: box-shadow 0.1s ease-out;
-  position: relative;
-}
-
-#related-video-list .video-item-info {
-  background-color: inherit;
-  padding: 5px 10px;
-  position: relative;
-  left: 0;
-  transition: all 0.1s ease-in-out;
 }
 
 #related-video-list .video-item:hover .video-item-info {
@@ -1116,23 +1122,19 @@ iframe {
 }
 
 #playlist-video-list .video-item {
-  display: flex;
   background-color: inherit;
   flex-wrap: nowrap;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.1s ease-out;
-  position: relative;
   padding: 0;
 }
 
 #playlist-video-list .video-item-info {
-  background-color: inherit;
-  left: 0;
-  width: 100%;
   padding: 5px;
-  position: relative;
-  z-index: 1;
-  transition: all 0.1s ease-in-out;
+}
+
+#playlist-video-list .video-item.active {
+  background-color: #232228;
 }
 
 #playlist-video-list .video-item:hover .video-item-info {
