@@ -168,7 +168,13 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.findPlaylistItem = function () {
         var _this = this;
-        var playlistItem = this.playlistVideos.find(function (item) { return item.id.videoId === _this.currentVideo.id; });
+        var playlistItem;
+        if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
+            playlistItem = this.playlistVideos.find(function (item) { return item.id.videoId === _this.currentVideoObject[0].id.videoId; });
+        }
+        else {
+            playlistItem = this.playlistVideos.find(function (item) { return item.id === _this.currentVideoObject[0].id; });
+        }
         this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
     };
     AppComponent.prototype.playPlaylistItem = function (direction, i) {

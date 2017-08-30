@@ -169,7 +169,12 @@ export class AppComponent implements OnInit {
   }
 
   findPlaylistItem() {
-      const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideo.id);
+      let playlistItem;
+      if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
+        playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
+      } else {
+        playlistItem = this.playlistVideos.find(item => item.id === this.currentVideoObject[0].id);
+      }
       this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
   }
 
