@@ -127,8 +127,14 @@ export class AppComponent implements OnInit {
       if (this.repeatMode) {
         if (this.playlistVideos.length) {
           this.findPlaylistItem();
-        } else {
-          this.player.playVideo();
+          if (this.currentPlaylistItem < 0) {
+            this.playPlaylistItem('next', this.currentPlaylistItem);
+          } else {
+            this.playPlaylistItem('next', this.currentPlaylistItem);
+          }
+          if (this.playlistVideos.length === 1) {
+            this.player.playVideo();
+          }
         }
       }
     }
@@ -158,6 +164,30 @@ export class AppComponent implements OnInit {
       const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideo.id);
       this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
   }
+  
+  playPlaylistItem(direction: string, i: number) {
+    if (direction === 'next') {
+      if (i < this.playlistVideos.length) {
+        i += 1;
+      }
+      if (i === this.playlistVideos.length) {
+        i = 0;
+      }
+    }
+    if (direction === 'prev') {
+      if (i === 0 || i < 0) {
+        i = this.playlistVideos.length - 1
+      } else {
+        i -= 1;
+      }
+    }
+    if (this.playlistVideos.length > 0) {
+      this.getVideo(this.playlistVideos[i]);
+    } else {
+      this._shared.triggerNotify('Playlist is empty');
+      this.updateNotify();
+    }
+  }
 
   removePlaylistItem(i: number) {
       this._shared.triggerNotify('Video removed');
@@ -167,16 +197,18 @@ export class AppComponent implements OnInit {
       }, 200);
   }
 
-  addPlaylistItem(list: number, i: number) {
-      // Relative vidoes
-      const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.relatedVideos[i].id.videoId);
-      if (typeof playlistItem === 'undefined') {
-        if (list === 2) {
-          this.playlistVideos.push(this.relatedVideos[i]);
-        }
-        if (list === 1) {
+  addPlaylistItem(i: number, list: number) {
+    let listType;
+    if (list === 2) {
+        listType = this.relatedVideos[i];
+      }
+      if (list === 1) {
+        listType = this._shared.lastSearchedVideos[i];
+      }
 
-        }
+      const playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
+      if (typeof playlistItem === 'undefined') {
+        this.playlistVideos.push(listType);
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
       } else {

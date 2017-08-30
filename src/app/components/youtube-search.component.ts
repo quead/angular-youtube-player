@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit {
           result => {
             if (!this.searchForm.invalid) {
               this.videos = result.items;
+              this._shared.lastSearchedVideos = result.items;
             } else {
               this.videos = null;
             }
@@ -134,7 +135,7 @@ export class SearchComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-      this._app.playlistVideos.push(this.videos[i]);
+      this._app.addPlaylistItem(i, 1);
   }
 
   setSettings(data: any, from: number) {

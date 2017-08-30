@@ -160,7 +160,7 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 170px);
+    height: calc(100% - 190px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item {
@@ -208,7 +208,7 @@ iframe {
         }
     }
     &.activePlayer {
-        height: calc(100% - 370px);
+        height: calc(100% - 385px);
         transition: height 0.1s ease-out 0s;
     }
 }

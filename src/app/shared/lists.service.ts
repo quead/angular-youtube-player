@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 export class SharedService {
 
     public feedVideos: Array<any>;
+    public lastSearchedVideos: Array<any>;
     public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;
