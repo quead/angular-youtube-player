@@ -30,7 +30,7 @@
                   Current playlist
                   <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
               </div>
-              <div class="playlist-video-content">
+              <div class="playlist-video-content" #playlistContainer>
                 <div *ngIf="playlistVideos.length === 0" class="video-list-info">
                   Empty playlist
                 </div>

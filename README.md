@@ -55,7 +55,7 @@ Just take files from ***dist*** folder
 
 Angular2 YT Player v1.9
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos
-- Add videos to playlist (queue)
+- Next/prev video from your playlist
 - Moved history to separate page
 - Small fixes
 
@@ -122,8 +122,6 @@ Angular2 YT Player v1.0.0
 - *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
-- Add your videos in playlist **(in v1.9)**
-- Next/prev video from your playlist **(in v1.9)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - Save your playlists **(unversioned)**

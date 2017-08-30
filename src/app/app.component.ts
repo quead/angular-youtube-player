@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
 
@@ -8,12 +8,14 @@ import { SharedService } from './shared/lists.service';
 })
 
 export class AppComponent implements OnInit {
+  @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
 
   notify: any;
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
   playlistVideos: Array<any> = [];
+  currentVideoObject: Array<any> = [];
 
   thumbnails = true;
 
@@ -50,14 +52,13 @@ export class AppComponent implements OnInit {
 
   _ref: any;
   _shared: any;
-  _dom: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private ref: ChangeDetectorRef,
-    private shared: SharedService
+    private shared: SharedService,
   ) {
     this._ref = ref;
     this._shared = shared;
@@ -99,8 +100,14 @@ export class AppComponent implements OnInit {
     });
   }
 
+  setCurrentVideoObject(data: any) {
+    this.currentVideoObject = [];
+    this.currentVideoObject.push(data);
+  }
+
   setDefaultPlayer() {
       this.feedVideos = this._shared.feedVideos;
+      this.setCurrentVideoObject(this.feedVideos[0]);
       this.currentVideo.id = this.feedVideos[0].id;
       this.currentVideo.title = this.feedVideos[0].snippet.title;
       this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
@@ -165,7 +172,7 @@ export class AppComponent implements OnInit {
       const playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideo.id);
       this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
   }
-  
+
   playPlaylistItem(direction: string, i: number) {
     if (direction === 'next') {
       if (i < this.playlistVideos.length) {
@@ -177,7 +184,7 @@ export class AppComponent implements OnInit {
     }
     if (direction === 'prev') {
       if (i === 0 || i < 0) {
-        i = this.playlistVideos.length - 1
+        i = this.playlistVideos.length - 1;
       } else {
         i -= 1;
       }
@@ -203,6 +210,7 @@ export class AppComponent implements OnInit {
 
   addPlaylistItem(i: number, list: number) {
       let listType;
+      let playlistItem;
       if (list === 0) {
         listType = this.feedVideos[i];
       }
@@ -213,15 +221,21 @@ export class AppComponent implements OnInit {
         listType = this.relatedVideos[i];
       }
       if (list === 3) {
-        listType = this.currentVideo
+        listType = this.currentVideoObject[i];
       }
 
-      const playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
+      if (typeof listType.id.videoId !== 'undefined') {
+        playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
+      } else {
+        playlistItem = this.playlistVideos.find(item => item.id === listType.id);
+      }
+
       if (typeof playlistItem === 'undefined') {
         this.playlistVideos.push(listType);
         this.findPlaylistItem();
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
+        this.scrollToBottom();
       } else {
         this._shared.triggerNotify('Video is already in playlist');
         this.updateNotify();
@@ -291,6 +305,7 @@ export class AppComponent implements OnInit {
       title: '',
       thumbnail: ''
     };
+    this.setCurrentVideoObject(data);
     if (data.id.videoId) {
       tempData.id = data.id.videoId;
       this.getStatsVideos(data.id.videoId);
@@ -376,6 +391,18 @@ export class AppComponent implements OnInit {
   }
 
   // ---------------- Related functions ----------------
+
+  scrollToBottom() {
+      try {
+        setTimeout( () => {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+        }, 200);
+      } catch (err) {
+        console.log(err);
+        console.log('scroll issue');
+      }
+  }
+
 
   copyShareLink() {
     if (!this.notify.enabled) {
