@@ -135,6 +135,8 @@ export class AppComponent implements OnInit {
           if (this.playlistVideos.length === 1) {
             this.player.playVideo();
           }
+        } else {
+          this.player.playVideo();
         }
       }
     }

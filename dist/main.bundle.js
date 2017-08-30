@@ -138,6 +138,9 @@ var AppComponent = (function () {
                         this.player.playVideo();
                     }
                 }
+                else {
+                    this.player.playVideo();
+                }
             }
         }
     };
