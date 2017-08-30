@@ -158,7 +158,6 @@ export class AppComponent implements OnInit {
   // ---------------- Playlist settings ----------------
 
   playlistInit() {
-      // this.player.loadPlaylist(this.playlistVideos, 3); de selectat video
       this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
   }
 
@@ -195,22 +194,32 @@ export class AppComponent implements OnInit {
       this._shared.triggerNotify('Video removed');
       this.updateNotify();
       setTimeout(() => {
+        if (i === this.currentPlaylistItem) {
+          this.currentPlaylistItem = -1;
+        }
         this.playlistVideos.splice(i, 1);
       }, 200);
   }
 
   addPlaylistItem(i: number, list: number) {
-    let listType;
-    if (list === 2) {
-        listType = this.relatedVideos[i];
+      let listType;
+      if (list === 0) {
+        listType = this.feedVideos[i];
       }
       if (list === 1) {
         listType = this._shared.lastSearchedVideos[i];
+      }
+      if (list === 2) {
+        listType = this.relatedVideos[i];
+      }
+      if (list === 3) {
+        listType = this.currentVideo
       }
 
       const playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
       if (typeof playlistItem === 'undefined') {
         this.playlistVideos.push(listType);
+        this.findPlaylistItem();
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
       } else {
@@ -220,6 +229,7 @@ export class AppComponent implements OnInit {
   }
 
   clearPlaylist() {
+      this.currentPlaylistItem = -1;
       this.playlistVideos = [];
   }
 

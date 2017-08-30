@@ -406,6 +406,7 @@ a:active {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  transition: all 0.1s ease-out;
 }
 
 .player-buttons button span {
@@ -415,11 +416,14 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
+.player-buttons button:not(#play-song):active {
+  transform: scale(1.4);
+}
+
 .player-buttons #play-song {
   background-color: red;
   color: #ffffff;
   border-radius: 50%;
-  transition: all 0.1s ease-out;
 }
 
 .player-buttons #play-song span {
@@ -1138,7 +1142,7 @@ iframe {
 }
 
 #playlist-video-list .video-item.active {
-  background-color: #232228;
+  background-color: #36353e;
 }
 
 #playlist-video-list .video-item:hover .video-item-info {

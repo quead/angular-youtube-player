@@ -235,7 +235,7 @@ iframe {
             padding: 5px;
         }
         &.active {
-            background-color: $c-primary-inverse;
+            background-color: lighten($c-primary-inverse, 8%);
         }
         &:hover {
             .video-item-info {
