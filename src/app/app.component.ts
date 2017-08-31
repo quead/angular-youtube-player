@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
 
@@ -50,17 +50,14 @@ export class AppComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  _ref: any;
   _shared: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
-    private ref: ChangeDetectorRef,
     private shared: SharedService,
   ) {
-    this._ref = ref;
     this._shared = shared;
     this.notify = this._shared.notify;
   }
@@ -121,10 +118,10 @@ export class AppComponent implements OnInit {
   onStateChange(event) {
     this.currentState = event.data;
     this.videoMaxRange = this.player.getDuration();
+    this.videoCurVolume = this.player.getVolume();
 
     if (this.currentState === 1) {
       this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.videoCurVolume = this.player.getVolume();
       this.currentMuteState = this.player.isMuted();
       this.startRange();
     }
@@ -154,7 +151,7 @@ export class AppComponent implements OnInit {
     this.videoRangeTimer = setInterval(() => {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
-      this._ref.markForCheck();
+
     }, 1000);
   }
 

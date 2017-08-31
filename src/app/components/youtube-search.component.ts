@@ -135,7 +135,7 @@ export class SearchComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-      this._app.addPlaylistItem(i, 1);
+      this._app.addPlaylistItem(i, list);
   }
 
   setSettings(data: any, from: number) {

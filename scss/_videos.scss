@@ -104,6 +104,7 @@ iframe {
         height: 100%;
         position: absolute;
         right: 0;
+        top: 0;
         width: 30px;
         display: flex;
         > p {
@@ -113,12 +114,19 @@ iframe {
             align-items: center;
             justify-content: center;
             color: var(--c-white);
+            transition: all 0.1s ease-in-out;
         }
         .video-item-remove {
             background-color: var(--c-primary);
+            &:active {
+                background-color: var(--c-primary-active);
+            }
         }
         .video-item-add {
             background-color: var(--c-success);
+            &:active {
+                background-color: var(--c-success-active);
+            }
         }
     }
     &-count {
@@ -302,8 +310,28 @@ iframe {
             height: auto;
             flex: auto;
         }
-        > div {
-            display: inline-block;
+        &-info {
+            background-color: transparent;
+            > div {
+                display: inline-block;
+            }
+        }
+        &-settings {
+            right: -60px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+            .video-item-info {
+                left: 0;
+            }
+            .video-item-settings {
+                right: -30px;
+                top: 0;
+                opacity: 1;
+                visibility: visible;
+            }
         }
     }
 }
@@ -315,13 +343,14 @@ iframe {
     width: calc(100% - 20px);
     max-height: none;
     .video-item {
-        background-color: transparent;
         border-bottom: none;
         line-height: 16px;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 0;
         &:first-child {
             display: none !important;
+        }
+        &-info {
+            padding: 5px;
         }
     }
     &::-webkit-scrollbar-track {
@@ -350,12 +379,7 @@ iframe {
             margin: 0 5px;
             padding: 0;
             position: relative;
-            @media screen and (max-width: 1600px) and (min-width: 992px) {
-                width: calc(50% - 10px);
-            }
-            @media screen and (max-width: 991px) {
-                width: calc(100% - 10px);
-            }
+            overflow: hidden;
             .video-item-image {
                 margin: 0;
                 position: relative;
@@ -363,36 +387,7 @@ iframe {
             .video-item-content {
                 margin: 5px 0 15px 0;
             }
-            .video-item-count {
-                position: absolute;
-                top: 0;
-                left: 0;
-                background-color: rgba($c-black, 0.7);
-                padding: 7px 12px;
-                color: var(--c-white);
-                z-index: 1;
-            }
             &:not(.hidden-thumbnails) {
-                .video-item-count {
-                    top: 10px;
-                    left: 10px;
-                    height: 40px;
-                    width: 40px;
-                    line-height: 27px;
-                    font-size: $f-12;
-                    text-align: center;
-                    border-radius: 50%;
-                }
-            }
-            &.hidden-thumbnails {
-                .video-item-count {
-                    position: relative;
-                    text-align: center;
-                    background-color: var(--c-black);
-                    padding: 5px;
-                }
-            }
-            &:hover {
                 .video-item-image {
                     &:before {
                         content: '\25B6  Play';
@@ -404,8 +399,57 @@ iframe {
                         top: 50%;
                         right: 50%;
                         transform: translate(50%, -50%);
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: all 0.2s ease-in-out;
                     }
                 }
+            }
+            &-settings {
+                opacity: 0;
+                visibility: hidden;
+                z-index: 1;
+                width: 100%;
+                height: 30px;
+                top: -30px;
+                transition: all 0.2s ease-in-out;
+            }
+            &-info {
+                display: block;
+                padding: 0;
+                &:active {
+                    &:not(.hidden-thumbnails) .video-item-image:before {
+                        background-color: var(--c-black);                    
+                    }
+                }
+            }
+            &.hidden-thumbnails {
+                .video-item-settings {
+                    height: 26px;
+                    width: 30px;
+                }
+            }
+            &:hover {
+                .video-item-info {
+                    left: 0;
+                }
+                .video-item-settings {
+                    opacity: 1;
+                    visibility: visible;
+                    top: 0;
+                }
+                &:not(.hidden-thumbnails) .video-item-image {
+                    &:before {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+            @media screen and (max-width: 1600px) and (min-width: 992px) {
+                width: calc(50% - 10px);
+            }
+            @media screen and (max-width: 991px) {
+                width: calc(100% - 10px);
             }
         }
         .video-item-details {
