@@ -285,7 +285,7 @@ iframe {
 }
 
 .video-list-featured {
-    margin: 10px -10px 0;
+    margin: 10px -20px 0;
     height: 200px;
     background-position: center center;
     background-size: cover;
@@ -341,6 +341,7 @@ iframe {
     bottom: 0;
     height: calc(100% - 297px);
     width: calc(100% - 20px);
+    margin-left: -10px;
     max-height: none;
     .video-item {
         border-bottom: none;
