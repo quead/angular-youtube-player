@@ -84,6 +84,7 @@ export class SearchComponent implements OnInit {
   getSettings() {
     this._shared.getSettings().subscribe(data => {
         this.thumbnails = data.form_settings[0].value;
+        this.listGrid = data.form_settings[1].value;
     });
   }
 
@@ -140,7 +141,8 @@ export class SearchComponent implements OnInit {
 
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.thumbnails = data[from].value;
+      this.thumbnails = data[0].value;
+      this.listGrid = data[1].value;
     }
   }
 

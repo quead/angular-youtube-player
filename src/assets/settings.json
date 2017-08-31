@@ -2,7 +2,23 @@
   "form_settings": [
     {
       "name": "Show Thumbnails",
-      "value": true
+      "value": true,
+      "visible": true
+    },
+    {
+      "name": "Set list for trending",
+      "value": false,
+      "visible": false
+    },
+    {
+      "name": "Toggle video",
+      "value": true,
+      "visible": false
+    },
+    {
+      "name": "Toggle repeat mode",
+      "value": true,
+      "visible": false
     }
   ],
   "api_settings": [

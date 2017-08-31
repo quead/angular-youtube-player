@@ -253,11 +253,15 @@ var AppComponent = (function () {
         this._shared.getSettings().subscribe(function (data) {
             _this.regionCode = data.api_settings[1].value;
             _this.thumbnails = data.form_settings[0].value;
+            _this.displayVideoPlayer = data.form_settings[2].value;
+            _this.repeatMode = data.form_settings[3].value;
         });
     };
     AppComponent.prototype.setSettings = function (data, from) {
         if (from === 0) {
             this.thumbnails = data[0].value;
+            this.displayVideoPlayer = data[2].value;
+            this.repeatMode = data[3].value;
         }
     };
     AppComponent.prototype.toggleHeadSettings = function (int) {
@@ -728,6 +732,7 @@ var SearchComponent = (function () {
         var _this = this;
         this._shared.getSettings().subscribe(function (data) {
             _this.thumbnails = data.form_settings[0].value;
+            _this.listGrid = data.form_settings[1].value;
         });
     };
     SearchComponent.prototype.getFeedVideos = function () {
@@ -780,7 +785,8 @@ var SearchComponent = (function () {
     };
     SearchComponent.prototype.setSettings = function (data, from) {
         if (from === 0) {
-            this.thumbnails = data[from].value;
+            this.thumbnails = data[0].value;
+            this.listGrid = data[1].value;
         }
     };
     SearchComponent.prototype.toggleList = function (int) {
@@ -809,7 +815,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/components/youtube-settings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <p>Settings</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"settingsForm\" id=\"settingsForm\" novalidate>\r\n        <div *ngFor=\"let setting of getSettings.controls; let i=index\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <span *ngIf=\"loadingRegion\" class=\"loading-region fa fa-circle-o-notch fa-spin fa-fw\"></span>\r\n            <select class=\"form-field\" [value]=\"regionCode\" (change)=\"changeRegion($event.target.value)\" [disabled]=\"loadingRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" [value]=\"apiKey\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numSearchRes\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numRelatedRes\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"alert alert-danger\" role=\"alert\">\r\n            <span class=\"fa fa-exclamation-circle\"></span>All marked fields you can change in upcoming verions (<a href=\"https://github.com/quead/angular2-yt-player#changelog\" target=\"_blank\">check changelog</a>). Now you can only change it from \"assets/settings.json\".\r\n        </div>\r\n        <div class=\"alert alert-info\" role=\"alert\">\r\n            <span class=\"fa fa-info-circle\"></span>The settings will be saved in upcoming versions (<a href=\"https://github.com/quead/angular2-yt-player#changelog\" target=\"_blank\">check changelog</a>). You can set default settings from \"assets/settings.json\".\r\n        </div>\r\n    </form>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <p>Settings</p>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"settingsForm\" id=\"settingsForm\" novalidate>\r\n        <div *ngFor=\"let setting of getSettings.controls; let i=index\" [ngClass]=\"{'hide': !settings[i].visible}\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <span *ngIf=\"loadingRegion\" class=\"loading-region fa fa-circle-o-notch fa-spin fa-fw\"></span>\r\n            <select class=\"form-field\" [value]=\"regionCode\" (change)=\"changeRegion($event.target.value)\" [disabled]=\"loadingRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" [value]=\"apiKey\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numSearchRes\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numRelatedRes\" disabled>\r\n            <span class=\"fa fa-exclamation-circle fa-color-danger\"></span>\r\n        </div>\r\n        <div class=\"alert alert-danger\" role=\"alert\">\r\n            <span class=\"fa fa-exclamation-circle\"></span>All marked fields you can change in upcoming verions (<a href=\"https://github.com/quead/angular2-yt-player#changelog\" target=\"_blank\">check changelog</a>). Now you can only change it from \"assets/settings.json\".\r\n        </div>\r\n        <div class=\"alert alert-info\" role=\"alert\">\r\n            <span class=\"fa fa-info-circle\"></span>The settings will be saved in upcoming versions (<a href=\"https://github.com/quead/angular2-yt-player#changelog\" target=\"_blank\">check changelog</a>). You can set default settings from \"assets/settings.json\".\r\n        </div>\r\n    </form>\r\n</div>"
 
 /***/ }),
 

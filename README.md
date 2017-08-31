@@ -57,6 +57,7 @@ Angular2 YT Player v1.9
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos
 - Next/prev video from your playlist
 - Moved history to separate page
+- Adding toggle video, repeat mode and list & grid on trending to settings.json
 - Small fixes
 
 Angular2 YT Player v1.7
@@ -124,9 +125,6 @@ Angular2 YT Player v1.0.0
 #### Roadmap to 2.0
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
-- Save your playlists **(unversioned)**
-- **Settings**
-- *Save your settings **(unversioned)***
 
 #### Roadmap to 3.0
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in 2.1)**

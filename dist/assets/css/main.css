@@ -212,6 +212,10 @@ a:active {
   animation: loading-animation 2s 1;
 }
 
+.hide {
+  display: none;
+}
+
 .loading-region {
   position: absolute;
   right: 165px;
