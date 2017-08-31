@@ -1,14 +1,14 @@
 {
   "main": "index.html",
-  "name": "angular2-youtube-player",
-  "description": "Youtube App 0.1",
-  "version": "0.1.0",
+  "name": "Youtube Player 1.9",
+  "description": "Youtube Player based on Angular and Typescript",
+  "version": "1.0",
   "keywords": [ "youtube app", "node-webkit" ],
   "window": {
-    "height": 600,
-    "width": 400,
-    "min_width": 400,
-    "min_height": 600,
+    "height": 720,
+    "width": 1270,
+    "min_width": 1270,
+    "min_height": 720,
     "frame": false,
     "icon": "favicon.ico",
     "toolbar": false

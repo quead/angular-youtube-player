@@ -12,6 +12,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
     <body>
+    <header>
+            <div class="win-controls">
+                <button id="win-minimize"><span class="fa fa-window-minimize"></span></button>
+                <button id="win-maximize"><span class="fa fa-window-maximize"></span></button>
+                <button id="win-close"><span class="fa fa-close"></span></button>
+            </div>
+        </header>
         <app-yt>
             <div class="loading-app">
                 <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
@@ -20,10 +27,12 @@
         </app-yt>
 
         <script>
-		/*
+            /*
             // Reload pentru NWJS (DE EDITAT)
             var path = 'assets/',
-                fs = require('fs');
+            fs = require('fs');
+            
+            var maximized = false;
 
             var win = nw.Window.get();
             
@@ -41,12 +50,14 @@
                 win.minimize();
             };
 
-            document.getElementById('win-maximize').o`nclick = function(){
-                win.maximize();
-            };
-
-            document.getElementById('win-unmaximize').onclick = function(){
-                win.unmaximize();
+            document.getElementById('win-maximize').onclick = function(){
+                if (maximized) {
+                    win.maximize();
+                    maximized = true;
+                } else {
+                    win.unmaximize();
+                    maximized = false;
+                }
             };
 
             document.getElementById('win-close').onclick = function(){
@@ -54,9 +65,13 @@
             };
 
             win.on('maximize', function() {
-                console.log('maximized');
+                maximized = true;
             });
-		*/
+
+            win.on('unmaximize', function() {
+                maximized = false;
+            });*/
+		
 
         </script>
     </body>

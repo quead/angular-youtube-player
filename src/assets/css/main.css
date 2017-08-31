@@ -659,11 +659,12 @@ input[type="radio"]:checked + label .round-check:after {
 
 .win-controls {
   margin-left: auto;
-  display: flex;
+  display: none;
   height: 25px;
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 9999;
 }
 
 .win-controls button {
@@ -677,11 +678,11 @@ input[type="radio"]:checked + label .round-check:after {
 
 .win-controls button span {
   transition: all 0.1s ease-out;
-  color: var(--c-white);
+  color: var(--c-black);
 }
 
-.win-controls button:hover span, .win-controls button:active span {
-  color: rgba(255, 255, 255, 0.7);
+.win-controls button:active span {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 #win-close {
