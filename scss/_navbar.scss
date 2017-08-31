@@ -26,14 +26,14 @@ nav {
     a {
         display: block;
         text-decoration: none;
-        color: $c-white;
+        color: var(--c-white);
         font-size: $f-14;
         position: relative;
         padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;
         border-left: 3px solid transparent;
         .fa {
-            color: $c-white;
+            color: var(--c-white);
             position: absolute;
             left: 10px;
             top: 50%;
@@ -42,18 +42,18 @@ nav {
         .description {
             display: block;
             font-size: $f-12;
-            color: rgba($c-white, 0.5);
+            color: rgba(255, 255, 255, 0.5);
         }
         &:hover {
-            border-left-color: $c-primary;
+            border-left-color: lighten($c-primary-inverse, 20%);
         }
         &.is-active,
         &:active {
-            background: $c-primary;
-            border-left-color: $c-primary;
-            color: $c-white;
+            background-color: lighten($c-primary-inverse, 5%);
+            border-left-color: lighten($c-primary-inverse, 25%);
+            color: var(--c-white);
             .fa {
-                color: $c-white;
+                color: var(--c-white);
             }
         }
     }

@@ -6,7 +6,7 @@
     &:before {
         content: '';
         display: block;
-        background-color: darken($c-white, 10%);
+        background-color: var(--c-light-gray);
         height: 20px;
         width: 40px;
         border-radius: 50px;
@@ -16,7 +16,7 @@
         content: '';
         position: absolute;
         display: block;
-        background-color: $c-white;
+        background-color: var(--c-white);
         height: 16px;
         width: 16px;
         border-radius: 50%;
@@ -31,11 +31,11 @@ input[type="checkbox"]:checked,
 input[type="radio"]:checked {
     + label .round-check {
         &:before {
-            background-color: $c-primary;
+            background-color: var(--c-primary);
         }
         &:after {
             left: 22px;
-            background-color: $c-white;
+            background-color: var(--c-white);
         }
     }
 }
@@ -48,10 +48,10 @@ input[type="radio"]:checked {
     .form-field {
         margin-left: auto;
         padding: 10px 15px;
-        border: 1px solid darken($c-default, 5%);
+        border: 1px solid var(--c-light-gray);
         box-shadow: 0 5px 10px rgba($c-black,0.05);
         &:disabled {
-            background-color: darken($c-white, 2%);
+            background-color: var(--c-base);
             cursor: no-drop;
             user-select: none;
         }

@@ -8,7 +8,7 @@
     </div>
 </header>
 <div class="container">
-  <div class="col col-2">
+  <div class="col col-1">
       <div class="app app-services">
           <div class="app-head">
               <div id="logo">
@@ -54,15 +54,7 @@
           </div>
       </div>
   </div>
-  <div class="col col-6">
-      <div class="app app-feed">
-        <router-outlet></router-outlet>
-      </div>
-      <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
-        <p>{{ notify.message }}</p>
-      </div>
-  </div>
-  <div class="col col-4">
+  <div class="col col-2">
       <div class="app app-player">
           <div class="app-head">
               <p>Player</p>
@@ -132,6 +124,14 @@
               </div>
             </div>
           </div>
+      </div>
+  </div>
+  <div class="col col-3">
+      <div class="app app-feed">
+        <router-outlet></router-outlet>
+      </div>
+      <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
+        <p>{{ notify.message }}</p>
       </div>
   </div>
 </div>

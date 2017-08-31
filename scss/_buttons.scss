@@ -1,0 +1,25 @@
+.btn {
+    display: inline-block;
+    color: var(--c-gray);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    text-decoration: none;
+    transition: all .1s ease-out;
+    outline: 0;
+
+    &-round {
+        border-radius: 50px;
+    }
+
+    &-small {
+        padding: 5px 17px;
+    }
+}

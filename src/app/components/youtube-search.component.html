@@ -5,7 +5,7 @@
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
       <div class="form-group">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" autofocus formControlName="searchInput">
+          <input type="text" class="form-control" placeholder="Search" formControlName="searchInput">
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>

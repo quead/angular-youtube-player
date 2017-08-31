@@ -14,26 +14,26 @@
         font-size: $f-10;
         span {
             transition: all 0.1s ease-out;
-            color: $c-white;
+            color: var(--c-white);
         }
         &:hover,
         &:active {
             span {
-                color: rgba($c-white, 0.7);
+                color: rgba(255, 255, 255, 0.7);
             }
         }
     }
 }
 
 #win-close {
-    background-color: darken($c-primary, 10%);
+    background-color: var(--c-primary-active);
     width: 40px;
     transform: scale(1);
     span {
-        color: $c-white;
+        color: var(--c-white);
     }
     &:active {
-        background-color: darken($c-primary, 20%);
+        background-color: var(--c-primary-active-focus);
         span {
             transform: scale(0.8);
         }
@@ -51,7 +51,7 @@
         position: absolute;
         left: calc(100% + 5px);
         top: 0;
-        color: $c-white;
+        color: var(--c-white);
     }
 }
 
@@ -92,7 +92,7 @@
         }
         &.active {
             opacity: 1;
-            color: $c-primary;
+            color: var(--c-primary);
         }
     }
     #toggle-repeat-mode {
