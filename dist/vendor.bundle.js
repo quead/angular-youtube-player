@@ -5573,7 +5573,6 @@ module.exports = g;
 /* unused harmony export NgLocalization */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return parseCookieValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CommonModule; });
-/* unused harmony export DeprecatedI18NPipesModule */
 /* unused harmony export NgClass */
 /* unused harmony export NgFor */
 /* unused harmony export NgForOf */
@@ -5623,7 +5622,7 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9489,30 +9488,6 @@ CommonModule.decorators = [
  */
 CommonModule.ctorParameters = function () { return []; };
 /**
- * I18N pipes are being changed to move away from using the JS Intl API.
- *
- * The former pipes relying on the Intl API will be moved to this module while the `CommonModule`
- * will contain the new pipes that do not rely on Intl.
- *
- * As a first step this module is created empty to ease the migration.
- *
- * see https://github.com/angular/angular/pull/18284
- *
- * @deprecated from v5
- */
-var DeprecatedI18NPipesModule = (function () {
-    function DeprecatedI18NPipesModule() {
-    }
-    return DeprecatedI18NPipesModule;
-}());
-DeprecatedI18NPipesModule.decorators = [
-    { type: __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */], args: [{ declarations: [], exports: [] },] },
-];
-/**
- * @nocollapse
- */
-DeprecatedI18NPipesModule.ctorParameters = function () { return []; };
-/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -9590,7 +9565,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9859,7 +9834,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9879,7 +9854,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22181,7 +22156,7 @@ var BindingParser = (function () {
         // This will occur when a @trigger is not paired with an expression.
         // For animations it is valid to not have an expression since */void
         // states will be applied by angular when the element is attached/detached
-        var /** @type {?} */ ast = this._parseBinding(expression || 'undefined', false, sourceSpan);
+        var /** @type {?} */ ast = this._parseBinding(expression || 'null', false, sourceSpan);
         targetMatchableAttrs.push([name, /** @type {?} */ ((ast.source))]);
         targetProps.push(new BoundProperty(name, ast, BoundPropertyType.ANIMATION, sourceSpan));
     };
@@ -37706,7 +37681,7 @@ function _mergeArrays(parts) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -38502,7 +38477,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.6');
+var VERSION = new Version('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -42397,21 +42372,16 @@ var ApplicationRef_ = (function (_super) {
             });
         });
         var isStable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
-            // Create the subscription to onStable outside the Angular Zone so that
-            // the callback is run outside the Angular Zone.
-            var stableSub;
-            _this._zone.runOutsideAngular(function () {
-                stableSub = _this._zone.onStable.subscribe(function () {
-                    NgZone.assertNotInAngularZone();
-                    // Check whether there are no pending macro/micro tasks in the next tick
-                    // to allow for NgZone to update the state.
-                    scheduleMicroTask(function () {
-                        if (!_this._stable && !_this._zone.hasPendingMacrotasks &&
-                            !_this._zone.hasPendingMicrotasks) {
-                            _this._stable = true;
-                            observer.next(true);
-                        }
-                    });
+            var stableSub = _this._zone.onStable.subscribe(function () {
+                NgZone.assertNotInAngularZone();
+                // Check whether there are no pending macro/micro tasks in the next tick
+                // to allow for NgZone to update the state.
+                scheduleMicroTask(function () {
+                    if (!_this._stable && !_this._zone.hasPendingMacrotasks &&
+                        !_this._zone.hasPendingMicrotasks) {
+                        _this._stable = true;
+                        observer.next(true);
+                    }
                 });
             });
             var unstableSub = _this._zone.onUnstable.subscribe(function () {
@@ -49056,13 +49026,8 @@ function calcQueryValues(view, startIndex, endIndex, queryDef, values) {
         if (nodeDef.flags & 1 /* TypeElement */ && ((nodeDef.element)).template &&
             (((((nodeDef.element)).template)).nodeMatchedQueries & queryDef.filterId) ===
                 queryDef.filterId) {
+            // check embedded views that were attached at the place of their template.
             var /** @type {?} */ elementData = asElementData(view, i);
-            // check embedded views that were attached at the place of their template,
-            // but process child nodes first if some match the query (see issue #16568)
-            if ((nodeDef.childMatchedQueries & queryDef.filterId) === queryDef.filterId) {
-                calcQueryValues(view, i + 1, i + nodeDef.childCount, queryDef, values);
-                i += nodeDef.childCount;
-            }
             if (nodeDef.flags & 16777216 /* EmbeddedViews */) {
                 var /** @type {?} */ embeddedViews = ((elementData.viewContainer))._embeddedViews;
                 for (var /** @type {?} */ k = 0; k < embeddedViews.length; k++) {
@@ -51617,12 +51582,11 @@ var NgModuleFactory_ = (function (_super) {
  * <div [\@myAnimationTrigger]="myStatusExp">...</div>
  * ```
  *
- * ## Disable Animations
+ * ## Disable Child Animations
  * A special animation control binding called `\@.disabled` can be placed on an element which will
- * then disable animations for any inner animation triggers situated within the element as well as
- * any animations on the element itself.
+ * then disable animations for any inner animation triggers situated within the element.
  *
- * When true, the `\@.disabled` binding will prevent all animations from rendering. The example
+ * When true, the `\@.disabled` binding will prevent inner animations from rendering. The example
  * below shows how to use this feature:
  *
  * ```ts
@@ -51648,8 +51612,8 @@ var NgModuleFactory_ = (function (_super) {
  * The `\@childAnimation` trigger will not animate because `\@.disabled` prevents it from happening
  * (when true).
  *
- * Note that `\@.disbled` will only disable all animations (this means any animations running on
- * the same element will also be disabled).
+ * Note that `\@.disbled` will only disable inner animations (any animations running on the same
+ * element will not be disabled).
  *
  * ### Disabling Animations Application-wide
  * When an area of the template is set to have animations disabled, **all** inner components will
@@ -52606,7 +52570,7 @@ function transition$$1(stateChangeExpr, steps) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -58530,7 +58494,7 @@ FormBuilder.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58743,7 +58707,7 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -60898,7 +60862,7 @@ JsonpModule.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -60944,7 +60908,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -61077,7 +61041,7 @@ var CachedResourceLoader = (function (_super) {
 /**
  * @stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -61165,7 +61129,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__[
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -65572,7 +65536,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -65703,7 +65667,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.3.5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -71956,7 +71920,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.5');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

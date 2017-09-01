@@ -43,7 +43,7 @@
             </div>
             <div class="video-item-content">
               <p>{{ trendingFirst.video.title }}</p>
-              <div class="video-item-details">
+              <div *ngIf="trendingFirst.video.id?.length > 0" class="video-item-details">
                   <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
                   <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
                   <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes | number:'1.0' }}</p>
@@ -69,7 +69,7 @@
           </div>
           <div class="video-item-content">
             <p>{{ feedVideo.snippet.title }}</p>
-            <div class="video-item-details">
+            <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
                 <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
                 <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
                 <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>

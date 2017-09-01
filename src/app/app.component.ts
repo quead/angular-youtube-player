@@ -18,6 +18,9 @@ export class AppComponent implements OnInit {
   currentVideoObject: Array<any> = [];
 
   thumbnails = true;
+  
+  modal = false;
+  modalPlaylistItem: number;
 
   playlistPrefill = true;
   currentPlaylistItem: number;
@@ -396,6 +399,22 @@ export class AppComponent implements OnInit {
     this.player.setVolume(value);
   }
 
+  // ---------------- Modal functions ----------------
+
+  closeModal() {
+    this.modal = false;
+  }
+  
+  showModal(i: number) {
+    this.modal = true;
+    this.modalPlaylistItem = i;
+  }
+  
+  confirmModal() {
+    this.removePlaylistItem(this.modalPlaylistItem);
+    this.modal = false;
+  }
+  
   // ---------------- Related functions ----------------
 
   scrollToBottom() {
