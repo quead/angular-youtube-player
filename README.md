@@ -117,6 +117,7 @@ Angular2 YT Player v1.0.0
 #### Backlog
 - Save your playlists **(unversioned)**
 - iOS 8+ / android 5+ app **(unversioned)**
+- Change and create theme **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
 - **Settings**
@@ -128,7 +129,9 @@ Angular2 YT Player v1.0.0
 
 #### Roadmap to 3.0
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in 2.1)**
-- Change and create theme **(in v2.2)**
+- Drag and drop videos to playlist **(in v2.2)**
+- Arrange playlist by drag and drop **(in v2.2)**
+
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
 - *Set private/public room **(in v3.0)***
