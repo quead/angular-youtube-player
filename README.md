@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/9FTJiU3.jpg" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/9HoZwfC.jpg" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
