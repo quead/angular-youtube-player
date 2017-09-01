@@ -248,8 +248,6 @@ var AppComponent = (function () {
         this.currentPlaylistItem = -1;
         this.playlistVideos = [];
         console.log(localStorage);
-        localStorage.removeItem('settings');
-        console.log(localStorage);
     };
     // ---------------- Init settings ----------------
     AppComponent.prototype.getSettings = function () {
@@ -1074,6 +1072,8 @@ var SharedService = (function () {
                 }
                 else {
                     _this.settings = JSON.parse(localStorage.getItem('settings'));
+                    observer.next(_this.settings);
+                    observer.complete();
                 }
             }
         });

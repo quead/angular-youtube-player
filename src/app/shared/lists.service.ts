@@ -92,6 +92,8 @@ export class SharedService {
                     );
                 } else {
                     this.settings = JSON.parse(localStorage.getItem('settings'));
+                    observer.next(this.settings);
+                    observer.complete();
                 }
             }
         });
