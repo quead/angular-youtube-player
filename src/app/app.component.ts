@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   currentVideoObject: Array<any> = [];
 
   thumbnails = true;
-  
+
   modal = false;
   modalPlaylistItem: number;
 
@@ -275,15 +275,19 @@ export class AppComponent implements OnInit {
     if (int === 0) {
       if (this.displayVideoPlayer) {
         this.displayVideoPlayer = false;
+        this._shared.settings.form_settings[2].value = false;
       } else {
         this.displayVideoPlayer = true;
+        this._shared.settings.form_settings[2].value = true;
       }
     }
     if (int === 1) {
       if (this.repeatMode) {
         this.repeatMode = false;
+        this._shared.settings.form_settings[3].value = false;
       } else {
         this.repeatMode = true;
+        this._shared.settings.form_settings[3].value = true;
       }
     }
     if (int === 2) {
@@ -404,17 +408,17 @@ export class AppComponent implements OnInit {
   closeModal() {
     this.modal = false;
   }
-  
+
   showModal(i: number) {
     this.modal = true;
     this.modalPlaylistItem = i;
   }
-  
+
   confirmModal() {
     this.removePlaylistItem(this.modalPlaylistItem);
     this.modal = false;
   }
-  
+
   // ---------------- Related functions ----------------
 
   scrollToBottom() {

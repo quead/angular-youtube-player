@@ -223,6 +223,17 @@ a:active {
   }
 }
 
+@keyframes loading-modal {
+  0% {
+    opacity: 0;
+    top: 60%;
+  }
+  100% {
+    opacity: 1;
+    top: 50%;
+  }
+}
+
 .loading-bar {
   position: fixed;
   margin: 0;
@@ -400,6 +411,7 @@ a:active {
 .modal-container {
   position: absolute;
   background-color: var(--c-white);
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
   color: var(--c-black);
   top: 50%;
   right: 50%;
@@ -409,7 +421,7 @@ a:active {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 90px;
-  animation: loading-animation 0.2s 1;
+  animation: loading-modal 0.2s 1;
 }
 
 .modal-container h2 {

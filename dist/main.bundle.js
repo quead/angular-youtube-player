@@ -269,17 +269,21 @@ var AppComponent = (function () {
         if (int === 0) {
             if (this.displayVideoPlayer) {
                 this.displayVideoPlayer = false;
+                this._shared.settings.form_settings[2].value = false;
             }
             else {
                 this.displayVideoPlayer = true;
+                this._shared.settings.form_settings[2].value = true;
             }
         }
         if (int === 1) {
             if (this.repeatMode) {
                 this.repeatMode = false;
+                this._shared.settings.form_settings[3].value = false;
             }
             else {
                 this.repeatMode = true;
+                this._shared.settings.form_settings[3].value = true;
             }
         }
         if (int === 2) {
@@ -805,9 +809,11 @@ var SearchComponent = (function () {
     SearchComponent.prototype.toggleList = function (int) {
         if (int === 1) {
             this.listGrid = false;
+            this._shared.settings.form_settings[1].value = false;
         }
         else {
             this.listGrid = true;
+            this._shared.settings.form_settings[1].value = true;
         }
     };
     return SearchComponent;
