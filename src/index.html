@@ -2,61 +2,82 @@
 <html>
     <head>
         <base href="/">
-        <title>YouTube Player v1.7</title>
+        <title>YouTube Player v1.9</title>
         <link rel="icon" href="favicon.ico">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,400i,700,900" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/normalize.css">
         <link rel="stylesheet" href="assets/css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body ondragstart="return false;" ondrop="return false;">
-        <app-yt>
-            <div class="loading-app">
-                <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Loading...</span>
-            </div>
-        </app-yt>
+    <body>
+    <header>
+        <div class="win-controls">
+            <button id="win-minimize"></button>
+            <button id="win-maximize"></button>
+            <button id="win-close"></button>
+        </div>
+        <div class="mac-controls">
+            <button id="mac-close"></button>
+            <button id="mac-minimize"></button>
+            <button id="mac-maximize"></button>
+        </div>
+    </header>
+    <app-yt>
+        <div class="loading-app">
+            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </app-yt>
 
-        <script>
-		/*
-            // Reload pentru NWJS (DE EDITAT)
-            var path = 'assets/',
-                fs = require('fs');
+    <script>
+        /*
+        // Reload pentru NWJS (DE EDITAT)
+        var path = 'assets/',
+        fs = require('fs');
+        
+        var maximized = false;
 
-            var win = nw.Window.get();
-            
-            win.on('blur', function() {
-                //console.log('blur');
-            });
+        var win = nw.Window.get();
+        
+        win.on('blur', function() {
+            //console.log('blur');
+        });
 
-            win.on('focus', function() {
-                //console.log('focused');
-            });
+        win.on('focus', function() {
+            //console.log('focused');
+        });
 
-            // Top functions
-            
-            document.getElementById('win-minimize').onclick = function(){
-                win.minimize();
-            };
+        // Top functions
+        
+        document.getElementById('win-minimize').onclick = function(){
+            win.minimize();
+        };
 
-            document.getElementById('win-maximize').o`nclick = function(){
+        document.getElementById('win-maximize').onclick = function(){
+            if (maximized) {
                 win.maximize();
-            };
-
-            document.getElementById('win-unmaximize').onclick = function(){
+                maximized = true;
+            } else {
                 win.unmaximize();
-            };
+                maximized = false;
+            }
+        };
 
-            document.getElementById('win-close').onclick = function(){
-                win.close();
-            };
+        document.getElementById('win-close').onclick = function(){
+            win.close();
+        };
 
-            win.on('maximize', function() {
-                console.log('maximized');
-            });
-		*/
+        win.on('maximize', function() {
+            maximized = true;
+        });
 
-        </script>
+        win.on('unmaximize', function() {
+            maximized = false;
+        });*/
+    
+
+    </script>
     </body>
 </html>

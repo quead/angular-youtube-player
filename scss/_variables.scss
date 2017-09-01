@@ -1,0 +1,42 @@
+/* --- Colors --- */
+// Base colors
+$c-primary-inverse: #232228;
+$c-secondary: #167ac6;
+
+$c-black: #000;
+
+/* --- Fonts --- */
+// Font sizes
+$f-10: 10px;
+$f-11: 11px;
+$f-12: 12px;
+$f-13: 13px;
+$f-14: 14px;
+$f-16: 16px;
+$f-18: 18px;
+$f-20: 20px;
+$f-22: 22px;
+$f-24: 24px;
+$f-26: 26px;
+$f-28: 28px;
+$f-30: 30px;
+$f-32: 32px;
+
+// If you don't use darken and other sass functions use this
+:root {
+    --c-base: #f9f9f9;
+    --c-primary: red;
+    --c-primary-active: #ea0000;
+    --c-primary-active-focus: #cc0000;
+    --c-primary-inverse: $c-primary-inverse;
+
+    --c-secondary: $c-secondary;
+    --c-success: #23CF5F;
+    --c-success-active: #1db351;
+
+    --c-gray: #111111;
+    --c-light-gray: #e8e8e8;
+    --c-dark-gray: #5a5a5a;
+    --c-white: #ffffff;
+    --c-black: #000000;
+}

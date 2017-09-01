@@ -14,13 +14,19 @@
     z-index: 10;
     max-height: 430px;
     box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.15);
+    .video-item {
+        padding: 0;
+        &-info {
+            padding: 5px 10px;
+        }
+    }
     &::-webkit-scrollbar-track {
         border-radius: 2px;
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
-        background-color: $c-white;
+        width: 6px;
+        background-color: var(--c-white);
     }
 
     &::-webkit-scrollbar-thumb {
@@ -39,26 +45,89 @@ iframe {
 }
 
 .video-item-head {
-    background-color: $c-primary;
-    color: $c-white;
+    background-color: var(--c-primary);
+    color: var(--c-white);
     width: 100%;
     height: 39px;
     padding: 8px;
+    &-btn {
+        float: right;
+        background-color: var(--c-white);
+        cursor: pointer;
+        color: var(--c-primary-inverse);
+        border-radius: 3px;
+        padding: 1px 7px;
+        margin-top: 2px;
+        text-transform: uppercase;
+        font-size: $f-12;
+        &:active {
+            background-color: var(--c-light-gray);
+            user-select: none;
+        }
+    }
+    .fa {
+        margin-right: 3px;
+    }
 }
 
 .video-item {
     display: flex;
     align-items: center;
-    background-color: $c-white;
+    background-color: var(--c-white);
     border-bottom: 1px solid rgba($c-black,0.03);
     padding: 5px 10px;
     cursor: pointer;
+    position: relative;
     h2 {
         font-size: $f-14;
         margin: 0;
     }
     p {
         margin: 0;
+    }
+    &-info {
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        background-color: inherit;
+        left: 0;
+        transition: all 0.1s ease-in-out;
+    }
+    &:hover {
+        .video-item-info {
+            left: -30px;
+        }
+    }
+    &-settings {
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 30px;
+        display: flex;
+        > p {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--c-white);
+            transition: all 0.1s ease-in-out;
+        }
+        .video-item-remove {
+            background-color: var(--c-primary);
+            &:active {
+                background-color: var(--c-primary-active);
+            }
+        }
+        .video-item-add {
+            background-color: var(--c-success);
+            &:active {
+                background-color: var(--c-success-active);
+            }
+        }
     }
     &-count {
         font-family: 'Muli', sans-serif;
@@ -85,11 +154,11 @@ iframe {
         margin: 0 15px 0 0;
         line-height: 14px;
         font-size: $f-12;
-        color: $c-light-gray;
+        color: var(--c-dark-gray);
     }
     .fa {
         margin-right: 3px;
-        color: $c-black;
+        color: var(--c-black);
     }
 }
 
@@ -103,11 +172,18 @@ iframe {
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item {
-        display: flex;
-        background-color: transparent;
+        background-color: inherit;
         flex-wrap: nowrap;
-        padding: 5px 10px;
+        padding: 0;
         transition: box-shadow 0.1s ease-out;
+        &-info {
+            padding: 5px;
+        }
+        &:hover {
+            .video-item-info {
+                left: -30px;
+            }
+        }
     }
     .video-item-image {
         flex: inherit;
@@ -124,13 +200,13 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: $c-white;
+        background-color: var(--c-base);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
 
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
             background-color: transparent;
         }
 
@@ -140,30 +216,40 @@ iframe {
         }
     }
     &.activePlayer {
-        height: calc(100% - 380px);
+        height: calc(100% - 385px);
         transition: height 0.1s ease-out 0s;
     }
 }
 
-#history-video-list {
+#playlist-video-list {
     display: flex;
     flex-wrap: wrap;
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 177px);
+    height: calc(100% - 236px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .video-item-head {
         background-color: darken($c-primary-inverse, 2%);
     }
     .video-item {
-        display: flex;
-        background-color: transparent;
+        background-color: inherit;
         flex-wrap: nowrap;
-        border-bottom: 1px solid rgba($c-white, 0.05);
-        transition: box-shadow 0.1s ease-out;
-        padding: 5px;
+        border-bottom: none;
+        transition: all 0.1s ease-out;
+        padding: 0;
+        &-info {
+            padding: 5px;
+        }
+        &.active {
+            background-color: lighten($c-primary-inverse, 5%);
+        }
+        &:hover {
+            .video-item-info {
+                left: -30px;
+            }
+        }
     }
     .video-item-image {
         flex: inherit;
@@ -174,26 +260,26 @@ iframe {
             height: auto;
         }
     }
-    .history-video-content {
+    .playlist-video-content {
         position: absolute;
         bottom: 0;
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
         background-color: darken($c-primary-inverse, 5%);
-        color: $c-white;
+        color: var(--c-white);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
 
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
             background-color: transparent;
         }
 
         &::-webkit-scrollbar-thumb {
             border-radius: 20px;
-            background-color: rgba($c-white, 0.3);
+            background-color: rgba(255, 255, 255, 0.3);
         }
     }
 }
@@ -212,7 +298,7 @@ iframe {
         padding: 10px 15px;
         max-width: 90%;
         background-color: rgba($c-black, 0.6);
-        color: $c-white;
+        color: var(--c-white);
         border: none;
         .fa,
         p {
@@ -224,8 +310,28 @@ iframe {
             height: auto;
             flex: auto;
         }
-        > div {
-            display: inline-block;
+        &-info {
+            background-color: transparent;
+            > div {
+                display: inline-block;
+            }
+        }
+        &-settings {
+            right: -30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+        }
+        &:hover {
+            .video-item-info {
+                left: 0;
+            }
+            .video-item-settings {
+                right: -30px;
+                top: 0;
+                opacity: 1;
+                visibility: visible;
+            }
         }
     }
 }
@@ -235,17 +341,17 @@ iframe {
     bottom: 0;
     height: calc(100% - 297px);
     width: calc(100% - 20px);
+    margin-left: -10px;
     max-height: none;
-    left: 0;
-    padding-left: 5px;
     .video-item {
-        background-color: transparent;
         border-bottom: none;
         line-height: 16px;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 0;
         &:first-child {
             display: none !important;
+        }
+        &-info {
+            padding: 5px;
         }
     }
     &::-webkit-scrollbar-track {
@@ -253,7 +359,7 @@ iframe {
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 6px;
         background-color: transparent;
     }
 
@@ -274,6 +380,7 @@ iframe {
             margin: 0 5px;
             padding: 0;
             position: relative;
+            overflow: hidden;
             .video-item-image {
                 margin: 0;
                 position: relative;
@@ -281,40 +388,11 @@ iframe {
             .video-item-content {
                 margin: 5px 0 15px 0;
             }
-            .video-item-count {
-                position: absolute;
-                top: 0;
-                left: 0;
-                background-color: rgba($c-black, 0.7);
-                padding: 7px 12px;
-                color: $c-white;
-                z-index: 1;
-            }
             &:not(.hidden-thumbnails) {
-                .video-item-count {
-                    top: 10px;
-                    left: 10px;
-                    height: 40px;
-                    width: 40px;
-                    line-height: 27px;
-                    font-size: $f-12;
-                    text-align: center;
-                    border-radius: 50%;
-                }
-            }
-            &.hidden-thumbnails {
-                .video-item-count {
-                    position: relative;
-                    text-align: center;
-                    background-color: $c-black;
-                    padding: 5px;
-                }
-            }
-            &:hover {
                 .video-item-image {
                     &:before {
                         content: '\25B6  Play';
-                        color: $c-white;
+                        color: var(--c-white);
                         background-color: rgba($c-black, 0.6);
                         padding: 8px 15px;
                         display: block;
@@ -322,8 +400,57 @@ iframe {
                         top: 50%;
                         right: 50%;
                         transform: translate(50%, -50%);
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: all 0.2s ease-in-out;
                     }
                 }
+            }
+            &-settings {
+                opacity: 0;
+                visibility: hidden;
+                z-index: 1;
+                width: 100%;
+                height: 30px;
+                top: -30px;
+                transition: all 0.2s ease-in-out;
+            }
+            &-info {
+                display: block;
+                padding: 0;
+                &:active {
+                    &:not(.hidden-thumbnails) .video-item-image:before {
+                        background-color: var(--c-black);                    
+                    }
+                }
+            }
+            &.hidden-thumbnails {
+                .video-item-settings {
+                    height: 26px;
+                    width: 30px;
+                }
+            }
+            &:hover {
+                .video-item-info {
+                    left: 0;
+                }
+                .video-item-settings {
+                    opacity: 1;
+                    visibility: visible;
+                    top: 0;
+                }
+                &:not(.hidden-thumbnails) .video-item-image {
+                    &:before {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+            @media screen and (max-width: 1600px) and (min-width: 992px) {
+                width: calc(50% - 10px);
+            }
+            @media screen and (max-width: 991px) {
+                width: calc(100% - 10px);
             }
         }
         .video-item-details {

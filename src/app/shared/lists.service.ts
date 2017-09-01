@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map';
 export class SharedService {
 
     public feedVideos: Array<any>;
+    public lastSearchedVideos: Array<any>;
+    public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;
 
@@ -74,18 +76,23 @@ export class SharedService {
                 observer.next(this.settings);
                 return observer.complete();
             } else {
-                this.http.get('assets/settings.json')
-                    .map(res => res.json())
-                    .subscribe(
-                    data => {
-                        this.settings = data;
-                        observer.next(this.settings);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log('error on get settings ' + error);
-                    }
-                );
+                if (localStorage.length <= 0) {
+                    this.http.get('assets/settings.json')
+                        .map(res => res.json())
+                        .subscribe(
+                        data => {
+                            this.settings = data;
+                            localStorage.setItem('settings', JSON.stringify(data));
+                            observer.next(this.settings);
+                            observer.complete();
+                        },
+                        error => {
+                            console.log('error on get settings ' + error);
+                        }
+                    );
+                } else {
+                    this.settings = JSON.parse(localStorage.getItem('settings'));
+                }
             }
         });
     }
@@ -94,10 +101,22 @@ export class SharedService {
         this.youtube.defaultApiSet(this.settings);
     }
 
-    // Not finished
     triggerNotify(message: string) {
         this.notify.enabled = true;
         this.notify.message = message;
         setTimeout(() => this.notify.enabled = false, 1000);
+    }
+
+    addHistoryVideo(data: any) {
+        let key;
+        for (key in this.historyVideos) {
+            if (this.historyVideos[key].id === data.id) {
+                this.historyVideos.splice(key, 1);
+                if (this.historyVideos[this.historyVideos.length - 1] === data) {
+                    this.historyVideos.splice(-1, 1);
+                }
+            }
+        }
+        this.historyVideos.unshift(data);
     }
 }

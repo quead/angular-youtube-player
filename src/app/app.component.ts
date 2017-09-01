@@ -1,7 +1,6 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-yt',
@@ -9,17 +8,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 
 export class AppComponent implements OnInit {
+  @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
 
   notify: any;
 
-  searchForm: FormGroup;
-
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
-  historyVideos: Array<any> = [];
+  playlistVideos: Array<any> = [];
+  currentVideoObject: Array<any> = [];
 
   thumbnails = true;
 
+  modal = false;
+  modalPlaylistItem: number;
+
+  playlistPrefill = true;
+  currentPlaylistItem: number;
   displayVideoPlayer = true;
   repeatMode = true;
   regionCode: string;
@@ -29,7 +33,7 @@ export class AppComponent implements OnInit {
 
   currentVideo = {
       id: '',
-      name: '',
+      title: '',
       stats: {
         likes: '',
         dislikes: '',
@@ -49,18 +53,14 @@ export class AppComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  _ref: any;
   _shared: any;
-  _dom: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
-    private ref: ChangeDetectorRef,
-    private shared: SharedService
+    private shared: SharedService,
   ) {
-    this._ref = ref;
     this._shared = shared;
     this.notify = this._shared.notify;
   }
@@ -84,6 +84,8 @@ export class AppComponent implements OnInit {
       'disablekb': 0,
       'showinfo': 0,
       'playsinline': 1,
+      'autoplay': 0,
+      'loop': 0,
       'rel': 0
     };
     return playerVars;
@@ -98,24 +100,31 @@ export class AppComponent implements OnInit {
     });
   }
 
+  setCurrentVideoObject(data: any) {
+    this.currentVideoObject = [];
+    this.currentVideoObject.push(data);
+  }
+
   setDefaultPlayer() {
       this.feedVideos = this._shared.feedVideos;
+      this.setCurrentVideoObject(this.feedVideos[0]);
       this.currentVideo.id = this.feedVideos[0].id;
-      this.currentVideo.name = this.feedVideos[0].snippet.title;
+      this.currentVideo.title = this.feedVideos[0].snippet.title;
       this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
       this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
       this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
+      this.findPlaylistItem();
   }
 
   onStateChange(event) {
     this.currentState = event.data;
     this.videoMaxRange = this.player.getDuration();
+    this.videoCurVolume = this.player.getVolume();
 
     if (this.currentState === 1) {
       this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.videoCurVolume = this.player.getVolume();
       this.currentMuteState = this.player.isMuted();
       this.startRange();
     }
@@ -123,7 +132,19 @@ export class AppComponent implements OnInit {
     if (this.currentState === 0) {
       this.stopRange();
       if (this.repeatMode) {
-        this.player.playVideo();
+        if (this.playlistVideos.length) {
+          this.findPlaylistItem();
+          if (this.currentPlaylistItem < 0) {
+            this.playPlaylistItem('next', this.currentPlaylistItem);
+          } else {
+            this.playPlaylistItem('next', this.currentPlaylistItem);
+          }
+          if (this.playlistVideos.length === 1) {
+            this.player.playVideo();
+          }
+        } else {
+          this.player.playVideo();
+        }
       }
     }
   }
@@ -133,7 +154,7 @@ export class AppComponent implements OnInit {
     this.videoRangeTimer = setInterval(() => {
       this.videoCurRange = this.player.getCurrentTime();
       this.videoCurFull = this.timeFormat(this.videoCurRange);
-      this._ref.markForCheck();
+
     }, 1000);
   }
 
@@ -141,17 +162,115 @@ export class AppComponent implements OnInit {
      clearTimeout(this.videoRangeTimer);
   }
 
+  // ---------------- Playlist settings ----------------
+
+  playlistInit() {
+      this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+  }
+
+  findPlaylistItem() {
+      let playlistItem;
+      if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
+        playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
+      } else {
+        playlistItem = this.playlistVideos.find(item => item.id === this.currentVideoObject[0].id);
+      }
+      this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
+  }
+
+  playPlaylistItem(direction: string, i: number) {
+    if (direction === 'next') {
+      if (i < this.playlistVideos.length) {
+        i += 1;
+      }
+      if (i === this.playlistVideos.length) {
+        i = 0;
+      }
+    }
+    if (direction === 'prev') {
+      if (i === 0 || i < 0) {
+        i = this.playlistVideos.length - 1;
+      } else {
+        i -= 1;
+      }
+    }
+    if (this.playlistVideos.length > 0) {
+      this.getVideo(this.playlistVideos[i]);
+    } else {
+      this._shared.triggerNotify('Playlist is empty');
+      this.updateNotify();
+    }
+  }
+
+  removePlaylistItem(i: number) {
+      this._shared.triggerNotify('Video removed');
+      this.updateNotify();
+      setTimeout(() => {
+        if (i === this.currentPlaylistItem) {
+          this.currentPlaylistItem = -1;
+        }
+        this.playlistVideos.splice(i, 1);
+      }, 200);
+  }
+
+  addPlaylistItem(i: number, list: number) {
+      let listType;
+      let playlistItem;
+      if (list === 0) {
+        listType = this.feedVideos[i];
+      }
+      if (list === 1) {
+        listType = this._shared.lastSearchedVideos[i];
+      }
+      if (list === 2) {
+        listType = this.relatedVideos[i];
+      }
+      if (list === 3) {
+        listType = this.currentVideoObject[i];
+      }
+
+      if (typeof listType.id.videoId !== 'undefined') {
+        playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
+      } else {
+        playlistItem = this.playlistVideos.find(item => item.id === listType.id);
+      }
+
+      if (typeof playlistItem === 'undefined') {
+        this.playlistVideos.push(listType);
+        this.findPlaylistItem();
+        this._shared.triggerNotify('Added to playlist');
+        this.updateNotify();
+        this.scrollToBottom();
+      } else {
+        this._shared.triggerNotify('Video is already in playlist');
+        this.updateNotify();
+      }
+  }
+
+  clearPlaylist() {
+      this.currentPlaylistItem = -1;
+      this.playlistVideos = [];
+      console.log(localStorage);
+      localStorage.removeItem('settings');
+      console.log(localStorage);      
+  }
+
   // ---------------- Init settings ----------------
 
   getSettings() {
     this._shared.getSettings().subscribe(data => {
         this.regionCode = data.api_settings[1].value;
+        this.thumbnails = data.form_settings[0].value;
+        this.displayVideoPlayer = data.form_settings[2].value;
+        this.repeatMode = data.form_settings[3].value;
     });
   }
 
   setSettings(data: any, from: number) {
     if (from === 0) {
       this.thumbnails = data[0].value;
+      this.displayVideoPlayer = data[2].value;
+      this.repeatMode = data[3].value;
     }
   }
 
@@ -159,15 +278,19 @@ export class AppComponent implements OnInit {
     if (int === 0) {
       if (this.displayVideoPlayer) {
         this.displayVideoPlayer = false;
+        this._shared.settings.form_settings[2].value = false;
       } else {
         this.displayVideoPlayer = true;
+        this._shared.settings.form_settings[2].value = true;
       }
     }
     if (int === 1) {
       if (this.repeatMode) {
         this.repeatMode = false;
+        this._shared.settings.form_settings[3].value = false;
       } else {
         this.repeatMode = true;
+        this._shared.settings.form_settings[3].value = true;
       }
     }
     if (int === 2) {
@@ -188,8 +311,8 @@ export class AppComponent implements OnInit {
     this.getVideo(this.relatedVideos[i]);
   }
 
-  onClickHistory(event: Event, i: number) {
-    this.playVideo(this.historyVideos[i]);
+  onClickPlaylist(event: Event, i: number) {
+    this.getVideo(this.playlistVideos[i]);
   }
 
   getVideo(data: any) {
@@ -198,6 +321,7 @@ export class AppComponent implements OnInit {
       title: '',
       thumbnail: ''
     };
+    this.setCurrentVideoObject(data);
     if (data.id.videoId) {
       tempData.id = data.id.videoId;
       this.getStatsVideos(data.id.videoId);
@@ -213,32 +337,19 @@ export class AppComponent implements OnInit {
   playVideo(data: any) {
     if (data.id !== this.currentVideo.id || this.currentState === -1) {
       this.currentVideo.id = data.id;
-      this.currentVideo.name = data.title;
-      this.historyVideos.push(data);
-      this.addHistoryVideo(data);
+      this.currentVideo.title = data.title;
+      this._shared.addHistoryVideo(data);
       this.player.loadVideoById(this.currentVideo.id);
       this.getRelatedVideos();
+      this.findPlaylistItem();
     }
-  }
-
-  addHistoryVideo(data: any) {
-      let key;
-      for (key in this.historyVideos) {
-        if (this.historyVideos[key].id === data.id) {
-            this.historyVideos.splice(key, 1);
-            if (this.historyVideos[this.historyVideos.length - 1] === data) {
-              this.historyVideos.splice(-1, 1);
-            }
-        }
-      }
-      this.historyVideos.unshift(data);
   }
 
   getStatsVideos(query: string) {
     this.youtube.statsVideos(query).subscribe(
         result => {
           this.currentVideo.id = result.items[0].id;
-          this.currentVideo.name = result.items[0].snippet.title;
+          this.currentVideo.title = result.items[0].snippet.title;
           this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
           this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
           this.currentVideo.stats.views = result.items[0].statistics.viewCount;
@@ -254,6 +365,10 @@ export class AppComponent implements OnInit {
     this.youtube.relatedVideos(this.currentVideo.id).subscribe(
         result => {
           this.relatedVideos = result.items;
+          if (this.playlistPrefill) {
+            this.playlistInit();
+            this.playlistPrefill = false;
+          }
         },
         error => {
           console.log('error on related videos');
@@ -291,7 +406,35 @@ export class AppComponent implements OnInit {
     this.player.setVolume(value);
   }
 
+  // ---------------- Modal functions ----------------
+
+  closeModal() {
+    this.modal = false;
+  }
+
+  showModal(i: number) {
+    this.modal = true;
+    this.modalPlaylistItem = i;
+  }
+
+  confirmModal() {
+    this.removePlaylistItem(this.modalPlaylistItem);
+    this.modal = false;
+  }
+
   // ---------------- Related functions ----------------
+
+  scrollToBottom() {
+      try {
+        setTimeout( () => {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+        }, 200);
+      } catch (err) {
+        console.log(err);
+        console.log('scroll issue');
+      }
+  }
+
 
   copyShareLink() {
     if (!this.notify.enabled) {

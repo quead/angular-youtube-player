@@ -2,7 +2,7 @@
     width: 100%;
     display: block;
     position: relative;
-    color: $c-black;
+    color: var(--c-black);
     .form-group {
         position: relative;
         z-index: 10;
@@ -36,7 +36,7 @@
         outline: 0;
         transition: all 0.1s ease-out;
         &:active {
-            color: $c-black;
+            color: var(--c-black);
         }
     }
     &.ng-invalid {

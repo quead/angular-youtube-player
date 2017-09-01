@@ -9,16 +9,20 @@ html {
     display: block;
 }
 body {
-    background-color: $c-white;
+    background-color: var(--c-white);
     font-family: 'Source Sans Pro', sans-serif;
     font-size: $f-14;
     line-height: 1.5;
     margin: 0;
     padding: 0;
     cursor: default;
-    color: $c-white;
+    color: var(--c-white);
     -webkit-app-region: drag;
     overflow: hidden;
+    animation: loading-animation 0.6s 1;
+    @media screen and (max-width: 991px) {
+        overflow: visible;
+    }
 }
 
 a,
@@ -27,9 +31,9 @@ button {
 }
 
 a {
-    color: $c-primary;
+    color: var(--c-primary);
     
     &:active {
-        color: $c-primary-active;
+        color: var(--c-primary)-active;
     }
 }

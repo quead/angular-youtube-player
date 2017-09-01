@@ -3,7 +3,7 @@
 </div>
 <div class="app-content">
     <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
-        <div *ngFor="let setting of getSettings.controls; let i=index" class="form-group">
+        <div *ngFor="let setting of getSettings.controls; let i=index" [ngClass]="{'hide': !settings[i].visible}" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>
             <label [attr.for]="'setting-' + i">{{ settings[i].name }}<span class="round-check"></span></label>
         </div>

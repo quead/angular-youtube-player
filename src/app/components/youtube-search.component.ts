@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit {
           result => {
             if (!this.searchForm.invalid) {
               this.videos = result.items;
+              this._shared.lastSearchedVideos = result.items;
             } else {
               this.videos = null;
             }
@@ -83,6 +84,7 @@ export class SearchComponent implements OnInit {
   getSettings() {
     this._shared.getSettings().subscribe(data => {
         this.thumbnails = data.form_settings[0].value;
+        this.listGrid = data.form_settings[1].value;
     });
   }
 
@@ -133,17 +135,24 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  addPlaylistItem(i: number, list: number) {
+      this._app.addPlaylistItem(i, list);
+  }
+
   setSettings(data: any, from: number) {
     if (from === 0) {
-      this.thumbnails = data[from].value;
+      this.thumbnails = data[0].value;
+      this.listGrid = data[1].value;
     }
   }
 
   toggleList(int: number) {
     if (int === 1) {
       this.listGrid = false;
+      this._shared.settings.form_settings[1].value = false;
     } else {
       this.listGrid = true;
+      this._shared.settings.form_settings[1].value = true;
     }
   }
 
