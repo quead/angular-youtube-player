@@ -250,6 +250,9 @@ export class AppComponent implements OnInit {
   clearPlaylist() {
       this.currentPlaylistItem = -1;
       this.playlistVideos = [];
+      console.log(localStorage);
+      localStorage.removeItem('settings');
+      console.log(localStorage);      
   }
 
   // ---------------- Init settings ----------------

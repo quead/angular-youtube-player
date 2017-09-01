@@ -76,18 +76,23 @@ export class SharedService {
                 observer.next(this.settings);
                 return observer.complete();
             } else {
-                this.http.get('assets/settings.json')
-                    .map(res => res.json())
-                    .subscribe(
-                    data => {
-                        this.settings = data;
-                        observer.next(this.settings);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log('error on get settings ' + error);
-                    }
-                );
+                if (localStorage.length <= 0) {
+                    this.http.get('assets/settings.json')
+                        .map(res => res.json())
+                        .subscribe(
+                        data => {
+                            this.settings = data;
+                            localStorage.setItem('settings', JSON.stringify(data));
+                            observer.next(this.settings);
+                            observer.complete();
+                        },
+                        error => {
+                            console.log('error on get settings ' + error);
+                        }
+                    );
+                } else {
+                    this.settings = JSON.parse(localStorage.getItem('settings'));
+                }
             }
         });
     }
