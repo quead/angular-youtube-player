@@ -115,20 +115,21 @@ Angular2 YT Player v1.0.0
 
 ## Future features
 #### Backlog
-- Save your playlists **(unversioned)**
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
-- **Settings**
-- *Save your settings **(unversioned)***
 
 #### Roadmap to 2.0
+- When first time load the app it will transfer settings from settings.json to localstorage **(in v1.9.1)**
+- Save settings in localstorage **(in v1.9.1)**
+- Save playlist in localstorage **(in v1.9.1)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 
 #### Roadmap to 3.0
-- Categories with videos like (music, gaming, autos, films, sports, much more) **(in 2.1)**
+- Import/Export playlist **(in v2.1)**
+- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
 
