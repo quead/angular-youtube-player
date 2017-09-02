@@ -3,16 +3,16 @@
 </div>
 <div class="app-content">
     <div class="history-video-content">
-    <div *ngIf="historyVideos.length === 0" class="video-list-info">
-        No history
-    </div>
-    <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
-        <div *ngIf="thumbnails" class="video-item-image">
-        <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
+        <div *ngIf="historyVideos.length === 0" class="video-list-info">
+            No history
         </div>
-        <div class="video-item-content">
-        <p>{{ historyVideo.title }}</p>
+        <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item" (click)="onClickHistory($event, i)">
+            <div *ngIf="thumbnails" class="video-item-image">
+            <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
+            </div>
+            <div class="video-item-content">
+            <p>{{ historyVideo.title }}</p>
+            </div>
         </div>
-    </div>
     </div>
 </div>

@@ -281,6 +281,7 @@ export class AppComponent implements OnInit {
         this.displayVideoPlayer = true;
         this._shared.settings.form_settings[2].value = true;
       }
+      this._shared.updateSettings();
     }
     if (int === 1) {
       if (this.repeatMode) {
@@ -290,6 +291,7 @@ export class AppComponent implements OnInit {
         this.repeatMode = true;
         this._shared.settings.form_settings[3].value = true;
       }
+      this._shared.updateSettings();
     }
     if (int === 2) {
       if (this.currentMuteState) {

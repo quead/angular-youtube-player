@@ -68,7 +68,9 @@ export class SettingsComponent implements OnInit {
             });
             this._app.setSettings(this.settings, 0);
             this._search.setSettings(this.settings, 1);
-            this.notifySettings();
+            this._shared.form_settings = this.settings;
+            this._shared.triggerNotify('Changed');
+            this.updateNotify();
         });
     }
 
@@ -97,21 +99,9 @@ export class SettingsComponent implements OnInit {
         this._shared.setApiSettings();
         this._shared.feedVideos = null;
         this._app.getSettings();
-        this._app.getFeedVideos();
-        this.notifySettings();
+        this._shared.triggerNotify('Changed');
+        this.updateNotify();
         setTimeout(() => this.loadingRegion = false, 500);
-    }
-
-    notifySettings() {
-        if (!this.notify.enabled) {
-            this._shared.triggerNotify('Changed');
-            this.updateNotify();
-        } else {
-            setTimeout(() => {
-                this._shared.triggerNotify('Changed');
-                this.updateNotify();
-            }, 1000);
-        }
     }
 
     updateNotify() {

@@ -276,6 +276,7 @@ var AppComponent = (function () {
                 this.displayVideoPlayer = true;
                 this._shared.settings.form_settings[2].value = true;
             }
+            this._shared.updateSettings();
         }
         if (int === 1) {
             if (this.repeatMode) {
@@ -286,6 +287,7 @@ var AppComponent = (function () {
                 this.repeatMode = true;
                 this._shared.settings.form_settings[3].value = true;
             }
+            this._shared.updateSettings();
         }
         if (int === 2) {
             if (this.currentMuteState) {
@@ -595,7 +597,7 @@ AboutComponent = __decorate([
 /***/ "../../../../../src/app/components/youtube-history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\n    <p>History</p>\n</div>\n<div class=\"app-content\">\n    <div class=\"history-video-content\">\n    <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\n        No history\n    </div>\n    <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickHistory($event, i)\">\n        <div *ngIf=\"thumbnails\" class=\"video-item-image\">\n        <img src=\"{{ historyVideo.thumbnail }}\" alt=\"history video thumbnail\" />\n        </div>\n        <div class=\"video-item-content\">\n        <p>{{ historyVideo.title }}</p>\n        </div>\n    </div>\n    </div>\n</div>"
+module.exports = "<div class=\"app-head\">\n    <p>History</p>\n</div>\n<div class=\"app-content\">\n    <div class=\"history-video-content\">\n        <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\n            No history\n        </div>\n        <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\" (click)=\"onClickHistory($event, i)\">\n            <div *ngIf=\"thumbnails\" class=\"video-item-image\">\n            <img src=\"{{ historyVideo.thumbnail }}\" alt=\"history video thumbnail\" />\n            </div>\n            <div class=\"video-item-content\">\n            <p>{{ historyVideo.title }}</p>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -906,7 +908,9 @@ var SettingsComponent = (function () {
             });
             _this._app.setSettings(_this.settings, 0);
             _this._search.setSettings(_this.settings, 1);
-            _this.notifySettings();
+            _this._shared.form_settings = _this.settings;
+            _this._shared.triggerNotify('Changed');
+            _this.updateNotify();
         });
     };
     SettingsComponent.prototype.mapSettings = function () {
@@ -935,22 +939,9 @@ var SettingsComponent = (function () {
         this._shared.setApiSettings();
         this._shared.feedVideos = null;
         this._app.getSettings();
-        this._app.getFeedVideos();
-        this.notifySettings();
+        this._shared.triggerNotify('Changed');
+        this.updateNotify();
         setTimeout(function () { return _this.loadingRegion = false; }, 500);
-    };
-    SettingsComponent.prototype.notifySettings = function () {
-        var _this = this;
-        if (!this.notify.enabled) {
-            this._shared.triggerNotify('Changed');
-            this.updateNotify();
-        }
-        else {
-            setTimeout(function () {
-                _this._shared.triggerNotify('Changed');
-                _this.updateNotify();
-            }, 1000);
-        }
     };
     SettingsComponent.prototype.updateNotify = function () {
         var _this = this;
@@ -1023,9 +1014,9 @@ var SharedService = (function () {
                     _this.feedVideos = result.items;
                     _this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(function (resultChannel) {
                         _this.channel = resultChannel;
+                        observer.next(_this.feedVideos);
+                        observer.complete();
                     });
-                    observer.next(_this.feedVideos);
-                    observer.complete();
                 }, function (error) {
                     console.log('error on feed videos' + error);
                 });
@@ -1077,6 +1068,10 @@ var SharedService = (function () {
                 }
             }
         });
+    };
+    SharedService.prototype.updateSettings = function () {
+        localStorage.setItem('settings', JSON.stringify(this.settings));
+        console.log(JSON.parse(localStorage.settings));
     };
     SharedService.prototype.setApiSettings = function () {
         this.youtube.defaultApiSet(this.settings);

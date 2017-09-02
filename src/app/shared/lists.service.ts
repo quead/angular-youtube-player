@@ -38,9 +38,9 @@ export class SharedService {
                         this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
                         resultChannel => {
                             this.channel = resultChannel;
+                            observer.next(this.feedVideos);
+                            observer.complete();
                         });
-                        observer.next(this.feedVideos);
-                        observer.complete();
                     },
                     error => {
                         console.log('error on feed videos' + error);
@@ -97,6 +97,11 @@ export class SharedService {
                 }
             }
         });
+    }
+
+    updateSettings() {
+        localStorage.setItem('settings', JSON.stringify(this.settings));
+        console.log(JSON.parse(localStorage.settings));
     }
 
     setApiSettings() {
