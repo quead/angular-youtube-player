@@ -10,8 +10,8 @@
 }
 
 .current-video-name {
-    color: var(--c-black);
-    font-weight: bold;
+    color: var(--c-primary);
+    font-weight: normal;
     margin: 0;
     overflow: hidden;
     width: 100%;
@@ -32,14 +32,14 @@
     p {
         margin-top: 5px;
         margin-bottom: 5px;
-        color: var(--c-dark-gray);
+        color: var(--c-white);
     }
     p + p {
         margin-left: 15px;
     }
     .fa {
         margin-right: 3px;
-        color: var(--c-black);
+        color: var(--c-primary);
     }
 }
 
@@ -51,15 +51,26 @@
         white-space: nowrap;
         padding: 7px 0;
         cursor: pointer;
+        color: var(--c-primary);
     }
     input[type=text] {
         width: 100%;
         border: none;
         padding: 3px 20px;
-        background: #efefef;
+        background: var(--c-black);
+        color: rgba(255, 255, 255, 0.3);
         margin: 0;
         outline: 0;
         border-radius: 30px;
+        &::-moz-selection {
+            background-color: transparent;
+        }
+        &::selection {
+            background-color: transparent;
+        }
+        &:active {
+            color: var(--c-white);
+        }
     }
 }
 
@@ -94,7 +105,7 @@
     }
     #play-song { 
         background-color: var(--c-primary);
-        color: var(--c-white);
+        color: var(--c-base);
         border-radius: 50%;
         span {
             margin-left: 1px;

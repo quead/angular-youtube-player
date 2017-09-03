@@ -114,7 +114,7 @@
         position: absolute;
         left: calc(100% + 5px);
         top: 0;
-        color: var(--c-white);
+        color: var(--c-primary);
     }
 }
 
@@ -123,13 +123,6 @@
         height: 100px;
         display: flex;
         padding: 30px 20px 0 20px;
-        > p {
-            font-size: $f-28;
-            text-transform: uppercase;
-            display: block;
-            margin: 0;
-            font-weight: 300;
-        }
         .settings {
             margin-left: auto;
             margin-top: 10px;

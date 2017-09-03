@@ -1,24 +1,17 @@
+iframe {
+    width: 100%;
+    max-height: 350px;
+    display: flex;
+}
+
 .video-list {
     position: absolute;
     width: 100%;
     top: 45px;
     overflow-y: auto;
-}
-
-.video-list-info {
-    text-align: center;
-    margin: 5px;
-}
-
-#search-video-list {
-    z-index: 10;
-    max-height: 430px;
-    box-shadow: 0px 5px 9px rgba(0, 0, 0, 0.15);
-    .video-item {
-        padding: 0;
-        &-info {
-            padding: 5px 10px;
-        }
+    &-info {
+        text-align: center;
+        margin: 5px;
     }
     &::-webkit-scrollbar-track {
         border-radius: 2px;
@@ -26,26 +19,39 @@
 
     &::-webkit-scrollbar {
         width: 6px;
-        background-color: var(--c-white);
+        background-color: var(--c-base);
     }
 
     &::-webkit-scrollbar-thumb {
         border-radius: 20px;
-        background-color: rgba($c-black, 0.3);
+        background-color: rgba(#FFF, 0.1);
         &:hover {
-            background-color: rgba($c-black, 0.6);
+            background-color: rgba(#FFF, 0.4);
         }
     }
 }
 
-iframe {
-    width: 100%;
-    max-height: 350px;
-    display: flex;
+#search-video-list {
+    z-index: 10;
+    max-height: 430px;
+    border: 1px solid #1f1f1f;
+    .video-item {
+        background-color: var(--c-black);
+    }
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: var(--c-black);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(#FFF, 0.3);
+        &:hover {
+            background-color: rgba(#FFF, 0.6);
+        }
+    }
 }
 
 .video-item-head {
-    background-color: var(--c-primary);
+    background-color: var(--c-gray);
     color: var(--c-white);
     width: 100%;
     height: 39px;
@@ -73,17 +79,28 @@ iframe {
 .video-item {
     display: flex;
     align-items: center;
-    background-color: var(--c-white);
-    border-bottom: 1px solid rgba($c-black,0.03);
-    padding: 5px 10px;
+    background-color: var(--c-dark-gray);
+    color: var(--c-white);
+    padding: 0;
     cursor: pointer;
     position: relative;
+    min-height: 60px;
+    padding: 0 10px;
+    transition: all 0.1s ease-in-out;
     h2 {
         font-size: $f-14;
         margin: 0;
     }
     p {
         margin: 0;
+        font-weight: 100;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    &-content {
+        width: 100%;
+        overflow: hidden;
     }
     &-info {
         display: flex;
@@ -92,15 +109,10 @@ iframe {
         z-index: 1;
         width: 100%;
         background-color: inherit;
-        left: 0;
-        transition: all 0.1s ease-in-out;
-    }
-    &:hover {
-        .video-item-info {
-            left: -30px;
-        }
     }
     &-settings {
+        // Temp
+        display: none !important;
         height: 100%;
         position: absolute;
         right: 0;
@@ -113,11 +125,11 @@ iframe {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--c-white);
             transition: all 0.1s ease-in-out;
         }
         .video-item-remove {
             background-color: var(--c-primary);
+            color: var(--c-base);
             &:active {
                 background-color: var(--c-primary-active);
             }
@@ -129,12 +141,8 @@ iframe {
             }
         }
     }
-    &-count {
-        font-family: 'Muli', sans-serif;
-        padding-right: 7px;
-    }
-    &:last-child {
-        padding-bottom: 10px;
+    &:hover {
+        background-color: var(--c-black);
     }
 }
 
@@ -143,7 +151,7 @@ iframe {
     margin: 0 10px 0 0;
     img {
         display: block;
-        width: 100%;
+        width: 45px;
         height: auto;
     }
 }
@@ -154,11 +162,9 @@ iframe {
         margin: 0 15px 0 0;
         line-height: 14px;
         font-size: $f-12;
-        color: var(--c-dark-gray);
     }
     .fa {
         margin-right: 3px;
-        color: var(--c-black);
     }
 }
 
@@ -171,29 +177,6 @@ iframe {
     height: calc(100% - 190px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
-    .video-item {
-        background-color: inherit;
-        flex-wrap: nowrap;
-        padding: 0;
-        transition: box-shadow 0.1s ease-out;
-        &-info {
-            padding: 5px;
-        }
-        &:hover {
-            .video-item-info {
-                left: -30px;
-            }
-        }
-    }
-    .video-item-image {
-        flex: inherit;
-        margin: 0 10px 0 0;
-        position: relative;
-        img {
-            width: 45px;
-            height: auto;
-        }
-    }
     .related-video-content {
         position: absolute;
         bottom: 0;
@@ -204,15 +187,18 @@ iframe {
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
-
+    
         &::-webkit-scrollbar {
             width: 6px;
-            background-color: transparent;
+            background-color: var(--c-base);
         }
-
+    
         &::-webkit-scrollbar-thumb {
             border-radius: 20px;
-            background-color: rgba($c-black, 0.3);
+            background-color: rgba(#FFF, 0.1);
+            &:hover {
+                background-color: rgba(#FFF, 0.4);
+            }
         }
     }
     &.activePlayer {
@@ -230,62 +216,34 @@ iframe {
     height: calc(100% - 236px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
-    .video-item-head {
-        background-color: darken($c-primary-inverse, 2%);
-    }
-    .video-item {
-        background-color: inherit;
-        flex-wrap: nowrap;
-        border-bottom: none;
-        transition: all 0.1s ease-out;
-        padding: 0;
-        &-info {
-            padding: 5px;
-        }
-        &.active {
-            background-color: lighten($c-primary-inverse, 5%);
-        }
-        &:hover {
-            .video-item-info {
-                left: -30px;
-            }
-        }
-    }
-    .video-item-image {
-        flex: inherit;
-        margin: 0 5px 0 0;
-        position: relative;
-        img {
-            width: 45px;
-            height: auto;
-        }
-    }
     .playlist-video-content {
         position: absolute;
         bottom: 0;
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: darken($c-primary-inverse, 5%);
-        color: var(--c-white);
+        background-color: var(--c-base);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
-
+    
         &::-webkit-scrollbar {
             width: 6px;
-            background-color: transparent;
+            background-color: var(--c-base);
         }
-
+    
         &::-webkit-scrollbar-thumb {
             border-radius: 20px;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(#FFF, 0.1);
+            &:hover {
+                background-color: rgba(#FFF, 0.4);
+            }
         }
     }
 }
 
 .video-list-featured {
-    margin: 10px -20px 0;
+    margin: 10px 0 0;
     height: 200px;
     background-position: center center;
     background-size: cover;
@@ -297,14 +255,9 @@ iframe {
         width: auto;
         padding: 10px 15px;
         max-width: 90%;
-        background-color: rgba($c-black, 0.6);
+        background-color: rgba(0, 0, 0, 0.6);
         color: var(--c-white);
         border: none;
-        .fa,
-        p {
-            color: inherit;
-            font-size: inherit;
-        }
         &-image {
             width: 80px;
             height: auto;
@@ -315,12 +268,6 @@ iframe {
             > div {
                 display: inline-block;
             }
-        }
-        &-settings {
-            right: -30px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease-in-out;
         }
         &:hover {
             .video-item-info {
@@ -340,34 +287,11 @@ iframe {
     top: inherit;
     bottom: 0;
     height: calc(100% - 297px);
-    width: calc(100% - 20px);
-    margin-left: -10px;
+    width: calc(100% - 40px);
     max-height: none;
     .video-item {
-        border-bottom: none;
-        line-height: 16px;
-        padding: 0;
         &:first-child {
             display: none !important;
-        }
-        &-info {
-            padding: 5px;
-        }
-    }
-    &::-webkit-scrollbar-track {
-        border-radius: 2px;
-    }
-
-    &::-webkit-scrollbar {
-        width: 6px;
-        background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        border-radius: 20px;
-        background-color: rgba($c-black, 0.1);
-        &:hover {
-            background-color: rgba($c-black, 0.6);
         }
     }
     &.grid-list {
@@ -393,7 +317,7 @@ iframe {
                     &:before {
                         content: '\25B6  Play';
                         color: var(--c-white);
-                        background-color: rgba($c-black, 0.6);
+                        background-color: rgba(0, 0, 0, 0.6);
                         padding: 8px 15px;
                         display: block;
                         position: absolute;
@@ -405,15 +329,6 @@ iframe {
                         transition: all 0.2s ease-in-out;
                     }
                 }
-            }
-            &-settings {
-                opacity: 0;
-                visibility: hidden;
-                z-index: 1;
-                width: 100%;
-                height: 30px;
-                top: -30px;
-                transition: all 0.2s ease-in-out;
             }
             &-info {
                 display: block;

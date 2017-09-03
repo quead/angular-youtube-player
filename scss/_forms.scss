@@ -1,3 +1,7 @@
+select {
+    -webkit-appearance: none;
+}
+
 .round-check {
     position: absolute;
     right: 0;
@@ -6,7 +10,7 @@
     &:before {
         content: '';
         display: block;
-        background-color: var(--c-light-gray);
+        background-color: rgba(255, 255, 255, 0.11);
         height: 20px;
         width: 40px;
         border-radius: 50px;
@@ -16,7 +20,7 @@
         content: '';
         position: absolute;
         display: block;
-        background-color: var(--c-white);
+        background-color: var(--c-black);
         height: 16px;
         width: 16px;
         border-radius: 50%;
@@ -31,11 +35,11 @@ input[type="checkbox"]:checked,
 input[type="radio"]:checked {
     + label .round-check {
         &:before {
-            background-color: var(--c-primary);
+            background-color: rgba(255, 255, 255, 0.11);
         }
         &:after {
             left: 22px;
-            background-color: var(--c-white);
+            background-color: var(--c-primary);
         }
     }
 }
@@ -48,8 +52,13 @@ input[type="radio"]:checked {
     .form-field {
         margin-left: auto;
         padding: 10px 15px;
-        border: 1px solid var(--c-light-gray);
-        box-shadow: 0 5px 10px rgba($c-black,0.05);
+        border: 1px solid var(--c-gray);
+        color: var(--c-white);
+        min-width: 250px;
+        font-weight: 300;        
+        background-color: var(--c-black);
+        border-radius: 0;
+        outline: 0;
         &:disabled {
             background-color: var(--c-base);
             cursor: no-drop;
@@ -59,5 +68,25 @@ input[type="radio"]:checked {
     .fa-color-info,
     .fa-color-danger {
         margin-left: 10px;
+    }
+}
+
+#settingsForm {
+    margin-top: 0;
+    input[type="checkbox"],
+    input[type="radio"] {
+        display: none;
+    }
+    label {
+        position: relative;
+        cursor: pointer;
+        display: block;
+    }
+    .form-group {
+        padding: 5px 0;
+    }
+    .btn {
+        margin-top: 20px;
+        float: right;
     }
 }

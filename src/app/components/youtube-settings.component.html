@@ -1,5 +1,5 @@
 <div class="app-head">
-    <p>Settings</p>
+    <h2>Settings</h2>
 </div>
 <div class="app-content">
     <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
@@ -18,24 +18,16 @@
         </div>
         <div class="form-group form-text">
             <label for="val-api-key">Api Key</label>
-            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" [value]="apiKey" disabled>
-            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" [value]="apiKey" spellcheck="false">
         </div>
         <div class="form-group form-text">
             <label for="val-search-results">Results for search (Max. 50)</label>
-            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" [value]="numSearchRes" disabled>
-            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" [value]="numSearchRes">
         </div>
         <div class="form-group form-text">
             <label for="val-related-results">Results for related videos (Max. 50)</label>
-            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" [value]="numRelatedRes" disabled>
-            <span class="fa fa-exclamation-circle fa-color-danger"></span>
+            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" [value]="numRelatedRes">
         </div>
-        <div class="alert alert-danger" role="alert">
-            <span class="fa fa-exclamation-circle"></span>All marked fields you can change in upcoming verions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). Now you can only change it from "assets/settings.json".
-        </div>
-        <div class="alert alert-info" role="alert">
-            <span class="fa fa-info-circle"></span>The settings will be saved in upcoming versions (<a href="https://github.com/quead/angular2-yt-player#changelog" target="_blank">check changelog</a>). You can set default settings from "assets/settings.json".
-        </div>
+        <button type="submit" class="btn btn-primary btn-round">Save settings</button>
     </form>
 </div>

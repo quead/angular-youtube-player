@@ -1,6 +1,6 @@
 .btn {
     display: inline-block;
-    color: var(--c-gray);
+    color: var(--c-white);
     font-size: 14px;
     font-weight: 400;
     line-height: 1.25;
@@ -14,7 +14,6 @@
     text-decoration: none;
     transition: all .1s ease-out;
     outline: 0;
-
     &-round {
         border-radius: 50px;
     }
@@ -36,7 +35,7 @@
 
     &-primary {
         background-color: var(--c-primary);
-        color: var(--c-white);
+        color: var(--c-black);
         &:hover {
             background-color: var(--c-primary-active);
         }
