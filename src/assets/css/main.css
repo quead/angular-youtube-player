@@ -88,6 +88,7 @@ a:active {
   text-decoration: none;
   transition: all .1s ease-out;
   outline: 0;
+  line-height: 1;
 }
 
 .btn-round {
@@ -1395,6 +1396,8 @@ iframe {
 .video-item-hint .fa {
   font-size: 8px;
   margin-right: 3px;
+  position: relative;
+  top: -1px;
 }
 
 .video-item:hover .video-item-settings {

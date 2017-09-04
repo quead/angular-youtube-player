@@ -30,7 +30,12 @@
                   <div class="video-item-info">
                     <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}"></div>
                     <div class="video-item-content">
-                      <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>                        
+                      <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
+                        <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
+                      </ng-container>
+                      <ng-container *ngIf="currentPlaylistItem === i &&  currentState !== 1">                        
+                        <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
+                      </ng-container>                       
                       <p class="video-item-title">{{ playlistVideo.snippet.title }}</p>
                       <p class="video-item-autor">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>
                     </div>

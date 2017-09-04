@@ -201,6 +201,8 @@ iframe {
         .fa {
             font-size: $f-8;
             margin-right: 3px;
+            position: relative;
+            top: -1px;
         }
     }
     &:hover {
