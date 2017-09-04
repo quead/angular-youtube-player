@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
         id: '',
         title: '',
         img: '',
+        channelTitle: '',
         stats: {
           views: '',
           likes: '',
@@ -105,8 +106,8 @@ export class SearchComponent implements OnInit {
           this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
           this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
           this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
-
           this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
+          this.trendingFirst.video.channelTitle = this.channel.items[0].snippet.title;
           if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
             this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
           } else {

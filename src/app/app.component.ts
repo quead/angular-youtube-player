@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
   currentVideo = {
       id: '',
       title: '',
+      channelTitle: '',
       stats: {
         likes: '',
         dislikes: '',
@@ -228,6 +229,9 @@ export class AppComponent implements OnInit {
       if (list === 3) {
         listType = this.currentVideoObject[i];
       }
+      if (list === 4) {
+        listType = this._shared.historyVideos[i];
+      }
 
       if (typeof listType.id.videoId !== 'undefined') {
         playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
@@ -312,14 +316,19 @@ export class AppComponent implements OnInit {
   }
 
   onClickPlaylist(event: Event, i: number) {
-    this.getVideo(this.playlistVideos[i]);
+    if (i === this.currentPlaylistItem) {
+      this.playPauseVideo();
+    } else {
+      this.getVideo(this.playlistVideos[i]);
+    }
   }
 
   getVideo(data: any) {
     const tempData = {
       id: '',
       title: '',
-      thumbnail: ''
+      thumbnail: '',
+      channelTitle: '',
     };
     this.setCurrentVideoObject(data);
     if (data.id.videoId) {
@@ -330,6 +339,7 @@ export class AppComponent implements OnInit {
       this.getStatsVideos(data.id);
     }
     tempData.title = data.snippet.title;
+    tempData.channelTitle = data.snippet.channelTitle;
     tempData.thumbnail = data.snippet.thumbnails.medium.url;
     this.playVideo(tempData);
   }
@@ -350,6 +360,7 @@ export class AppComponent implements OnInit {
         result => {
           this.currentVideo.id = result.items[0].id;
           this.currentVideo.title = result.items[0].snippet.title;
+          this.currentVideo.channelTitle = result.items[0].snippet.channelTitle;
           this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
           this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
           this.currentVideo.stats.views = result.items[0].statistics.viewCount;
@@ -418,6 +429,7 @@ export class AppComponent implements OnInit {
   }
 
   confirmModal() {
+    this.findPlaylistItem();
     this.removePlaylistItem(this.modalPlaylistItem);
     this.modal = false;
   }

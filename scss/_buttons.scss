@@ -21,7 +21,6 @@
     &-small {
         padding: 5px 17px;
     }
-
     &-link {
         background-color: transparent;
         color: rgba(#232228, 0.3);
@@ -38,9 +37,11 @@
         color: var(--c-black);
         &:hover {
             background-color: var(--c-primary-active);
+            transform: scale(1.05);            
         }
         &:active {
             background-color: var(--c-primary-active-focus);
+            transform: scale(1);            
         }
     }
 
