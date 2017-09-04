@@ -216,6 +216,7 @@ export class AppComponent implements OnInit {
           this.currentPlaylistItem = -1;
         }
         this.playlistVideos.splice(i, 1);
+        this.findPlaylistItem();
       }, 200);
   }
 
@@ -436,7 +437,6 @@ export class AppComponent implements OnInit {
   }
 
   confirmModal() {
-    this.findPlaylistItem();
     this.removePlaylistItem(this.modalPlaylistItem);
     this.modal = false;
   }

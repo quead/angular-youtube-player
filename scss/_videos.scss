@@ -37,6 +37,9 @@ iframe {
     border: 1px solid #1f1f1f;
     .video-item {
         background-color: var(--c-black);
+        &:hover {
+            background-color: var(--c-gray);
+        }
     }
     &::-webkit-scrollbar {
         width: 6px;
@@ -101,7 +104,6 @@ iframe {
         position: relative;
         p {
             margin: 0;
-            font-weight: 100;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -249,7 +251,7 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: var(--c-base);
+        background-color: var(--c-dark-gray);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
@@ -287,7 +289,7 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: var(--c-base);
+        background-color: var(--c-dark-gray);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }

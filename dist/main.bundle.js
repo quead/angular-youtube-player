@@ -217,6 +217,7 @@ var AppComponent = (function () {
                 _this.currentPlaylistItem = -1;
             }
             _this.playlistVideos.splice(i, 1);
+            _this.findPlaylistItem();
         }, 200);
     };
     AppComponent.prototype.addPlaylistItem = function (i, list) {
@@ -417,7 +418,6 @@ var AppComponent = (function () {
         this.modalPlaylistItem = i;
     };
     AppComponent.prototype.confirmModal = function () {
-        this.findPlaylistItem();
         this.removePlaylistItem(this.modalPlaylistItem);
         this.modal = false;
     };

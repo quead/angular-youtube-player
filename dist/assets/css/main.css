@@ -1211,6 +1211,10 @@ iframe {
   background-color: var(--c-black);
 }
 
+#search-video-list .video-item:hover {
+  background-color: var(--c-gray);
+}
+
 #search-video-list::-webkit-scrollbar {
   width: 6px;
   background-color: var(--c-black);
@@ -1284,7 +1288,6 @@ iframe {
 
 .video-item-content p {
   margin: 0;
-  font-weight: 100;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -1445,7 +1448,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: var(--c-base);
+  background-color: var(--c-dark-gray);
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-track {
@@ -1487,7 +1490,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: var(--c-base);
+  background-color: var(--c-dark-gray);
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-track {
