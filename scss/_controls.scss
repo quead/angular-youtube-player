@@ -118,7 +118,6 @@
         }
     }
 }
-
 .current-video-range {
     position: relative;
     width: calc(100% - 130px);
@@ -127,7 +126,7 @@
     .current-video-range-max-value,
     .current-video-range-value {
         position: absolute;
-        top: 0;
+        top: -4px;
         margin: 0;
         color: var(--c-primary);
     }
@@ -142,33 +141,11 @@
 .player-range {
     width: 100%;
     height: 16px;
-    margin-top: 3px;
     overflow: hidden;
     cursor: pointer;
     background: transparent;
     -webkit-appearance: none;
     outline: 0;
-    &::-webkit-slider-runnable-track,
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-    }
-    &::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 3px;
-        background: var(--c-primary);
-    }
-    &::-webkit-slider-thumb {
-        position: relative;
-        height: 15px;
-        width: 15px;
-        margin-top: -6px;
-        background: var(--c-primary);
-        border-radius: 50%;
-        transition: all 0.2s ease-out;
-    }
-    &.inactive::-webkit-slider-thumb {
-        display: none;
-    }
 }
 
 .volume-range-value {
@@ -188,6 +165,43 @@
     }
 }
 
+.duration-range-container {
+    position: relative;
+    height: 12px;
+    background-color: var(--c-light-gray);
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    .duration-input-shadow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 0;
+        background-color: var(--c-primary);
+        transition: all 0.1s ease-out;
+        border-radius: 20px;
+    }
+    .player-range {
+        -webkit-appearance: none;
+        z-index: 1;
+        position: relative;
+        &::-webkit-slider-runnable-track,
+        &::-webkit-slider-thumb {
+            background: transparent;
+            visibility: hidden;
+        }
+        &:hover + .duration-input-shadow {
+            background-color: var(--c-primary-active);
+        }
+        &:active + .duration-input-shadow {
+            background-color: var(--c-primary-active-focus);
+        }
+    }
+}
+
 .volume-input-container {
     position: relative;
     width: 80px;
@@ -195,6 +209,18 @@
     background-color: var(--c-light-gray);
     border-radius: 5px;
     overflow: hidden;
+    .volume-input-shadow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 20px;
+        background-color: var(--c-primary);
+        transition: all 0.1s ease-out;
+        &.inactive {
+            width: 0% !important;
+        }
+    }
     .volume-input {
         background: transparent;
         cursor: pointer;
@@ -211,17 +237,11 @@
             background: transparent;
             visibility: hidden;
         }
-    }
-    .volume-input-shadow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        border-radius: 20px;
-        background-color: var(--c-primary);
-        transition: all 0.1s ease-out;
-        &.inactive {
-            width: 0% !important;
+        &:hover + .volume-input-shadow {
+            background-color: var(--c-primary-active);
+        }
+        &:active + .volume-input-shadow {
+            background-color: var(--c-primary-active-focus);
         }
     }
 }

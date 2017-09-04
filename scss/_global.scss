@@ -20,7 +20,7 @@ body {
     cursor: default;
     -webkit-app-region: drag;
     overflow: hidden;
-    animation: loading-animation 0.6s 1;
+    animation: loading-animation 2s 1;
     @media screen and (max-width: 991px) {
         overflow: visible;
     }

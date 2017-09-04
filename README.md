@@ -56,10 +56,10 @@ Just take files from ***dist*** folder
 Angular2 YT Player v1.9.1
 - Saving settings.json to localstorage if your localstorage is empty
 - Cleaning the css
-- Auto saving playlists
 - Auto saving all changes you do, you can disable auto save from settings
 - Toggle light/dark mode
 - UI/UX improvements and fixes
+- Performance improvements
 
 Angular2 YT Player v1.9
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos

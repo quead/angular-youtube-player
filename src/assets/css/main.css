@@ -50,7 +50,7 @@ body {
   cursor: default;
   -webkit-app-region: drag;
   overflow: hidden;
-  animation: loading-animation 0.6s 1;
+  animation: loading-animation 2s 1;
 }
 
 @media screen and (max-width: 991px) {
@@ -636,7 +636,7 @@ a:active {
 .current-video-range .current-video-range-max-value,
 .current-video-range .current-video-range-value {
   position: absolute;
-  top: 0;
+  top: -4px;
   margin: 0;
   color: var(--c-primary);
 }
@@ -652,36 +652,11 @@ a:active {
 .player-range {
   width: 100%;
   height: 16px;
-  margin-top: 3px;
   overflow: hidden;
   cursor: pointer;
   background: transparent;
   -webkit-appearance: none;
   outline: 0;
-}
-
-.player-range::-webkit-slider-runnable-track, .player-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
-
-.player-range::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 3px;
-  background: var(--c-primary);
-}
-
-.player-range::-webkit-slider-thumb {
-  position: relative;
-  height: 15px;
-  width: 15px;
-  margin-top: -6px;
-  background: var(--c-primary);
-  border-radius: 50%;
-  transition: all 0.2s ease-out;
-}
-
-.player-range.inactive::-webkit-slider-thumb {
-  display: none;
 }
 
 .volume-range-value {
@@ -703,6 +678,47 @@ a:active {
   visibility: hidden;
 }
 
+.duration-range-container {
+  position: relative;
+  height: 12px;
+  background-color: var(--c-light-gray);
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.duration-range-container .duration-input-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 0;
+  background-color: var(--c-primary);
+  transition: all 0.1s ease-out;
+  border-radius: 20px;
+}
+
+.duration-range-container .player-range {
+  -webkit-appearance: none;
+  z-index: 1;
+  position: relative;
+}
+
+.duration-range-container .player-range::-webkit-slider-runnable-track, .duration-range-container .player-range::-webkit-slider-thumb {
+  background: transparent;
+  visibility: hidden;
+}
+
+.duration-range-container .player-range:hover + .duration-input-shadow {
+  background-color: var(--c-primary-active);
+}
+
+.duration-range-container .player-range:active + .duration-input-shadow {
+  background-color: var(--c-primary-active-focus);
+}
+
 .volume-input-container {
   position: relative;
   width: 80px;
@@ -710,6 +726,20 @@ a:active {
   background-color: var(--c-light-gray);
   border-radius: 5px;
   overflow: hidden;
+}
+
+.volume-input-container .volume-input-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 20px;
+  background-color: var(--c-primary);
+  transition: all 0.1s ease-out;
+}
+
+.volume-input-container .volume-input-shadow.inactive {
+  width: 0% !important;
 }
 
 .volume-input-container .volume-input {
@@ -730,18 +760,12 @@ a:active {
   visibility: hidden;
 }
 
-.volume-input-container .volume-input-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  border-radius: 20px;
-  background-color: var(--c-primary);
-  transition: all 0.1s ease-out;
+.volume-input-container .volume-input:hover + .volume-input-shadow {
+  background-color: var(--c-primary-active);
 }
 
-.volume-input-container .volume-input-shadow.inactive {
-  width: 0% !important;
+.volume-input-container .volume-input:active + .volume-input-shadow {
+  background-color: var(--c-primary-active-focus);
 }
 
 select {
@@ -1210,18 +1234,20 @@ iframe {
 
 .video-item-head-btn {
   float: right;
-  background-color: var(--c-white);
+  background-color: var(--c-black);
+  border: 1px solid var(--c-primary);
   cursor: pointer;
-  color: var(--c-primary-inverse);
+  color: var(--c-primary);
   border-radius: 3px;
-  padding: 1px 7px;
+  padding: 2px 8px;
   margin-top: 2px;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .video-item-head-btn:active {
-  background-color: var(--c-light-gray);
+  background-color: var(--c-primary);
+  color: var(--c-black);
   user-select: none;
 }
 
@@ -1539,6 +1565,11 @@ iframe {
 #feed-video-list.grid-list .video-item .video-item-image {
   margin: 0;
   position: relative;
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 #feed-video-list.grid-list .video-item .video-item-content {

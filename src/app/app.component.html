@@ -74,7 +74,10 @@
                       <button id="next-song" (click)="playPlaylistItem('next', currentPlaylistItem)"><span class="fa fa-forward"></span></button>
                   </div>
                   <div class="current-video-range">
-                    <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
+                    <div class="duration-range-container">
+                      <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
+                      <span class="test duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
+                    </div>
                     <p class="current-video-range-value">{{videoCurFull}}</p>
                     <p class="current-video-range-max-value">{{videoMaxFull}}</p>
                   </div>

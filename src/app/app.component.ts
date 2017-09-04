@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
 
   notify: any;
+  videoRangePercent = 0;
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
@@ -128,6 +129,8 @@ export class AppComponent implements OnInit {
       this.videoMaxFull = this.timeFormat(this.videoMaxRange);
       this.currentMuteState = this.player.isMuted();
       this.startRange();
+    } else {
+      this.stopRange();
     }
 
     if (this.currentState === 0) {
@@ -152,15 +155,17 @@ export class AppComponent implements OnInit {
 
   startRange() {
     this.stopRange();
-    this.videoRangeTimer = setInterval(() => {
-      this.videoCurRange = this.player.getCurrentTime();
-      this.videoCurFull = this.timeFormat(this.videoCurRange);
-
-    }, 1000);
+    if (this.currentState) {
+      this.videoRangeTimer = setInterval(() => {
+        this.videoCurRange = this.player.getCurrentTime();
+        this.videoCurFull = this.timeFormat(this.videoCurRange);
+        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
+      }, 1000);
+    }
   }
 
   stopRange() {
-     clearTimeout(this.videoRangeTimer);
+     clearInterval(this.videoRangeTimer);
   }
 
   // ---------------- Playlist settings ----------------
@@ -398,6 +403,7 @@ export class AppComponent implements OnInit {
   }
 
   RangeNouseDown(event: Event) {
+    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     if (event['buttons'] === 1) {
       this.stopRange();
     }
@@ -406,6 +412,7 @@ export class AppComponent implements OnInit {
   RangeMouseUp(value: number) {
     this.player.seekTo(value, true);
     this.videoCurRange = value;
+    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     this.startRange();
   }
 
