@@ -27,17 +27,20 @@
                   Empty playlist
                 </div>
                 <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
-                  <div class="video-item-info" (click)="onClickPlaylist($event, i)">
-                    <div *ngIf="thumbnails" class="video-item-image">
-                      <img src="{{ playlistVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
-                    </div>
+                  <div class="video-item-info">
+                    <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}"></div>
                     <div class="video-item-content">
-                      <p>{{ playlistVideo.snippet.title }}</p>
+                      <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>                        
+                      <p class="video-item-title">{{ playlistVideo.snippet.title }}</p>
+                      <p class="video-item-autor">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>
                     </div>
                   </div>
                   <div class="video-item-settings">
+                    <p class="video-item-play" (click)="onClickPlaylist($event, i)">
+                      <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+                    </p>
                     <p class="video-item-remove" (click)="showModal(i)">
-                      <span class="fa fa-times-circle"></span>
+                      <span class="fa fa-times"></span>
                     </p>
                   </div>
                 </div>
@@ -84,7 +87,7 @@
                   </div>
                 </div>
                 <div class="current-video-stats">
-                    <p class="stats-views"><span class="fa fa-eye"></span> {{ currentVideo.stats.views | number:'1.0' }}</p>
+                    <p class="stats-views">{{ currentVideo.stats.views | number:'1.0' }} Views</p>
                     <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>
                     <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>
                 </div>
@@ -99,16 +102,18 @@
               </div>
               <div class="related-video-content">
                 <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
-                  <div class="video-item-info" (click)="onClickRelated($event, i)">
-                    <div *ngIf="thumbnails" class="video-item-image">
-                      <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
-                    </div>
+                  <div class="video-item-info">
+                    <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}"></div>
                     <div class="video-item-content">
-                      <p>{{ relatedVideo.snippet.title }}</p>
+                      <p class="video-item-title">{{ relatedVideo.snippet.title }}</p>
+                      <p class="video-item-autor">by <span>{{ relatedVideo.snippet.channelTitle }}</span></p>                      
                     </div>
                   </div>
-                  <div class="video-item-settings" (click)="addPlaylistItem(i, 2)">
-                    <p class="video-item-add">
+                  <div class="video-item-settings">
+                    <p class="video-item-play" (click)="onClickRelated($event, i)">
+                      <span class="fa fa-play"></span>
+                    </p>
+                    <p class="video-item-add" (click)="addPlaylistItem(i, 2)">
                       <span class="fa fa-plus-circle"></span>
                     </p>
                   </div>

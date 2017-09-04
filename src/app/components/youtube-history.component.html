@@ -7,13 +7,17 @@
             No history
         </div>
         <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item">
-            <div class="video-item-info" (click)="onClickHistory($event, i)">                        
-                <div *ngIf="thumbnails" class="video-item-image">
-                    <img src="{{ historyVideo.thumbnail }}" alt="history video thumbnail" />
-                </div>
+            <div class="video-item-info">                        
+                <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + historyVideo.thumbnail +')'}"></div>
                 <div class="video-item-content">
-                    <p>{{ historyVideo.title }}</p>
+                    <p class="video-item-title">{{ historyVideo.title }}</p>   
+                    <p class="video-item-autor">by <span>{{ historyVideo.channelTitle }}</span></p>
                 </div>
+            </div>
+            <div class="video-item-settings">
+                <p class="video-item-play" (click)="onClickHistory($event, i)">
+                    <span class="fa fa-play"></span>
+                </p>
             </div>
         </div>
     </div>

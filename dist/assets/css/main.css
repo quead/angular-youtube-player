@@ -7,11 +7,12 @@
   --c-primary-active-focus: #ffa700;
   --c-primary-inverse: #232228;
   --c-danger: red;
+  --c-danger-active: #D30000;
   --c-secondary: #167ac6;
   --c-success: #23CF5F;
   --c-success-active: #1db351;
   --c-gray: #161616;
-  --c-light-gray: #e8e8e8;
+  --c-light-gray: #3e3e3e;
   --c-dark-gray: #111111;
   --c-white: #ffffff;
   --c-black: #000000;
@@ -117,10 +118,12 @@ a:active {
 
 .btn-primary:hover {
   background-color: var(--c-primary-active);
+  transform: scale(1.05);
 }
 
 .btn-primary:active {
   background-color: var(--c-primary-active-focus);
+  transform: scale(1);
 }
 
 .btn-primary-inverse {
@@ -1162,7 +1165,7 @@ iframe {
 
 .video-list::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-base);
+  background-color: var(--c-dark-gray);
 }
 
 .video-list::-webkit-scrollbar-thumb {
@@ -1232,10 +1235,9 @@ iframe {
   background-color: var(--c-dark-gray);
   color: var(--c-white);
   padding: 0;
-  cursor: pointer;
   position: relative;
   min-height: 60px;
-  padding: 0 10px;
+  padding: 10px;
   transition: all 0.1s ease-in-out;
 }
 
@@ -1244,16 +1246,21 @@ iframe {
   margin: 0;
 }
 
-.video-item p {
-  margin: 0;
-  font-weight: 100;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.video-item .video-item-autor {
+  font-size: 12px;
 }
 
 .video-item-content {
   width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-item-content p {
+  margin: 0;
+  font-weight: 100;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
 
@@ -1267,34 +1274,74 @@ iframe {
 }
 
 .video-item-settings {
-  display: none !important;
-  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--c-white);
   position: absolute;
   right: 0;
   top: 0;
-  width: 30px;
-  display: flex;
-}
-
-.video-item-settings > p {
   height: 100%;
   width: 100%;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.1s ease-in-out;
 }
 
-.video-item-settings .video-item-remove {
-  background-color: var(--c-primary);
-  color: var(--c-base);
+.video-item-settings > p {
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
-.video-item-settings .video-item-remove:active {
+.video-item-settings p[class^="video-item-"] {
+  background-color: var(--c-light-gray);
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+}
+
+.video-item-settings .video-item-play .fa {
+  font-size: 12px;
+}
+
+.video-item-settings .video-item-play .fa-play {
+  margin-left: 2px;
+}
+
+.video-item-settings .video-item-play .fa-pause {
+  margin-left: 1px;
+}
+
+.video-item-settings .video-item-play:hover {
+  color: var(--c-base);
+  background-color: var(--c-primary);
+}
+
+.video-item-settings .video-item-play:active {
+  color: var(--c-base);
   background-color: var(--c-primary-active);
 }
 
-.video-item-settings .video-item-add {
+.video-item-settings .video-item-remove:hover {
+  background-color: var(--c-danger);
+}
+
+.video-item-settings .video-item-remove:active {
+  background-color: var(--c-danger-active);
+}
+
+.video-item-settings .video-item-add .fa {
+  top: 1px;
+  margin-left: 1px;
+  position: relative;
+}
+
+.video-item-settings .video-item-add:hover {
   background-color: var(--c-success);
 }
 
@@ -1302,19 +1349,44 @@ iframe {
   background-color: var(--c-success-active);
 }
 
-.video-item:hover {
+.video-item-title {
+  line-height: 18px;
+}
+
+.video-item-hint {
+  text-transform: uppercase;
+  font-size: 10px;
+  border: 1px solid var(--c-primary);
+  color: var(--c-primary);
+  display: none;
+  padding: 0 5px;
+  font-weight: 600 !important;
+}
+
+.video-item-hint .fa {
+  font-size: 8px;
+  margin-right: 3px;
+}
+
+.video-item:hover .video-item-settings {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-item.active {
   background-color: var(--c-black);
 }
 
-.video-item-image {
-  flex: 0 0 45px;
-  margin: 0 10px 0 0;
+.video-item.active .video-item-hint {
+  display: inline-block;
 }
 
-.video-item-image img {
+.video-item-image {
   display: block;
-  width: 45px;
-  height: auto;
+  height: 60px;
+  width: 80px;
+  background-position: center center;
+  margin-right: 15px;
 }
 
 .video-item-details {
@@ -1323,7 +1395,6 @@ iframe {
 
 .video-item-details p {
   margin: 0 15px 0 0;
-  line-height: 14px;
   font-size: 12px;
 }
 
@@ -1357,7 +1428,6 @@ iframe {
 
 #related-video-list .related-video-content::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-base);
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-thumb {
@@ -1400,7 +1470,6 @@ iframe {
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-base);
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-thumb {
@@ -1432,29 +1501,12 @@ iframe {
   border: none;
 }
 
-.video-list-featured .video-item-image {
-  width: 80px;
-  height: auto;
-  flex: auto;
-}
-
 .video-list-featured .video-item-info {
   background-color: transparent;
 }
 
 .video-list-featured .video-item-info > div {
   display: inline-block;
-}
-
-.video-list-featured .video-item:hover .video-item-info {
-  left: 0;
-}
-
-.video-list-featured .video-item:hover .video-item-settings {
-  right: -30px;
-  top: 0;
-  opacity: 1;
-  visibility: visible;
 }
 
 #feed-video-list {
@@ -1493,28 +1545,9 @@ iframe {
   margin: 5px 0 15px 0;
 }
 
-#feed-video-list.grid-list .video-item:not(.hidden-thumbnails) .video-item-image:before {
-  content: '\25B6  Play';
-  color: var(--c-white);
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 8px 15px;
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease-in-out;
-}
-
 #feed-video-list.grid-list .video-item-info {
   display: block;
   padding: 0;
-}
-
-#feed-video-list.grid-list .video-item-info:active:not(.hidden-thumbnails) .video-item-image:before {
-  background-color: var(--c-black);
 }
 
 #feed-video-list.grid-list .video-item.hidden-thumbnails .video-item-settings {
@@ -1530,11 +1563,6 @@ iframe {
   opacity: 1;
   visibility: visible;
   top: 0;
-}
-
-#feed-video-list.grid-list .video-item:hover:not(.hidden-thumbnails) .video-item-image:before {
-  opacity: 1;
-  visibility: visible;
 }
 
 @media screen and (max-width: 1600px) and (min-width: 992px) {

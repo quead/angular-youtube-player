@@ -99,6 +99,7 @@ export class SettingsComponent implements OnInit {
         this._shared.setApiSettings();
         this._shared.feedVideos = null;
         this._app.getSettings();
+        this._app.getFeedVideos();
         this._shared.triggerNotify('Changed');
         this.updateNotify();
         setTimeout(() => this.loadingRegion = false, 500);

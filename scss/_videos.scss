@@ -19,7 +19,7 @@ iframe {
 
     &::-webkit-scrollbar {
         width: 6px;
-        background-color: var(--c-base);
+        background-color: var(--c-dark-gray);
     }
 
     &::-webkit-scrollbar-thumb {
@@ -82,25 +82,28 @@ iframe {
     background-color: var(--c-dark-gray);
     color: var(--c-white);
     padding: 0;
-    cursor: pointer;
     position: relative;
     min-height: 60px;
-    padding: 0 10px;
+    padding: 10px;
     transition: all 0.1s ease-in-out;
     h2 {
         font-size: $f-14;
         margin: 0;
     }
-    p {
-        margin: 0;
-        font-weight: 100;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+    .video-item-autor {
+        font-size: $f-12;
     }
     &-content {
         width: 100%;
         overflow: hidden;
+        position: relative;
+        p {
+            margin: 0;
+            font-weight: 100;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
     &-info {
         display: flex;
@@ -111,56 +114,117 @@ iframe {
         background-color: inherit;
     }
     &-settings {
-        // Temp
-        display: none !important;
-        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: var(--c-white);
         position: absolute;
         right: 0;
         top: 0;
-        width: 30px;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        opacity: 0;
+        visibility: hidden;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.1s ease-in-out;      
         > p {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.1s ease-in-out;
+            margin: 0 5px;
+            cursor: pointer;        
+            transition: all 0.1s ease-in-out;      
         }
-        .video-item-remove {
-            background-color: var(--c-primary);
-            color: var(--c-base);
+        p[class^="video-item-"] {
+            background-color: var(--c-light-gray);
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+        }
+        .video-item-play {
+            .fa {
+                font-size: $f-12;
+            }
+            .fa-play {
+                margin-left: 2px;
+            }
+            .fa-pause {
+                margin-left: 1px;
+            }
+            &:hover {
+                color: var(--c-base);
+                background-color: var(--c-primary);
+            }
             &:active {
+                color: var(--c-base);
                 background-color: var(--c-primary-active);
             }
         }
+        .video-item-remove {
+            &:hover {
+                background-color: var(--c-danger);
+            }
+            &:active {
+                background-color: var(--c-danger-active);
+            }
+        }
         .video-item-add {
-            background-color: var(--c-success);
+            .fa {
+                top: 1px;
+                margin-left: 1px;
+                position: relative;
+            }
+            &:hover {
+                background-color: var(--c-success);
+            }
             &:active {
                 background-color: var(--c-success-active);
             }
         }
     }
+    &-title {
+        line-height: 18px;
+    }
+    &-hint {
+        //display: none;
+        text-transform: uppercase;
+        font-size: $f-10;
+        border: 1px solid var(--c-primary);
+        color: var(--c-primary);
+        display: none;
+        padding: 0 5px;
+        font-weight: 600 !important;
+        .fa {
+            font-size: $f-8;
+            margin-right: 3px;
+        }
+    }
     &:hover {
+        .video-item-settings {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    &.active {
         background-color: var(--c-black);
+        .video-item-hint {
+            display: inline-block;
+        }
     }
 }
 
 .video-item-image {
-    flex: 0 0 45px;
-    margin: 0 10px 0 0;
-    img {
-        display: block;
-        width: 45px;
-        height: auto;
-    }
+    display: block;
+    height: 60px;
+    width: 80px;
+    background-position: center center;
+    margin-right: 15px;
 }
 
 .video-item-details {
     display: flex;
     p {
         margin: 0 15px 0 0;
-        line-height: 14px;
         font-size: $f-12;
     }
     .fa {
@@ -190,7 +254,6 @@ iframe {
     
         &::-webkit-scrollbar {
             width: 6px;
-            background-color: var(--c-base);
         }
     
         &::-webkit-scrollbar-thumb {
@@ -229,7 +292,6 @@ iframe {
     
         &::-webkit-scrollbar {
             width: 6px;
-            background-color: var(--c-base);
         }
     
         &::-webkit-scrollbar-thumb {
@@ -258,26 +320,10 @@ iframe {
         background-color: rgba(0, 0, 0, 0.6);
         color: var(--c-white);
         border: none;
-        &-image {
-            width: 80px;
-            height: auto;
-            flex: auto;
-        }
         &-info {
             background-color: transparent;
             > div {
                 display: inline-block;
-            }
-        }
-        &:hover {
-            .video-item-info {
-                left: 0;
-            }
-            .video-item-settings {
-                right: -30px;
-                top: 0;
-                opacity: 1;
-                visibility: visible;
             }
         }
     }
@@ -312,32 +358,9 @@ iframe {
             .video-item-content {
                 margin: 5px 0 15px 0;
             }
-            &:not(.hidden-thumbnails) {
-                .video-item-image {
-                    &:before {
-                        content: '\25B6  Play';
-                        color: var(--c-white);
-                        background-color: rgba(0, 0, 0, 0.6);
-                        padding: 8px 15px;
-                        display: block;
-                        position: absolute;
-                        top: 50%;
-                        right: 50%;
-                        transform: translate(50%, -50%);
-                        opacity: 0;
-                        visibility: hidden;
-                        transition: all 0.2s ease-in-out;
-                    }
-                }
-            }
             &-info {
                 display: block;
                 padding: 0;
-                &:active {
-                    &:not(.hidden-thumbnails) .video-item-image:before {
-                        background-color: var(--c-black);                    
-                    }
-                }
             }
             &.hidden-thumbnails {
                 .video-item-settings {
@@ -353,12 +376,6 @@ iframe {
                     opacity: 1;
                     visibility: visible;
                     top: 0;
-                }
-                &:not(.hidden-thumbnails) .video-item-image {
-                    &:before {
-                        opacity: 1;
-                        visibility: visible;
-                    }
                 }
             }
             @media screen and (max-width: 1600px) and (min-width: 992px) {
