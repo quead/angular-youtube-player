@@ -1,7 +1,7 @@
 /* --- Colors --- */
 /* --- Fonts --- */
 :root {
-  --c-base: #0b0b0b;
+  --c-base: #1d1c21;
   --c-primary: #fcc866;
   --c-primary-active: #fcba3c;
   --c-primary-active-focus: #ffa700;
@@ -11,9 +11,9 @@
   --c-secondary: #167ac6;
   --c-success: #23CF5F;
   --c-success-active: #1db351;
-  --c-gray: #161616;
+  --c-gray: rgba(0, 0, 0, 0.35);
   --c-light-gray: #3e3e3e;
-  --c-dark-gray: #111111;
+  --c-dark-gray: rgba(0, 0, 0, 0.2);
   --c-white: #ffffff;
   --c-black: #000000;
 }
@@ -556,7 +556,7 @@ a:active {
   width: 100%;
   border: none;
   padding: 3px 20px;
-  background: var(--c-black);
+  background: var(--c-gray);
   color: rgba(255, 255, 255, 0.3);
   margin: 0;
   outline: 0;
@@ -1072,7 +1072,7 @@ nav a {
   position: relative;
   padding: 10px 15px 10px 35px;
   transition: all 0.1s ease-out;
-  opacity: 0.2;
+  opacity: 0.3;
 }
 
 nav a .fa {
@@ -1127,7 +1127,7 @@ nav a.is-active .fa, nav a:active .fa {
   outline: 0;
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background-color: var(--c-black);
+  background-color: var(--c-gray);
   color: inherit;
   z-index: 1;
 }
@@ -1164,6 +1164,10 @@ nav a.is-active .fa, nav a:active .fa {
 
 #main-search #toggle-list-mode p {
   margin: 0 0 0 10px;
+}
+
+#main-search:hover input[type="text"] {
+  background-color: var(--c-black);
 }
 
 iframe {
@@ -1206,6 +1210,7 @@ iframe {
   z-index: 10;
   max-height: 430px;
   border: 1px solid #1f1f1f;
+  background-color: var(--c-black);
 }
 
 #search-video-list .video-item {
@@ -1213,7 +1218,7 @@ iframe {
 }
 
 #search-video-list .video-item:hover {
-  background-color: var(--c-gray);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 #search-video-list::-webkit-scrollbar {
@@ -1239,7 +1244,7 @@ iframe {
 
 .video-item-head-btn {
   float: right;
-  background-color: var(--c-black);
+  background-color: transparent;
   border: 1px solid var(--c-primary);
   cursor: pointer;
   color: var(--c-primary);
@@ -1250,7 +1255,7 @@ iframe {
   font-size: 11px;
 }
 
-.video-item-head-btn:active {
+.video-item-head-btn:hover {
   background-color: var(--c-primary);
   color: var(--c-black);
   user-select: none;
@@ -1300,11 +1305,10 @@ iframe {
   position: relative;
   z-index: 1;
   width: 100%;
-  background-color: inherit;
 }
 
 .video-item-settings {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   color: var(--c-white);
   position: absolute;
   right: 0;
@@ -1451,7 +1455,6 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: var(--c-dark-gray);
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-track {
@@ -1460,6 +1463,7 @@ iframe {
 
 #related-video-list .related-video-content::-webkit-scrollbar {
   width: 6px;
+  background-color: var(--c-dark-gray);
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-thumb {
@@ -1493,7 +1497,6 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
-  background-color: var(--c-dark-gray);
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-track {
@@ -1502,6 +1505,7 @@ iframe {
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar {
   width: 6px;
+  background-color: var(--c-dark-gray);
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-thumb {
@@ -1544,7 +1548,7 @@ iframe {
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 297px);
+  height: calc(100% - 300px);
   width: calc(100% - 40px);
   max-height: none;
 }

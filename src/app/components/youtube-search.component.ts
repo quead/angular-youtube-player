@@ -136,6 +136,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  onCopyVideoItemLink(i: number, list: number) {
+      this._app.onCopyVideoItemLink(i, list);
+  }
+
   addPlaylistItem(i: number, list: number) {
       this._app.addPlaylistItem(i, list);
   }

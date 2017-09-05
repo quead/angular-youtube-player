@@ -29,6 +29,9 @@
             <p class="video-item-play" (click)="onClickVideo($event, i, 1)">
               <span class="fa fa-play"></span>
             </p>
+            <p class="video-item-play" (click)="onCopyVideoItemLink(i, 1)">
+              <span class="fa fa-share-alt"></span>
+            </p>
             <p class="video-item-add" (click)="addPlaylistItem(i, 1)">
               <span class="fa fa-plus-circle"></span>
             </p>
@@ -54,6 +57,9 @@
           <div class="video-item-settings">
             <p class="video-item-play" (click)="onClickVideo($event, 0, 3)">
               <span class="fa fa-play"></span>
+            </p>
+            <p class="video-item-play" (click)="onCopyVideoItemLink(0, 0)">
+              <span class="fa fa-share-alt"></span>
             </p>
             <p class="video-item-add" (click)="addPlaylistItem(0, 0)">
               <span class="fa fa-plus-circle"></span>
@@ -82,6 +88,9 @@
         <div class="video-item-settings">
             <p class="video-item-play" (click)="onClickVideo($event, i, 3)">
               <span class="fa fa-play"></span>
+            </p>
+            <p class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
+              <span class="fa fa-share-alt"></span>
             </p>
             <p class="video-item-add" (click)="addPlaylistItem(i, 0)">
               <span class="fa fa-plus-circle"></span>

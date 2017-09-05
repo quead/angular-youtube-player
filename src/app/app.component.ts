@@ -9,6 +9,7 @@ import { SharedService } from './shared/lists.service';
 
 export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
+  @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
   notify: any;
   videoRangePercent = 0;
@@ -443,6 +444,34 @@ export class AppComponent implements OnInit {
 
   // ---------------- Related functions ----------------
 
+  onCopyVideoItemLink(i: number, list: number) {
+    let listType;
+    const youtubeLink = 'https://youtu.be/';
+    if (list === 0) {
+      listType = this.feedVideos[i];
+    }
+    if (list === 1) {
+      listType = this._shared.lastSearchedVideos[i];
+    }
+    if (list === 2) {
+      listType = this.relatedVideos[i];
+    }
+    if (list === 3) {
+      listType = this.playlistVideos[i];
+    }
+    
+    if (typeof listType.id.videoId !== 'undefined') {
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId
+    } else {
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id
+    }
+    console.log(youtubeLink);
+    this.videoItemIDvalue.nativeElement.select();
+    this.videoItemIDvalue.nativeElement.focus();
+    document.execCommand('copy');
+    this.videoItemIDvalue.nativeElement.blur();
+  }
+  
   scrollToBottom() {
       try {
         setTimeout( () => {

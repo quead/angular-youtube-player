@@ -35,10 +35,11 @@ iframe {
     z-index: 10;
     max-height: 430px;
     border: 1px solid #1f1f1f;
+    background-color: var(--c-black);
     .video-item {
         background-color: var(--c-black);
         &:hover {
-            background-color: var(--c-gray);
+            background-color: rgba(255, 255, 255, 0.2);
         }
     }
     &::-webkit-scrollbar {
@@ -61,7 +62,7 @@ iframe {
     padding: 8px;
     &-btn {
         float: right;
-        background-color: var(--c-black);
+        background-color: transparent;
         border: 1px solid var(--c-primary);
         cursor: pointer;
         color: var(--c-primary);
@@ -70,7 +71,7 @@ iframe {
         margin-top: 2px;
         text-transform: uppercase;
         font-size: $f-11;
-        &:active {
+        &:hover {
             background-color: var(--c-primary);
             color: var(--c-black);
             user-select: none;
@@ -115,10 +116,9 @@ iframe {
         position: relative;
         z-index: 1;
         width: 100%;
-        background-color: inherit;
     }
     &-settings {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.6);
         color: var(--c-white);
         position: absolute;
         right: 0;
@@ -253,13 +253,13 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: var(--c-dark-gray);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
     
         &::-webkit-scrollbar {
             width: 6px;
+            background-color: var(--c-dark-gray);
         }
     
         &::-webkit-scrollbar-thumb {
@@ -291,13 +291,13 @@ iframe {
         height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
-        background-color: var(--c-dark-gray);
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }
     
         &::-webkit-scrollbar {
             width: 6px;
+            background-color: var(--c-dark-gray);
         }
     
         &::-webkit-scrollbar-thumb {
@@ -338,7 +338,7 @@ iframe {
 #feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 297px);
+    height: calc(100% - 300px);
     width: calc(100% - 40px);
     max-height: none;
     .video-item {

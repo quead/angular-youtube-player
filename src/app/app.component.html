@@ -1,4 +1,5 @@
 <div class="loading-bar inactive"></div>
+<input type="hidden" #videoItemIDvalue />
 <div class="container">
   <div class="col col-1">
       <div class="app app-services">
@@ -43,6 +44,9 @@
                   <div class="video-item-settings">
                     <p class="video-item-play" (click)="onClickPlaylist($event, i)">
                       <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+                    </p>
+                    <p class="video-item-play" (click)="onCopyVideoItemLink(i, 3)">
+                      <span class="fa fa-share-alt"></span>
                     </p>
                     <p class="video-item-remove" (click)="showModal(i)">
                       <span class="fa fa-times"></span>
@@ -120,6 +124,9 @@
                   <div class="video-item-settings">
                     <p class="video-item-play" (click)="onClickRelated($event, i)">
                       <span class="fa fa-play"></span>
+                    </p>
+                    <p class="video-item-play" (click)="onCopyVideoItemLink(i, 2)">
+                      <span class="fa fa-share-alt"></span>
                     </p>
                     <p class="video-item-add" (click)="addPlaylistItem(i, 2)">
                       <span class="fa fa-plus-circle"></span>

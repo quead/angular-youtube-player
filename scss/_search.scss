@@ -19,7 +19,7 @@
         outline: 0;
         position: relative;
         border: 1px solid rgba(255, 255, 255, 0.12);
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         color: inherit;
         z-index: 1;
     }
@@ -52,6 +52,11 @@
         height: 17px;
         p {
             margin: 0 0 0 10px;
+        }
+    }
+    &:hover {
+        input[type="text"] {
+            background-color: var(--c-black);
         }
     }
 }
