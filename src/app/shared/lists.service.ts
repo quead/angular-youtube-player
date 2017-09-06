@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';

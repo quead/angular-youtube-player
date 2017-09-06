@@ -865,7 +865,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/components/youtube-settings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <h2>Settings</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"settingsForm\" id=\"settingsForm\" novalidate>\r\n        <div *ngFor=\"let setting of getSettings.controls; let i=index\" [ngClass]=\"{'hide': !settings[i].visible}\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <span *ngIf=\"loadingRegion\" class=\"loading-region fa fa-circle-o-notch fa-spin fa-fw\"></span>\r\n            <select class=\"form-field\" [value]=\"regionCode\" (change)=\"changeRegion($event.target.value)\" [disabled]=\"loadingRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" [value]=\"apiKey\" spellcheck=\"false\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numSearchRes\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" [value]=\"numRelatedRes\">\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-primary btn-round\">Save settings</button>\r\n    </form>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <h2>Settings</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"internalSettings\" id=\"internalSettings\" class=\"settingsForm\" novalidate>\r\n        <h3>Internal Settings</h3>\r\n        <div *ngFor=\"let setting of initInternalForm.controls; let i=index\" [ngClass]=\"{'hide': !internal_settings[i].visible}\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ internal_settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n    </form>\r\n    <form [formGroup]=\"externalSettings\" id=\"externalSettings\" class=\"settingsForm\" (ngSubmit)=\"externalSave()\">\r\n        <h3>External Settings</h3>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <span *ngIf=\"loadingRegion\" class=\"loading-region fa fa-circle-o-notch fa-spin fa-fw\"></span>\r\n            <select class=\"form-field\" (change)=\"changeRegion($event.target.value)\" formControlName=\"fcRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" formControlName=\"fcApi\" spellcheck=\"false\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcSearchresults\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcRelatedResults\">\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-primary btn-round\">Save settings</button>\r\n    </form>\r\n</div>"
 
 /***/ }),
 
@@ -879,7 +879,8 @@ module.exports = "<div class=\"app-head\">\r\n    <h2>Settings</h2>\r\n</div>\r\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__ = __webpack_require__("../../../../../src/app/components/youtube-search.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__ = __webpack_require__("../../../../../src/app/shared/validators.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -895,6 +896,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SettingsComponent = (function () {
     function SettingsComponent(fb, http, shared, app, search) {
         this.fb = fb;
@@ -903,7 +905,6 @@ var SettingsComponent = (function () {
         this.app = app;
         this.search = search;
         this.finished = false;
-        this.RegionSettings = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */]();
         this.loadingRegion = false;
         this._shared = shared;
         this._fb = fb;
@@ -916,34 +917,42 @@ var SettingsComponent = (function () {
         this.getDefaultSettings();
     };
     SettingsComponent.prototype.setForm = function () {
-        this.settingsForm = this._fb.group({
+        this.internalSettings = this._fb.group({
             settings: this.mapSettings()
         });
         this.checkInputs();
     };
-    Object.defineProperty(SettingsComponent.prototype, "getSettings", {
+    SettingsComponent.prototype.initExternalForm = function () {
+        this.externalSettings = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormGroup */]({
+            fcApi: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[0].value),
+            fcRegion: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[1].value, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required),
+            fcSearchresults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[2].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)]),
+            fcRelatedResults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[3].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)])
+        });
+    };
+    Object.defineProperty(SettingsComponent.prototype, "initInternalForm", {
         get: function () {
-            return this.settingsForm.get('settings');
+            return this.internalSettings.get('settings');
         },
         enumerable: true,
         configurable: true
     });
     SettingsComponent.prototype.checkInputs = function () {
         var _this = this;
-        this.settingsForm.valueChanges.subscribe(function (data) {
+        this.internalSettings.valueChanges.subscribe(function (data) {
             Object.keys(data.settings).map(function (i) {
-                _this.settings[i].value = data.settings[i];
+                _this.internal_settings[i].value = data.settings[i];
             });
-            _this._app.setSettings(_this.settings, 0);
-            _this._search.setSettings(_this.settings, 1);
-            _this._shared.form_settings = _this.settings;
+            _this._app.setSettings(_this.internal_settings, 0);
+            _this._search.setSettings(_this.internal_settings, 1);
+            _this._shared.form_settings = _this.internal_settings;
             _this._shared.triggerNotify('Changed');
             _this.updateNotify();
         });
     };
     SettingsComponent.prototype.mapSettings = function () {
         var _this = this;
-        var arr = this.settings.map(function (s) {
+        var arr = this.internal_settings.map(function (s) {
             return _this._fb.control(s.value);
         });
         return this.fb.array(arr);
@@ -951,11 +960,9 @@ var SettingsComponent = (function () {
     SettingsComponent.prototype.getDefaultSettings = function () {
         var _this = this;
         this._shared.getSettings().subscribe(function (data) {
-            _this.settings = data.form_settings;
-            _this.apiKey = data.api_settings[0].value;
-            _this.regionCode = data.api_settings[1].value;
-            _this.numSearchRes = data.api_settings[2].value;
-            _this.numRelatedRes = data.api_settings[3].value;
+            _this.internal_settings = data.form_settings;
+            _this.external_settings = data.api_settings;
+            _this.initExternalForm();
             _this.finished = true;
             _this.setForm();
         });
@@ -977,15 +984,33 @@ var SettingsComponent = (function () {
         this.notify = this._shared.notify;
         setTimeout(function () { return _this.notify = _this._shared.notify; }, 1000);
     };
+    SettingsComponent.prototype.externalSave = function () {
+        console.log(this.externalSettings);
+        if (this.externalSettings.valid) {
+            /*
+            fcApi: new FormControl(this.external_settings[0].value),
+            fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
+            fcSearchresults: new FormControl(this.external_settings[2].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)]),
+            fcRelatedResults: new FormControl(this.external_settings[3].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)])
+*/
+            this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
+            this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
+            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value);
+            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value);
+            this._shared.settings.api_settings = this.external_settings;
+            console.log(this._shared.settings.api_settings);
+            console.log('submitted');
+        }
+    };
     return SettingsComponent;
 }());
 SettingsComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
         selector: 'app-settings',
         template: __webpack_require__("../../../../../src/app/components/youtube-settings.component.html"),
-        providers: [__WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */], __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
 ], SettingsComponent);
 
 var _a, _b, _c, _d, _e;
@@ -1132,6 +1157,69 @@ SharedService = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=lists.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/validators.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NumberVal; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NumberVal = (function () {
+    function NumberVal() {
+    }
+    NumberVal.max = function (max) {
+        return function (control) {
+            var val = control.value;
+            if (control.pristine || control.pristine) {
+                return null;
+            }
+            if (val <= max) {
+                return null;
+            }
+            return { 'max': true };
+        };
+    };
+    NumberVal.min = function (min) {
+        return function (control) {
+            var val = control.value;
+            if (control.pristine || control.pristine) {
+                return null;
+            }
+            if (val >= min) {
+                return null;
+            }
+            return { 'min': true };
+        };
+    };
+    NumberVal.isNumber = function (value) {
+        return function (control) {
+            var valid = /\d{0,9}/.test(control.value);
+            if (valid) {
+                return null;
+            }
+            return { "invalid": true };
+        };
+    };
+    return NumberVal;
+}());
+NumberVal = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [])
+], NumberVal);
+
+//# sourceMappingURL=validators.service.js.map
 
 /***/ }),
 

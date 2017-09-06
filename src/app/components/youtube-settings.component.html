@@ -2,15 +2,19 @@
     <h2>Settings</h2>
 </div>
 <div class="app-content">
-    <form *ngIf="finished" [formGroup]="settingsForm" id="settingsForm" novalidate>
-        <div *ngFor="let setting of getSettings.controls; let i=index" [ngClass]="{'hide': !settings[i].visible}" class="form-group">
+    <form *ngIf="finished" [formGroup]="internalSettings" id="internalSettings" class="settingsForm" novalidate>
+        <h3>Internal Settings</h3>
+        <div *ngFor="let setting of initInternalForm.controls; let i=index" [ngClass]="{'hide': !internal_settings[i].visible}" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>
-            <label [attr.for]="'setting-' + i">{{ settings[i].name }}<span class="round-check"></span></label>
+            <label [attr.for]="'setting-' + i">{{ internal_settings[i].name }}<span class="round-check"></span></label>
         </div>
+    </form>
+    <form [formGroup]="externalSettings" id="externalSettings" class="settingsForm" (ngSubmit)="externalSave()">
+        <h3>External Settings</h3>
         <div class="form-group form-select">
             <label for="val-search-results">Set trending country</label>
             <span *ngIf="loadingRegion" class="loading-region fa fa-circle-o-notch fa-spin fa-fw"></span>
-            <select class="form-field" [value]="regionCode" (change)="changeRegion($event.target.value)" [disabled]="loadingRegion">
+            <select class="form-field" (change)="changeRegion($event.target.value)" formControlName="fcRegion">
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="RO">Romania</option>
@@ -18,15 +22,15 @@
         </div>
         <div class="form-group form-text">
             <label for="val-api-key">Api Key</label>
-            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" [value]="apiKey" spellcheck="false">
+            <input type="text" id="val-api-key" class="form-field" placeholder="Your key" formControlName="fcApi" spellcheck="false">
         </div>
         <div class="form-group form-text">
             <label for="val-search-results">Results for search (Max. 50)</label>
-            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" [value]="numSearchRes">
+            <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" formControlName="fcSearchresults">
         </div>
         <div class="form-group form-text">
             <label for="val-related-results">Results for related videos (Max. 50)</label>
-            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" [value]="numRelatedRes">
+            <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" formControlName="fcRelatedResults">
         </div>
         <button type="submit" class="btn btn-primary btn-round">Save settings</button>
     </form>

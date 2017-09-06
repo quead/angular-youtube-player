@@ -800,7 +800,7 @@ select {
   content: '';
   position: absolute;
   display: block;
-  background-color: var(--c-black);
+  background-color: var(--c-base);
   height: 16px;
   width: 16px;
   border-radius: 50%;
@@ -855,28 +855,38 @@ input[type="radio"]:checked + label .round-check:after {
   margin-left: 10px;
 }
 
-#settingsForm {
+.settingsForm {
   margin-top: 0;
+  margin-bottom: 20px;
+  background-color: var(--c-dark-gray);
+  padding: 15px;
 }
 
-#settingsForm input[type="checkbox"],
-#settingsForm input[type="radio"] {
+.settingsForm input[type="checkbox"],
+.settingsForm input[type="radio"] {
   display: none;
 }
 
-#settingsForm label {
+.settingsForm label {
   position: relative;
   cursor: pointer;
   display: block;
 }
 
-#settingsForm .form-group {
+.settingsForm .form-group {
   padding: 5px 0;
 }
 
-#settingsForm .btn {
-  margin-top: 20px;
-  float: right;
+.settingsForm h3 {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.settingsForm .btn {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  display: inherit;
 }
 
 .mac-controls {
