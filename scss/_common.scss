@@ -50,6 +50,12 @@
     display: none;
 }
 
+.hide-input {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
 .loading-region {
     position: absolute;
     right: 265px;

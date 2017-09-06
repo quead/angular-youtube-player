@@ -150,15 +150,4 @@ export class SearchComponent implements OnInit {
       this.listGrid = data[1].value;
     }
   }
-
-  toggleList(int: number) {
-    if (int === 1) {
-      this.listGrid = false;
-      this._shared.settings.form_settings[1].value = false;
-    } else {
-      this.listGrid = true;
-      this._shared.settings.form_settings[1].value = true;
-    }
-  }
-
 }

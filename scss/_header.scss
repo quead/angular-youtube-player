@@ -151,15 +151,6 @@
             color: var(--c-primary);
         }
     }
-    #toggle-repeat-mode {
-        .fa {
-            transform: rotate(0deg);
-            transition: transform 0.1s ease-out;
-        }
-        &.active .fa {
-            transform: rotate(180deg);
-        }
-    }
 }
 
 .mac-controls,

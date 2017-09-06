@@ -48,12 +48,6 @@
         margin-top: 20px;
         align-items: center;
     }
-    #toggle-list-mode {
-        height: 17px;
-        p {
-            margin: 0 0 0 10px;
-        }
-    }
     &:hover {
         input[type="text"] {
             background-color: var(--c-black);

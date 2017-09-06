@@ -13,6 +13,8 @@ export class SharedService {
     public settings: Array<any>;
     public channel: Array<any>;
 
+    _update: any;
+
     notify = {
         enabled: false,
         message: 'No message'
@@ -20,7 +22,7 @@ export class SharedService {
 
     constructor(
         private youtube: YoutubeGetVideo,
-        private http: Http
+        private http: Http,
     ) {}
 
     getFeed(): Observable<any> {
@@ -100,7 +102,7 @@ export class SharedService {
     }
 
     updateSettings() {
-        localStorage.setItem('settings', JSON.stringify(this.settings));
+        //localStorage.setItem('settings', JSON.stringify(this.settings));
         console.log(JSON.parse(localStorage.settings));
     }
 

@@ -57,14 +57,17 @@ export class AppComponent implements OnInit {
   videoCurVolume = -1;
 
   _shared: any;
+  _update: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
+    private update: SharedService,
   ) {
     this._shared = shared;
+    this._update = update;
     this.notify = this._shared.notify;
   }
 
@@ -284,26 +287,6 @@ export class AppComponent implements OnInit {
   }
 
   toggleHeadSettings(int: number) {
-    if (int === 0) {
-      if (this.displayVideoPlayer) {
-        this.displayVideoPlayer = false;
-        this._shared.settings.form_settings[2].value = false;
-      } else {
-        this.displayVideoPlayer = true;
-        this._shared.settings.form_settings[2].value = true;
-      }
-      this._shared.updateSettings();
-    }
-    if (int === 1) {
-      if (this.repeatMode) {
-        this.repeatMode = false;
-        this._shared.settings.form_settings[3].value = false;
-      } else {
-        this.repeatMode = true;
-        this._shared.settings.form_settings[3].value = true;
-      }
-      this._shared.updateSettings();
-    }
     if (int === 2) {
       if (this.currentMuteState) {
         this.player.unMute();
@@ -465,11 +448,11 @@ export class AppComponent implements OnInit {
     } else {
       this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id
     }
-    console.log(youtubeLink);
     this.videoItemIDvalue.nativeElement.select();
     this.videoItemIDvalue.nativeElement.focus();
     document.execCommand('copy');
     this.videoItemIDvalue.nativeElement.blur();
+    this.copyShareLink();
   }
   
   scrollToBottom() {

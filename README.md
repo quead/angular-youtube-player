@@ -54,12 +54,14 @@ Just take files from ***dist*** folder
 ## Changelog
 
 Angular2 YT Player v1.9.1
-- Saving settings.json to localstorage if your localstorage is empty
-- Cleaning the css
-- Auto saving all changes you do, you can disable auto save from settings
+- Get settings.json for localstorage if your localstorage is empty
+- The playlist automatically saving, if is empty it will be populated with related videos
+- Share link button for all videos
+- Reorganised settings page
+- Auto saving for internal settings (check settings)
+- Manual saving for external settings (check settings)
 - Toggle light/dark mode
-- UI/UX improvements and fixes
-- Performance improvements
+- Performance, UI and UX improvements and fixes
 
 Angular2 YT Player v1.9
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos
@@ -133,7 +135,7 @@ Angular2 YT Player v1.0.0
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 
 #### Roadmap to 3.0
-- Import/Export playlist **(in v2.1)**
+- Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**

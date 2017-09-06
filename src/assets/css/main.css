@@ -273,6 +273,12 @@ a:active {
   display: none;
 }
 
+.hide-input {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
 .loading-region {
   position: absolute;
   right: 265px;
@@ -1040,15 +1046,6 @@ input[type="radio"]:checked + label .round-check:after {
   color: var(--c-primary);
 }
 
-.settings #toggle-repeat-mode .fa {
-  transform: rotate(0deg);
-  transition: transform 0.1s ease-out;
-}
-
-.settings #toggle-repeat-mode.active .fa {
-  transform: rotate(180deg);
-}
-
 .mac-controls,
 .win-controls {
   display: none;
@@ -1156,14 +1153,6 @@ nav a.is-active .fa, nav a:active .fa {
   display: flex;
   margin-top: 20px;
   align-items: center;
-}
-
-#main-search #toggle-list-mode {
-  height: 17px;
-}
-
-#main-search #toggle-list-mode p {
-  margin: 0 0 0 10px;
 }
 
 #main-search:hover input[type="text"] {
@@ -1548,7 +1537,7 @@ iframe {
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 300px);
+  height: calc(100% - 258px);
   width: calc(100% - 40px);
   max-height: none;
 }

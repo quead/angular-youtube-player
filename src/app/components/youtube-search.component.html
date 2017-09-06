@@ -9,13 +9,6 @@
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>
-      <div class="settings">
-        <span>List mode:</span>
-        <div id="toggle-list-mode">
-          <p class="fa fa-list" [ngClass]="{'active': listGrid }" (click)="toggleList(0)"></p>
-          <p class="fa fa-th" [ngClass]="{'active': !listGrid }" (click)="toggleList(1)"></p>
-        </div>
-      </div>
       <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
         <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
           <div class="video-item-info">

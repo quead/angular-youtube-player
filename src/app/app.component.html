@@ -1,5 +1,5 @@
 <div class="loading-bar inactive"></div>
-<input type="hidden" #videoItemIDvalue />
+<input type="text" class="hide-input" #videoItemIDvalue />
 <div class="container">
   <div class="col col-1">
       <div class="app app-services">
@@ -64,8 +64,6 @@
               <h2>Player</h2>
               <div class="settings">
                   <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus-circle"></span>Add to playlist</p>
-                  <p id="toggle-video-player" [ngClass]="{'active': displayVideoPlayer }" (click)="toggleHeadSettings(0)"><span class="fa fa-youtube-play"></span>Toggle video</p>
-                  <p id="toggle-repeat-mode" [ngClass]="{'active': repeatMode }" (click)="toggleHeadSettings(1)"><span class="fa fa-refresh"></span>Repeat</p>
               </div>
           </div>
           <div class="app-content">
