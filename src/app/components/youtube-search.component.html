@@ -48,14 +48,14 @@
             </div>
           </div>
           <div class="video-item-settings">
-            <p class="video-item-play" (click)="onClickVideo($event, 0, 3)">
-              <span class="fa fa-play"></span>
+            <p class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
+              <span class="fa fa-play"></span>Play video
             </p>
-            <p class="video-item-play" (click)="onCopyVideoItemLink(0, 0)">
-              <span class="fa fa-share-alt"></span>
+            <p class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
+              <span class="fa fa-plus-circle"></span>Add to playlist
             </p>
-            <p class="video-item-add" (click)="addPlaylistItem(0, 0)">
-              <span class="fa fa-plus-circle"></span>
+            <p class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
+              <span class="fa fa-share-alt"></span>Copy link
             </p>
           </div>
         </div>

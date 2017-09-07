@@ -34,8 +34,11 @@
                       <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
                         <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
                       </ng-container>
-                      <ng-container *ngIf="currentPlaylistItem === i &&  currentState !== 1">                        
+                      <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
                         <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
+                      </ng-container>                       
+                      <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
+                        <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
                       </ng-container>                       
                       <p class="video-item-title">{{ playlistVideo.snippet.title }}</p>
                       <p class="video-item-autor">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>
