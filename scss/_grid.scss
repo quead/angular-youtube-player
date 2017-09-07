@@ -23,7 +23,7 @@
         width: calc(60% - var(--menu-diff));
         left: calc(-40% + var(--menu-diff));
     }
-    @media screen and (max-width: 1600px) and (min-width: 992px) {
+    @media screen and (max-width: 1200px) and (min-width: 992px) {
         &-2,
         &-3 {
             width: calc(50% - var(--menu-diff));            

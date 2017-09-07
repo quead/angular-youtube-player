@@ -193,7 +193,7 @@ a:active {
   left: calc(-40% + var(--menu-diff));
 }
 
-@media screen and (max-width: 1600px) and (min-width: 992px) {
+@media screen and (max-width: 1200px) and (min-width: 992px) {
   .col-2, .col-3 {
     width: calc(50% - var(--menu-diff));
   }
@@ -1694,7 +1694,7 @@ iframe {
   top: 0;
 }
 
-@media screen and (max-width: 1600px) and (min-width: 992px) {
+@media screen and (max-width: 1400px) and (min-width: 992px) {
   #feed-video-list.grid-list .video-item {
     width: calc(50% - 10px);
   }
