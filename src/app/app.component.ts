@@ -175,7 +175,15 @@ export class AppComponent implements OnInit {
   // ---------------- Playlist settings ----------------
 
   playlistInit() {
-      this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+      if (localStorage.getItem('playlist').length === 2) {
+        this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+        this._shared.playlist = JSON.parse(JSON.stringify(this.playlistVideos));
+        this._shared.updatePlaylist();
+      } else {
+        this._shared.getPlaylist();
+        this.playlistVideos = JSON.parse(JSON.stringify(this._shared.playlist));
+      }
+      this.findPlaylistItem();
   }
 
   findPlaylistItem() {
@@ -213,6 +221,7 @@ export class AppComponent implements OnInit {
   }
 
   removePlaylistItem(i: number) {
+      console.log(this.playlistVideos[i])
       this._shared.triggerNotify('Video removed');
       this.updateNotify();
       setTimeout(() => {
@@ -220,6 +229,10 @@ export class AppComponent implements OnInit {
           this.currentPlaylistItem = -1;
         }
         this.playlistVideos.splice(i, 1);
+        
+        this._shared.playlist.splice(i, 1);
+        this._shared.updatePlaylist();
+
         this.findPlaylistItem();
       }, 200);
   }
@@ -251,6 +264,10 @@ export class AppComponent implements OnInit {
 
       if (typeof playlistItem === 'undefined') {
         this.playlistVideos.push(listType);
+
+        this._shared.playlist.push(listType);
+        this._shared.updatePlaylist();
+
         this.findPlaylistItem();
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
@@ -264,6 +281,8 @@ export class AppComponent implements OnInit {
   clearPlaylist() {
       this.currentPlaylistItem = -1;
       this.playlistVideos = [];
+      this._shared.playlist = [];
+      this._shared.updatePlaylist();
   }
 
   // ---------------- Init settings ----------------

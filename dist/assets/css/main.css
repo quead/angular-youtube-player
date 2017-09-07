@@ -2,9 +2,9 @@
 /* --- Fonts --- */
 :root {
   --c-base: #17171d;
-  --c-primary: #bb2222;
-  --c-primary-active: #9c1717;
-  --c-primary-active-focus: #801212;
+  --c-primary: #d42222;
+  --c-primary-active: #bb2222;
+  --c-primary-active-focus: #9c1717;
   --c-primary-inverse: #232228;
   --c-danger: red;
   --c-danger-active: #D30000;
@@ -1561,13 +1561,25 @@ iframe {
 #feed-video-list.grid-list .video-item {
   width: calc(33.333% - 10px);
   display: block;
-  margin: 0 5px;
+  margin: 0 5px 10px;
   padding: 0;
   position: relative;
   overflow: hidden;
 }
 
-#feed-video-list.grid-list .video-item .video-item-image {
+#feed-video-list.grid-list .video-item-details {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+#feed-video-list.grid-list .video-item-details p {
+  width: 100%;
+  margin: 0 5px;
+}
+
+#feed-video-list.grid-list .video-item-image {
   margin: 0;
   position: relative;
   width: 100%;
@@ -1577,8 +1589,25 @@ iframe {
   background-position: center center;
 }
 
-#feed-video-list.grid-list .video-item .video-item-content {
-  margin: 5px 0 15px 0;
+#feed-video-list.grid-list .video-item-image:before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to bottom, transparent 0%, transparent 35%, var(--c-black) 75%, var(--c-black) 100%);
+}
+
+#feed-video-list.grid-list .video-item-content {
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+#feed-video-list.grid-list .video-item-content > p {
+  padding: 0 10px;
 }
 
 #feed-video-list.grid-list .video-item-info {
@@ -1586,9 +1615,9 @@ iframe {
   padding: 0;
 }
 
-#feed-video-list.grid-list .video-item.hidden-thumbnails .video-item-settings {
-  height: 26px;
-  width: 30px;
+#feed-video-list.grid-list .video-item.hidden-thumbnails .video-item-content {
+  position: relative;
+  padding: 10px 0;
 }
 
 #feed-video-list.grid-list .video-item:hover .video-item-info {
@@ -1613,14 +1642,7 @@ iframe {
   }
 }
 
-#feed-video-list.grid-list .video-item-details {
-  text-align: center;
-  margin-top: 8px;
-}
-
-#feed-video-list.grid-list .video-item-details p {
-  font-size: 14px;
-  width: 100%;
-  margin-right: 0;
-  margin-bottom: 5px;
+#feed-video-list::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
 }

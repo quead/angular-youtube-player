@@ -7,7 +7,7 @@
     },
     {
       "name": "Set list for trending",
-      "value": true,
+      "value": false,
       "visible": true
     },
     {

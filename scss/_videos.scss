@@ -351,11 +351,21 @@ iframe {
         .video-item {
             width: calc(33.333% - 10px);
             display: block;
-            margin: 0 5px;
+            margin: 0 5px 10px;
             padding: 0;
             position: relative;
             overflow: hidden;
-            .video-item-image {
+            &-details {
+                text-align: center;
+                margin-top: 8px;
+                font-size: $f-11;
+                margin-bottom: 5px;
+                p {
+                    width: 100%;
+                    margin: 0 5px;
+                }
+            }
+            &-image {
                 margin: 0;
                 position: relative;
                 width: 100%;
@@ -363,18 +373,33 @@ iframe {
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
+                &:before {
+                    content: '';
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 35%, var(--c-black) 75%, var(--c-black) 100%);
+                }
             }
-            .video-item-content {
-                margin: 5px 0 15px 0;
+            &-content {
+                margin: 0;
+                position: absolute;
+                bottom: 0;
+                > p {
+                    padding: 0 10px;
+                }
             }
             &-info {
                 display: block;
                 padding: 0;
             }
             &.hidden-thumbnails {
-                .video-item-settings {
-                    height: 26px;
-                    width: 30px;
+                .video-item-content {
+                    position: relative;
+                    padding: 10px 0;
                 }
             }
             &:hover {
@@ -394,15 +419,9 @@ iframe {
                 width: calc(100% - 10px);
             }
         }
-        .video-item-details {
-            text-align: center;
-            margin-top: 8px;
-            p {
-                font-size: $f-14;
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 5px;
-            }
-        }
+    }
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
     }
 }

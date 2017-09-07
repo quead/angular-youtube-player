@@ -172,7 +172,16 @@ var AppComponent = (function () {
     };
     // ---------------- Playlist settings ----------------
     AppComponent.prototype.playlistInit = function () {
-        this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+        if (localStorage.getItem('playlist').length === 2) {
+            this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+            this._shared.playlist = JSON.parse(JSON.stringify(this.playlistVideos));
+            this._shared.updatePlaylist();
+        }
+        else {
+            this._shared.getPlaylist();
+            this.playlistVideos = JSON.parse(JSON.stringify(this._shared.playlist));
+        }
+        this.findPlaylistItem();
     };
     AppComponent.prototype.findPlaylistItem = function () {
         var _this = this;
@@ -212,6 +221,7 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.removePlaylistItem = function (i) {
         var _this = this;
+        console.log(this.playlistVideos[i]);
         this._shared.triggerNotify('Video removed');
         this.updateNotify();
         setTimeout(function () {
@@ -219,6 +229,8 @@ var AppComponent = (function () {
                 _this.currentPlaylistItem = -1;
             }
             _this.playlistVideos.splice(i, 1);
+            _this._shared.playlist.splice(i, 1);
+            _this._shared.updatePlaylist();
             _this.findPlaylistItem();
         }, 200);
     };
@@ -248,6 +260,8 @@ var AppComponent = (function () {
         }
         if (typeof playlistItem === 'undefined') {
             this.playlistVideos.push(listType);
+            this._shared.playlist.push(listType);
+            this._shared.updatePlaylist();
             this.findPlaylistItem();
             this._shared.triggerNotify('Added to playlist');
             this.updateNotify();
@@ -261,6 +275,8 @@ var AppComponent = (function () {
     AppComponent.prototype.clearPlaylist = function () {
         this.currentPlaylistItem = -1;
         this.playlistVideos = [];
+        this._shared.playlist = [];
+        this._shared.updatePlaylist();
     };
     // ---------------- Init settings ----------------
     AppComponent.prototype.setSettings = function () {
@@ -1102,6 +1118,12 @@ var SharedService = (function () {
     SharedService.prototype.updateSettings = function () {
         localStorage.setItem('settings', JSON.stringify(this.settings));
         console.log(JSON.parse(localStorage.settings));
+    };
+    SharedService.prototype.getPlaylist = function () {
+        this.playlist = JSON.parse(localStorage.getItem('playlist'));
+    };
+    SharedService.prototype.updatePlaylist = function () {
+        localStorage.setItem('playlist', JSON.stringify(this.playlist));
     };
     SharedService.prototype.setApiSettings = function () {
         this.youtube.defaultApiSet(this.settings);

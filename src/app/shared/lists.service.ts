@@ -12,6 +12,7 @@ export class SharedService {
     public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;
+    public playlist: Array<any>;
 
     _update: any;
 
@@ -104,6 +105,14 @@ export class SharedService {
     updateSettings() {
         localStorage.setItem('settings', JSON.stringify(this.settings));
         console.log(JSON.parse(localStorage.settings));
+    }
+
+    getPlaylist() {
+        this.playlist = JSON.parse(localStorage.getItem('playlist'));
+    }
+    
+    updatePlaylist() {
+        localStorage.setItem('playlist', JSON.stringify(this.playlist));
     }
 
     setApiSettings() {
