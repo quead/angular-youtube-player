@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
       console.log('app comp');
-      this.getSettings();
+      this.setSettings();
       this.getFeedVideos();
   }
 
@@ -264,26 +264,17 @@ export class AppComponent implements OnInit {
   clearPlaylist() {
       this.currentPlaylistItem = -1;
       this.playlistVideos = [];
-      console.log(localStorage);
   }
 
   // ---------------- Init settings ----------------
 
-  getSettings() {
+  setSettings() {
     this._shared.getSettings().subscribe(data => {
         this.regionCode = data.api_settings[1].value;
         this.thumbnails = data.form_settings[0].value;
         this.displayVideoPlayer = data.form_settings[2].value;
         this.repeatMode = data.form_settings[3].value;
     });
-  }
-
-  setSettings(data: any, from: number) {
-    if (from === 0) {
-      this.thumbnails = data[0].value;
-      this.displayVideoPlayer = data[2].value;
-      this.repeatMode = data[3].value;
-    }
   }
 
   toggleHeadSettings(int: number) {

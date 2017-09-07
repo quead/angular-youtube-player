@@ -13,8 +13,7 @@
         <h3>External Settings</h3>
         <div class="form-group form-select">
             <label for="val-search-results">Set trending country</label>
-            <span *ngIf="loadingRegion" class="loading-region fa fa-circle-o-notch fa-spin fa-fw"></span>
-            <select class="form-field" (change)="changeRegion($event.target.value)" formControlName="fcRegion">
+            <select class="form-field" formControlName="fcRegion">
                 <option value="US">United States</option>
                 <option value="GB">United Kingdom</option>
                 <option value="RO">Romania</option>
@@ -25,11 +24,11 @@
             <input type="text" id="val-api-key" class="form-field" placeholder="Your key" formControlName="fcApi" spellcheck="false">
         </div>
         <div class="form-group form-text">
-            <label for="val-search-results">Results for search (Max. 50)</label>
+            <label for="val-search-results">Results for search <span class="settings-hint">(Max. 50)</span></label>
             <input type="text" id="val-search-results" class="form-field" placeholder="1 to 50" formControlName="fcSearchresults">
         </div>
         <div class="form-group form-text">
-            <label for="val-related-results">Results for related videos (Max. 50)</label>
+            <label for="val-related-results">Results for related videos <span class="settings-hint">(Max. 50)</span></label>
             <input type="text" id="val-related-results" class="form-field" placeholder="1 to 50" formControlName="fcRelatedResults">
         </div>
         <button type="submit" class="btn btn-primary btn-round">Save settings</button>

@@ -1,10 +1,10 @@
 /* --- Colors --- */
 /* --- Fonts --- */
 :root {
-  --c-base: #1d1c21;
-  --c-primary: #fcc866;
-  --c-primary-active: #fcba3c;
-  --c-primary-active-focus: #ffa700;
+  --c-base: #17171d;
+  --c-primary: #bb2222;
+  --c-primary-active: #9c1717;
+  --c-primary-active-focus: #801212;
   --c-primary-inverse: #232228;
   --c-danger: red;
   --c-danger-active: #D30000;
@@ -12,7 +12,7 @@
   --c-success: #23CF5F;
   --c-success-active: #1db351;
   --c-gray: rgba(0, 0, 0, 0.35);
-  --c-light-gray: #3e3e3e;
+  --c-light-gray: rgba(0, 0, 0, 0.6);
   --c-dark-gray: rgba(0, 0, 0, 0.2);
   --c-white: #ffffff;
   --c-black: #000000;
@@ -114,7 +114,7 @@ a:active {
 
 .btn-primary {
   background-color: var(--c-primary);
-  color: var(--c-black);
+  color: var(--c-white);
 }
 
 .btn-primary:hover {
@@ -279,12 +279,6 @@ a:active {
   top: -9999px;
 }
 
-.loading-region {
-  position: absolute;
-  right: 265px;
-  color: var(--c-primary);
-}
-
 .fa-color-danger {
   color: var(--c-primary);
 }
@@ -341,7 +335,6 @@ a:active {
 }
 
 .app-head h2 {
-  color: var(--c-primary);
   font-size: 28px;
   display: block;
   margin: 0;
@@ -508,7 +501,7 @@ a:active {
 }
 
 .current-video-name {
-  color: var(--c-primary);
+  color: var(--c-white);
   font-weight: normal;
   margin: 0;
   overflow: hidden;
@@ -645,7 +638,7 @@ a:active {
   position: absolute;
   top: -4px;
   margin: 0;
-  color: var(--c-primary);
+  color: var(--c-white);
 }
 
 .current-video-range .current-video-range-value {
@@ -789,7 +782,7 @@ select {
 .round-check:before {
   content: '';
   display: block;
-  background-color: rgba(255, 255, 255, 0.11);
+  background-color: var(--c-black);
   height: 20px;
   width: 40px;
   border-radius: 50px;
@@ -800,7 +793,7 @@ select {
   content: '';
   position: absolute;
   display: block;
-  background-color: var(--c-base);
+  background-color: rgba(255, 255, 255, 0.2);
   height: 16px;
   width: 16px;
   border-radius: 50%;
@@ -818,7 +811,7 @@ input[type="radio"]:checked + label .round-check:before {
 input[type="checkbox"]:checked + label .round-check:after,
 input[type="radio"]:checked + label .round-check:after {
   left: 22px;
-  background-color: var(--c-primary);
+  background-color: var(--c-white);
 }
 
 .form-select,
@@ -887,6 +880,11 @@ input[type="radio"]:checked + label .round-check:after {
   margin-bottom: 5px;
   margin-left: auto;
   display: inherit;
+}
+
+.settings-hint {
+  display: block;
+  font-size: 11px;
 }
 
 .mac-controls {
@@ -1243,10 +1241,9 @@ iframe {
 
 .video-item-head-btn {
   float: right;
-  background-color: transparent;
-  border: 1px solid var(--c-primary);
+  background-color: var(--c-primary);
   cursor: pointer;
-  color: var(--c-primary);
+  color: var(--c-wihte);
   border-radius: 3px;
   padding: 2px 8px;
   margin-top: 2px;
@@ -1255,8 +1252,7 @@ iframe {
 }
 
 .video-item-head-btn:hover {
-  background-color: var(--c-primary);
-  color: var(--c-black);
+  background-color: var(--c-primary-active);
   user-select: none;
 }
 
@@ -1351,12 +1347,12 @@ iframe {
 }
 
 .video-item-settings .video-item-play:hover {
-  color: var(--c-base);
+  color: var(--c-white);
   background-color: var(--c-primary);
 }
 
 .video-item-settings .video-item-play:active {
-  color: var(--c-base);
+  color: var(--c-white);
   background-color: var(--c-primary-active);
 }
 

@@ -56,12 +56,6 @@
     top: -9999px;
 }
 
-.loading-region {
-    position: absolute;
-    right: 265px;
-    color: var(--c-primary);
-}
-
 .fa-color-danger {
     color: var(--c-primary);
 }
@@ -108,7 +102,6 @@
     &-head {
         color: var(--c-white);
         h2 {
-            color: var(--c-primary);
             font-size: $f-28;
             display: block;
             margin: 0;

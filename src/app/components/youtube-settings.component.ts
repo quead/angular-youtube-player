@@ -28,8 +28,6 @@ export class SettingsComponent implements OnInit {
     private internal_settings: Array<any>;
     private external_settings: Array<any>;
 
-    private loadingRegion = false;
-
     constructor(
         private fb: FormBuilder,
         private http: Http,
@@ -74,9 +72,12 @@ export class SettingsComponent implements OnInit {
             Object.keys(data.settings).map(i => {
                 this.internal_settings[i].value = data.settings[i];
             });
-            this._app.setSettings(this.internal_settings, 0);
-            this._search.setSettings(this.internal_settings, 1);
             this._shared.form_settings = this.internal_settings;
+
+            this._app.setSettings();
+            this._search.setSettings();
+            this._shared.updateSettings();            
+
             this._shared.triggerNotify('Changed');
             this.updateNotify();
         });
@@ -99,39 +100,31 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    changeRegion(data: any) {
-        this.loadingRegion = true;
-        this._shared.settings.api_settings[1].value = data;
-        this._shared.setApiSettings();
-        this._shared.feedVideos = null;
-        this._app.getSettings();
-        this._app.getFeedVideos();
-        this._shared.triggerNotify('Changed');
-        this.updateNotify();
-        setTimeout(() => this.loadingRegion = false, 500);
-    }
-
     updateNotify() {
         this.notify = this._shared.notify;
         setTimeout(() => this.notify = this._shared.notify, 1000);
     }
 
     externalSave() {
-        console.log(this.externalSettings);
         if (this.externalSettings.valid) {
-            /*
-            fcApi: new FormControl(this.external_settings[0].value),
-            fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
-            fcSearchresults: new FormControl(this.external_settings[2].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)]),
-            fcRelatedResults: new FormControl(this.external_settings[3].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)])
-*/
             this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value);
             this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value);
             this._shared.settings.api_settings = this.external_settings;            
-            console.log(this._shared.settings.api_settings);
-            console.log('submitted');
+
+            this._shared.feedVideos = null;
+
+            this._shared.setApiSettings();
+            this._app.setSettings();
+            this._app.getFeedVideos();
+            this._shared.updateSettings();
+
+            this._shared.triggerNotify('Saved');
+            this.updateNotify();
+        } else {
+            this._shared.triggerNotify('Please check external settings');
+            this.updateNotify();
         }
     }
 }

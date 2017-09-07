@@ -62,18 +62,16 @@ iframe {
     padding: 8px;
     &-btn {
         float: right;
-        background-color: transparent;
-        border: 1px solid var(--c-primary);
+        background-color: var(--c-primary);
         cursor: pointer;
-        color: var(--c-primary);
+        color: var(--c-wihte);
         border-radius: 3px;
         padding: 2px 8px;
         margin-top: 2px;
         text-transform: uppercase;
         font-size: $f-11;
         &:hover {
-            background-color: var(--c-primary);
-            color: var(--c-black);
+            background-color: var(--c-primary-active);
             user-select: none;
         }
     }
@@ -156,11 +154,11 @@ iframe {
                 margin-left: 1px;
             }
             &:hover {
-                color: var(--c-base);
+                color: var(--c-white);
                 background-color: var(--c-primary);
             }
             &:active {
-                color: var(--c-base);
+                color: var(--c-white);
                 background-color: var(--c-primary-active);
             }
         }

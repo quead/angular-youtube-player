@@ -102,7 +102,7 @@ export class SharedService {
     }
 
     updateSettings() {
-        //localStorage.setItem('settings', JSON.stringify(this.settings));
+        localStorage.setItem('settings', JSON.stringify(this.settings));
         console.log(JSON.parse(localStorage.settings));
     }
 

@@ -78,7 +78,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         console.log('app comp');
-        this.getSettings();
+        this.setSettings();
         this.getFeedVideos();
     };
     // ---------------- Init player ----------------
@@ -261,10 +261,9 @@ var AppComponent = (function () {
     AppComponent.prototype.clearPlaylist = function () {
         this.currentPlaylistItem = -1;
         this.playlistVideos = [];
-        console.log(localStorage);
     };
     // ---------------- Init settings ----------------
-    AppComponent.prototype.getSettings = function () {
+    AppComponent.prototype.setSettings = function () {
         var _this = this;
         this._shared.getSettings().subscribe(function (data) {
             _this.regionCode = data.api_settings[1].value;
@@ -272,13 +271,6 @@ var AppComponent = (function () {
             _this.displayVideoPlayer = data.form_settings[2].value;
             _this.repeatMode = data.form_settings[3].value;
         });
-    };
-    AppComponent.prototype.setSettings = function (data, from) {
-        if (from === 0) {
-            this.thumbnails = data[0].value;
-            this.displayVideoPlayer = data[2].value;
-            this.repeatMode = data[3].value;
-        }
     };
     AppComponent.prototype.toggleHeadSettings = function (int) {
         if (int === 2) {
@@ -759,7 +751,7 @@ var SearchComponent = (function () {
     }
     SearchComponent.prototype.ngOnInit = function () {
         console.log('search');
-        this.getSettings();
+        this.setSettings();
         this.searchFunction();
         this.getFeedVideos();
     };
@@ -782,7 +774,7 @@ var SearchComponent = (function () {
             });
         });
     };
-    SearchComponent.prototype.getSettings = function () {
+    SearchComponent.prototype.setSettings = function () {
         var _this = this;
         this._shared.getSettings().subscribe(function (data) {
             _this.thumbnails = data.form_settings[0].value;
@@ -841,12 +833,6 @@ var SearchComponent = (function () {
     SearchComponent.prototype.addPlaylistItem = function (i, list) {
         this._app.addPlaylistItem(i, list);
     };
-    SearchComponent.prototype.setSettings = function (data, from) {
-        if (from === 0) {
-            this.thumbnails = data[0].value;
-            this.listGrid = data[1].value;
-        }
-    };
     return SearchComponent;
 }());
 SearchComponent = __decorate([
@@ -865,7 +851,7 @@ var _a, _b, _c;
 /***/ "../../../../../src/app/components/youtube-settings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <h2>Settings</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"internalSettings\" id=\"internalSettings\" class=\"settingsForm\" novalidate>\r\n        <h3>Internal Settings</h3>\r\n        <div *ngFor=\"let setting of initInternalForm.controls; let i=index\" [ngClass]=\"{'hide': !internal_settings[i].visible}\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ internal_settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n    </form>\r\n    <form [formGroup]=\"externalSettings\" id=\"externalSettings\" class=\"settingsForm\" (ngSubmit)=\"externalSave()\">\r\n        <h3>External Settings</h3>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <span *ngIf=\"loadingRegion\" class=\"loading-region fa fa-circle-o-notch fa-spin fa-fw\"></span>\r\n            <select class=\"form-field\" (change)=\"changeRegion($event.target.value)\" formControlName=\"fcRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" formControlName=\"fcApi\" spellcheck=\"false\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcSearchresults\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos (Max. 50)</label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcRelatedResults\">\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-primary btn-round\">Save settings</button>\r\n    </form>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <h2>Settings</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <form *ngIf=\"finished\" [formGroup]=\"internalSettings\" id=\"internalSettings\" class=\"settingsForm\" novalidate>\r\n        <h3>Internal Settings</h3>\r\n        <div *ngFor=\"let setting of initInternalForm.controls; let i=index\" [ngClass]=\"{'hide': !internal_settings[i].visible}\" class=\"form-group\">\r\n            <input type=\"checkbox\" [attr.id]=\"'setting-' + i\" [formControl]=\"setting\"/>\r\n            <label [attr.for]=\"'setting-' + i\">{{ internal_settings[i].name }}<span class=\"round-check\"></span></label>\r\n        </div>\r\n    </form>\r\n    <form [formGroup]=\"externalSettings\" id=\"externalSettings\" class=\"settingsForm\" (ngSubmit)=\"externalSave()\">\r\n        <h3>External Settings</h3>\r\n        <div class=\"form-group form-select\">\r\n            <label for=\"val-search-results\">Set trending country</label>\r\n            <select class=\"form-field\" formControlName=\"fcRegion\">\r\n                <option value=\"US\">United States</option>\r\n                <option value=\"GB\">United Kingdom</option>\r\n                <option value=\"RO\">Romania</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-api-key\">Api Key</label>\r\n            <input type=\"text\" id=\"val-api-key\" class=\"form-field\" placeholder=\"Your key\" formControlName=\"fcApi\" spellcheck=\"false\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-search-results\">Results for search <span class=\"settings-hint\">(Max. 50)</span></label>\r\n            <input type=\"text\" id=\"val-search-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcSearchresults\">\r\n        </div>\r\n        <div class=\"form-group form-text\">\r\n            <label for=\"val-related-results\">Results for related videos <span class=\"settings-hint\">(Max. 50)</span></label>\r\n            <input type=\"text\" id=\"val-related-results\" class=\"form-field\" placeholder=\"1 to 50\" formControlName=\"fcRelatedResults\">\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-primary btn-round\">Save settings</button>\r\n    </form>\r\n</div>"
 
 /***/ }),
 
@@ -905,7 +891,6 @@ var SettingsComponent = (function () {
         this.app = app;
         this.search = search;
         this.finished = false;
-        this.loadingRegion = false;
         this._shared = shared;
         this._fb = fb;
         this._app = app;
@@ -943,9 +928,10 @@ var SettingsComponent = (function () {
             Object.keys(data.settings).map(function (i) {
                 _this.internal_settings[i].value = data.settings[i];
             });
-            _this._app.setSettings(_this.internal_settings, 0);
-            _this._search.setSettings(_this.internal_settings, 1);
             _this._shared.form_settings = _this.internal_settings;
+            _this._app.setSettings();
+            _this._search.setSettings();
+            _this._shared.updateSettings();
             _this._shared.triggerNotify('Changed');
             _this.updateNotify();
         });
@@ -967,39 +953,29 @@ var SettingsComponent = (function () {
             _this.setForm();
         });
     };
-    SettingsComponent.prototype.changeRegion = function (data) {
-        var _this = this;
-        this.loadingRegion = true;
-        this._shared.settings.api_settings[1].value = data;
-        this._shared.setApiSettings();
-        this._shared.feedVideos = null;
-        this._app.getSettings();
-        this._app.getFeedVideos();
-        this._shared.triggerNotify('Changed');
-        this.updateNotify();
-        setTimeout(function () { return _this.loadingRegion = false; }, 500);
-    };
     SettingsComponent.prototype.updateNotify = function () {
         var _this = this;
         this.notify = this._shared.notify;
         setTimeout(function () { return _this.notify = _this._shared.notify; }, 1000);
     };
     SettingsComponent.prototype.externalSave = function () {
-        console.log(this.externalSettings);
         if (this.externalSettings.valid) {
-            /*
-            fcApi: new FormControl(this.external_settings[0].value),
-            fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
-            fcSearchresults: new FormControl(this.external_settings[2].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)]),
-            fcRelatedResults: new FormControl(this.external_settings[3].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)])
-*/
             this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value);
             this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value);
             this._shared.settings.api_settings = this.external_settings;
-            console.log(this._shared.settings.api_settings);
-            console.log('submitted');
+            this._shared.feedVideos = null;
+            this._shared.setApiSettings();
+            this._app.setSettings();
+            this._app.getFeedVideos();
+            this._shared.updateSettings();
+            this._shared.triggerNotify('Saved');
+            this.updateNotify();
+        }
+        else {
+            this._shared.triggerNotify('Please check external settings');
+            this.updateNotify();
         }
     };
     return SettingsComponent;
@@ -1124,7 +1100,7 @@ var SharedService = (function () {
         });
     };
     SharedService.prototype.updateSettings = function () {
-        //localStorage.setItem('settings', JSON.stringify(this.settings));
+        localStorage.setItem('settings', JSON.stringify(this.settings));
         console.log(JSON.parse(localStorage.settings));
     };
     SharedService.prototype.setApiSettings = function () {

@@ -10,7 +10,7 @@ select {
     &:before {
         content: '';
         display: block;
-        background-color: rgba(255, 255, 255, 0.11);
+        background-color: var(--c-black);
         height: 20px;
         width: 40px;
         border-radius: 50px;
@@ -20,7 +20,7 @@ select {
         content: '';
         position: absolute;
         display: block;
-        background-color: var(--c-base);
+        background-color: rgba(255, 255, 255, 0.2);
         height: 16px;
         width: 16px;
         border-radius: 50%;
@@ -39,7 +39,7 @@ input[type="radio"]:checked {
         }
         &:after {
             left: 22px;
-            background-color: var(--c-primary);
+            background-color: var(--c-white);
         }
     }
 }
@@ -98,4 +98,9 @@ input[type="radio"]:checked {
         margin-left: auto;
         display: inherit;
     }
+}
+
+.settings-hint {
+    display: block;
+    font-size: $f-11;
 }

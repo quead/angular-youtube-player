@@ -10,7 +10,7 @@
 }
 
 .current-video-name {
-    color: var(--c-primary);
+    color: var(--c-white);
     font-weight: normal;
     margin: 0;
     overflow: hidden;
@@ -128,7 +128,7 @@
         position: absolute;
         top: -4px;
         margin: 0;
-        color: var(--c-primary);
+        color: var(--c-white);
     }
     .current-video-range-value {
         right: calc(100% + 15px);

@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
-    this.getSettings();
+    this.setSettings();
     this.searchFunction();
     this.getFeedVideos();
   }
@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getSettings() {
+  setSettings() {
     this._shared.getSettings().subscribe(data => {
         this.thumbnails = data.form_settings[0].value;
         this.listGrid = data.form_settings[1].value;
@@ -142,12 +142,5 @@ export class SearchComponent implements OnInit {
 
   addPlaylistItem(i: number, list: number) {
       this._app.addPlaylistItem(i, list);
-  }
-
-  setSettings(data: any, from: number) {
-    if (from === 0) {
-      this.thumbnails = data[0].value;
-      this.listGrid = data[1].value;
-    }
   }
 }

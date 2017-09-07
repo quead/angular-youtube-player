@@ -22,10 +22,10 @@ $f-32: 32px;
 
 // If you don't use darken and other sass functions use this
 :root {
-    --c-base: #1d1c21;
-    --c-primary: #fcc866;
-    --c-primary-active: #fcba3c;
-    --c-primary-active-focus: #ffa700;
+    --c-base: #17171d;
+    --c-primary: #bb2222;
+    --c-primary-active: #9c1717;
+    --c-primary-active-focus: #801212;
     --c-primary-inverse: #232228;
     
     --c-danger: red;
@@ -35,7 +35,7 @@ $f-32: 32px;
     --c-success-active: #1db351;
 
     --c-gray: rgba(#000, 0.35);
-    --c-light-gray: #3e3e3e;
+    --c-light-gray: rgba(#000, 0.6);
     --c-dark-gray: rgba(#000, 0.2);
     --c-white: #ffffff;
     --c-black: #000000;
