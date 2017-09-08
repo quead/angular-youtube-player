@@ -56,6 +56,7 @@ Just take files from ***dist*** folder
 Angular2 YT Player v1.9.1
 - Get settings.json for localstorage if your localstorage is empty
 - The playlist automatically saving, if is empty it will be populated with related videos
+- Toggle light/dark theme mode
 - Share link button for all videos
 - Reorganised settings page
 - Auto saving for internal settings (check settings)
@@ -134,7 +135,6 @@ Angular2 YT Player v1.0.0
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 
 #### Roadmap to 3.0
-- Toggle light/dark mode **(in v2.1)**
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
