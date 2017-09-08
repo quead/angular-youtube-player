@@ -143,6 +143,16 @@ iframe {
             text-align: center;
             line-height: 30px;
         }
+        .video-item-share {
+            &:hover {
+                color: var(--c-white);
+                background-color: var(--c-primary);
+            }
+            &:active {
+                color: var(--c-white);
+                background-color: var(--c-primary-active);
+            }
+        }
         .video-item-play {
             .fa {
                 font-size: $f-12;

@@ -62,6 +62,7 @@
         margin: 0;
         outline: 0;
         border-radius: 30px;
+        cursor: pointer;
         &::-moz-selection {
             background-color: transparent;
         }
@@ -99,7 +100,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        &:not(#play-song):active {
+        :not(#play-song):active {
             transform: scale(1.4);
         }
     }

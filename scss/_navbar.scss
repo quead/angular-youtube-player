@@ -16,6 +16,8 @@ nav {
         padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;
         opacity: 0.3;
+        font-weight: bold;
+        letter-spacing: 0.3px;
         .fa {
             color: var(--c-white);
             position: absolute;
@@ -27,6 +29,7 @@ nav {
             display: block;
             font-size: $f-12;
             color: rgba(255, 255, 255, 0.5);
+            font-weight: normal;
         }
         &:hover {
             opacity: 1;

@@ -118,6 +118,10 @@
     }
 }
 
+.logo-svg {
+    @include icon-svg(logo, 111px, 25px, white, white, #17171d);
+}
+
 .app {
     &-head {
         height: 100px;
