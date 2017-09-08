@@ -1,6 +1,6 @@
 .btn {
     display: inline-block;
-    color: var(--c-gray);
+    color: var(--c-white);
     font-size: 14px;
     font-weight: 400;
     line-height: 1.25;
@@ -14,7 +14,13 @@
     text-decoration: none;
     transition: all .1s ease-out;
     outline: 0;
-
+    line-height: 1;
+    .fa {
+        margin-right: 8px;
+        font-size: $f-10;
+        top: -1px;
+        position: relative;
+    }
     &-round {
         border-radius: 50px;
     }
@@ -22,7 +28,6 @@
     &-small {
         padding: 5px 17px;
     }
-
     &-link {
         background-color: transparent;
         color: rgba(#232228, 0.3);
@@ -54,6 +59,19 @@
         &:active {
             background-color: var(--c-black);
             color: var(--c-white);
+        }
+    }
+
+    &-outline {
+        border: 1px solid var(--c-white);
+        opacity: 0.6;
+        background-color: transparent;
+        &:hover {
+            opacity: 1;
+        }
+        &:active {
+            background-color: var(--c-white);
+            color: var(--c-black);
         }
     }
 }

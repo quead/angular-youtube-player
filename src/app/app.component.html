@@ -1,146 +1,169 @@
-<div class="loading-bar inactive"></div>
-<div class="container">
-  <div class="col col-1">
-      <div class="app app-services">
-          <div class="app-head">
-              <div id="logo">
-                <img src="assets/img/logo.svg" height="25"/>
-                <small *ngIf="regionCode">{{ regionCode }}</small>
-              </div>
-          </div>
-          <div class="app-content">
-            <nav>
-              <ul>
-                <li><a routerLink="/home" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
-                <li><a routerLink="/history" routerLinkActive="is-active" title="History page"><span class="fa fa-history"></span>History<span class="description">Recently played players</span></a></li>
-                <li><a routerLink="/about" routerLinkActive="is-active" title="About application page"><span class="fa fa-info-circle"></span>About<span class="description">All informations about the app</span></a></li>
-                <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
-              </ul>
-            </nav>
-            <div id="playlist-video-list" class="video-list">
-              <div class="video-item-head">
-                  Current playlist
-                  <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
-              </div>
-              <div class="playlist-video-content" #playlistContainer>
-                <div *ngIf="playlistVideos.length === 0" class="video-list-info">
-                  Empty playlist
+<div id="app-container" [ngClass]="{'light-mode': !darkMode }">
+  <div class="loading-bar inactive"></div>
+  <input type="text" class="hide-input" #videoItemIDvalue />
+  <div class="container">
+    <div class="col col-1">
+        <div class="app app-services">
+            <div class="app-head">
+                <div id="logo">
+                  <div class="logo-svg"></div>
+                  <small *ngIf="regionCode">{{ regionCode }}</small>
                 </div>
-                <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
-                  <div class="video-item-info" (click)="onClickPlaylist($event, i)">
-                    <div *ngIf="thumbnails" class="video-item-image">
-                      <img src="{{ playlistVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
-                    </div>
-                    <div class="video-item-content">
-                      <p>{{ playlistVideo.snippet.title }}</p>
-                    </div>
+            </div>
+            <div class="app-content">
+              <nav>
+                <ul>
+                  <li><a routerLink="/home" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
+                  <li><a routerLink="/history" routerLinkActive="is-active" title="History page"><span class="fa fa-history"></span>History<span class="description">Recently played</span></a></li>
+                  <li><a routerLink="/about" routerLinkActive="is-active" title="About application page"><span class="fa fa-info-circle"></span>About<span class="description">All informations about the app</span></a></li>
+                  <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
+                </ul>
+              </nav>
+              <div id="playlist-video-list" class="video-list">
+                <div class="video-item-head">
+                    Current playlist
+                    <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
+                </div>
+                <div class="playlist-video-content" #playlistContainer>
+                  <div *ngIf="playlistVideos.length === 0" class="video-list-info">
+                    Empty playlist
                   </div>
-                  <div class="video-item-settings">
-                    <p class="video-item-remove" (click)="showModal(i)">
-                      <span class="fa fa-times-circle"></span>
-                    </p>
+                  <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+                    <div class="video-item-info">
+                      <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}"></div>
+                      <div class="video-item-content">
+                        <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
+                          <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
+                        </ng-container>
+                        <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
+                          <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
+                        </ng-container>                       
+                        <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
+                          <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
+                        </ng-container>                       
+                        <p class="video-item-title">{{ playlistVideo.snippet.title }}</p>
+                        <p class="video-item-autor">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>
+                      </div>
+                    </div>
+                    <div class="video-item-settings">
+                      <p class="video-item-play" (click)="onClickPlaylist($event, i)">
+                        <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+                      </p>
+                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
+                        <span class="fa fa-share-alt"></span>
+                      </p>
+                      <p class="video-item-remove" (click)="showModal(i)">
+                        <span class="fa fa-times"></span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-      </div>
-  </div>
-  <div class="col col-2">
-      <div class="app app-player">
-          <div class="app-head">
-              <p>Player</p>
-              <div class="settings">
-                  <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus-circle"></span>Add to playlist</p>
-                  <p id="toggle-video-player" [ngClass]="{'active': displayVideoPlayer }" (click)="toggleHeadSettings(0)"><span class="fa fa-youtube-play"></span>Toggle video</p>
-                  <p id="toggle-repeat-mode" [ngClass]="{'active': repeatMode }" (click)="toggleHeadSettings(1)"><span class="fa fa-refresh"></span>Repeat</p>
-              </div>
-          </div>
-          <div class="app-content">
-            <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
-              <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
-            </div>
-            <div *ngIf="currentVideo.id" class="current-video-all">
-                <div class="current-video-details">
-                  <p class="current-video-name">{{ currentVideo.title }}</p>
-                </div>
-                <div *ngIf="!displayVideoPlayer" id="player-controls">
-                  <div class="player-buttons">
-                      <button id="previous-song" (click)="playPlaylistItem('prev', currentPlaylistItem)"><span class="fa fa-backward"></span></button>
-                      <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
-                      <button id="next-song" (click)="playPlaylistItem('next', currentPlaylistItem)"><span class="fa fa-forward"></span></button>
-                  </div>
-                  <div class="current-video-range">
-                    <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
-                    <p class="current-video-range-value">{{videoCurFull}}</p>
-                    <p class="current-video-range-max-value">{{videoMaxFull}}</p>
-                  </div>
-                  <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-                    <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
-                    <div class="volume-input-container">
-                      <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
-                      <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="current-video-stats">
-                    <p class="stats-views"><span class="fa fa-eye"></span> {{ currentVideo.stats.views | number:'1.0' }}</p>
-                    <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>
-                    <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>
-                </div>
-                <div class="current-video-share">
-                  <label for="shareInput">Share link</label>
-                  <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())">
-                </div>
-            </div>
-            <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
-              <div class="video-item-head">
-                  Similar videos
-              </div>
-              <div class="related-video-content">
-                <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
-                  <div class="video-item-info" (click)="onClickRelated($event, i)">
-                    <div *ngIf="thumbnails" class="video-item-image">
-                      <img src="{{ relatedVideo.snippet.thumbnails.default.url }}" alt="related video thumbnail" />
-                    </div>
-                    <div class="video-item-content">
-                      <p>{{ relatedVideo.snippet.title }}</p>
-                    </div>
-                  </div>
-                  <div class="video-item-settings" (click)="addPlaylistItem(i, 2)">
-                    <p class="video-item-add">
-                      <span class="fa fa-plus-circle"></span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-  </div>
-  <div class="col col-3">
-      <div class="app app-feed">
-        <router-outlet></router-outlet>
-      </div>
-      <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
-        <p>{{ notify.message }}</p>
-      </div>
-  </div>
-</div>
-<div *ngIf="modal" class="modal-overlay">
-  <div class="modal-background-overlay" (click)="closeModal()"></div>
-  <div class="modal-container">
-    <h2>Do you want to remove this item from playlist?</h2>
-    <div class="modal-content">
-      <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
-      <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
+        </div>
     </div>
-    <div class="modal-close" (click)="closeModal()">
-      <span class="fa fa-times-circle"></span>
+    <div class="col col-2">
+        <div class="app app-player">
+            <div class="app-head">
+                <h2>Player</h2>
+                <div class="settings">
+                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus-circle"></span>Add to playlist</p>
+                </div>
+            </div>
+            <div class="app-content">
+              <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
+                <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+              </div>
+              <div *ngIf="currentVideo.id" class="current-video-all">
+                  <div class="current-video-details">
+                    <p class="current-video-name">{{ currentVideo.title }}</p>
+                  </div>
+                  <div *ngIf="!displayVideoPlayer" id="player-controls">
+                    <div class="player-buttons">
+                        <button id="previous-song" (click)="playPlaylistItem('prev', currentPlaylistItem)"><span class="fa fa-backward"></span></button>
+                        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+                        <button id="next-song" (click)="playPlaylistItem('next', currentPlaylistItem)"><span class="fa fa-forward"></span></button>
+                    </div>
+                    <div class="current-video-range">
+                      <div class="duration-range-container">
+                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
+                        <span class="test duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
+                      </div>
+                      <p class="current-video-range-value">{{videoCurFull}}</p>
+                      <p class="current-video-range-max-value">{{videoMaxFull}}</p>
+                    </div>
+                    <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
+                      <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
+                      <div class="volume-input-container">
+                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                        <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="current-video-stats">
+                      <p class="stats-views">{{ currentVideo.stats.views | number:'1.0' }} Views</p>
+                      <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>
+                      <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>
+                  </div>
+                  <div class="current-video-share">
+                    <label for="shareInput">Share link</label>
+                    <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())" readonly>
+                  </div>
+              </div>
+              <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
+                <div class="video-item-head">
+                    Similar videos
+                </div>
+                <div class="related-video-content">
+                  <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
+                    <div class="video-item-info">
+                      <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}"></div>
+                      <div class="video-item-content">
+                        <p class="video-item-title">{{ relatedVideo.snippet.title }}</p>
+                        <p class="video-item-autor">by <span>{{ relatedVideo.snippet.channelTitle }}</span></p>                      
+                      </div>
+                    </div>
+                    <div class="video-item-settings">
+                      <p class="video-item-play" (click)="onClickRelated($event, i)">
+                        <span class="fa fa-play"></span>
+                      </p>
+                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
+                        <span class="fa fa-share-alt"></span>
+                      </p>
+                      <p class="video-item-add" (click)="addPlaylistItem(i, 2)">
+                        <span class="fa fa-plus-circle"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
-    <div class="modal-buttons">
-      <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
-      <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+    <div class="col col-3">
+        <div class="app app-feed">
+          <router-outlet></router-outlet>
+        </div>
+        <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
+          <p>{{ notify.message }}</p>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="modal" class="modal-overlay">
+    <div class="modal-background-overlay" (click)="closeModal()"></div>
+    <div class="modal-container">
+      <h2>Do you want to remove this item from playlist?</h2>
+      <div class="modal-content">
+        <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
+        <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
+      </div>
+      <div class="modal-close" (click)="closeModal()">
+        <span class="fa fa-times-circle"></span>
+      </div>
+      <div class="modal-buttons">
+        <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
+        <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+      </div>
     </div>
   </div>
 </div>

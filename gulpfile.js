@@ -10,11 +10,11 @@ gulp.task('sass', function() {
 });
 gulp.task('default', ['sass'], function() {
     gulp.watch([
-        'scss/*.scss'
+        'scss/**/*.scss'
     ], function() {
         gulp.run('sass');
     })
 });
 gulp.task('sass:watch', function () {
-  gulp.watch('scss/*.scss', ['sass']);
+  gulp.watch('scss/**/*.scss', ['sass']);
 });

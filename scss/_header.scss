@@ -114,8 +114,12 @@
         position: absolute;
         left: calc(100% + 5px);
         top: 0;
-        color: var(--c-white);
+        color: var(--c-primary);
     }
+}
+
+.logo-svg {
+    @include icon-svg(logo, 111px, 25px, white, white, #17171d);
 }
 
 .app {
@@ -123,13 +127,6 @@
         height: 100px;
         display: flex;
         padding: 30px 20px 0 20px;
-        > p {
-            font-size: $f-28;
-            text-transform: uppercase;
-            display: block;
-            margin: 0;
-            font-weight: 300;
-        }
         .settings {
             margin-left: auto;
             margin-top: 10px;
@@ -156,15 +153,6 @@
         &.active {
             opacity: 1;
             color: var(--c-primary);
-        }
-    }
-    #toggle-repeat-mode {
-        .fa {
-            transform: rotate(0deg);
-            transition: transform 0.1s ease-out;
-        }
-        &.active .fa {
-            transform: rotate(180deg);
         }
     }
 }

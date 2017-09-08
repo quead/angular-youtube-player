@@ -9,17 +9,18 @@ html {
     display: block;
 }
 body {
-    background-color: var(--c-white);
-    font-family: 'Source Sans Pro', sans-serif;
+    background-color: var(--c-base);
+    font-family: 'Roboto', sans-serif;    
+    color: var(--c-white);    
+    font-weight: 300;    
     font-size: $f-14;
     line-height: 1.5;
     margin: 0;
     padding: 0;
     cursor: default;
-    color: var(--c-white);
     -webkit-app-region: drag;
     overflow: hidden;
-    animation: loading-animation 0.6s 1;
+    animation: loading-animation 2s 1;
     @media screen and (max-width: 991px) {
         overflow: visible;
     }
@@ -34,6 +35,11 @@ a {
     color: var(--c-primary);
     
     &:active {
-        color: var(--c-primary)-active;
+        color: var(--c-primary-active);
     }
+}
+
+#app-container {
+    position: relative;
+    height: 100%;
 }

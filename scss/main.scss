@@ -14,3 +14,7 @@
 @import 'navbar';
 @import 'search';
 @import 'videos';
+
+#app-container.light-mode {
+    @import 'theme/light';
+}

@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
         id: '',
         title: '',
         img: '',
+        channelTitle: '',
         stats: {
           views: '',
           likes: '',
@@ -54,7 +55,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
-    this.getSettings();
+    this.setSettings();
     this.searchFunction();
     this.getFeedVideos();
   }
@@ -81,7 +82,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getSettings() {
+  setSettings() {
     this._shared.getSettings().subscribe(data => {
         this.thumbnails = data.form_settings[0].value;
         this.listGrid = data.form_settings[1].value;
@@ -105,8 +106,8 @@ export class SearchComponent implements OnInit {
           this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
           this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
           this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
-
           this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
+          this.trendingFirst.video.channelTitle = this.channel.items[0].snippet.title;
           if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
             this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
           } else {
@@ -135,25 +136,11 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  onCopyVideoItemLink(i: number, list: number) {
+      this._app.onCopyVideoItemLink(i, list);
+  }
+
   addPlaylistItem(i: number, list: number) {
       this._app.addPlaylistItem(i, list);
   }
-
-  setSettings(data: any, from: number) {
-    if (from === 0) {
-      this.thumbnails = data[0].value;
-      this.listGrid = data[1].value;
-    }
-  }
-
-  toggleList(int: number) {
-    if (int === 1) {
-      this.listGrid = false;
-      this._shared.settings.form_settings[1].value = false;
-    } else {
-      this.listGrid = true;
-      this._shared.settings.form_settings[1].value = true;
-    }
-  }
-
 }

@@ -9,8 +9,10 @@ import { SharedService } from './shared/lists.service';
 
 export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
+  @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
   notify: any;
+  videoRangePercent = 0;
 
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
   currentVideoObject: Array<any> = [];
 
   thumbnails = true;
+  darkMode = true;
 
   modal = false;
   modalPlaylistItem: number;
@@ -34,6 +37,7 @@ export class AppComponent implements OnInit {
   currentVideo = {
       id: '',
       title: '',
+      channelTitle: '',
       stats: {
         likes: '',
         dislikes: '',
@@ -54,20 +58,24 @@ export class AppComponent implements OnInit {
   videoCurVolume = -1;
 
   _shared: any;
+  _update: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
+    private update: SharedService,
   ) {
     this._shared = shared;
+    this._update = update;
     this.notify = this._shared.notify;
   }
 
   ngOnInit() {
       console.log('app comp');
-      this.getSettings();
+      this.preventOldSettings();
+      this.setSettings();
       this.getFeedVideos();
   }
 
@@ -127,6 +135,8 @@ export class AppComponent implements OnInit {
       this.videoMaxFull = this.timeFormat(this.videoMaxRange);
       this.currentMuteState = this.player.isMuted();
       this.startRange();
+    } else {
+      this.stopRange();
     }
 
     if (this.currentState === 0) {
@@ -151,21 +161,31 @@ export class AppComponent implements OnInit {
 
   startRange() {
     this.stopRange();
-    this.videoRangeTimer = setInterval(() => {
-      this.videoCurRange = this.player.getCurrentTime();
-      this.videoCurFull = this.timeFormat(this.videoCurRange);
-
-    }, 1000);
+    if (this.currentState) {
+      this.videoRangeTimer = setInterval(() => {
+        this.videoCurRange = this.player.getCurrentTime();
+        this.videoCurFull = this.timeFormat(this.videoCurRange);
+        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
+      }, 1000);
+    }
   }
 
   stopRange() {
-     clearTimeout(this.videoRangeTimer);
+     clearInterval(this.videoRangeTimer);
   }
 
   // ---------------- Playlist settings ----------------
 
   playlistInit() {
-      this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+      if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 2) {
+        this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
+        this._shared.playlist = JSON.parse(JSON.stringify(this.playlistVideos));
+        this._shared.updatePlaylist();
+      } else {
+        this._shared.getPlaylist();
+        this.playlistVideos = JSON.parse(JSON.stringify(this._shared.playlist));
+      }
+      this.findPlaylistItem();
   }
 
   findPlaylistItem() {
@@ -203,6 +223,7 @@ export class AppComponent implements OnInit {
   }
 
   removePlaylistItem(i: number) {
+      console.log(this.playlistVideos[i])
       this._shared.triggerNotify('Video removed');
       this.updateNotify();
       setTimeout(() => {
@@ -210,6 +231,11 @@ export class AppComponent implements OnInit {
           this.currentPlaylistItem = -1;
         }
         this.playlistVideos.splice(i, 1);
+        
+        this._shared.playlist.splice(i, 1);
+        this._shared.updatePlaylist();
+
+        this.findPlaylistItem();
       }, 200);
   }
 
@@ -228,6 +254,9 @@ export class AppComponent implements OnInit {
       if (list === 3) {
         listType = this.currentVideoObject[i];
       }
+      if (list === 4) {
+        listType = this._shared.historyVideos[i];
+      }
 
       if (typeof listType.id.videoId !== 'undefined') {
         playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
@@ -237,6 +266,10 @@ export class AppComponent implements OnInit {
 
       if (typeof playlistItem === 'undefined') {
         this.playlistVideos.push(listType);
+
+        this._shared.playlist.push(listType);
+        this._shared.updatePlaylist();
+
         this.findPlaylistItem();
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
@@ -250,47 +283,35 @@ export class AppComponent implements OnInit {
   clearPlaylist() {
       this.currentPlaylistItem = -1;
       this.playlistVideos = [];
-      console.log(localStorage);
+      this._shared.playlist = [];
+      this._shared.updatePlaylist();
   }
 
   // ---------------- Init settings ----------------
 
-  getSettings() {
+  preventOldSettings() {
+    if (localStorage.length === 1) {
+      console.log('I get default settings');
+      localStorage.removeItem('playlist');
+      localStorage.removeItem('settings');
+      this._shared.settings = null;
+      this._shared.playlist = null;
+
+      this.playlistVideos = [];
+    }
+  }
+
+  setSettings() {
     this._shared.getSettings().subscribe(data => {
         this.regionCode = data.api_settings[1].value;
         this.thumbnails = data.form_settings[0].value;
         this.displayVideoPlayer = data.form_settings[2].value;
         this.repeatMode = data.form_settings[3].value;
+        this.darkMode = data.form_settings[4].value;
     });
   }
 
-  setSettings(data: any, from: number) {
-    if (from === 0) {
-      this.thumbnails = data[0].value;
-      this.displayVideoPlayer = data[2].value;
-      this.repeatMode = data[3].value;
-    }
-  }
-
   toggleHeadSettings(int: number) {
-    if (int === 0) {
-      if (this.displayVideoPlayer) {
-        this.displayVideoPlayer = false;
-        this._shared.settings.form_settings[2].value = false;
-      } else {
-        this.displayVideoPlayer = true;
-        this._shared.settings.form_settings[2].value = true;
-      }
-    }
-    if (int === 1) {
-      if (this.repeatMode) {
-        this.repeatMode = false;
-        this._shared.settings.form_settings[3].value = false;
-      } else {
-        this.repeatMode = true;
-        this._shared.settings.form_settings[3].value = true;
-      }
-    }
     if (int === 2) {
       if (this.currentMuteState) {
         this.player.unMute();
@@ -310,14 +331,19 @@ export class AppComponent implements OnInit {
   }
 
   onClickPlaylist(event: Event, i: number) {
-    this.getVideo(this.playlistVideos[i]);
+    if (i === this.currentPlaylistItem) {
+      this.playPauseVideo();
+    } else {
+      this.getVideo(this.playlistVideos[i]);
+    }
   }
 
   getVideo(data: any) {
     const tempData = {
       id: '',
       title: '',
-      thumbnail: ''
+      thumbnail: '',
+      channelTitle: '',
     };
     this.setCurrentVideoObject(data);
     if (data.id.videoId) {
@@ -328,6 +354,7 @@ export class AppComponent implements OnInit {
       this.getStatsVideos(data.id);
     }
     tempData.title = data.snippet.title;
+    tempData.channelTitle = data.snippet.channelTitle;
     tempData.thumbnail = data.snippet.thumbnails.medium.url;
     this.playVideo(tempData);
   }
@@ -348,6 +375,7 @@ export class AppComponent implements OnInit {
         result => {
           this.currentVideo.id = result.items[0].id;
           this.currentVideo.title = result.items[0].snippet.title;
+          this.currentVideo.channelTitle = result.items[0].snippet.channelTitle;
           this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
           this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
           this.currentVideo.stats.views = result.items[0].statistics.viewCount;
@@ -385,6 +413,7 @@ export class AppComponent implements OnInit {
   }
 
   RangeNouseDown(event: Event) {
+    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     if (event['buttons'] === 1) {
       this.stopRange();
     }
@@ -393,6 +422,7 @@ export class AppComponent implements OnInit {
   RangeMouseUp(value: number) {
     this.player.seekTo(value, true);
     this.videoCurRange = value;
+    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     this.startRange();
   }
 
@@ -422,6 +452,34 @@ export class AppComponent implements OnInit {
 
   // ---------------- Related functions ----------------
 
+  onCopyVideoItemLink(i: number, list: number) {
+    let listType;
+    const youtubeLink = 'https://youtu.be/';
+    if (list === 0) {
+      listType = this.feedVideos[i];
+    }
+    if (list === 1) {
+      listType = this._shared.lastSearchedVideos[i];
+    }
+    if (list === 2) {
+      listType = this.relatedVideos[i];
+    }
+    if (list === 3) {
+      listType = this.playlistVideos[i];
+    }
+    
+    if (typeof listType.id.videoId !== 'undefined') {
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId
+    } else {
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id
+    }
+    this.videoItemIDvalue.nativeElement.select();
+    this.videoItemIDvalue.nativeElement.focus();
+    document.execCommand('copy');
+    this.videoItemIDvalue.nativeElement.blur();
+    this.copyShareLink();
+  }
+  
   scrollToBottom() {
       try {
         setTimeout( () => {

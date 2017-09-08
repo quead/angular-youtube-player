@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -12,6 +12,9 @@ export class SharedService {
     public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;
+    public playlist: Array<any>;
+
+    _update: any;
 
     notify = {
         enabled: false,
@@ -20,7 +23,7 @@ export class SharedService {
 
     constructor(
         private youtube: YoutubeGetVideo,
-        private http: Http
+        private http: Http,
     ) {}
 
     getFeed(): Observable<any> {
@@ -38,9 +41,9 @@ export class SharedService {
                         this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
                         resultChannel => {
                             this.channel = resultChannel;
+                            observer.next(this.feedVideos);
+                            observer.complete();
                         });
-                        observer.next(this.feedVideos);
-                        observer.complete();
                     },
                     error => {
                         console.log('error on feed videos' + error);
@@ -97,6 +100,18 @@ export class SharedService {
                 }
             }
         });
+    }
+
+    updateSettings() {
+        localStorage.setItem('settings', JSON.stringify(this.settings));
+    }
+
+    getPlaylist() {
+        this.playlist = JSON.parse(localStorage.getItem('playlist'));
+    }
+    
+    updatePlaylist() {
+        localStorage.setItem('playlist', JSON.stringify(this.playlist));
     }
 
     setApiSettings() {
