@@ -60,7 +60,6 @@ Angular2 YT Player v1.9.1
 - Reorganised settings page
 - Auto saving for internal settings (check settings)
 - Manual saving for external settings (check settings)
-- Toggle light/dark mode
 - Performance, UI and UX improvements and fixes
 
 Angular2 YT Player v1.9
@@ -135,6 +134,7 @@ Angular2 YT Player v1.0.0
 - Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 
 #### Roadmap to 3.0
+- Toggle light/dark mode **(in v2.1)**
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**

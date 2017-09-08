@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   currentVideoObject: Array<any> = [];
 
   thumbnails = true;
+  darkMode = true;
 
   modal = false;
   modalPlaylistItem: number;
@@ -73,6 +74,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
       console.log('app comp');
+      this.preventOldSettings();
       this.setSettings();
       this.getFeedVideos();
   }
@@ -175,7 +177,7 @@ export class AppComponent implements OnInit {
   // ---------------- Playlist settings ----------------
 
   playlistInit() {
-      if (localStorage.getItem('playlist').length === 2) {
+      if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 2) {
         this.playlistVideos = JSON.parse(JSON.stringify(this.relatedVideos));
         this._shared.playlist = JSON.parse(JSON.stringify(this.playlistVideos));
         this._shared.updatePlaylist();
@@ -287,12 +289,25 @@ export class AppComponent implements OnInit {
 
   // ---------------- Init settings ----------------
 
+  preventOldSettings() {
+    if (localStorage.length === 1) {
+      console.log('I get default settings');
+      localStorage.removeItem('playlist');
+      localStorage.removeItem('settings');
+      this._shared.settings = null;
+      this._shared.playlist = null;
+
+      this.playlistVideos = [];
+    }
+  }
+
   setSettings() {
     this._shared.getSettings().subscribe(data => {
         this.regionCode = data.api_settings[1].value;
         this.thumbnails = data.form_settings[0].value;
         this.displayVideoPlayer = data.form_settings[2].value;
         this.repeatMode = data.form_settings[3].value;
+        this.darkMode = data.form_settings[4].value;
     });
   }
 

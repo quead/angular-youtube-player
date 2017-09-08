@@ -19,6 +19,11 @@
       "name": "Toggle repeat mode",
       "value": true,
       "visible": true
+    },
+    {
+      "name": "Toggle dark mode",
+      "value": true,
+      "visible": false
     }
   ],
   "api_settings": [

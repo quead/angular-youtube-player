@@ -65,6 +65,7 @@
     &-outline {
         border: 1px solid var(--c-white);
         opacity: 0.6;
+        background-color: transparent;
         &:hover {
             opacity: 1;
         }

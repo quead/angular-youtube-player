@@ -38,3 +38,8 @@ a {
         color: var(--c-primary-active);
     }
 }
+
+#app-container {
+    position: relative;
+    height: 100%;
+}

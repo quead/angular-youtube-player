@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
         private http: Http,
         private shared: SharedService,
         private app: AppComponent,
-        private search: SearchComponent
+        private search: SearchComponent,
     ) {
         this._shared = shared;
         this._fb = fb;

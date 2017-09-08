@@ -72,6 +72,11 @@ a:active {
   color: var(--c-primary-active);
 }
 
+#app-container {
+  position: relative;
+  height: 100%;
+}
+
 .btn {
   display: inline-block;
   color: var(--c-white);
@@ -149,6 +154,7 @@ a:active {
 .btn-outline {
   border: 1px solid var(--c-white);
   opacity: 0.6;
+  background-color: transparent;
 }
 
 .btn-outline:hover {
@@ -1591,6 +1597,7 @@ iframe {
   height: auto;
   width: auto;
   margin-top: 15px;
+  justify-content: flex-start;
 }
 
 .video-list-featured:before {
@@ -1709,4 +1716,21 @@ iframe {
 #feed-video-list::-webkit-scrollbar {
   width: 6px;
   background-color: transparent;
+}
+
+#app-container.light-mode * {
+  --c-primary: red;
+}
+
+#app-container.light-mode .col-2,
+#app-container.light-mode .col-3 {
+  background-color: #f7f7f7;
+}
+
+#app-container.light-mode .col-1 {
+  background-color: #ffffff;
+}
+
+#app-container.light-mode .col .app-head h2 {
+  color: red;
 }
