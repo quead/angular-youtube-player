@@ -1,0 +1,14 @@
+.application {
+    #app-container > .container {
+        height: calc(100% - 26px);
+    }
+    .header-bar {
+        display: block;
+    }
+}
+
+.app-win {
+    .win-controls {
+        display: flex;
+    }
+}

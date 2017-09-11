@@ -48,7 +48,7 @@ body {
   margin: 0;
   padding: 0;
   cursor: default;
-  -webkit-app-region: drag;
+  -webkit-app-region: no-drag;
   overflow: hidden;
   animation: loading-animation 2s 1;
 }
@@ -913,8 +913,34 @@ input[type="radio"]:checked + label .round-check:after {
   font-size: 11px;
 }
 
+.header-bar {
+  -webkit-app-region: drag;
+  text-align: center;
+  position: relative;
+  height: 26px;
+}
+
+.header-bar:before {
+  content: '';
+  background-color: var(--c-black);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.header-bar h1 {
+  margin: 0;
+  font-size: 12px;
+  position: relative;
+  z-index: 1;
+  padding: 4px 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .mac-controls {
-  display: flex;
+  display: none;
   position: absolute;
   left: 10px;
   top: 10px;
@@ -970,7 +996,7 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 .win-controls {
-  display: flex;
+  display: none;
   height: 25px;
   position: absolute;
   right: 0;
@@ -984,6 +1010,7 @@ input[type="radio"]:checked + label .round-check:after {
   outline: 0;
   padding: 0 8px;
   display: block;
+  cursor: pointer;
 }
 
 #win-close {
@@ -1021,7 +1048,7 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 32px;
+  width: 20px;
 }
 
 #win-minimize:active {
@@ -1089,8 +1116,7 @@ input[type="radio"]:checked + label .round-check:after {
   color: var(--c-primary);
 }
 
-.mac-controls,
-.win-controls {
+.header-bar {
   display: none;
 }
 
@@ -2055,4 +2081,16 @@ iframe {
   background-color: var(--c-white);
   color: var(--c-black);
   border-color: rgba(0, 0, 0, 0.1);
+}
+
+.application .app {
+  height: calc(100% - 26px);
+}
+
+.application .header-bar {
+  display: block;
+}
+
+.app-win .win-controls {
+  display: flex;
 }

@@ -10,17 +10,20 @@
         <link rel="stylesheet" href="assets/css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body>
+    <body class="application app-win">
     <header>
-        <div class="win-controls">
-            <button id="win-minimize"></button>
-            <button id="win-maximize"></button>
-            <button id="win-close"></button>
-        </div>
-        <div class="mac-controls">
-            <button id="mac-close"></button>
-            <button id="mac-minimize"></button>
-            <button id="mac-maximize"></button>
+        <div class="header-bar">
+            <h1>YouTube Player v1.9.1</h1>
+            <div class="win-controls">
+                <button id="win-minimize"></button>
+                <button id="win-maximize"></button>
+                <button id="win-close"></button>
+            </div>
+            <div class="mac-controls">
+                <button id="mac-close"></button>
+                <button id="mac-minimize"></button>
+                <button id="mac-maximize"></button>
+            </div>
         </div>
     </header>
     <app-yt>
@@ -31,6 +34,10 @@
     </app-yt>
 
     <script>
+            setTimeout(function(){ 
+                var iframeElement = document.getElementsByTagName("iframe")[0];
+                iframeElement.addEventListener('click', function(event) { clic(this.id); }, false);
+            }, 3000);
         /*
         // Reload pentru NWJS (DE EDITAT)
         var path = 'assets/',

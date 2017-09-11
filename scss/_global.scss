@@ -18,7 +18,7 @@ body {
     margin: 0;
     padding: 0;
     cursor: default;
-    -webkit-app-region: drag;
+    -webkit-app-region: no-drag;
     overflow: hidden;
     animation: loading-animation 2s 1;
     @media screen and (max-width: 991px) {
