@@ -48,7 +48,7 @@ body {
   margin: 0;
   padding: 0;
   cursor: default;
-  -webkit-app-region: drag;
+  -webkit-app-region: no-drag;
   overflow: hidden;
   animation: loading-animation 2s 1;
 }
@@ -383,6 +383,30 @@ a:active {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
+  position: relative;
+  width: 100%;
+}
+
+#youtube-player .cover-controls,
+#youtube-player .cover-image {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+}
+
+#youtube-player .cover-image {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 225px;
+}
+
+#youtube-player .cover-controls {
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  width: 160px;
+  height: 35px;
 }
 
 #youtube-player.active {
@@ -390,6 +414,11 @@ a:active {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+}
+
+#youtube-player.active .cover-controls,
+#youtube-player.active .cover-image {
+  display: block;
 }
 
 .notif {
@@ -630,8 +659,8 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
-.player-buttons button :not(#play-song):active {
-  transform: scale(1.4);
+.player-buttons button:not(#play-song):active {
+  transform: scale(1.2);
 }
 
 .player-buttons #play-song {
@@ -913,8 +942,34 @@ input[type="radio"]:checked + label .round-check:after {
   font-size: 11px;
 }
 
+.header-bar {
+  -webkit-app-region: drag;
+  text-align: center;
+  position: relative;
+  height: 26px;
+}
+
+.header-bar:before {
+  content: '';
+  background-color: var(--c-black);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.header-bar h1 {
+  margin: 0;
+  font-size: 12px;
+  position: relative;
+  z-index: 1;
+  padding: 4px 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .mac-controls {
-  display: flex;
+  display: none;
   position: absolute;
   left: 10px;
   top: 10px;
@@ -970,7 +1025,7 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 .win-controls {
-  display: flex;
+  display: none;
   height: 25px;
   position: absolute;
   right: 0;
@@ -984,6 +1039,7 @@ input[type="radio"]:checked + label .round-check:after {
   outline: 0;
   padding: 0 8px;
   display: block;
+  cursor: pointer;
 }
 
 #win-close {
@@ -1021,7 +1077,7 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 32px;
+  width: 20px;
 }
 
 #win-minimize:active {
@@ -1089,8 +1145,7 @@ input[type="radio"]:checked + label .round-check:after {
   color: var(--c-primary);
 }
 
-.mac-controls,
-.win-controls {
+.header-bar {
   display: none;
 }
 
@@ -1933,6 +1988,10 @@ iframe {
   color: var(--c-white);
 }
 
+#app-container.light-mode #play-song {
+  color: var(--c-white);
+}
+
 #app-container.light-mode .current-video-stats p,
 #app-container.light-mode .current-video-name {
   color: var(--c-black);
@@ -1945,6 +2004,15 @@ iframe {
 
 #app-container.light-mode .current-video-share input[type="text"]:active {
   color: var(--c-black);
+}
+
+#app-container.light-mode .current-video-range-max-value, #app-container.light-mode .current-video-range-value {
+  color: var(--c-black);
+}
+
+#app-container.light-mode .volume-input-container,
+#app-container.light-mode .duration-range-container {
+  background-color: var(--c-soft-gray);
 }
 
 #app-container.light-mode .settingsForm {
@@ -2042,4 +2110,16 @@ iframe {
   background-color: var(--c-white);
   color: var(--c-black);
   border-color: rgba(0, 0, 0, 0.1);
+}
+
+.application #app-container > .container {
+  height: calc(100% - 26px);
+}
+
+.application .header-bar {
+  display: block;
+}
+
+.app-win .win-controls {
+  display: flex;
 }

@@ -126,11 +126,36 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
+    position: relative;
+    width: 100%;
+    .cover-controls,
+    .cover-image {
+        display: none;
+        position: absolute;
+        cursor: pointer;
+    }
+    .cover-image {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 225px;
+    }
+    .cover-controls {
+        width: 100%;
+        right: 0;
+        bottom: 0;
+        width: 160px;
+        height: 35px;
+    }
     &.active {
-        height: 270px;
+        height: 270px;        
         opacity: 1;
         visibility: visible;
         transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+        .cover-controls,
+        .cover-image {
+            display: block;
+        }
     }
 }
 

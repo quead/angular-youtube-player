@@ -72,6 +72,8 @@
             </div>
             <div class="app-content">
               <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
+                <div class="cover-image" (click)="playPauseVideo()"></div>
+                <div class="cover-controls"></div>
                 <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
               </div>
               <div *ngIf="currentVideo.id" class="current-video-all">

@@ -223,7 +223,6 @@ export class AppComponent implements OnInit {
   }
 
   removePlaylistItem(i: number) {
-      console.log(this.playlistVideos[i])
       this._shared.triggerNotify('Video removed');
       this.updateNotify();
       setTimeout(() => {
@@ -231,7 +230,7 @@ export class AppComponent implements OnInit {
           this.currentPlaylistItem = -1;
         }
         this.playlistVideos.splice(i, 1);
-        
+
         this._shared.playlist.splice(i, 1);
         this._shared.updatePlaylist();
 
@@ -467,11 +466,11 @@ export class AppComponent implements OnInit {
     if (list === 3) {
       listType = this.playlistVideos[i];
     }
-    
+
     if (typeof listType.id.videoId !== 'undefined') {
-      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId;
     } else {
-      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id
+      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
     }
     this.videoItemIDvalue.nativeElement.select();
     this.videoItemIDvalue.nativeElement.focus();
@@ -479,7 +478,7 @@ export class AppComponent implements OnInit {
     this.videoItemIDvalue.nativeElement.blur();
     this.copyShareLink();
   }
-  
+
   scrollToBottom() {
       try {
         setTimeout( () => {

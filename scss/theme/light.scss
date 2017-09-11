@@ -167,6 +167,10 @@ nav {
     }
 }
 
+#play-song {
+    color: var(--c-white);
+}
+
 .current-video-stats p,
 .current-video-name {
     color: var(--c-black);
@@ -180,6 +184,18 @@ nav {
             color: var(--c-black);
         }
     }
+}
+
+.current-video-range {
+    &-max-value,
+    &-value {
+        color: var(--c-black);
+    }
+}
+
+.volume-input-container,
+.duration-range-container {
+    background-color: var(--c-soft-gray);
 }
 
 .settingsForm {
