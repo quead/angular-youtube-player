@@ -58,8 +58,16 @@ export class SettingsComponent implements OnInit {
         this.externalSettings = new FormGroup({
             fcApi: new FormControl(this.external_settings[0].value),
             fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
-            fcSearchresults: new FormControl(this.external_settings[2].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)]),
-            fcRelatedResults: new FormControl(this.external_settings[3].value, [Validators.required, NumberVal.max(50), NumberVal.min(1), NumberVal.isNumber(true)])
+            fcSearchresults: new FormControl(this.external_settings[2].value,
+                            [Validators.required,
+                            NumberVal.max(50),
+                            NumberVal.min(1),
+                            NumberVal.isNumber(true)]),
+            fcRelatedResults: new FormControl(this.external_settings[3].value,
+                            [Validators.required,
+                            NumberVal.max(50),
+                            NumberVal.min(1),
+                            NumberVal.isNumber(true)])
         });
     }
 
@@ -76,7 +84,7 @@ export class SettingsComponent implements OnInit {
 
             this._app.setSettings();
             this._search.setSettings();
-            this._shared.updateSettings();            
+            this._shared.updateSettings();
 
             this._shared.triggerNotify('Changed');
             this.updateNotify();
@@ -109,9 +117,9 @@ export class SettingsComponent implements OnInit {
         if (this.externalSettings.valid) {
             this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
-            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value);
-            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value);
-            this._shared.settings.api_settings = this.external_settings;            
+            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
+            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
+            this._shared.settings.api_settings = this.external_settings;
 
             this._shared.feedVideos = null;
 

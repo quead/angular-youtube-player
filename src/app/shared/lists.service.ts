@@ -109,7 +109,7 @@ export class SharedService {
     getPlaylist() {
         this.playlist = JSON.parse(localStorage.getItem('playlist'));
     }
-    
+
     updatePlaylist() {
         localStorage.setItem('playlist', JSON.stringify(this.playlist));
     }

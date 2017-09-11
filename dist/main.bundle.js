@@ -223,7 +223,6 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.removePlaylistItem = function (i) {
         var _this = this;
-        console.log(this.playlistVideos[i]);
         this._shared.triggerNotify('Video removed');
         this.updateNotify();
         setTimeout(function () {
@@ -940,8 +939,14 @@ var SettingsComponent = (function () {
         this.externalSettings = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormGroup */]({
             fcApi: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[0].value),
             fcRegion: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[1].value, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required),
-            fcSearchresults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[2].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)]),
-            fcRelatedResults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[3].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1), __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)])
+            fcSearchresults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[2].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required,
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50),
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1),
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)]),
+            fcRelatedResults: new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */](this.external_settings[3].value, [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["e" /* Validators */].required,
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].max(50),
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].min(1),
+                __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */].isNumber(true)])
         });
     };
     Object.defineProperty(SettingsComponent.prototype, "initInternalForm", {
@@ -991,8 +996,8 @@ var SettingsComponent = (function () {
         if (this.externalSettings.valid) {
             this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
-            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value);
-            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value);
+            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
+            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
             this._shared.settings.api_settings = this.external_settings;
             this._shared.feedVideos = null;
             this._shared.setApiSettings();
@@ -1219,7 +1224,7 @@ var NumberVal = (function () {
             if (valid) {
                 return null;
             }
-            return { "invalid": true };
+            return { 'invalid': true };
         };
     };
     return NumberVal;

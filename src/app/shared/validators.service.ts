@@ -9,7 +9,7 @@ export class NumberVal {
     static max(max: number): ValidatorFn {
         return (control: FormControl): { [key: string]: boolean } | null => {
 
-            let val: number = control.value;
+            const val: number = control.value;
             if (control.pristine || control.pristine) {
                 return null;
             }
@@ -17,12 +17,12 @@ export class NumberVal {
                 return null;
             }
             return { 'max': true };
-        }
+        };
     }
 
     static min(min: number): ValidatorFn {
         return (control: FormControl): { [key: string]: boolean } | null => {
-            let val: number = control.value;
+            const val: number = control.value;
             if (control.pristine || control.pristine) {
                 return null;
             }
@@ -30,7 +30,7 @@ export class NumberVal {
                 return null;
             }
             return { 'min': true };
-        }
+        };
     }
 
     static isNumber(value: boolean): ValidatorFn  {
@@ -39,8 +39,8 @@ export class NumberVal {
             if (valid) {
                 return null;
             }
-            return { "invalid": true };
-        }
+            return { 'invalid': true };
+        };
     }
 
 }

@@ -630,8 +630,8 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
-.player-buttons button :not(#play-song):active {
-  transform: scale(1.4);
+.player-buttons button:not(#play-song):active {
+  transform: scale(1.2);
 }
 
 .player-buttons #play-song {
@@ -1933,6 +1933,10 @@ iframe {
   color: var(--c-white);
 }
 
+#app-container.light-mode #play-song {
+  color: var(--c-white);
+}
+
 #app-container.light-mode .current-video-stats p,
 #app-container.light-mode .current-video-name {
   color: var(--c-black);
@@ -1945,6 +1949,15 @@ iframe {
 
 #app-container.light-mode .current-video-share input[type="text"]:active {
   color: var(--c-black);
+}
+
+#app-container.light-mode .current-video-range-max-value, #app-container.light-mode .current-video-range-value {
+  color: var(--c-black);
+}
+
+#app-container.light-mode .volume-input-container,
+#app-container.light-mode .duration-range-container {
+  background-color: var(--c-soft-gray);
 }
 
 #app-container.light-mode .settingsForm {
