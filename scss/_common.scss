@@ -127,11 +127,10 @@
     visibility: hidden;
     transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
     position: relative;
-    height: 270px;
     width: 100%;
     .cover-controls,
     .cover-image {
-        display: block;
+        display: none;
         position: absolute;
         cursor: pointer;
     }
@@ -149,9 +148,14 @@
         height: 35px;
     }
     &.active {
+        height: 270px;        
         opacity: 1;
         visibility: visible;
         transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+        .cover-controls,
+        .cover-image {
+            display: block;
+        }
     }
 }
 

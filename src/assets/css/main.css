@@ -384,13 +384,12 @@ a:active {
   visibility: hidden;
   transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
   position: relative;
-  height: 270px;
   width: 100%;
 }
 
 #youtube-player .cover-controls,
 #youtube-player .cover-image {
-  display: block;
+  display: none;
   position: absolute;
   cursor: pointer;
 }
@@ -411,9 +410,15 @@ a:active {
 }
 
 #youtube-player.active {
+  height: 270px;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+}
+
+#youtube-player.active .cover-controls,
+#youtube-player.active .cover-image {
+  display: block;
 }
 
 .notif {
