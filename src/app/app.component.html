@@ -1,3 +1,18 @@
+<header>
+  <div class="header-bar">
+      <h1>YouTube Player v1.9.1</h1>
+      <div class="win-controls">
+          <button id="win-minimize" (click)="winMinimize();"></button>
+          <button id="win-maximize" (click)="winMaximize();"></button>
+          <button id="win-close" (click)="winClose();"></button>
+      </div>
+      <div class="mac-controls">
+          <button id="mac-close"></button>
+          <button id="mac-minimize"></button>
+          <button id="mac-maximize"></button>
+      </div>
+  </div>
+</header>
 <div id="app-container" [ngClass]="{'light-mode': !darkMode }">
   <div class="loading-bar inactive"></div>
   <input type="text" class="hide-input" #videoItemIDvalue />

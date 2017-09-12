@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
+import { NwjsService } from './shared/nwjs.service';
 
 @Component({
   selector: 'app-yt',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
   notify: any;
+  nw: any;
   videoRangePercent = 0;
 
   relatedVideos: Array<any>;
@@ -58,22 +60,29 @@ export class AppComponent implements OnInit {
   videoCurVolume = -1;
 
   _shared: any;
-  _update: any;
+  _nwjs: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
-    private update: SharedService,
+    private nwjs: NwjsService
   ) {
     this._shared = shared;
-    this._update = update;
+    this._nwjs = nwjs;
     this.notify = this._shared.notify;
   }
 
   ngOnInit() {
       console.log('app comp');
+      this._nwjs.init().subscribe((data) => {
+        if (typeof data !== 'undefined') {
+          this.nw = data;
+          this.initNWJS();
+          this.initShortcut();
+        }
+      });
       this.preventOldSettings();
       this.setSettings();
       this.getFeedVideos();
@@ -88,7 +97,7 @@ export class AppComponent implements OnInit {
   playerVars() {
     const playerVars = {
       'enablejsapi': 1,
-      'controls': 1,
+      'controls': 0,
       'disablekb': 0,
       'showinfo': 0,
       'playsinline': 1,
@@ -449,6 +458,81 @@ export class AppComponent implements OnInit {
     this.modal = false;
   }
 
+  // ---------------- NwJS Init ----------------
+
+  initNWJS() {
+    const win = this.nw.Window.get();
+
+    win.maximize();
+
+    // Prevent open new window and open in browser
+    this.nw.Window.get().on('new-win-policy', function(frame, url, policy) {
+        policy.ignore();
+        this.nw.Shell.openExternal(url);
+    });
+  }
+
+  initShortcut() {
+    let globalThis = this;
+    var option = [
+      {
+        key : "MediaNextTrack",
+        active : function() {
+          globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);          
+        },
+        failed : function(msg) {
+          console.log(msg);
+        }
+      },
+      {
+        key : "MediaPrevTrack",
+        active : function() {
+          globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
+        },
+        failed : function(msg) {
+          console.log(msg);
+        }
+      },
+      {
+        key : "MediaPlayPause",
+        active : function() {
+          globalThis.playPauseVideo();
+        },
+        failed : function(msg) {
+          console.log(msg);
+        }
+      }
+    ];
+
+    
+    Object.keys(option).map(i => {
+      var shortcut = this.nw.Shortcut(option[i]);
+      this.nw.Shortcut.registerGlobalHotKey(shortcut);
+    });
+  }
+
+  winMaximize() {
+    const win = this.nw.Window.get();
+    let maximized = false;
+    
+    if (maximized) {
+      win.maximize();
+      maximized = true;
+    } else {
+      win.unmaximize();
+      maximized = false;
+    }
+  }
+  
+  winClose() {
+    const win = this.nw.Window.get();
+    win.close();
+  }
+
+  winMinimize() {
+    const win = this.nw.Window.get();
+    win.minimize();
+  }
   // ---------------- Related functions ----------------
 
   onCopyVideoItemLink(i: number, list: number) {

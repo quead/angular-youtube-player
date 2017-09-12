@@ -387,38 +387,11 @@ a:active {
   width: 100%;
 }
 
-#youtube-player .cover-controls,
-#youtube-player .cover-image {
-  display: none;
-  position: absolute;
-  cursor: pointer;
-}
-
-#youtube-player .cover-image {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 225px;
-}
-
-#youtube-player .cover-controls {
-  width: 100%;
-  right: 0;
-  bottom: 0;
-  width: 160px;
-  height: 35px;
-}
-
 #youtube-player.active {
   height: 270px;
   opacity: 1;
   visibility: visible;
   transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
-}
-
-#youtube-player.active .cover-controls,
-#youtube-player.active .cover-image {
-  display: block;
 }
 
 .notif {

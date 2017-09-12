@@ -16,7 +16,7 @@ webpackEmptyAsyncContext.id = "../../../../../src lazy recursive";
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-container\" [ngClass]=\"{'light-mode': !darkMode }\">\r\n  <div class=\"loading-bar inactive\"></div>\r\n  <input type=\"text\" class=\"hide-input\" #videoItemIDvalue />\r\n  <div class=\"container\">\r\n    <div class=\"col col-1\">\r\n        <div class=\"app app-services\">\r\n            <div class=\"app-head\">\r\n                <div id=\"logo\">\r\n                  <div class=\"logo-svg\"></div>\r\n                  <small *ngIf=\"regionCode\">{{ regionCode }}</small>\r\n                </div>\r\n            </div>\r\n            <div class=\"app-content\">\r\n              <nav>\r\n                <ul>\r\n                  <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" title=\"Homepage\"><span class=\"fa fa-home\"></span>Home<span class=\"description\">Trending videos and search</span></a></li>\r\n                  <li><a routerLink=\"/history\" routerLinkActive=\"is-active\" title=\"History page\"><span class=\"fa fa-history\"></span>History<span class=\"description\">Recently played</span></a></li>\r\n                  <li><a routerLink=\"/about\" routerLinkActive=\"is-active\" title=\"About application page\"><span class=\"fa fa-info-circle\"></span>About<span class=\"description\">All informations about the app</span></a></li>\r\n                  <li><a routerLink=\"/settings\" routerLinkActive=\"is-active\" title=\"Settings page\"><span class=\"fa fa-gear\"></span>Settings<span class=\"description\">Change app settings</span></a></li>\r\n                </ul>\r\n              </nav>\r\n              <div id=\"playlist-video-list\" class=\"video-list\">\r\n                <div class=\"video-item-head\">\r\n                    Current playlist\r\n                    <span class=\"video-item-head-btn\" (click)=\"clearPlaylist()\"><span class=\"fa fa-close\"></span>clear</span>\r\n                </div>\r\n                <div class=\"playlist-video-content\" #playlistContainer>\r\n                  <div *ngIf=\"playlistVideos.length === 0\" class=\"video-list-info\">\r\n                    Empty playlist\r\n                  </div>\r\n                  <div *ngFor=\"let playlistVideo of playlistVideos; let i = index\" [ngClass]=\"currentPlaylistItem === i ? 'active' : ''\" [attr.data-index]=\"i\" class=\"video-item\">\r\n                    <div class=\"video-item-info\">\r\n                      <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}\"></div>\r\n                      <div class=\"video-item-content\">\r\n                        <ng-container *ngIf=\"currentPlaylistItem === i &&  currentState === 1\">\r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-play\"></span>Playing</p>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"currentPlaylistItem === i && currentState !== 1 && currentState !== -1\">                        \r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-pause\"></span>Paused</p> \r\n                        </ng-container>                       \r\n                        <ng-container *ngIf=\"currentPlaylistItem === i &&  currentState === -1\">                        \r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-stop\"></span>Not started</p> \r\n                        </ng-container>                       \r\n                        <p class=\"video-item-title\">{{ playlistVideo.snippet.title }}</p>\r\n                        <p class=\"video-item-autor\">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"video-item-settings\">\r\n                      <p class=\"video-item-play\" (click)=\"onClickPlaylist($event, i)\">\r\n                        <span class=\"fa \" [ngClass]=\"currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-share\" (click)=\"onCopyVideoItemLink(i, 3)\">\r\n                        <span class=\"fa fa-share-alt\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-remove\" (click)=\"showModal(i)\">\r\n                        <span class=\"fa fa-times\"></span>\r\n                      </p>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"col col-2\">\r\n        <div class=\"app app-player\">\r\n            <div class=\"app-head\">\r\n                <h2>Player</h2>\r\n                <div class=\"settings\">\r\n                    <p (click)=\"addPlaylistItem(0, 3)\"><span class=\"fa fa-plus-circle\"></span>Add to playlist</p>\r\n                </div>\r\n            </div>\r\n            <div class=\"app-content\">\r\n              <div id=\"youtube-player\" *ngIf=\"feedVideos\" [ngClass]=\"{'active': displayVideoPlayer }\">\r\n                <youtube-player [videoId]=\"currentVideo.id\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n              </div>\r\n              <div *ngIf=\"currentVideo.id\" class=\"current-video-all\">\r\n                  <div class=\"current-video-details\">\r\n                    <p class=\"current-video-name\">{{ currentVideo.title }}</p>\r\n                  </div>\r\n                  <div *ngIf=\"!displayVideoPlayer\" id=\"player-controls\">\r\n                    <div class=\"player-buttons\">\r\n                        <button id=\"previous-song\" (click)=\"playPlaylistItem('prev', currentPlaylistItem)\"><span class=\"fa fa-backward\"></span></button>\r\n                        <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n                        <button id=\"next-song\" (click)=\"playPlaylistItem('next', currentPlaylistItem)\"><span class=\"fa fa-forward\"></span></button>\r\n                    </div>\r\n                    <div class=\"current-video-range\">\r\n                      <div class=\"duration-range-container\">\r\n                        <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n                        <span class=\"test duration-input-shadow\" [ngStyle]=\"{'width': videoRangePercent + '%'}\"></span>\r\n                      </div>\r\n                      <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n                      <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n                    </div>\r\n                    <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n                      <span class=\"fa\" (click)=\"toggleHeadSettings(2)\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n                      <div class=\"volume-input-container\">\r\n                        <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n                        <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"current-video-stats\">\r\n                      <p class=\"stats-views\">{{ currentVideo.stats.views | number:'1.0' }} Views</p>\r\n                      <p class=\"stats-likes\"><span class=\"fa fa-thumbs-up\"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>\r\n                      <p class=\"stats-dislikes\"><span class=\"fa fa-thumbs-down\"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>\r\n                  </div>\r\n                  <div class=\"current-video-share\">\r\n                    <label for=\"shareInput\">Share link</label>\r\n                    <input id=\"shareInput\" type=\"text\" name=\"current video share\" #shareInput [value]=\"shareLink\" (click)=\"copyShareLink(shareInput.select())\" readonly>\r\n                  </div>\r\n              </div>\r\n              <div id=\"related-video-list\" class=\"video-list\" [ngClass]=\"{'activePlayer': displayVideoPlayer }\">\r\n                <div class=\"video-item-head\">\r\n                    Similar videos\r\n                </div>\r\n                <div class=\"related-video-content\">\r\n                  <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\">\r\n                    <div class=\"video-item-info\">\r\n                      <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}\"></div>\r\n                      <div class=\"video-item-content\">\r\n                        <p class=\"video-item-title\">{{ relatedVideo.snippet.title }}</p>\r\n                        <p class=\"video-item-autor\">by <span>{{ relatedVideo.snippet.channelTitle }}</span></p>                      \r\n                      </div>\r\n                    </div>\r\n                    <div class=\"video-item-settings\">\r\n                      <p class=\"video-item-play\" (click)=\"onClickRelated($event, i)\">\r\n                        <span class=\"fa fa-play\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-share\" (click)=\"onCopyVideoItemLink(i, 2)\">\r\n                        <span class=\"fa fa-share-alt\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-add\" (click)=\"addPlaylistItem(i, 2)\">\r\n                        <span class=\"fa fa-plus-circle\"></span>\r\n                      </p>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"col col-3\">\r\n        <div class=\"app app-feed\">\r\n          <router-outlet></router-outlet>\r\n        </div>\r\n        <div [ngClass]=\"{'active': notify.enabled }\" class=\"notif notif-primary\">\r\n          <p>{{ notify.message }}</p>\r\n        </div>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"modal\" class=\"modal-overlay\">\r\n    <div class=\"modal-background-overlay\" (click)=\"closeModal()\"></div>\r\n    <div class=\"modal-container\">\r\n      <h2>Do you want to remove this item from playlist?</h2>\r\n      <div class=\"modal-content\">\r\n        <img src=\"{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}\" alt=\"{{ playlistVideos[modalPlaylistItem].snippet.title }}\" />\r\n        <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>\r\n      </div>\r\n      <div class=\"modal-close\" (click)=\"closeModal()\">\r\n        <span class=\"fa fa-times-circle\"></span>\r\n      </div>\r\n      <div class=\"modal-buttons\">\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"confirmModal()\">Confirm</button>        \r\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"closeModal()\">Cancel</button>        \r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<header>\r\n  <div class=\"header-bar\">\r\n      <h1>YouTube Player v1.9.1</h1>\r\n      <div class=\"win-controls\">\r\n          <button id=\"win-minimize\" (click)=\"winMinimize();\"></button>\r\n          <button id=\"win-maximize\" (click)=\"winMaximize();\"></button>\r\n          <button id=\"win-close\" (click)=\"winClose();\"></button>\r\n      </div>\r\n      <div class=\"mac-controls\">\r\n          <button id=\"mac-close\"></button>\r\n          <button id=\"mac-minimize\"></button>\r\n          <button id=\"mac-maximize\"></button>\r\n      </div>\r\n  </div>\r\n</header>\r\n<div id=\"app-container\" [ngClass]=\"{'light-mode': !darkMode }\">\r\n  <div class=\"loading-bar inactive\"></div>\r\n  <input type=\"text\" class=\"hide-input\" #videoItemIDvalue />\r\n  <div class=\"container\">\r\n    <div class=\"col col-1\">\r\n        <div class=\"app app-services\">\r\n            <div class=\"app-head\">\r\n                <div id=\"logo\">\r\n                  <div class=\"logo-svg\"></div>\r\n                  <small *ngIf=\"regionCode\">{{ regionCode }}</small>\r\n                </div>\r\n            </div>\r\n            <div class=\"app-content\">\r\n              <nav>\r\n                <ul>\r\n                  <li><a routerLink=\"/home\" routerLinkActive=\"is-active\" title=\"Homepage\"><span class=\"fa fa-home\"></span>Home<span class=\"description\">Trending videos and search</span></a></li>\r\n                  <li><a routerLink=\"/history\" routerLinkActive=\"is-active\" title=\"History page\"><span class=\"fa fa-history\"></span>History<span class=\"description\">Recently played</span></a></li>\r\n                  <li><a routerLink=\"/about\" routerLinkActive=\"is-active\" title=\"About application page\"><span class=\"fa fa-info-circle\"></span>About<span class=\"description\">All informations about the app</span></a></li>\r\n                  <li><a routerLink=\"/settings\" routerLinkActive=\"is-active\" title=\"Settings page\"><span class=\"fa fa-gear\"></span>Settings<span class=\"description\">Change app settings</span></a></li>\r\n                </ul>\r\n              </nav>\r\n              <div id=\"playlist-video-list\" class=\"video-list\">\r\n                <div class=\"video-item-head\">\r\n                    Current playlist\r\n                    <span class=\"video-item-head-btn\" (click)=\"clearPlaylist()\"><span class=\"fa fa-close\"></span>clear</span>\r\n                </div>\r\n                <div class=\"playlist-video-content\" #playlistContainer>\r\n                  <div *ngIf=\"playlistVideos.length === 0\" class=\"video-list-info\">\r\n                    Empty playlist\r\n                  </div>\r\n                  <div *ngFor=\"let playlistVideo of playlistVideos; let i = index\" [ngClass]=\"currentPlaylistItem === i ? 'active' : ''\" [attr.data-index]=\"i\" class=\"video-item\">\r\n                    <div class=\"video-item-info\">\r\n                      <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}\"></div>\r\n                      <div class=\"video-item-content\">\r\n                        <ng-container *ngIf=\"currentPlaylistItem === i &&  currentState === 1\">\r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-play\"></span>Playing</p>\r\n                        </ng-container>\r\n                        <ng-container *ngIf=\"currentPlaylistItem === i && currentState !== 1 && currentState !== -1\">                        \r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-pause\"></span>Paused</p> \r\n                        </ng-container>                       \r\n                        <ng-container *ngIf=\"currentPlaylistItem === i &&  currentState === -1\">                        \r\n                          <p class=\"video-item-hint\"><span class=\"fa fa-stop\"></span>Not started</p> \r\n                        </ng-container>                       \r\n                        <p class=\"video-item-title\">{{ playlistVideo.snippet.title }}</p>\r\n                        <p class=\"video-item-autor\">by <span>{{ playlistVideo.snippet.channelTitle }}</span></p>\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"video-item-settings\">\r\n                      <p class=\"video-item-play\" (click)=\"onClickPlaylist($event, i)\">\r\n                        <span class=\"fa \" [ngClass]=\"currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-share\" (click)=\"onCopyVideoItemLink(i, 3)\">\r\n                        <span class=\"fa fa-share-alt\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-remove\" (click)=\"showModal(i)\">\r\n                        <span class=\"fa fa-times\"></span>\r\n                      </p>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"col col-2\">\r\n        <div class=\"app app-player\">\r\n            <div class=\"app-head\">\r\n                <h2>Player</h2>\r\n                <div class=\"settings\">\r\n                    <p (click)=\"addPlaylistItem(0, 3)\"><span class=\"fa fa-plus-circle\"></span>Add to playlist</p>\r\n                </div>\r\n            </div>\r\n            <div class=\"app-content\">\r\n              <div id=\"youtube-player\" *ngIf=\"feedVideos\" [ngClass]=\"{'active': displayVideoPlayer }\">\r\n                <youtube-player [videoId]=\"currentVideo.id\" (ready)=\"savePlayer($event)\" (change)=\"onStateChange($event)\" [playerVars]=\"playerVars()\"></youtube-player>\r\n              </div>\r\n              <div *ngIf=\"currentVideo.id\" class=\"current-video-all\">\r\n                  <div class=\"current-video-details\">\r\n                    <p class=\"current-video-name\">{{ currentVideo.title }}</p>\r\n                  </div>\r\n                  <div *ngIf=\"!displayVideoPlayer\" id=\"player-controls\">\r\n                    <div class=\"player-buttons\">\r\n                        <button id=\"previous-song\" (click)=\"playPlaylistItem('prev', currentPlaylistItem)\"><span class=\"fa fa-backward\"></span></button>\r\n                        <button id=\"play-song\" (click)=\"playPauseVideo()\" ><span class=\"fa\" [ngClass]=\"currentState === 1 ? 'fa-pause' : 'fa-play' \"></span></button>\r\n                        <button id=\"next-song\" (click)=\"playPlaylistItem('next', currentPlaylistItem)\"><span class=\"fa fa-forward\"></span></button>\r\n                    </div>\r\n                    <div class=\"current-video-range\">\r\n                      <div class=\"duration-range-container\">\r\n                        <input type=\"range\" id=\"youtube-player-range\" class=\"player-range\" [ngClass]=\"videoMaxRange <= 0 ? 'inactive' : 'active'\" [value]=\"videoCurRange\" min=\"0\" max=\"{{videoMaxRange}}\" (mousedown)=\"RangeNouseDown($event)\" #videoRange (mouseup)=\"RangeMouseUp(videoRange.value)\">\r\n                        <span class=\"test duration-input-shadow\" [ngStyle]=\"{'width': videoRangePercent + '%'}\"></span>\r\n                      </div>\r\n                      <p class=\"current-video-range-value\">{{videoCurFull}}</p>\r\n                      <p class=\"current-video-range-max-value\">{{videoMaxFull}}</p>\r\n                    </div>\r\n                    <div class=\"volume-range-value\" [ngClass]=\"videoCurVolume <= 0 ? 'inactive' : 'active'\">\r\n                      <span class=\"fa\" (click)=\"toggleHeadSettings(2)\" [ngClass]=\"currentMuteState ? 'fa-volume-off' : 'fa-volume-up'\"></span>\r\n                      <div class=\"volume-input-container\">\r\n                        <input type=\"range\" id=\"youtube-volume-range\" class=\"volume-input\" [value]=\"videoCurVolume\" min=\"0\" max=\"100\" #volumeRange (mouseup)=\"volumeRangeMouseUp(volumeRange.value)\">\r\n                        <span class=\"volume-input-shadow\" [ngClass]=\"{'inactive': currentMuteState }\" [style.width]=\"volumeRange.value + '%'\"></span>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"current-video-stats\">\r\n                      <p class=\"stats-views\">{{ currentVideo.stats.views | number:'1.0' }} Views</p>\r\n                      <p class=\"stats-likes\"><span class=\"fa fa-thumbs-up\"></span> {{ currentVideo.stats.likes | number:'1.0' }}</p>\r\n                      <p class=\"stats-dislikes\"><span class=\"fa fa-thumbs-down\"></span> {{ currentVideo.stats.dislikes | number:'1.0' }}</p>\r\n                  </div>\r\n                  <div class=\"current-video-share\">\r\n                    <label for=\"shareInput\">Share link</label>\r\n                    <input id=\"shareInput\" type=\"text\" name=\"current video share\" #shareInput [value]=\"shareLink\" (click)=\"copyShareLink(shareInput.select())\" readonly>\r\n                  </div>\r\n              </div>\r\n              <div id=\"related-video-list\" class=\"video-list\" [ngClass]=\"{'activePlayer': displayVideoPlayer }\">\r\n                <div class=\"video-item-head\">\r\n                    Similar videos\r\n                </div>\r\n                <div class=\"related-video-content\">\r\n                  <div *ngFor=\"let relatedVideo of relatedVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\">\r\n                    <div class=\"video-item-info\">\r\n                      <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}\"></div>\r\n                      <div class=\"video-item-content\">\r\n                        <p class=\"video-item-title\">{{ relatedVideo.snippet.title }}</p>\r\n                        <p class=\"video-item-autor\">by <span>{{ relatedVideo.snippet.channelTitle }}</span></p>                      \r\n                      </div>\r\n                    </div>\r\n                    <div class=\"video-item-settings\">\r\n                      <p class=\"video-item-play\" (click)=\"onClickRelated($event, i)\">\r\n                        <span class=\"fa fa-play\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-share\" (click)=\"onCopyVideoItemLink(i, 2)\">\r\n                        <span class=\"fa fa-share-alt\"></span>\r\n                      </p>\r\n                      <p class=\"video-item-add\" (click)=\"addPlaylistItem(i, 2)\">\r\n                        <span class=\"fa fa-plus-circle\"></span>\r\n                      </p>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"col col-3\">\r\n        <div class=\"app app-feed\">\r\n          <router-outlet></router-outlet>\r\n        </div>\r\n        <div [ngClass]=\"{'active': notify.enabled }\" class=\"notif notif-primary\">\r\n          <p>{{ notify.message }}</p>\r\n        </div>\r\n    </div>\r\n  </div>\r\n  <div *ngIf=\"modal\" class=\"modal-overlay\">\r\n    <div class=\"modal-background-overlay\" (click)=\"closeModal()\"></div>\r\n    <div class=\"modal-container\">\r\n      <h2>Do you want to remove this item from playlist?</h2>\r\n      <div class=\"modal-content\">\r\n        <img src=\"{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}\" alt=\"{{ playlistVideos[modalPlaylistItem].snippet.title }}\" />\r\n        <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>\r\n      </div>\r\n      <div class=\"modal-close\" (click)=\"closeModal()\">\r\n        <span class=\"fa fa-times-circle\"></span>\r\n      </div>\r\n      <div class=\"modal-buttons\">\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"confirmModal()\">Confirm</button>        \r\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"closeModal()\">Cancel</button>        \r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -28,6 +28,7 @@ module.exports = "<div id=\"app-container\" [ngClass]=\"{'light-mode': !darkMode
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__ = __webpack_require__("../../../../../src/app/shared/nwjs.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -40,11 +41,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppComponent = (function () {
-    function AppComponent(youtube, shared, update) {
+    function AppComponent(youtube, shared, nwjs) {
         this.youtube = youtube;
         this.shared = shared;
-        this.update = update;
+        this.nwjs = nwjs;
         this.videoRangePercent = 0;
         this.playlistVideos = [];
         this.currentVideoObject = [];
@@ -74,11 +76,19 @@ var AppComponent = (function () {
         this.videoCurVolume = -1;
         this.loading = true;
         this._shared = shared;
-        this._update = update;
+        this._nwjs = nwjs;
         this.notify = this._shared.notify;
     }
     AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log('app comp');
+        this._nwjs.init().subscribe(function (data) {
+            if (typeof data !== 'undefined') {
+                _this.nw = data;
+                _this.initNWJS();
+                _this.initShortcut();
+            }
+        });
         this.preventOldSettings();
         this.setSettings();
         this.getFeedVideos();
@@ -90,7 +100,7 @@ var AppComponent = (function () {
     AppComponent.prototype.playerVars = function () {
         var playerVars = {
             'enablejsapi': 1,
-            'controls': 1,
+            'controls': 0,
             'disablekb': 0,
             'showinfo': 0,
             'playsinline': 1,
@@ -421,6 +431,73 @@ var AppComponent = (function () {
         this.removePlaylistItem(this.modalPlaylistItem);
         this.modal = false;
     };
+    // ---------------- NwJS Init ----------------
+    AppComponent.prototype.initNWJS = function () {
+        var win = this.nw.Window.get();
+        win.maximize();
+        // Prevent open new window and open in browser
+        this.nw.Window.get().on('new-win-policy', function (frame, url, policy) {
+            policy.ignore();
+            this.nw.Shell.openExternal(url);
+        });
+    };
+    AppComponent.prototype.initShortcut = function () {
+        var _this = this;
+        var globalThis = this;
+        var option = [
+            {
+                key: "MediaNextTrack",
+                active: function () {
+                    globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
+                },
+                failed: function (msg) {
+                    console.log(msg);
+                }
+            },
+            {
+                key: "MediaPrevTrack",
+                active: function () {
+                    globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
+                },
+                failed: function (msg) {
+                    console.log(msg);
+                }
+            },
+            {
+                key: "MediaPlayPause",
+                active: function () {
+                    globalThis.playPauseVideo();
+                },
+                failed: function (msg) {
+                    console.log(msg);
+                }
+            }
+        ];
+        Object.keys(option).map(function (i) {
+            var shortcut = _this.nw.Shortcut(option[i]);
+            _this.nw.Shortcut.registerGlobalHotKey(shortcut);
+        });
+    };
+    AppComponent.prototype.winMaximize = function () {
+        var win = this.nw.Window.get();
+        var maximized = false;
+        if (maximized) {
+            win.maximize();
+            maximized = true;
+        }
+        else {
+            win.unmaximize();
+            maximized = false;
+        }
+    };
+    AppComponent.prototype.winClose = function () {
+        var win = this.nw.Window.get();
+        win.close();
+    };
+    AppComponent.prototype.winMinimize = function () {
+        var win = this.nw.Window.get();
+        win.minimize();
+    };
     // ---------------- Related functions ----------------
     AppComponent.prototype.onCopyVideoItemLink = function (i, list) {
         var listType;
@@ -505,7 +582,7 @@ AppComponent = __decorate([
         selector: 'app-yt',
         template: __webpack_require__("../../../../../src/app/app.component.html")
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */]) === "function" && _e || Object])
 ], AppComponent);
 
 var _a, _b, _c, _d, _e;
@@ -525,18 +602,20 @@ var _a, _b, _c, _d, _e;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_router__ = __webpack_require__("../../../../../src/app/app.router.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__ = __webpack_require__("../../../../../src/app/shared/lists.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_youtube_settings_component__ = __webpack_require__("../../../../../src/app/components/youtube-settings.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_youtube_search_component__ = __webpack_require__("../../../../../src/app/components/youtube-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_youtube_about_component__ = __webpack_require__("../../../../../src/app/components/youtube-about.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_youtube_history_component__ = __webpack_require__("../../../../../src/app/components/youtube-history.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_ng2_youtube_player__ = __webpack_require__("../../../../ng2-youtube-player/modules/ng2-youtube-player.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_nwjs_service__ = __webpack_require__("../../../../../src/app/shared/nwjs.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__shared_youtube_service__ = __webpack_require__("../../../../../src/app/shared/youtube.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_youtube_settings_component__ = __webpack_require__("../../../../../src/app/components/youtube-settings.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_youtube_search_component__ = __webpack_require__("../../../../../src/app/components/youtube-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_youtube_about_component__ = __webpack_require__("../../../../../src/app/components/youtube-about.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_youtube_history_component__ = __webpack_require__("../../../../../src/app/components/youtube-history.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ng2_youtube_player__ = __webpack_require__("../../../../ng2-youtube-player/modules/ng2-youtube-player.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -561,18 +640,18 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* ReactiveFormsModule */],
-            __WEBPACK_IMPORTED_MODULE_12_ng2_youtube_player__["a" /* YoutubePlayerModule */],
+            __WEBPACK_IMPORTED_MODULE_13_ng2_youtube_player__["a" /* YoutubePlayerModule */],
             __WEBPACK_IMPORTED_MODULE_4__app_router__["a" /* routes */]
         ],
         declarations: [
             __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_8__components_youtube_settings_component__["a" /* SettingsComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__components_youtube_search_component__["a" /* SearchComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__components_youtube_about_component__["a" /* AboutComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__components_youtube_history_component__["a" /* HistoryComponent */]
+            __WEBPACK_IMPORTED_MODULE_9__components_youtube_settings_component__["a" /* SettingsComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__components_youtube_search_component__["a" /* SearchComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__components_youtube_about_component__["a" /* AboutComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__components_youtube_history_component__["a" /* HistoryComponent */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
-        providers: [__WEBPACK_IMPORTED_MODULE_7__shared_youtube_service__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__["a" /* SharedService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_8__shared_youtube_service__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__["a" /* SharedService */], __WEBPACK_IMPORTED_MODULE_7__shared_nwjs_service__["a" /* NwjsService */]]
     })
 ], AppModule);
 
@@ -1172,6 +1251,63 @@ SharedService = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=lists.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/nwjs.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NwjsService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+function _window() {
+    // return the native window obj
+    return window;
+}
+var NwjsService = (function () {
+    function NwjsService() {
+        this.mw = _window().mw;
+    }
+    NwjsService.prototype.init = function () {
+        var _this = this;
+        return new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
+            if (_this.mw) {
+                observer.next(_this.mw);
+                return observer.complete();
+            }
+            else {
+                if (typeof _this.mw === 'undefined') {
+                    _this.mw = _window().nw;
+                    observer.next(_this.mw);
+                    observer.complete();
+                }
+            }
+        });
+    };
+    return NwjsService;
+}());
+NwjsService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [])
+], NwjsService);
+
+//# sourceMappingURL=nwjs.service.js.map
 
 /***/ }),
 
