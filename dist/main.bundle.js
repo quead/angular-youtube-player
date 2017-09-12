@@ -1,15 +1,19 @@
 webpackJsonp(["main"],{
 
-/***/ "../../../../../src lazy recursive":
+/***/ "../../../../../src/$$_gendir lazy recursive":
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
-	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
 }
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "../../../../../src lazy recursive";
+webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 
 /***/ }),
 
@@ -100,7 +104,7 @@ var AppComponent = (function () {
     AppComponent.prototype.playerVars = function () {
         var playerVars = {
             'enablejsapi': 1,
-            'controls': 0,
+            'controls': 1,
             'disablekb': 0,
             'showinfo': 0,
             'playsinline': 1,
@@ -446,7 +450,7 @@ var AppComponent = (function () {
         var globalThis = this;
         var option = [
             {
-                key: "MediaNextTrack",
+                key: 'MediaNextTrack',
                 active: function () {
                     globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
                 },
@@ -455,7 +459,7 @@ var AppComponent = (function () {
                 }
             },
             {
-                key: "MediaPrevTrack",
+                key: 'MediaPrevTrack',
                 active: function () {
                     globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
                 },
@@ -464,7 +468,7 @@ var AppComponent = (function () {
                 }
             },
             {
-                key: "MediaPlayPause",
+                key: 'MediaPlayPause',
                 active: function () {
                     globalThis.playPauseVideo();
                 },

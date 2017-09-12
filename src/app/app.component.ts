@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
   playerVars() {
     const playerVars = {
       'enablejsapi': 1,
-      'controls': 0,
+      'controls': 1,
       'disablekb': 0,
       'showinfo': 0,
       'playsinline': 1,
@@ -473,19 +473,19 @@ export class AppComponent implements OnInit {
   }
 
   initShortcut() {
-    let globalThis = this;
-    var option = [
+    const globalThis = this;
+    const option = [
       {
-        key : "MediaNextTrack",
+        key : 'MediaNextTrack',
         active : function() {
-          globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);          
+          globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
         },
         failed : function(msg) {
           console.log(msg);
         }
       },
       {
-        key : "MediaPrevTrack",
+        key : 'MediaPrevTrack',
         active : function() {
           globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
         },
@@ -494,7 +494,7 @@ export class AppComponent implements OnInit {
         }
       },
       {
-        key : "MediaPlayPause",
+        key : 'MediaPlayPause',
         active : function() {
           globalThis.playPauseVideo();
         },
@@ -504,9 +504,8 @@ export class AppComponent implements OnInit {
       }
     ];
 
-    
     Object.keys(option).map(i => {
-      var shortcut = this.nw.Shortcut(option[i]);
+      const shortcut = this.nw.Shortcut(option[i]);
       this.nw.Shortcut.registerGlobalHotKey(shortcut);
     });
   }
@@ -514,7 +513,7 @@ export class AppComponent implements OnInit {
   winMaximize() {
     const win = this.nw.Window.get();
     let maximized = false;
-    
+
     if (maximized) {
       win.maximize();
       maximized = true;
@@ -523,7 +522,7 @@ export class AppComponent implements OnInit {
       maximized = false;
     }
   }
-  
+
   winClose() {
     const win = this.nw.Window.get();
     win.close();
