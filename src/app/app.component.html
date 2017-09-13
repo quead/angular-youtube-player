@@ -12,8 +12,15 @@
           <button id="mac-maximize"></button>
       </div>
   </div>
+  <div class="device-bar">
+    <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
+    <div id="logo">
+        <a routerLink="/home" class="logo-svg-small" title="Homepage"></a>
+        <small *ngIf="regionCode">{{ regionCode }}</small>
+      </div>
+  </div>
 </header>
-<div id="app-container" [ngClass]="{'light-mode': !darkMode }">
+<div id="app-container" [ngClass]="{'light-mode': !darkMode, 'menu-active': menuActive }">
   <div class="loading-bar inactive"></div>
   <input type="text" class="hide-input" #videoItemIDvalue />
   <div class="container">
@@ -160,6 +167,7 @@
           <router-outlet></router-outlet>
         </div>
         <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
+          <span class="fa fa-cog fa-spin fa-fw"></span>
           <p>{{ notify.message }}</p>
         </div>
     </div>
@@ -172,9 +180,9 @@
         <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
         <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
       </div>
-      <div class="modal-close" (click)="closeModal()">
-        <span class="fa fa-times-circle"></span>
-      </div>
+      <button class="modal-close" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
       <div class="modal-buttons">
         <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
         <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        

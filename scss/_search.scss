@@ -14,14 +14,21 @@
         border: none;
         display: block;
         width: 100%;
-        padding: 15px 40px 15px 15px;
+        padding: 10px 40px 10px 20px;
+        border-radius: 20px;
         margin: 0;
         outline: 0;
         position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background-color: var(--c-gray);
+        background-color: rgba(255, 255, 255, 0.1);
         color: inherit;
         z-index: 1;
+        transition: all 0.1s ease-out;
+        &:focus {
+            background-color: var(--c-black);
+        }
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: var(--c-white);
+        }
     }
     .clear-button {
         border: none;
@@ -47,10 +54,5 @@
         display: flex;
         margin-top: 20px;
         align-items: center;
-    }
-    &:hover {
-        input[type="text"] {
-            background-color: var(--c-black);
-        }
     }
 }

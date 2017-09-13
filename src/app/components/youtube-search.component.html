@@ -1,5 +1,5 @@
 <div class="app-head">
-    <h2>Home</h2>
+    <h2>Search</h2>
 </div>
 <div class="app-content">
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
@@ -9,7 +9,9 @@
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>
-      <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
+      <ng-container *ngIf="searchForm.valid">
+      <span class="search-list arrow-up"></span>
+      <div id="search-video-list" class="video-list">
         <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
           <div class="video-item-info">
             <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
@@ -31,6 +33,7 @@
           </div>
         </div>
       </div>
+      </ng-container>
   </form>
   <ng-container *ngIf="feedVideos">
     <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">

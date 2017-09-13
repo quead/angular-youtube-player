@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
 
   thumbnails = true;
   darkMode = true;
+  menuActive = false;
 
   modal = false;
   modalPlaylistItem: number;
@@ -532,6 +533,14 @@ export class AppComponent implements OnInit {
     win.minimize();
   }
   // ---------------- Related functions ----------------
+
+  openMobileMenu() {
+    if (this.menuActive) {
+      this.menuActive = false;
+    } else {
+      this.menuActive = true;
+    }
+  }
 
   onCopyVideoItemLink(i: number, list: number) {
     let listType;

@@ -53,8 +53,7 @@ Just take files from ***dist*** folder
 
 ## Changelog
 Angular2 YT Player v2.0
-- Global hotkeys for application in desktop (play/pause/next/prev)
-- Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux
+- Webpage is now fully responsive
 
 Angular2 YT Player v1.9.1
 - Get settings.json for localstorage if your localstorage is empty
@@ -132,6 +131,10 @@ Angular2 YT Player v1.0.0
 - Change and create theme **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
+
+#### Roadmap to 2.0
+- Global hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
+- Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
 
 #### Roadmap to 3.0
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**

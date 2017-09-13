@@ -21,9 +21,6 @@ body {
     -webkit-app-region: no-drag;
     overflow: hidden;
     animation: loading-animation 2s 1;
-    @media screen and (max-width: 991px) {
-        overflow: visible;
-    }
 }
 
 a,

@@ -56,6 +56,14 @@
     top: -9999px;
 }
 
+.arrow-up {
+    width: 0px;
+    height: 0px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--c-primary-inverse);
+}
+
 .fa-color-danger {
     color: var(--c-primary);
 }
@@ -152,6 +160,7 @@
     z-index: 1;
     p {
         margin: 0;
+        display: inline-block;
     }
     &.active {
         bottom: 0;
@@ -219,12 +228,22 @@
     top: 13px;
     right: 15px;
     cursor: pointer;
+    background: transparent;
+    padding: 0;
+    border: none;
+    transition: all 0.1s ease-out;
     span {
         font-size: $f-18;
         color: rgba(0, 0, 0, 0.6);
         &:active {
             color: var(--c-black);
         }
+    }
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active {
+        transform: scale(1);
     }
 }
 

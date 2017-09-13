@@ -31,20 +31,23 @@ iframe {
     }
 }
 
+.search-list.arrow-up {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 #search-video-list {
     z-index: 10;
     max-height: 430px;
-    border: 1px solid #1f1f1f;
-    background-color: var(--c-black);
+    background-color: var(--c-primary-inverse);
     .video-item {
-        background-color: var(--c-black);
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+        background-color: var(--c-primary-inverse);
     }
     &::-webkit-scrollbar {
         width: 6px;
-        background-color: var(--c-black);
+        background-color: var(--c-primary-inverse);
     }
     &::-webkit-scrollbar-thumb {
         background-color: rgba(#FFF, 0.3);
@@ -165,17 +168,18 @@ iframe {
             border: none;
             margin: 0 5px;
             cursor: pointer;        
-            transition: all 0.1s ease-in-out;      
-        }
-        .video-item-share {
+            transition: all 0.1s ease-in-out;
             &:hover {
-                color: var(--c-white);
-                background-color: var(--c-primary);
+                color: var(--c-black);
+                background-color: var(--c-white);
             }
             &:active {
-                color: var(--c-white);
-                background-color: var(--c-primary-active);
-            }
+                color: var(--c-black);
+                background-color: var(--c-soft-white);
+            } 
+        }
+        .video-item-share {
+
         }
         .video-item-play {
             .fa {
@@ -187,32 +191,10 @@ iframe {
             .fa-pause {
                 margin-left: 1px;
             }
-            &:hover {
-                color: var(--c-white);
-                background-color: var(--c-primary);
-            }
-            &:active {
-                color: var(--c-white);
-                background-color: var(--c-primary-active);
-            }
-        }
-        .video-item-remove {
-            &:hover {
-                background-color: var(--c-danger);
-            }
-            &:active {
-                background-color: var(--c-danger-active);
-            }
         }
         .video-item-add {
             .fa {
                 position: relative;
-            }
-            &:hover {
-                background-color: var(--c-success);
-            }
-            &:active {
-                background-color: var(--c-success-active);
             }
         }
     }
@@ -222,6 +204,7 @@ iframe {
     &-hint {
         text-transform: uppercase;
         font-size: $f-10;
+        line-height: 16px;
         border: 1px solid var(--c-primary);
         color: var(--c-primary);
         display: none;
@@ -271,7 +254,7 @@ iframe {
         }
     
         &::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
             background-color: var(--c-dark-gray);
         }
     
@@ -383,7 +366,7 @@ iframe {
         content: '';
         display: block;
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.6);        
+        background-color: rgba(0, 0, 0, 0.6);
         top: 0;
         left: 0;
         width: 100%;
@@ -394,7 +377,7 @@ iframe {
 #feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 258px);
+    height: calc(100% - 246px);
     width: calc(100% - 40px);
     max-height: none;
     .video-item {
