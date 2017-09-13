@@ -21,7 +21,7 @@
         <div class="app app-services">
             <div class="app-head">
                 <div id="logo">
-                  <div class="logo-svg"></div>
+                  <a routerLink="/home" class="logo-svg" title="Homepage"></a>
                   <small *ngIf="regionCode">{{ regionCode }}</small>
                 </div>
             </div>
@@ -37,7 +37,7 @@
               <div id="playlist-video-list" class="video-list">
                 <div class="video-item-head">
                     Current playlist
-                    <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
+                    <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
                 </div>
                 <div class="playlist-video-content" #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
@@ -61,15 +61,15 @@
                       </div>
                     </div>
                     <div class="video-item-settings">
-                      <p class="video-item-play" (click)="onClickPlaylist($event, i)">
+                      <button class="video-item-play" (click)="onClickPlaylist($event, i)">
                         <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-                      </p>
-                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
+                      </button>
+                      <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
                         <span class="fa fa-share-alt"></span>
-                      </p>
-                      <p class="video-item-remove" (click)="showModal(i)">
+                      </button>
+                      <button class="video-item-remove" (click)="showModal(i)">
                         <span class="fa fa-times"></span>
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -139,15 +139,15 @@
                       </div>
                     </div>
                     <div class="video-item-settings">
-                      <p class="video-item-play" (click)="onClickRelated($event, i)">
+                      <button class="video-item-play" (click)="onClickRelated($event, i)">
                         <span class="fa fa-play"></span>
-                      </p>
-                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
+                      </button>
+                      <button class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
                         <span class="fa fa-share-alt"></span>
-                      </p>
-                      <p class="video-item-add" (click)="addPlaylistItem(i, 2)">
+                      </button>
+                      <button class="video-item-add" (click)="addPlaylistItem(i, 2)">
                         <span class="fa fa-plus-circle"></span>
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>

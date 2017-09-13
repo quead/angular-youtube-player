@@ -465,8 +465,7 @@ export class AppComponent implements OnInit {
 
     win.maximize();
 
-    // Prevent open new window and open in browser
-    this.nw.Window.get().on('new-win-policy', function(frame, url, policy) {
+    this.nw.Window.get().on('new-win-policy', (frame, url, policy) => {
         policy.ignore();
         this.nw.Shell.openExternal(url);
     });
@@ -477,28 +476,28 @@ export class AppComponent implements OnInit {
     const option = [
       {
         key : 'MediaNextTrack',
-        active : function() {
+        active : () => {
           globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
         },
-        failed : function(msg) {
+        failed : (msg) => {
           console.log(msg);
         }
       },
       {
         key : 'MediaPrevTrack',
-        active : function() {
+        active : () => {
           globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
         },
-        failed : function(msg) {
+        failed : (msg) => {
           console.log(msg);
         }
       },
       {
         key : 'MediaPlayPause',
-        active : function() {
+        active : () => {
           globalThis.playPauseVideo();
         },
-        failed : function(msg) {
+        failed : (msg) => {
           console.log(msg);
         }
       }

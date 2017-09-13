@@ -14,7 +14,7 @@ select {
         height: 20px;
         width: 40px;
         border-radius: 50px;
-        transition: background-color 0.2s ease-out;
+        transition: background-color 0.1s ease-out;
     }
     &:after {
         content: '';
@@ -27,7 +27,7 @@ select {
         z-index: 1;
         left: 2px;
         top: 2px;
-        transition: left 0.2s ease-out;
+        transition: left 0.1s ease-out;
     }
 }
 

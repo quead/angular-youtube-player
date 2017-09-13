@@ -66,13 +66,18 @@ iframe {
         cursor: pointer;
         color: var(--c-wihte);
         border-radius: 3px;
-        padding: 2px 8px;
+        padding: 4px 8px;
         margin-top: 2px;
-        text-transform: uppercase;
+        text-transform: capitalize;
         font-size: $f-11;
+        border: none;
+        display: block;
+        user-select: none;
         &:hover {
             background-color: var(--c-primary-active);
-            user-select: none;
+        }
+        &:active {
+            background-color: var(--c-primary-active-focus);
         }
     }
     .fa {
@@ -96,6 +101,26 @@ iframe {
     }
     .video-item-autor {
         font-size: $f-12;
+    }
+    &-image {
+        display: block;
+        height: 60px;
+        width: 80px;
+        background-position: center center;
+        margin-right: 15px;
+        transition: all 0.1s ease-out;
+    }
+    .video-item-details {
+        display: flex;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 400;
+        font-size: $f-12;
+        p {
+            margin: 0 15px 0 0;
+        }
+        .fa {
+            margin-right: 3px;
+        }
     }
     &-content {
         width: 100%;
@@ -130,18 +155,17 @@ iframe {
         align-items: center;
         justify-content: center;
         transition: all 0.1s ease-in-out;      
-        > p {
-            margin: 0 5px;
-            cursor: pointer;        
-            transition: all 0.1s ease-in-out;      
-        }
-        p[class^="video-item-"] {
+        > button {
             background-color: var(--c-light-gray);
+            color: inherit;
             height: 30px;
             width: 30px;
             border-radius: 50%;
             text-align: center;
-            line-height: 30px;
+            border: none;
+            margin: 0 5px;
+            cursor: pointer;        
+            transition: all 0.1s ease-in-out;      
         }
         .video-item-share {
             &:hover {
@@ -182,8 +206,6 @@ iframe {
         }
         .video-item-add {
             .fa {
-                top: 1px;
-                margin-left: 1px;
                 position: relative;
             }
             &:hover {
@@ -198,7 +220,6 @@ iframe {
         line-height: 18px;
     }
     &-hint {
-        //display: none;
         text-transform: uppercase;
         font-size: $f-10;
         border: 1px solid var(--c-primary);
@@ -218,32 +239,15 @@ iframe {
             opacity: 1;
             visibility: visible;
         }
+        .video-item-image {
+            transform: scale(1.1);
+        }
     }
     &.active {
         background-color: var(--c-black);
         .video-item-hint {
             display: inline-block;
         }
-    }
-}
-
-.video-item-image {
-    display: block;
-    height: 60px;
-    width: 80px;
-    background-position: center center;
-    margin-right: 15px;
-}
-
-.video-item-details {
-    display: flex;
-    color: rgba(255, 255, 255, 0.45);
-    p {
-        margin: 0 15px 0 0;
-        font-size: $f-12;
-    }
-    .fa {
-        margin-right: 3px;
     }
 }
 
@@ -334,6 +338,7 @@ iframe {
         padding-right: 0;
         transform: scale(1);
         opacity: 0.6;
+        background: transparent;
         &:hover {
             opacity: 1;
         }
@@ -358,7 +363,7 @@ iframe {
                 display: inline-block;
             }
         }
-        &-settings {
+        &-settings-featured {
             opacity: 1;
             visibility: visible;
             background-color: transparent;
@@ -369,13 +374,16 @@ iframe {
             width: auto;
             margin-top: 15px;
             justify-content: flex-start;
+            button + button {
+                margin-left: 10px;
+            }
         }
     }
     &:before {
         content: '';
         display: block;
         position: absolute;
-        background-color: rgba(0, 0, 0, 0.5);        
+        background-color: rgba(0, 0, 0, 0.6);        
         top: 0;
         left: 0;
         width: 100%;
@@ -423,6 +431,7 @@ iframe {
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
+                transition: all 0.1s ease-in-out;
                 &:before {
                     content: '';
                     display: block;
@@ -453,13 +462,18 @@ iframe {
                 }
             }
             &:hover {
-                .video-item-info {
-                    left: 0;
-                }
-                .video-item-settings {
-                    opacity: 1;
-                    visibility: visible;
-                    top: 0;
+                .video-item {
+                    &-info {
+                        left: 0;
+                    }
+                    &-settings {
+                        opacity: 1;
+                        visibility: visible;
+                        top: 0;
+                    }
+                    &-image {
+                        transform: scale(1.1);
+                    }
                 }
             }
             @media screen and (max-width: 1400px) and (min-width: 992px) {
