@@ -26,7 +26,7 @@
         &:focus {
             background-color: var(--c-black);
         }
-        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        &::-webkit-input-placeholder {
             color: var(--c-white);
         }
     }

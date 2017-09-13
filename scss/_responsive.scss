@@ -4,7 +4,7 @@
     }
 }
 
-@media screen and (max-width: 1199px) and (min-width: 992px) {
+@media screen and (max-width: 1199px) and (min-width: 768px) {
     .col {
         &-2,
         &-3 {
@@ -87,6 +87,18 @@
     }
 }
 
+@media screen and (max-width: 991px) and (min-width: 768px) {
+    .btn {
+        padding: 5px 12px;
+    }
+    .video-list-featured .video-item {
+        max-width: 100%;
+    }
+    .video-list-featured .video-item-settings-featured button + button {
+        margin-left: 6px;
+    }
+}
+/*
 @media screen and (max-width: 991px) {
     body {
         overflow: visible;
@@ -102,4 +114,4 @@
         }
         
     }
-}
+}*/
