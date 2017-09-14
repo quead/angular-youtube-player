@@ -1302,10 +1302,15 @@ nav a:hover {
 nav a.is-active, nav a:active {
   opacity: 1;
   color: var(--c-primary);
+  text-shadow: 0 0 10px var(--c-primary);
 }
 
 nav a.is-active .fa, nav a:active .fa {
   color: var(--c-primary);
+}
+
+nav a.is-active .description, nav a:active .description {
+  text-shadow: none;
 }
 
 #main-search {
@@ -1953,6 +1958,7 @@ iframe {
   background-color: #2f2e36;
   border-left-color: #5f5d6d;
   color: var(--c-white);
+  text-shadow: none;
 }
 
 #app-container.light-mode .video-item-settings button {

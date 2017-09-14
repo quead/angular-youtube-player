@@ -38,8 +38,12 @@ nav {
         &:active {
             opacity: 1;
             color: var(--c-primary);
+            text-shadow: 0 0 10px var(--c-primary);
             .fa {
                 color: var(--c-primary);
+            }
+            .description {
+                text-shadow: none;
             }
         }
     }
