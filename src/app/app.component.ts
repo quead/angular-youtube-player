@@ -51,6 +51,8 @@ export class AppComponent implements OnInit {
   currentState = -1;
   currentMuteState = false;
 
+  videoRangeMouseActive = false;
+  volumeRangeMouseActive = false;
   videoRangeTimer: any;
   videoCurRange = 0;
   videoMaxRange = 0;
@@ -134,7 +136,7 @@ export class AppComponent implements OnInit {
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
       this.findPlaylistItem();
-  }
+    }
 
   onStateChange(event) {
     this.currentState = event.data;
@@ -173,6 +175,7 @@ export class AppComponent implements OnInit {
     this.stopRange();
     if (this.currentState) {
       this.videoRangeTimer = setInterval(() => {
+        console.log('Rangeu merge de nebun...');
         this.videoCurRange = this.player.getCurrentTime();
         this.videoCurFull = this.timeFormat(this.videoCurRange);
         this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
@@ -421,18 +424,44 @@ export class AppComponent implements OnInit {
     }
   }
 
-  RangeNouseDown(event: Event) {
-    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-    if (event['buttons'] === 1) {
+  RangeNouseDown() {
+    this.videoRangeMouseActive = true;
+    this.stopRange();
+  }
+  
+  RangeMouseMove(value: number) {
+      if (this.videoRangeMouseActive) {
+        this.videoCurRange = value;
+        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
+        this.videoCurFull = this.timeFormat(this.videoCurRange);
+      }
+  }
+  
+  RangeMouseUp(value: number) {
+    if (this.currentState !== -1 && this.currentState !== 1) {
+      this.player.playVideo();
+    }
+    if (this.currentState === 1) {
+      this.startRange();
+    } else {
       this.stopRange();
     }
-  }
-
-  RangeMouseUp(value: number) {
-    this.player.seekTo(value, true);
+    
     this.videoCurRange = value;
     this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-    this.startRange();
+    this.videoCurFull = this.timeFormat(this.videoCurRange);
+
+    this.player.seekTo(this.videoCurRange, true);
+    this.videoRangeMouseActive = false;
+  }
+
+  volumeRangeMouseMove(value: number) {
+    if (this.volumeRangeMouseActive) {
+      if (this.currentMuteState) {
+        this.player.unMute();
+        this.currentMuteState = false;
+      }
+    }
   }
 
   volumeRangeMouseUp(value: number) {
@@ -441,6 +470,13 @@ export class AppComponent implements OnInit {
       this.currentMuteState = false;
     }
     this.player.setVolume(value);
+  }
+
+  checkVolumeRange() {
+    if (this.currentState !== -1) {
+      this.currentMuteState = this.player.isMuted();
+      this.videoCurVolume = this.player.getVolume();
+    }
   }
 
   // ---------------- Modal functions ----------------

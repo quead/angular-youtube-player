@@ -253,3 +253,11 @@ input[type="checkbox"]:checked + label .round-check:before, input[type="radio"]:
         border-color: rgba(0, 0, 0, 0.1);
     }
 }
+
+.volume-input,
+.player-range {
+    &::-webkit-slider-thumb {
+        background-color: var(--c-primary);
+        border: 1px solid var(--c-primary-active);
+    }
+}

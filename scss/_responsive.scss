@@ -50,10 +50,13 @@
 }
 
 @media screen and (max-width: 1199px) {
+    body {
+        padding-top: 45px;
+    }
     .col {
         &-1 {
             left: -350px;
-            position: absolute;
+            position: fixed;
             height: 100%;
             z-index: 2;
             background-color: var(--c-black);
@@ -71,6 +74,22 @@
         }
     }
     
+    .app {
+        &-head {
+            padding: 15px 10px 0;
+            height: 55px;
+            h2 {
+                font-size: $f-20;
+            }
+            .settings {
+                margin-top: 5px;
+            }
+        }
+        &-content {
+            position: relative;
+        }
+    }
+    
     .app-services {
         .app-head {
             display: none;
@@ -80,10 +99,20 @@
         }
     }
 
+    .app-feed {
+        .app-content {
+            padding: 0 10px;
+        }
+    }
+
     .menu-active {
         .col-1 {
             left: 0;
         }
+    }
+    .notif {
+        position: fixed;
+        z-index: 3;
     }
 }
 
@@ -98,6 +127,41 @@
         margin-left: 6px;
     }
 }
+
+@media screen and (max-width: 767px) {
+    body {
+        overflow: visible;
+    }
+    .app {
+        position: relative;
+    }
+    .col {
+        &-2,
+        &-3 {
+            width: 100%;
+        }
+    }
+    #app-container {
+        & > .container {
+            flex-wrap: wrap;
+        }
+    }
+    .app-content {
+        overflow: visible;
+    }
+
+    #related-video-list {
+        position: relative;
+        height: auto;
+        display: block;
+        margin-top: 10px;
+        .related-video-content {
+            position: relative;
+            height: 160px;
+        }
+    }
+}
+
 /*
 @media screen and (max-width: 991px) {
     body {

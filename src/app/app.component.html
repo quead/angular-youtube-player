@@ -108,8 +108,8 @@
                     </div>
                     <div class="current-video-range">
                       <div class="duration-range-container">
-                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
-                        <span class="test duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
+                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="RangeNouseDown()" (mousemove)="RangeMouseMove(videoRange.value)" (mouseup)="RangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
+                        <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
                       </div>
                       <p class="current-video-range-value">{{videoCurFull}}</p>
                       <p class="current-video-range-max-value">{{videoMaxFull}}</p>
@@ -117,7 +117,7 @@
                     <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
                       <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
                       <div class="volume-input-container">
-                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove(volumeRange.value)" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                         <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
                       </div>
                     </div>

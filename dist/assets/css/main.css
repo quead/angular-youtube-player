@@ -302,7 +302,7 @@ a:active {
   height: 0px;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid var(--c-primary-inverse);
+  border-bottom: 7px solid var(--c-black);
 }
 
 .fa-color-danger {
@@ -677,7 +677,7 @@ a:active {
 .current-video-range .current-video-range-max-value,
 .current-video-range .current-video-range-value {
   position: absolute;
-  top: -4px;
+  top: -6px;
   margin: 0;
   color: var(--c-white);
 }
@@ -693,7 +693,6 @@ a:active {
 .player-range {
   width: 100%;
   height: 16px;
-  overflow: hidden;
   cursor: pointer;
   background: transparent;
   -webkit-appearance: none;
@@ -721,13 +720,12 @@ a:active {
 
 .duration-range-container {
   position: relative;
-  height: 12px;
+  height: 9px;
   background-color: var(--c-light-gray);
   width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 20px;
-  overflow: hidden;
 }
 
 .duration-range-container .duration-input-shadow {
@@ -737,7 +735,6 @@ a:active {
   height: 100%;
   border-radius: 0;
   background-color: var(--c-primary);
-  transition: all 0.1s ease-out;
   border-radius: 20px;
 }
 
@@ -745,19 +742,35 @@ a:active {
   -webkit-appearance: none;
   z-index: 1;
   position: relative;
+  overflow: visible;
 }
 
-.duration-range-container .player-range::-webkit-slider-runnable-track, .duration-range-container .player-range::-webkit-slider-thumb {
-  background: transparent;
+.duration-range-container .player-range::-webkit-slider-thumb {
+  position: relative;
+  -webkit-appearance: none;
+  top: -4px;
+  height: 16px;
+  width: 16px;
+  border-radius: 50px;
+  background-color: var(--c-white);
+  opacity: 0;
   visibility: hidden;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
-.duration-range-container .player-range:hover + .duration-input-shadow {
+.duration-range-container .player-range:active + .duration-input-shadow, .duration-range-container .player-range:hover + .duration-input-shadow {
   background-color: var(--c-primary-active);
+  border-radius: 20px 0 0 20px;
 }
 
-.duration-range-container .player-range:active + .duration-input-shadow {
-  background-color: var(--c-primary-active-focus);
+.duration-range-container .player-range:active::-webkit-slider-thumb, .duration-range-container .player-range:hover::-webkit-slider-thumb {
+  opacity: 1;
+  visibility: visible;
+}
+
+.duration-range-container .player-range:disabled::-webkit-slider-thumb {
+  display: none;
 }
 
 .volume-input-container {
@@ -766,7 +779,6 @@ a:active {
   height: 8px;
   background-color: var(--c-light-gray);
   border-radius: 5px;
-  overflow: hidden;
 }
 
 .volume-input-container .volume-input-shadow {
@@ -776,7 +788,6 @@ a:active {
   height: 100%;
   border-radius: 20px;
   background-color: var(--c-primary);
-  transition: all 0.1s ease-out;
 }
 
 .volume-input-container .volume-input-shadow.inactive {
@@ -796,17 +807,28 @@ a:active {
   z-index: 1;
 }
 
-.volume-input-container .volume-input::-webkit-slider-runnable-track, .volume-input-container .volume-input::-webkit-slider-thumb {
-  background: transparent;
+.volume-input-container .volume-input::-webkit-slider-thumb {
+  position: relative;
+  -webkit-appearance: none;
+  top: -2px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50px;
+  background-color: var(--c-white);
+  opacity: 0;
   visibility: hidden;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 }
 
-.volume-input-container .volume-input:hover + .volume-input-shadow {
+.volume-input-container .volume-input:active + .volume-input-shadow, .volume-input-container .volume-input:hover + .volume-input-shadow {
   background-color: var(--c-primary-active);
+  border-radius: 20px 0 0 20px;
 }
 
-.volume-input-container .volume-input:active + .volume-input-shadow {
-  background-color: var(--c-primary-active-focus);
+.volume-input-container .volume-input:active::-webkit-slider-thumb, .volume-input-container .volume-input:hover::-webkit-slider-thumb {
+  opacity: 1;
+  visibility: visible;
 }
 
 select {
@@ -1150,7 +1172,9 @@ input[type="radio"]:checked + label .round-check:after {
   height: 45px;
   width: 100%;
   background-color: var(--c-black);
-  position: relative;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }
 
 .device-bar .trigger-nav {
@@ -1363,16 +1387,20 @@ iframe {
 #search-video-list {
   z-index: 10;
   max-height: 430px;
-  background-color: var(--c-primary-inverse);
+  background-color: var(--c-black);
 }
 
 #search-video-list .video-item {
-  background-color: var(--c-primary-inverse);
+  background-color: var(--c-black);
+}
+
+#search-video-list .video-item-settings {
+  background-color: rgba(97, 97, 105, 0.4);
 }
 
 #search-video-list::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-primary-inverse);
+  background-color: var(--c-black);
 }
 
 #search-video-list::-webkit-scrollbar-thumb {
@@ -2101,6 +2129,12 @@ iframe {
   border-color: rgba(0, 0, 0, 0.1);
 }
 
+#app-container.light-mode .volume-input::-webkit-slider-thumb,
+#app-container.light-mode .player-range::-webkit-slider-thumb {
+  background-color: var(--c-primary);
+  border: 1px solid var(--c-primary-active);
+}
+
 @media screen and (min-width: 1200px) {
   .device-bar {
     display: none;
@@ -2145,9 +2179,12 @@ iframe {
 }
 
 @media screen and (max-width: 1199px) {
+  body {
+    padding-top: 45px;
+  }
   .col-1 {
     left: -350px;
-    position: absolute;
+    position: fixed;
     height: 100%;
     z-index: 2;
     background-color: var(--c-black);
@@ -2159,14 +2196,34 @@ iframe {
   #feed-video-list::-webkit-scrollbar {
     width: 8px;
   }
+  .app-head {
+    padding: 15px 10px 0;
+    height: 55px;
+  }
+  .app-head h2 {
+    font-size: 20px;
+  }
+  .app-head .settings {
+    margin-top: 5px;
+  }
+  .app-content {
+    position: relative;
+  }
   .app-services .app-head {
     display: none;
   }
   .app-services .app-content {
     height: 100%;
   }
+  .app-feed .app-content {
+    padding: 0 10px;
+  }
   .menu-active .col-1 {
     left: 0;
+  }
+  .notif {
+    position: fixed;
+    z-index: 3;
   }
 }
 
@@ -2179,6 +2236,34 @@ iframe {
   }
   .video-list-featured .video-item-settings-featured button + button {
     margin-left: 6px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    overflow: visible;
+  }
+  .app {
+    position: relative;
+  }
+  .col-2, .col-3 {
+    width: 100%;
+  }
+  #app-container > .container {
+    flex-wrap: wrap;
+  }
+  .app-content {
+    overflow: visible;
+  }
+  #related-video-list {
+    position: relative;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+  }
+  #related-video-list .related-video-content {
+    position: relative;
+    height: 160px;
   }
 }
 

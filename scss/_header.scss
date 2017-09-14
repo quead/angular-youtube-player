@@ -195,7 +195,9 @@
     height: 45px;
     width: 100%;
     background-color: var(--c-black);
-    position: relative;
+    position: fixed;
+    top: 0;
+    z-index: 2;
     .trigger-nav {
         padding: 0;
         border: none;
