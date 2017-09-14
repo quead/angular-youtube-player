@@ -99,19 +99,25 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        &:not(#play-song):hover {
+            text-shadow: 0 0 10px var(--c-primary);
+        }
         &:not(#play-song):active {
             transform: scale(1.2);
         }
     }
     #play-song { 
         background-color: var(--c-primary);
-        color: var(--c-base);
+        color: var(--c-white);
         border-radius: 50%;
         span {
             margin-left: 1px;
             &.fa-pause {
                 margin-left: 0;
             }
+        }
+        &:hover {
+            box-shadow: 0 0 10px var(--c-primary);
         }
         &:active {
             transform: scale(1.1);
@@ -159,6 +165,12 @@
         margin-right: auto;
         cursor: pointer;
     }
+    .fa {
+        transition: all 0.1s ease-in-out;
+        &:hover {
+            text-shadow: 0 0 10px var(--c-primary);
+        }
+    }
     &.inactive .volume-input {
         visibility: hidden;
     }
@@ -180,6 +192,8 @@
         border-radius: 0;
         background-color: var(--c-primary);
         border-radius: 20px;
+        box-shadow: 0 0 10px transparent;        
+        transition: box-shadow 0.2s ease-out;
     }
     .player-range {
         -webkit-appearance: none;
@@ -202,7 +216,7 @@
         &:active,
         &:hover {
             + .duration-input-shadow {
-                background-color: var(--c-primary-active);
+                box-shadow: 0 0 10px var(--c-primary);
                 border-radius: 20px 0 0 20px;
             }
             &::-webkit-slider-thumb {
@@ -231,6 +245,8 @@
         height: 100%;
         border-radius: 20px;
         background-color: var(--c-primary);
+        box-shadow: 0 0 10px transparent;        
+        transition: box-shadow 0.2s ease-out;
         &.inactive {
             width: 0% !important;
         }
@@ -262,7 +278,7 @@
         &:active,
         &:hover {
             + .volume-input-shadow {
-                background-color: var(--c-primary-active);
+                box-shadow: 0 0 10px var(--c-primary);
                 border-radius: 20px 0 0 20px;
             }
             &::-webkit-slider-thumb {

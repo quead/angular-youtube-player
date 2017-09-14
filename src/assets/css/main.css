@@ -42,9 +42,9 @@
 
 :root {
   --c-base: #1e232f;
-  --c-primary: #d42222;
-  --c-primary-active: #bb2222;
-  --c-primary-active-focus: #9c1717;
+  --c-primary: red;
+  --c-primary-active: #d42222;
+  --c-primary-active-focus: #bb2222;
   --c-primary-inverse: #27272d;
   --c-danger: red;
   --c-danger-active: #D30000;
@@ -166,11 +166,11 @@ a:active {
 }
 
 .btn-primary:hover {
-  background-color: var(--c-primary-active);
+  box-shadow: 0 0 10px var(--c-primary);
 }
 
 .btn-primary:active {
-  background-color: var(--c-primary-active-focus);
+  background-color: var(--c-primary-active);
 }
 
 .btn-primary-inverse {
@@ -657,13 +657,17 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
+.player-buttons button:not(#play-song):hover {
+  text-shadow: 0 0 10px var(--c-primary);
+}
+
 .player-buttons button:not(#play-song):active {
   transform: scale(1.2);
 }
 
 .player-buttons #play-song {
   background-color: var(--c-primary);
-  color: var(--c-base);
+  color: var(--c-white);
   border-radius: 50%;
 }
 
@@ -673,6 +677,10 @@ a:active {
 
 .player-buttons #play-song span.fa-pause {
   margin-left: 0;
+}
+
+.player-buttons #play-song:hover {
+  box-shadow: 0 0 10px var(--c-primary);
 }
 
 .player-buttons #play-song:active {
@@ -726,6 +734,14 @@ a:active {
   cursor: pointer;
 }
 
+.volume-range-value .fa {
+  transition: all 0.1s ease-in-out;
+}
+
+.volume-range-value .fa:hover {
+  text-shadow: 0 0 10px var(--c-primary);
+}
+
 .volume-range-value.inactive .volume-input {
   visibility: hidden;
 }
@@ -748,6 +764,8 @@ a:active {
   border-radius: 0;
   background-color: var(--c-primary);
   border-radius: 20px;
+  box-shadow: 0 0 10px transparent;
+  transition: box-shadow 0.2s ease-out;
 }
 
 .duration-range-container .player-range {
@@ -772,7 +790,7 @@ a:active {
 }
 
 .duration-range-container .player-range:active + .duration-input-shadow, .duration-range-container .player-range:hover + .duration-input-shadow {
-  background-color: var(--c-primary-active);
+  box-shadow: 0 0 10px var(--c-primary);
   border-radius: 20px 0 0 20px;
 }
 
@@ -800,6 +818,8 @@ a:active {
   height: 100%;
   border-radius: 20px;
   background-color: var(--c-primary);
+  box-shadow: 0 0 10px transparent;
+  transition: box-shadow 0.2s ease-out;
 }
 
 .volume-input-container .volume-input-shadow.inactive {
@@ -834,7 +854,7 @@ a:active {
 }
 
 .volume-input-container .volume-input:active + .volume-input-shadow, .volume-input-container .volume-input:hover + .volume-input-shadow {
-  background-color: var(--c-primary-active);
+  box-shadow: 0 0 10px var(--c-primary);
   border-radius: 20px 0 0 20px;
 }
 
@@ -1447,11 +1467,11 @@ iframe {
 }
 
 .video-item-head-btn:hover {
-  background-color: var(--c-primary-active);
+  box-shadow: 0 0 10px var(--c-primary);
 }
 
 .video-item-head-btn:active {
-  background-color: var(--c-primary-active-focus);
+  background-color: var(--c-primary-active);
 }
 
 .video-item-head .fa {
