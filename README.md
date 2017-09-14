@@ -53,8 +53,7 @@ Just take files from ***dist*** folder
 
 ## Changelog
 Angular2 YT Player v1.9.2
-- Webpage is now fully responsive
-- UX improvements
+- UX improvements and fixes
 
 Angular2 YT Player v1.9.1
 - Get settings.json for localstorage if your localstorage is empty

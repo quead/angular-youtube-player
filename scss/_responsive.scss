@@ -143,7 +143,10 @@
     }
     #app-container {
         & > .container {
-            flex-wrap: wrap;
+            display: block;
+        }
+        &.light-mode > .container {
+            background-color: var(--c-white);            
         }
     }
     .app-content {
@@ -160,22 +163,25 @@
             height: 160px;
         }
     }
-}
 
-/*
-@media screen and (max-width: 991px) {
-    body {
-        overflow: visible;
+    #feed-video-list {
+        position: relative;
+        width: 100%;
     }
-    .contanier {
+
+    .video-list-featured {
+        margin: 10px -10px 0;
+    }
+
+    .form-select, .form-text {
         display: block;
-    }
-    .col {
-        &-2,
-        &-3 {
-            width: 100%;
-            height: 100%;            
+        label {
+            margin-bottom: 5px;
         }
-        
     }
-}*/
+
+    #playlist-video-list .playlist-video-content {
+        bottom: 45px;
+        height: calc(100% - 84px);
+    }
+}

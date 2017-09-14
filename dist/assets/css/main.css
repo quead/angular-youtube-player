@@ -203,7 +203,7 @@ a:active {
 }
 
 :root {
-  --menu-diff: 175px;
+  --menu-diff: 160px;
 }
 
 .container {
@@ -216,7 +216,7 @@ a:active {
 }
 
 .col-1 {
-  width: 350px;
+  width: 320px;
 }
 
 .col-2 {
@@ -2250,7 +2250,10 @@ iframe {
     width: 100%;
   }
   #app-container > .container {
-    flex-wrap: wrap;
+    display: block;
+  }
+  #app-container.light-mode > .container {
+    background-color: var(--c-white);
   }
   .app-content {
     overflow: visible;
@@ -2265,25 +2268,25 @@ iframe {
     position: relative;
     height: 160px;
   }
+  #feed-video-list {
+    position: relative;
+    width: 100%;
+  }
+  .video-list-featured {
+    margin: 10px -10px 0;
+  }
+  .form-select, .form-text {
+    display: block;
+  }
+  .form-select label, .form-text label {
+    margin-bottom: 5px;
+  }
+  #playlist-video-list .playlist-video-content {
+    bottom: 45px;
+    height: calc(100% - 84px);
+  }
 }
 
-/*
-@media screen and (max-width: 991px) {
-    body {
-        overflow: visible;
-    }
-    .contanier {
-        display: block;
-    }
-    .col {
-        &-2,
-        &-3 {
-            width: 100%;
-            height: 100%;            
-        }
-        
-    }
-}*/
 .application #app-container > .container {
   height: calc(100% - 26px);
 }

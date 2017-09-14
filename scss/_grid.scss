@@ -1,5 +1,5 @@
 :root {
-    --menu-diff: 175px;
+    --menu-diff: 160px;
 }
 
 .container {
@@ -10,7 +10,7 @@
 .col {
     position: relative;
     &-1 {
-        width: 350px;
+        width: 320px;
     }
     &-2 {
         width: calc(40% - var(--menu-diff));
