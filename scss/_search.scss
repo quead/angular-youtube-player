@@ -19,7 +19,7 @@
         margin: 0;
         outline: 0;
         position: relative;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: var(--c-gray);
         color: inherit;
         z-index: 1;
         transition: all 0.1s ease-out;

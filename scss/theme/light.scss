@@ -7,10 +7,6 @@
     color: var(--c-white);
 }
 
-.logo-svg {
-    @include icon-svg(logo, 111px, 25px, red, white, white);
-}
-
 .col-2,
 .col-3 {
     background-color: var(--c-white);
@@ -113,7 +109,7 @@ nav {
         &-settings {
             background-color: transparent;
         }
-        &-content > p {
+        &-content {
             color: var(--c-white);
         }
     }
@@ -163,7 +159,7 @@ nav {
     background-color: var(--c-white);
     &.grid-list {
         .video-item {
-            &-content > p {
+            &-content {
                 color: var(--c-white);
             }
         }
@@ -260,4 +256,8 @@ input[type="checkbox"]:checked + label .round-check:before, input[type="radio"]:
         background-color: var(--c-primary);
         border: 1px solid var(--c-primary-active);
     }
+}
+
+.app-feed:before {
+    display: none;
 }

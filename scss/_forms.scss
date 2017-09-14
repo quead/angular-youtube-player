@@ -10,7 +10,7 @@ select {
     &:before {
         content: '';
         display: block;
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         height: 20px;
         width: 40px;
         border-radius: 50px;
@@ -52,11 +52,11 @@ input[type="radio"]:checked {
     .form-field {
         margin-left: auto;
         padding: 10px 15px;
-        border: 1px solid var(--c-gray);
+        border: 1px solid var(--c-black);
         color: var(--c-white);
         min-width: 250px;
         font-weight: 300;        
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         border-radius: 0;
         outline: 0;
         &:disabled {

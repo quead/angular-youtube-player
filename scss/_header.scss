@@ -145,10 +145,10 @@
 
 .logo-svg {
     display: block;
-    @include icon-svg(logo, 111px, 25px, white, white, #17171d);
+    @include icon-svg(logo, 111px, 25px, red, white, white);
     transition: all 0.1s ease-out;
     &:hover {
-        @include icon-svg(logo, 111px, 25px, red, white, white);
+        @include icon-svg(logo, 111px, 25px, white, white, #17171d);
     }
 }
 
@@ -194,7 +194,7 @@
 .device-bar {
     height: 45px;
     width: 100%;
-    background-color: var(--c-black);
+    background-color: var(--c-gray);
     position: fixed;
     top: 0;
     z-index: 2;

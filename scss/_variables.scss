@@ -60,7 +60,8 @@ $f-32: 32px;
 
 // If you don't use darken and other sass functions use this
 :root {
-    --c-base: #17171d;
+    // un albastru smecher de tinut minte #1e232f old -> #17171d
+    --c-base: #1e232f;
     --c-primary: #d42222;
     --c-primary-active: #bb2222;  
     --c-primary-active-focus: #9c1717;

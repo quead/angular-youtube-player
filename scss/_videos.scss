@@ -45,7 +45,7 @@ iframe {
     .video-item {
         background-color: var(--c-black);
         &-settings {
-            background-color: rgba(97, 97, 105, 0.4);
+            background-color: rgba(30, 35, 47, 0.6);
         }
     }
     &::-webkit-scrollbar {
@@ -105,8 +105,9 @@ iframe {
         font-size: $f-14;
         margin: 0;
     }
-    .video-item-autor {
+    &-autor {
         font-size: $f-12;
+        color: #888888;
     }
     &-image {
         display: block;
@@ -383,6 +384,7 @@ iframe {
     height: calc(100% - 246px);
     width: calc(100% - 40px);
     max-height: none;
+    background-color: var(--c-gray);
     .video-item {
         &:first-child {
             display: none !important;
