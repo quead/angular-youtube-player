@@ -45,7 +45,7 @@ iframe {
     .video-item {
         background-color: var(--c-black);
         &-settings {
-            background-color: rgba(30, 35, 47, 0.6);
+            background-color: rgba(41, 41, 53, 0.5);
         }
     }
     &::-webkit-scrollbar {
@@ -74,8 +74,8 @@ iframe {
         border-radius: 3px;
         padding: 4px 8px;
         margin-top: 2px;
-        text-transform: capitalize;
-        font-size: $f-11;
+        text-transform: uppercase;
+        font-size: $f-10;
         border: none;
         display: block;
         user-select: none;
@@ -163,7 +163,7 @@ iframe {
         justify-content: center;
         transition: all 0.1s ease-in-out;      
         > button {
-            background-color: var(--c-light-gray);
+            background-color: var(--c-black);
             color: inherit;
             height: 30px;
             width: 30px;
@@ -231,7 +231,7 @@ iframe {
         }
     }
     &.active {
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         .video-item-hint {
             display: inline-block;
         }
