@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class YoutubeGetVideo {
 
+
     private apiKey: string;
     private url = 'https://www.googleapis.com/youtube/v3/';
     public regionCode: string;

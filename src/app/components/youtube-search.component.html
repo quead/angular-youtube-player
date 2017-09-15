@@ -1,5 +1,5 @@
 <div class="app-head">
-    <h2>Home</h2>
+    <h2>Search</h2>
 </div>
 <div class="app-content">
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
@@ -9,7 +9,9 @@
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>
-      <div *ngIf="searchForm.valid" id="search-video-list" class="video-list">
+      <ng-container *ngIf="searchForm.valid">
+      <span class="search-list arrow-up"></span>
+      <div id="search-video-list" class="video-list">
         <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
           <div class="video-item-info">
             <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
@@ -19,18 +21,19 @@
             </div>
           </div>
           <div class="video-item-settings">
-            <p class="video-item-play" (click)="onClickVideo($event, i, 1)">
+            <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
               <span class="fa fa-play"></span>
-            </p>
-            <p class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
+            </button>
+            <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
               <span class="fa fa-share-alt"></span>
-            </p>
-            <p class="video-item-add" (click)="addPlaylistItem(i, 1)">
+            </button>
+            <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
               <span class="fa fa-plus-circle"></span>
-            </p>
+            </button>
           </div>
         </div>
       </div>
+      </ng-container>
   </form>
   <ng-container *ngIf="feedVideos">
     <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
@@ -47,16 +50,16 @@
               </div>
             </div>
           </div>
-          <div class="video-item-settings">
-            <p class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
+          <div class="video-item-settings-featured">
+            <button class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
               <span class="fa fa-play"></span>Play video
-            </p>
-            <p class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
+            </button>
+            <button class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
               <span class="fa fa-plus-circle"></span>Add to playlist
-            </p>
-            <p class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
+            </button>
+            <button class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
               <span class="fa fa-share-alt"></span>Copy link
-            </p>
+            </button>
           </div>
         </div>
        <!--
@@ -79,15 +82,15 @@
           </div>
         </div>
         <div class="video-item-settings">
-            <p class="video-item-play" (click)="onClickVideo($event, i, 3)">
+            <button class="video-item-play" (click)="onClickVideo($event, i, 3)">
               <span class="fa fa-play"></span>
-            </p>
-            <p class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
+            </button>
+            <button class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
               <span class="fa fa-share-alt"></span>
-            </p>
-            <p class="video-item-add" (click)="addPlaylistItem(i, 0)">
+            </button>
+            <button class="video-item-add" (click)="addPlaylistItem(i, 0)">
               <span class="fa fa-plus-circle"></span>
-            </p>
+            </button>
           </div>
       </div>
     </div>

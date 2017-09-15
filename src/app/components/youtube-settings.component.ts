@@ -83,6 +83,7 @@ export class SettingsComponent implements OnInit {
             this._shared.form_settings = this.internal_settings;
 
             this._app.setSettings();
+            this._app.checkVolumeRange();
             this._search.setSettings();
             this._shared.updateSettings();
 

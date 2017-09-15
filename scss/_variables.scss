@@ -1,7 +1,45 @@
-/* --- Colors --- */
-// Base colors
-
 /* --- Fonts --- */
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 100;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff");
+  }
+  
+  /** Thin */
+  @font-face {
+    font-family: "San Francisco";
+    font-weight: 200;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff");
+  }
+  
+  /** Regular */
+  @font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+  }
+  
+  /** Medium */
+  @font-face {
+    font-family: "San Francisco";
+    font-weight: 500;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff");
+  }
+  
+  /** Semi Bold */
+  @font-face {
+    font-family: "San Francisco";
+    font-weight: 600;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff");
+  }
+  
+  /** Bold */ 
+  @font-face {
+    font-family: "San Francisco";
+    font-weight: 700;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+  }
+
 // Font sizes
 $f-8: 8px;
 $f-9: 9px;
@@ -22,11 +60,12 @@ $f-32: 32px;
 
 // If you don't use darken and other sass functions use this
 :root {
-    --c-base: #17171d;
-    --c-primary: #d42222;
-    --c-primary-active: #bb2222;  
-    --c-primary-active-focus: #9c1717;
-    --c-primary-inverse: #232228;
+    // un albastru smecher de tinut minte #1e232f old -> #17171d #1b2029
+    --c-base: #212129;
+    --c-primary: red;
+    --c-primary-active: #d42222;
+    --c-primary-active-focus: #bb2222;
+    --c-primary-inverse: #27272d;
     
     --c-danger: red;
     --c-danger-active: #D30000;
@@ -38,6 +77,7 @@ $f-32: 32px;
     --c-light-gray: rgba(#000, 0.6);
     --c-dark-gray: rgba(#000, 0.2);
     --c-white: #ffffff;
+    --c-soft-white: #DFDFDF;
     --c-black: #000000;
 }
 

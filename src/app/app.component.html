@@ -1,4 +1,26 @@
-<div id="app-container" [ngClass]="{'light-mode': !darkMode }">
+<header>
+  <div class="header-bar">
+      <h1>YouTube Player v1.9.1</h1>
+      <div class="win-controls">
+          <button id="win-minimize" (click)="winMinimize();"></button>
+          <button id="win-maximize" (click)="winMaximize();"></button>
+          <button id="win-close" (click)="winClose();"></button>
+      </div>
+      <div class="mac-controls">
+          <button id="mac-close"></button>
+          <button id="mac-minimize"></button>
+          <button id="mac-maximize"></button>
+      </div>
+  </div>
+  <div class="device-bar">
+    <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
+    <div id="logo">
+        <a routerLink="/home" class="logo-svg-small" title="Homepage"></a>
+        <small *ngIf="regionCode">{{ regionCode }}</small>
+      </div>
+  </div>
+</header>
+<div id="app-container" [ngClass]="{'light-mode': !darkMode, 'menu-active': menuActive }">
   <div class="loading-bar inactive"></div>
   <input type="text" class="hide-input" #videoItemIDvalue />
   <div class="container">
@@ -6,7 +28,7 @@
         <div class="app app-services">
             <div class="app-head">
                 <div id="logo">
-                  <div class="logo-svg"></div>
+                  <a routerLink="/home" class="logo-svg" title="Homepage"></a>
                   <small *ngIf="regionCode">{{ regionCode }}</small>
                 </div>
             </div>
@@ -22,7 +44,7 @@
               <div id="playlist-video-list" class="video-list">
                 <div class="video-item-head">
                     Current playlist
-                    <span class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</span>
+                    <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
                 </div>
                 <div class="playlist-video-content" #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
@@ -46,15 +68,15 @@
                       </div>
                     </div>
                     <div class="video-item-settings">
-                      <p class="video-item-play" (click)="onClickPlaylist($event, i)">
+                      <button class="video-item-play" (click)="onClickPlaylist($event, i)">
                         <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-                      </p>
-                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
+                      </button>
+                      <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
                         <span class="fa fa-share-alt"></span>
-                      </p>
-                      <p class="video-item-remove" (click)="showModal(i)">
+                      </button>
+                      <button class="video-item-remove" (click)="showModal(i)">
                         <span class="fa fa-times"></span>
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -86,8 +108,8 @@
                     </div>
                     <div class="current-video-range">
                       <div class="duration-range-container">
-                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" (mousedown)="RangeNouseDown($event)" #videoRange (mouseup)="RangeMouseUp(videoRange.value)">
-                        <span class="test duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
+                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="RangeNouseDown()" (mousemove)="RangeMouseMove(videoRange.value)" (mouseup)="RangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
+                        <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
                       </div>
                       <p class="current-video-range-value">{{videoCurFull}}</p>
                       <p class="current-video-range-max-value">{{videoMaxFull}}</p>
@@ -95,7 +117,7 @@
                     <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
                       <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
                       <div class="volume-input-container">
-                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove(volumeRange.value)" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                         <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
                       </div>
                     </div>
@@ -124,15 +146,15 @@
                       </div>
                     </div>
                     <div class="video-item-settings">
-                      <p class="video-item-play" (click)="onClickRelated($event, i)">
+                      <button class="video-item-play" (click)="onClickRelated($event, i)">
                         <span class="fa fa-play"></span>
-                      </p>
-                      <p class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
+                      </button>
+                      <button class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
                         <span class="fa fa-share-alt"></span>
-                      </p>
-                      <p class="video-item-add" (click)="addPlaylistItem(i, 2)">
+                      </button>
+                      <button class="video-item-add" (click)="addPlaylistItem(i, 2)">
                         <span class="fa fa-plus-circle"></span>
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -145,6 +167,7 @@
           <router-outlet></router-outlet>
         </div>
         <div [ngClass]="{'active': notify.enabled }" class="notif notif-primary">
+          <span class="fa fa-cog fa-spin fa-fw"></span>
           <p>{{ notify.message }}</p>
         </div>
     </div>
@@ -157,9 +180,9 @@
         <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
         <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
       </div>
-      <div class="modal-close" (click)="closeModal()">
-        <span class="fa fa-times-circle"></span>
-      </div>
+      <button class="modal-close" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
       <div class="modal-buttons">
         <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
         <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        

@@ -6,6 +6,7 @@ import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
 import { SharedService } from './shared/lists.service';
+import { NwjsService } from './shared/nwjs.service';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
@@ -30,7 +31,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     HistoryComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo, SharedService ]
+  providers:    [ YoutubeGetVideo, SharedService, NwjsService ]
 })
 
 export class AppModule { }

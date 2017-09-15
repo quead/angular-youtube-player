@@ -1,16 +1,16 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="http://i.imgur.com/YbcAno9.png" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GmAP7ip.png" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.9.1-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v1.9.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.3, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
@@ -52,6 +52,9 @@ Just take files from ***dist*** folder
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
 
 ## Changelog
+Angular2 YT Player v1.9.2
+- UX improvements and fixes
+- Preparing files for 2.0
 
 Angular2 YT Player v1.9.1
 - Get settings.json for localstorage if your localstorage is empty
@@ -131,8 +134,9 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 2.0
+- Global hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
 - Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
-- Hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
+- Auto updating the app (desktop version) **(in v2.0)**
 
 #### Roadmap to 3.0
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**

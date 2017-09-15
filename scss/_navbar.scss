@@ -16,7 +16,7 @@ nav {
         padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;
         opacity: 0.3;
-        font-weight: bold;
+        font-weight: 400;
         letter-spacing: 0.3px;
         .fa {
             color: var(--c-white);
@@ -38,8 +38,12 @@ nav {
         &:active {
             opacity: 1;
             color: var(--c-primary);
+            text-shadow: 0 0 10px var(--c-primary);
             .fa {
                 color: var(--c-primary);
+            }
+            .description {
+                text-shadow: none;
             }
         }
     }

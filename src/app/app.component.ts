@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
+import { NwjsService } from './shared/nwjs.service';
 
 @Component({
   selector: 'app-yt',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
   notify: any;
+  nw: any;
   videoRangePercent = 0;
 
   relatedVideos: Array<any>;
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
 
   thumbnails = true;
   darkMode = true;
+  menuActive = false;
 
   modal = false;
   modalPlaylistItem: number;
@@ -48,6 +51,8 @@ export class AppComponent implements OnInit {
   currentState = -1;
   currentMuteState = false;
 
+  videoRangeMouseActive = false;
+  volumeRangeMouseActive = false;
   videoRangeTimer: any;
   videoCurRange = 0;
   videoMaxRange = 0;
@@ -58,22 +63,29 @@ export class AppComponent implements OnInit {
   videoCurVolume = -1;
 
   _shared: any;
-  _update: any;
+  _nwjs: any;
 
   loading = true;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
-    private update: SharedService,
+    private nwjs: NwjsService
   ) {
     this._shared = shared;
-    this._update = update;
+    this._nwjs = nwjs;
     this.notify = this._shared.notify;
   }
 
   ngOnInit() {
       console.log('app comp');
+      this._nwjs.init().subscribe((data) => {
+        if (typeof data !== 'undefined') {
+          this.nw = data;
+          this.initNWJS();
+          this.initShortcut();
+        }
+      });
       this.preventOldSettings();
       this.setSettings();
       this.getFeedVideos();
@@ -124,7 +136,7 @@ export class AppComponent implements OnInit {
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
       this.findPlaylistItem();
-  }
+    }
 
   onStateChange(event) {
     this.currentState = event.data;
@@ -163,6 +175,7 @@ export class AppComponent implements OnInit {
     this.stopRange();
     if (this.currentState) {
       this.videoRangeTimer = setInterval(() => {
+        console.log('Rangeu merge de nebun...');
         this.videoCurRange = this.player.getCurrentTime();
         this.videoCurFull = this.timeFormat(this.videoCurRange);
         this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
@@ -411,18 +424,44 @@ export class AppComponent implements OnInit {
     }
   }
 
-  RangeNouseDown(event: Event) {
-    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-    if (event['buttons'] === 1) {
+  RangeNouseDown() {
+    this.videoRangeMouseActive = true;
+    this.stopRange();
+  }
+  
+  RangeMouseMove(value: number) {
+      if (this.videoRangeMouseActive) {
+        this.videoCurRange = value;
+        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
+        this.videoCurFull = this.timeFormat(this.videoCurRange);
+      }
+  }
+  
+  RangeMouseUp(value: number) {
+    if (this.currentState !== -1 && this.currentState !== 1) {
+      this.player.playVideo();
+    }
+    if (this.currentState === 1) {
+      this.startRange();
+    } else {
       this.stopRange();
     }
-  }
-
-  RangeMouseUp(value: number) {
-    this.player.seekTo(value, true);
+    
     this.videoCurRange = value;
     this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-    this.startRange();
+    this.videoCurFull = this.timeFormat(this.videoCurRange);
+
+    this.player.seekTo(this.videoCurRange, true);
+    this.videoRangeMouseActive = false;
+  }
+
+  volumeRangeMouseMove(value: number) {
+    if (this.volumeRangeMouseActive) {
+      if (this.currentMuteState) {
+        this.player.unMute();
+        this.currentMuteState = false;
+      }
+    }
   }
 
   volumeRangeMouseUp(value: number) {
@@ -431,6 +470,13 @@ export class AppComponent implements OnInit {
       this.currentMuteState = false;
     }
     this.player.setVolume(value);
+  }
+
+  checkVolumeRange() {
+    if (this.currentState !== -1) {
+      this.currentMuteState = this.player.isMuted();
+      this.videoCurVolume = this.player.getVolume();
+    }
   }
 
   // ---------------- Modal functions ----------------
@@ -449,7 +495,88 @@ export class AppComponent implements OnInit {
     this.modal = false;
   }
 
+  // ---------------- NwJS Init ----------------
+
+  initNWJS() {
+    const win = this.nw.Window.get();
+
+    win.maximize();
+
+    this.nw.Window.get().on('new-win-policy', (frame, url, policy) => {
+        policy.ignore();
+        this.nw.Shell.openExternal(url);
+    });
+  }
+
+  initShortcut() {
+    const globalThis = this;
+    const option = [
+      {
+        key : 'MediaNextTrack',
+        active : () => {
+          globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
+        },
+        failed : (msg) => {
+          console.log(msg);
+        }
+      },
+      {
+        key : 'MediaPrevTrack',
+        active : () => {
+          globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
+        },
+        failed : (msg) => {
+          console.log(msg);
+        }
+      },
+      {
+        key : 'MediaPlayPause',
+        active : () => {
+          globalThis.playPauseVideo();
+        },
+        failed : (msg) => {
+          console.log(msg);
+        }
+      }
+    ];
+
+    Object.keys(option).map(i => {
+      const shortcut = this.nw.Shortcut(option[i]);
+      this.nw.Shortcut.registerGlobalHotKey(shortcut);
+    });
+  }
+
+  winMaximize() {
+    const win = this.nw.Window.get();
+    let maximized = false;
+
+    if (maximized) {
+      win.maximize();
+      maximized = true;
+    } else {
+      win.unmaximize();
+      maximized = false;
+    }
+  }
+
+  winClose() {
+    const win = this.nw.Window.get();
+    win.close();
+  }
+
+  winMinimize() {
+    const win = this.nw.Window.get();
+    win.minimize();
+  }
   // ---------------- Related functions ----------------
+
+  openMobileMenu() {
+    if (this.menuActive) {
+      this.menuActive = false;
+    } else {
+      this.menuActive = true;
+    }
+  }
 
   onCopyVideoItemLink(i: number, list: number) {
     let listType;

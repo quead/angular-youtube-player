@@ -10,11 +10,11 @@ select {
     &:before {
         content: '';
         display: block;
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         height: 20px;
         width: 40px;
         border-radius: 50px;
-        transition: background-color 0.2s ease-out;
+        transition: background-color 0.1s ease-out;
     }
     &:after {
         content: '';
@@ -27,7 +27,7 @@ select {
         z-index: 1;
         left: 2px;
         top: 2px;
-        transition: left 0.2s ease-out;
+        transition: left 0.1s ease-out;
     }
 }
 
@@ -52,11 +52,11 @@ input[type="radio"]:checked {
     .form-field {
         margin-left: auto;
         padding: 10px 15px;
-        border: 1px solid var(--c-gray);
+        border: 1px solid var(--c-black);
         color: var(--c-white);
         min-width: 250px;
         font-weight: 300;        
-        background-color: var(--c-black);
+        background-color: var(--c-gray);
         border-radius: 0;
         outline: 0;
         &:disabled {
