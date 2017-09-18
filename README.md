@@ -4,13 +4,13 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.9.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
 
@@ -40,7 +40,7 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm install -g gulp`
 
-4. Start compiling the SCSS files by
+3. Start compiling the SCSS files by
 
 `gulp sw` in root folder
 
@@ -49,7 +49,9 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 **For building app**
 
 1. Build the src folder with
-`ng build` in root folder (you need to have angular-cli installed on global)
+`ng build` in root folder
+*You need to have angular-cli installed on global (check above)*
+*This is compiling typescript into Javascript*
 
 2. Copy package.json from **/app** folder and paste it to **dist** folder
 3. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
@@ -57,6 +59,9 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 5. Run
 
 `gulp build` in root folder
+*This is compiling javascript into desktop app*
+
+6. In release folder (root) you have the compiled apps
 
 **For personal use**
 
