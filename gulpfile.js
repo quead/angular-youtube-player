@@ -3,13 +3,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var exec = require('child_process').exec;
-var NwBuilder = require('nw-builder');
-
-var nw = new NwBuilder({
-    files: 'dist/**/**',
-    platforms: ['win64'],
-    version: '0.25.2'
-});
 
 gulp.task('sass', function() {
     return gulp.src('scss/main.scss')
@@ -26,25 +19,31 @@ gulp.task('sw', ['sass'], function() {
 });
 
 gulp.task('build', function() {
-    console.log('Not started');
+    console.log('Installing packages...');
     exec('npm install', { cwd: 'dist', stdio: 'inherit' }, function (error, stdout, stderr) {
         if (stderr !== null) {
-            console.log('stderr' + stderr);
+            console.log(stderr);
         }
         if (stdout !== null) {
-            console.log('stdout' + stdout);
+            console.log(stdout);
         }
         if (error !== null) {
-            console.log('error' + error);
+            console.log(error);
         }
     }).on('close', done);
 
     function done() {
-        nw.build().then(function () {
-            console.log('all done!');
-         }).catch(function (error) {
-             console.error(error);
-         });
+        exec('npm run package', { cwd: 'dist', stdio: 'inherit' }, function (error, stdout, stderr) {
+            if (stderr !== null) {
+                console.log(stderr);
+            }
+            if (stdout !== null) {
+                console.log(stdout);
+            }
+            if (error !== null) {
+                console.log(error);
+            }
+        });
     }
 });
 

@@ -18,7 +18,7 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 ## Usage
 
-**For angular2/typescript development**
+**For Angular and Typescript Development**
 1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
 2. Install [angular-cli 1.1.3+](https://github.com/angular/angular-cli "Angular Cli")
 
@@ -32,7 +32,6 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm start` in root folder
 
-------
 
 **For SASS development**
 
@@ -43,7 +42,21 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 4. Start compiling the SCSS files by
 
-`gulp`
+`gulp sw` in root folder
+
+------
+
+**For building app**
+
+1. Build the src folder with
+`ng build` in root folder (you need to have angular-cli installed on global)
+
+2. Copy package.json from **/app** folder and paste it to **dist** folder
+3. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
+4. Path your system enviroment to folder where you unarchived
+5. Run
+
+`gulp build` in root folder
 
 **For personal use**
 
