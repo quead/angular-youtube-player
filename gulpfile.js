@@ -2,7 +2,9 @@
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var exec = require('child_process').exec;
 var NwBuilder = require('nw-builder');
+
 var nw = new NwBuilder({
     files: 'dist/**/**',
     platforms: ['win64'],
@@ -24,11 +26,26 @@ gulp.task('sw', ['sass'], function() {
 });
 
 gulp.task('build', function() {
-    nw.build().then(function () {
-        console.log('all done!');
-     }).catch(function (error) {
-         console.error(error);
-     });
+    console.log('Not started');
+    exec('npm install', { cwd: 'dist', stdio: 'inherit' }, function (error, stdout, stderr) {
+        if (stderr !== null) {
+            console.log('stderr' + stderr);
+        }
+        if (stdout !== null) {
+            console.log('stdout' + stdout);
+        }
+        if (error !== null) {
+            console.log('error' + error);
+        }
+    }).on('close', done);
+
+    function done() {
+        nw.build().then(function () {
+            console.log('all done!');
+         }).catch(function (error) {
+             console.error(error);
+         });
+    }
 });
 
 gulp.task('sass:watch', function () {

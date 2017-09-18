@@ -10,11 +10,6 @@
   ],
   "license": "MIT",
   "manifestUrl": "https://quead.github.io/updates/package.json",
-  "packages": {
-    "win": {
-      "url": "https://quead.github.io/updates/win64.zip?raw=true"
-    }
-  },
   "window": {
     "height": 720,
     "width": 1270,
@@ -28,10 +23,6 @@
     "plugin": true
   },
   "dependencies": {
-    "del": "^3.0.0",
-    "ncp": "^2.0.0",
-    "request": "^2.81.0",
-    "semver": "^5.4.1",
-    "tar.gz": "^1.0.5"
+    "nw-autoupdater": "*"
   }
 }

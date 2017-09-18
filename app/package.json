@@ -3,13 +3,16 @@
   "name": "yt-app",
   "description": "Youtube Player based on Angular and Typescript",
   "author": "Alex Olari <queadx@gmail.com>",
-  "version": "1.0",
-  "keywords": [ "youtube app", "node-webkit" ],
+  "version": "1.0.0",
+  "keywords": [
+    "youtube app",
+    "node-webkit"
+  ],
   "license": "MIT",
   "manifestUrl": "https://quead.github.io/updates/package.json",
   "packages": {
     "win": {
-      "url": "https://quead.github.io/updates/win64.zip"
+      "url": "https://quead.github.io/updates/win64.zip?raw=true"
     }
   },
   "window": {
@@ -25,10 +28,6 @@
     "plugin": true
   },
   "dependencies": {
-    "ncp": "2.0.0",
-    "request": "~2.64.0",
-    "tar.gz": "^0.1.1",
-    "del": "~0.1.2",
-    "semver": "^5.0.3"
+    "nw-autoupdater": "*"
   }
 }
