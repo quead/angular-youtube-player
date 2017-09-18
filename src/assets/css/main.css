@@ -1587,6 +1587,7 @@ iframe {
   text-align: center;
   border: none;
   margin: 0 5px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 }

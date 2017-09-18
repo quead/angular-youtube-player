@@ -9,12 +9,108 @@
         <link rel="stylesheet" href="assets/css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body>
+    <body class="application app-win">
+        <div class="updates" style="position: fixed; top: 0; z-index: 999; background-color: red; color: white">
+            <div id="version"></div>
+            <div id="loaded"></div>
+        </div>
     <app-yt>
         <div class="loading-app">
             <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
             <span class="sr-only">Loading...</span>
         </div>
     </app-yt>
+    <script>
+    var gui = require('nw.gui');
+    var copyPath, execPath;
+    if(gui.App.argv.length){
+        copyPath = gui.App.argv[0];
+        execPath = gui.App.argv[1];
+    }
+    //download new version of app in tmp
+    //unpack
+    //run updater
+    //updater will copy itself to origin directory
+    //updater will run app
+    var pkg = require('./package.json');
+    var request = require('request');
+    var url = require('url');
+    var path = require('path');
+    var os = require('os');
+    var fs = require('fs');
+    var k = 0;
+    var d = false;
+    var updater = require('./updater.js');
+    var upd = new updater(pkg);
+    var newVersionCheckIntervalId = null;
+    var tryingForNewVersion = false;
+    
+    //for test purposes
+    
+    
+    if(!copyPath){
+        request.get(url.resolve(pkg.manifestUrl, '/version/'+ pkg.version));
+        document.getElementById('version').innerHTML = 'current version ' + pkg.version;
+        if(!d && !tryingForNewVersion) {
+            tryingForNewVersion = true; //lock
+            upd.checkNewVersion(versionChecked);
+        }
+    } else {
+        document.getElementById('version').innerHTML = 'copying app';
+        //upd.install(copyPath, newAppInstalled);
+        
+        function newAppInstalled(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+        //upd.run(execPath, null);
+        //gui.App.quit();
+        }
+    }
+    function versionChecked(err, newVersionExists, manifest){
+        tryingForNewVersion = false; //unlock
+        if(err){
+            console.log(err);
+            return Error(err);
+        }
+        else if(d){
+            console.log('Already downloading');
+            return;
+        }
+        else if(!newVersionExists){
+            console.log('No new version exists');
+            return;
+        }
+        d = true;
+        clearInterval(newVersionCheckIntervalId);
+        var loaded = 0;
+        var newVersion = upd.download(function(error, filename){
+            newVersionDownloaded(error, filename, manifest);
+        }, manifest);
+            newVersion.on('data', function(chunk){
+            loaded+=chunk.length;
+            document.getElementById('loaded').innerHTML = "New version loading " + Math.floor(loaded / newVersion['content-length'] * 100) + '%';
+            console.log(newVersionExists);
+            console.log(manifest);
+        })
+    }
+    function newVersionDownloaded(err, filename, manifest){
+        if(err){
+        console.log(err)
+        return Error(err);
+        }
+        document.getElementById('loaded').innerHTML = "unpacking: " + filename;
+        upd.unpack(filename, newVersionUnpacked, manifest);
+    }
+    function newVersionUnpacked(err, newAppPath){
+        if(err){
+        console.log(err)
+        return Error(err);
+        }
+        var runner = upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()]);
+        gui.App.quit();
+    }
+    </script>
     <script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
 </html>

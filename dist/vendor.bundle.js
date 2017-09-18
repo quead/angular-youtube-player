@@ -65,7 +65,7 @@ var YoutubePlayerService = (function () {
         var /** @type {?} */ doc = YoutubePlayerService.win.document;
         var /** @type {?} */ playerApiScript = doc.createElement("script");
         playerApiScript.type = "text/javascript";
-        playerApiScript.src = options.protocol + "://www.youtube.com/iframe_api";
+        playerApiScript.src = "https://www.youtube.com/iframe_api";
         doc.body.appendChild(playerApiScript);
     };
     /**

@@ -1,6 +1,6 @@
 {
   "main": "index.html",
-  "name": "Youtube Player 2.0",
+  "name": "yt-app",
   "description": "Youtube Player based on Angular and Typescript",
   "author": "Alex Olari <queadx@gmail.com>",
   "version": "1.0",
@@ -9,7 +9,7 @@
   "manifestUrl": "https://quead.github.io/updates/package.json",
   "packages": {
     "win": {
-      "url": "https://quead.github.io/updates/upwin.zip"
+      "url": "https://quead.github.io/updates/win64.zip"
     }
   },
   "window": {
