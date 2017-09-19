@@ -1,9 +1,9 @@
 {
   "main": "index.html",
   "name": "yt-app",
-  "description": "Youtube Player based on Angular and Typescript",
+  "description": "YouTube Player",
   "author": "Alex Olari <queadx@gmail.com>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "youtube app",
     "node-webkit"
