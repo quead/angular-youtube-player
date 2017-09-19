@@ -38,7 +38,7 @@
             const rManifest = await updater.readRemoteManifest();
             const needsUpdate = await updater.checkNewVersion( rManifest );
             if ( !needsUpdate ) {
-                output.innerHTML += `\nApp is up to date...`;
+                output.innerHTML += `\nIs up to date...`;
                 return;
             }
             if ( !confirm( "New release is available. Do you want to upgrade?" ) ) {
@@ -56,15 +56,13 @@
             const updateFile = await updater.download( rManifest );
             await updater.unpack( updateFile );
             alert( `The application will automatically restart to finish installing the update` );
-            await updater.swap();
-            await updater.restart();
+            await updater.restartToSwap();
             } catch ( e ) {
             console.error( e );
             }
         }
-        output.innerHTML = `Application ver. ${nw.App.manifest.version}\n`;
+        output.innerHTML = `Application v${nw.App.manifest.version}\n`;
         main();
 
     </script>
-    <script type="text/javascript" src="inline.bundle.js"></script><script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="styles.bundle.js"></script><script type="text/javascript" src="vendor.bundle.js"></script><script type="text/javascript" src="main.bundle.js"></script></body>
 </html>

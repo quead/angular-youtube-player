@@ -78,7 +78,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-      console.log('app comp');
       this._nwjs.init().subscribe((data) => {
         if (typeof data !== 'undefined') {
           this.nw = data;
@@ -302,8 +301,9 @@ export class AppComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   preventOldSettings() {
-    if (localStorage.length === 1) {
-      console.log('I get default settings');
+    if (localStorage.length === 1 || localStorage.getItem('version') === null) {
+      console.log('Updating localstorage...');
+      localStorage.removeItem('version');
       localStorage.removeItem('playlist');
       localStorage.removeItem('settings');
       this._shared.settings = null;

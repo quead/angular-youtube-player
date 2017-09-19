@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 function _window(): any {
-  // return the native window obj
   return window;
 }
 

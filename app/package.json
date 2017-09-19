@@ -10,11 +10,6 @@
   ],
   "license": "MIT",
   "manifestUrl": "https://quead.github.io/updates/package.json",
-  "packages": {
-    "win": {
-      "url": "https://quead.github.io/updates/win64.zip?raw=true"
-    }
-  },
   "window": {
     "height": 720,
     "width": 1270,
@@ -27,7 +22,14 @@
   "webkit": {
     "plugin": true
   },
+  "scripts": {
+    "postversion": "npm run package",
+    "package": "nwb nwbuild -v 0.25.2-sdk . -o ../release --output-format=ZIP --output-name={name}-v{version}-{target}"    
+  },
   "dependencies": {
     "nw-autoupdater": "*"
+  },
+  "devDependencies": {
+    "nwjs-builder": "^1.14.0"
   }
 }
