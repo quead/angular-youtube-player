@@ -82,6 +82,7 @@ var AppComponent = (function () {
         this.videoMaxFull = '00:00:00';
         this.videoCurVolume = -1;
         this.loading = true;
+        this.maximized = false;
         this._shared = shared;
         this._nwjs = nwjs;
         this.notify = this._shared.notify;
@@ -94,6 +95,9 @@ var AppComponent = (function () {
                 _this.initNWJS();
                 _this.initShortcut();
             }
+        });
+        this._nwjs.initUpdater().subscribe(function (data) {
+            _this.initUpdater(data);
         });
         this.preventOldSettings();
         this.setSettings();
@@ -469,13 +473,24 @@ var AppComponent = (function () {
         this.modal = false;
     };
     // ---------------- NwJS Init ----------------
+    AppComponent.prototype.initUpdater = function (data) {
+        console.log('init');
+        console.log(data);
+    };
     AppComponent.prototype.initNWJS = function () {
         var _this = this;
         var win = this.nw.Window.get();
-        win.maximize();
         this.nw.Window.get().on('new-win-policy', function (frame, url, policy) {
             policy.ignore();
             _this.nw.Shell.openExternal(url);
+        });
+        this.nw.Window.get().on('restore', function () {
+            console.log('e restored');
+            _this.maximized = false;
+        });
+        this.nw.Window.get().on('maximize', function () {
+            console.log('e max');
+            _this.maximized = true;
         });
     };
     AppComponent.prototype.initShortcut = function () {
@@ -517,14 +532,13 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.winMaximize = function () {
         var win = this.nw.Window.get();
-        var maximized = false;
-        if (maximized) {
+        if (!this.maximized) {
             win.maximize();
-            maximized = true;
+            this.maximized = true;
         }
         else {
             win.unmaximize();
-            maximized = false;
+            this.maximized = false;
         }
     };
     AppComponent.prototype.winClose = function () {
@@ -1335,6 +1349,7 @@ function _window() {
 var NwjsService = (function () {
     function NwjsService() {
         this.mw = _window().mw;
+        this.up = _window();
     }
     NwjsService.prototype.init = function () {
         var _this = this;
@@ -1347,6 +1362,22 @@ var NwjsService = (function () {
                 if (typeof _this.mw === 'undefined') {
                     _this.mw = _window().nw;
                     observer.next(_this.mw);
+                    observer.complete();
+                }
+            }
+        });
+    };
+    NwjsService.prototype.initUpdater = function () {
+        var _this = this;
+        return new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
+            if (_this.up) {
+                observer.next(_this.up);
+                return observer.complete();
+            }
+            else {
+                if (typeof _this.up === 'undefined') {
+                    _this.up = _window();
+                    observer.next(_this.up);
                     observer.complete();
                 }
             }

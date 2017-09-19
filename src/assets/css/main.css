@@ -403,6 +403,10 @@ a:active {
   background: radial-gradient(ellipse at center, rgba(162, 173, 214, 0.42) 0%, transparent 70%);
 }
 
+.app-player .app-head {
+  padding-left: 0;
+}
+
 #youtube-player {
   height: 0;
   opacity: 0;
@@ -999,6 +1003,8 @@ input[type="radio"]:checked + label .round-check:after {
   text-align: center;
   position: relative;
   height: 26px;
+  width: 100%;
+  z-index: 2;
 }
 
 .header-bar:before {
@@ -1009,6 +1015,7 @@ input[type="radio"]:checked + label .round-check:after {
   position: absolute;
   left: 0;
   top: 0;
+  border-bottom: 1px solid #383846;
 }
 
 .header-bar h1 {
@@ -1137,12 +1144,10 @@ input[type="radio"]:checked + label .round-check:after {
 }
 
 #logo {
+  position: relative;
+  margin: 0 auto;
   cursor: pointer;
   transition: all 0.1s ease-out;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 #logo small {
@@ -1175,12 +1180,13 @@ input[type="radio"]:checked + label .round-check:after {
 .app-head {
   height: 100px;
   display: flex;
-  padding: 30px 20px 0 20px;
+  align-items: center;
+  padding: 0 20px 0 20px;
 }
 
 .app-head .settings {
   margin-left: auto;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .settings .fa {
@@ -2335,12 +2341,14 @@ iframe {
   }
 }
 
-.application #app-container > .container {
-  height: calc(100% - 26px);
-}
-
 .application .header-bar {
   display: block;
+  position: absolute;
+  top: 0;
+}
+
+.application .app-head {
+  padding-top: 25px;
 }
 
 .app-win .win-controls {

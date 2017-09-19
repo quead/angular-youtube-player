@@ -1,9 +1,11 @@
 .application {
-    #app-container > .container {
-        height: calc(100% - 26px);
-    }
     .header-bar {
         display: block;
+        position: absolute;
+        top: 0;
+    }
+    .app-head {
+        padding-top: 25px;
     }
 }
 

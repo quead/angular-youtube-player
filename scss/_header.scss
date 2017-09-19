@@ -3,6 +3,8 @@
     text-align: center;
     position: relative;
     height: 26px;
+    width: 100%;
+    z-index: 2;    
     &:before {
         content: '';
         background-color: var(--c-black);
@@ -11,6 +13,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        border-bottom: 1px solid #383846;
     }
     h1 {
         margin: 0;
@@ -129,12 +132,10 @@
 }
 
 #logo {
+    position: relative;
+    margin: 0 auto;
     cursor: pointer;
     transition: all 0.1s ease-out;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     small {
         position: absolute;
         left: calc(100% + 5px);
@@ -156,10 +157,11 @@
     &-head {
         height: 100px;
         display: flex;
-        padding: 30px 20px 0 20px;
+        align-items: center;
+        padding: 0 20px 0 20px;
         .settings {
             margin-left: auto;
-            margin-top: 10px;
+            margin-top: 7px;
         }
     }
 }

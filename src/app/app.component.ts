@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
   _nwjs: any;
 
   loading = true;
+  maximized = false;
 
   constructor(
     private youtube: YoutubeGetVideo,
@@ -85,6 +86,9 @@ export class AppComponent implements OnInit {
           this.initShortcut();
         }
       });
+      this._nwjs.initUpdater().subscribe((data) => {
+          this.initUpdater(data);
+      })
       this.preventOldSettings();
       this.setSettings();
       this.getFeedVideos();
@@ -497,14 +501,27 @@ export class AppComponent implements OnInit {
 
   // ---------------- NwJS Init ----------------
 
+  initUpdater(data: any) {
+    console.log('init');
+    console.log(data);
+  }
+
   initNWJS() {
     const win = this.nw.Window.get();
-
-    win.maximize();
 
     this.nw.Window.get().on('new-win-policy', (frame, url, policy) => {
         policy.ignore();
         this.nw.Shell.openExternal(url);
+    });
+
+    this.nw.Window.get().on('restore', () => {
+        console.log('e restored');
+        this.maximized = false;
+    });
+
+    this.nw.Window.get().on('maximize', () => {
+        console.log('e max');
+        this.maximized = true;
     });
   }
 
@@ -548,14 +565,13 @@ export class AppComponent implements OnInit {
 
   winMaximize() {
     const win = this.nw.Window.get();
-    let maximized = false;
 
-    if (maximized) {
+    if (!this.maximized) {
       win.maximize();
-      maximized = true;
+      this.maximized = true;
     } else {
       win.unmaximize();
-      maximized = false;
+      this.maximized = false;
     }
   }
 

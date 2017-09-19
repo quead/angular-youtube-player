@@ -138,6 +138,11 @@
             background: radial-gradient(ellipse at center, rgba(162, 173, 214, 0.42) 0%, rgba(0,0,0,0) 70%);
         }
     }
+    &-player {
+        .app-head {
+            padding-left: 0;
+        }
+    }
 }
 
 #youtube-player {
