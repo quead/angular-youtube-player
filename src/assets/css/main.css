@@ -548,6 +548,22 @@ a:active {
   border-radius: 30px;
 }
 
+.update-bar {
+  position: fixed;
+  z-index: 999;
+  background-color: #0097ef;
+  color: white;
+  bottom: 0;
+  font-size: 14px;
+  padding: 5px 15px;
+  width: 100%;
+  display: none;
+}
+
+.update-bar.active {
+  display: block;
+}
+
 .current-video-all {
   padding: 0px 10px;
   display: inline-block;

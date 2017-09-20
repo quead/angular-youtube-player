@@ -548,6 +548,22 @@ a:active {
   border-radius: 30px;
 }
 
+.update-bar {
+  position: fixed;
+  z-index: 999;
+  background-color: #0097ef;
+  color: white;
+  bottom: 0;
+  font-size: 14px;
+  padding: 5px 15px;
+  width: 100%;
+  display: none;
+}
+
+.update-bar.active {
+  display: block;
+}
+
 .current-video-all {
   padding: 0px 10px;
   display: inline-block;
@@ -664,10 +680,12 @@ a:active {
 }
 
 .player-buttons button:not(#play-song):hover {
+  color: var(--c-primary);
   text-shadow: 0 0 10px var(--c-primary);
 }
 
 .player-buttons button:not(#play-song):active {
+  color: var(--c-primary);
   transform: scale(1.2);
 }
 
@@ -2178,6 +2196,10 @@ iframe {
 #app-container.light-mode .player-range::-webkit-slider-thumb {
   background-color: var(--c-primary);
   border: 1px solid var(--c-primary-active);
+}
+
+#app-container.light-mode .player-buttons button {
+  color: var(--c-primary);
 }
 
 #app-container.light-mode .app-feed:before {

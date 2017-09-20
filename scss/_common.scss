@@ -283,3 +283,18 @@
         }
     }
 }
+
+.update-bar {
+    position: fixed;
+    z-index: 999;
+    background-color: #0097ef;
+    color: white;
+    bottom: 0;
+    font-size: 14px;
+    padding: 5px 15px;
+    width: 100%;
+    display: none;
+    &.active {
+        display: block;
+    }
+}
