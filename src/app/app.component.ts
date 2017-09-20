@@ -86,9 +86,6 @@ export class AppComponent implements OnInit {
           this.initShortcut();
         }
       });
-      this._nwjs.initUpdater().subscribe((data) => {
-          this.initUpdater(data);
-      })
       this.preventOldSettings();
       this.setSettings();
       this.getFeedVideos();
@@ -432,7 +429,7 @@ export class AppComponent implements OnInit {
     this.videoRangeMouseActive = true;
     this.stopRange();
   }
-  
+
   RangeMouseMove(value: number) {
       if (this.videoRangeMouseActive) {
         this.videoCurRange = value;
@@ -440,7 +437,7 @@ export class AppComponent implements OnInit {
         this.videoCurFull = this.timeFormat(this.videoCurRange);
       }
   }
-  
+
   RangeMouseUp(value: number) {
     if (this.currentState !== -1 && this.currentState !== 1) {
       this.player.playVideo();
@@ -450,7 +447,7 @@ export class AppComponent implements OnInit {
     } else {
       this.stopRange();
     }
-    
+
     this.videoCurRange = value;
     this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     this.videoCurFull = this.timeFormat(this.videoCurRange);
@@ -500,11 +497,6 @@ export class AppComponent implements OnInit {
   }
 
   // ---------------- NwJS Init ----------------
-
-  initUpdater(data: any) {
-    console.log('init');
-    console.log(data);
-  }
 
   initNWJS() {
     const win = this.nw.Window.get();

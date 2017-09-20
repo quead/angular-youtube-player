@@ -30,19 +30,4 @@ export class NwjsService {
         }
     });
   }
-
-  initUpdater(): Observable<any> {
-    return new Observable(observer => {
-        if (this.up) {
-            observer.next(this.up);
-            return observer.complete();
-        } else {
-          if (typeof this.up === 'undefined') {
-            this.up = _window();
-            observer.next(this.up);
-            observer.complete();
-          }
-        }
-    });
-  }
 }

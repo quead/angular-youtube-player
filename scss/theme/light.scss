@@ -259,6 +259,12 @@ input[type="checkbox"]:checked + label .round-check:before, input[type="radio"]:
     }
 }
 
+.player-buttons {
+    button {
+        color: var(--c-primary);
+    }
+}
+
 .app-feed:before {
     display: none;
 }

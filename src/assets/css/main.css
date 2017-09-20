@@ -41,7 +41,7 @@
 }
 
 :root {
-  --c-base: #212129;
+  --c-base: #1e1e27;
   --c-primary: red;
   --c-primary-active: #d42222;
   --c-primary-active-focus: #bb2222;
@@ -87,6 +87,7 @@ body {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
+  user-select: none;
   margin: 0;
   padding: 0;
   cursor: default;
@@ -112,17 +113,6 @@ a:active {
 #app-container {
   position: relative;
   height: 100%;
-}
-
-#app-container:before {
-  content: '';
-  background-image: url(http://blog.marmakoide.org/wp-content/uploads/2012/06/noise-good.png);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.025;
 }
 
 .btn {
@@ -655,7 +645,7 @@ a:active {
   position: relative;
   border: none;
   outline: none;
-  color: var(--c-primary);
+  color: rgba(255, 255, 255, 0.3);
   height: 30px;
   width: 30px;
   font-size: 12px;
@@ -674,10 +664,12 @@ a:active {
 }
 
 .player-buttons button:not(#play-song):hover {
+  color: var(--c-primary);
   text-shadow: 0 0 10px var(--c-primary);
 }
 
 .player-buttons button:not(#play-song):active {
+  color: var(--c-primary);
   transform: scale(1.2);
 }
 
@@ -728,7 +720,7 @@ a:active {
 
 .player-range {
   width: 100%;
-  height: 16px;
+  height: 3px;
   cursor: pointer;
   background: transparent;
   -webkit-appearance: none;
@@ -762,13 +754,16 @@ a:active {
   visibility: hidden;
 }
 
+.current-video-range {
+  margin: 12px auto;
+  padding: 3px 0;
+}
+
 .duration-range-container {
   position: relative;
-  height: 9px;
+  height: 3px;
   background-color: var(--c-gray);
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
   border-radius: 20px;
 }
 
@@ -779,7 +774,6 @@ a:active {
   height: 100%;
   border-radius: 0;
   background-color: var(--c-primary);
-  border-radius: 20px;
   box-shadow: 0 0 10px transparent;
   transition: box-shadow 0.2s ease-out;
 }
@@ -787,16 +781,17 @@ a:active {
 .duration-range-container .player-range {
   -webkit-appearance: none;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  top: 0;
   overflow: visible;
 }
 
 .duration-range-container .player-range::-webkit-slider-thumb {
   position: relative;
   -webkit-appearance: none;
-  top: -4px;
-  height: 16px;
-  width: 16px;
+  top: 0;
+  height: 15px;
+  width: 15px;
   border-radius: 50px;
   background-color: var(--c-white);
   opacity: 0;
@@ -822,9 +817,8 @@ a:active {
 .volume-input-container {
   position: relative;
   width: 80px;
-  height: 8px;
+  height: 3px;
   background-color: var(--c-gray);
-  border-radius: 5px;
 }
 
 .volume-input-container .volume-input-shadow {
@@ -832,7 +826,6 @@ a:active {
   top: 0;
   left: 0;
   height: 100%;
-  border-radius: 20px;
   background-color: var(--c-primary);
   box-shadow: 0 0 10px transparent;
   transition: box-shadow 0.2s ease-out;
@@ -849,7 +842,7 @@ a:active {
   top: 0;
   left: 0;
   width: 100%;
-  height: 11px;
+  height: 3px;
   -webkit-appearance: none;
   outline: 0;
   z-index: 1;
@@ -858,7 +851,7 @@ a:active {
 .volume-input-container .volume-input::-webkit-slider-thumb {
   position: relative;
   -webkit-appearance: none;
-  top: -2px;
+  top: 0;
   height: 12px;
   width: 12px;
   border-radius: 50px;
@@ -1015,7 +1008,6 @@ input[type="radio"]:checked + label .round-check:after {
   position: absolute;
   left: 0;
   top: 0;
-  border-bottom: 1px solid #383846;
 }
 
 .header-bar h1 {
@@ -1124,11 +1116,11 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 30px;
+  width: 35px;
 }
 
 #win-maximize:active {
-  background-color: var(--c-light-gray);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 #win-minimize {
@@ -1136,11 +1128,11 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 20px;
+  width: 25px;
 }
 
 #win-minimize:active {
-  background-color: var(--c-light-gray);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 #logo {
@@ -1155,6 +1147,10 @@ input[type="radio"]:checked + label .round-check:after {
   left: calc(100% + 5px);
   top: 0;
   color: var(--c-primary);
+}
+
+#logo a {
+  -webkit-user-drag: none;
 }
 
 .logo-svg {
@@ -1290,6 +1286,7 @@ nav a {
   text-decoration: none;
   color: var(--c-white);
   font-size: 14px;
+  -webkit-user-drag: none;
   position: relative;
   padding: 10px 15px 10px 35px;
   transition: all 0.1s ease-out;
@@ -1479,7 +1476,7 @@ iframe {
   background-color: var(--c-primary);
   cursor: pointer;
   color: var(--c-wihte);
-  border-radius: 3px;
+  border-radius: 20px;
   padding: 4px 8px;
   margin-top: 2px;
   text-transform: uppercase;
@@ -2183,6 +2180,10 @@ iframe {
 #app-container.light-mode .player-range::-webkit-slider-thumb {
   background-color: var(--c-primary);
   border: 1px solid var(--c-primary-active);
+}
+
+#app-container.light-mode .player-buttons button {
+  color: var(--c-primary);
 }
 
 #app-container.light-mode .app-feed:before {

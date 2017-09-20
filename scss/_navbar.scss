@@ -12,6 +12,7 @@ nav {
         text-decoration: none;
         color: var(--c-white);
         font-size: $f-14;
+        -webkit-user-drag: none;
         position: relative;
         padding: 10px 15px 10px 35px;
         transition: all 0.1s ease-out;

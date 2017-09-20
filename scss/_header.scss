@@ -13,7 +13,6 @@
         position: absolute;
         left: 0;
         top: 0;
-        border-bottom: 1px solid #383846;
     }
     h1 {
         margin: 0;
@@ -114,9 +113,9 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 13px auto;
-    width: 30px;
+    width: 35px;
     &:active {
-        background-color: var(--c-light-gray);
+        background-color: rgba(255, 255, 255, 0.15);
     }
 }
 
@@ -125,9 +124,9 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 13px auto;
-    width: 20px;
+    width: 25px;
     &:active {
-        background-color: var(--c-light-gray);
+        background-color: rgba(255, 255, 255, 0.15);
     }
 }
 
@@ -141,6 +140,9 @@
         left: calc(100% + 5px);
         top: 0;
         color: var(--c-primary);
+    }
+    a {
+        -webkit-user-drag: none;        
     }
 }
 
