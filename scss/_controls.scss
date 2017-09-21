@@ -84,7 +84,7 @@
         position: relative;
         border: none;
         outline: none;
-        color: rgba(255, 255, 255, 0.3);
+        color: var(--c-primary);
         height: 30px;
         width: 30px;
         font-size: $f-12;

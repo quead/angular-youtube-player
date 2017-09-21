@@ -24,7 +24,7 @@
   },
   "scripts": {
     "postversion": "npm run package",
-    "package": "nwb nwbuild -v 0.25.2-sdk . -o ../release --output-format=ZIP --output-name={name}-v{version}-{target}"    
+    "package": "nwb nwbuild -v 0.25.2 . -o ../release --output-format=ZIP --output-name={name}-v{version}-{target}"    
   },
   "dependencies": {
     "nw-autoupdater": "*"

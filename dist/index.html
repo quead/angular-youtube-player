@@ -11,7 +11,11 @@
     </head>
     <body class="application app-win">
         <div class="update-bar">
-            <div id="output"></div>
+            <div id="output">Checking for updates...</div>
+            <span class="update-loading">
+                <span class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></span>       
+            </span>
+            <div id="update-buttons"></div>
         </div>
         <app-yt>
             <div class="loading-app">
@@ -23,15 +27,16 @@
             const AutoUpdater = require( "nw-autoupdater" ),
                 updater = new AutoUpdater( require( "./package.json" ) ),
                 output =  document.querySelector( "#output" ),
-                updateBar = document.getElementsByClassName("update-bar")[0].classList;                
-                
+                updateBar = document.getElementsByClassName("update-bar")[0].classList;      
+                                
             async function main(){
                 try {
                     // Update copy is running to replace app with the update
                     if ( updater.isSwapRequest() ) {
-                        output.innerHTML += `\nSwapping...`;
+                        updateBar.add('active');
+                        output.innerHTML = `Finishing update...`;
                         await updater.swap();
-                        output.innerHTML += `\nDone...`;
+                        output.innerHTML = `Restarting...`;
                         await updater.restart();
                         return;
                     }
@@ -39,32 +44,68 @@
                     const rManifest = await updater.readRemoteManifest();
                     const needsUpdate = await updater.checkNewVersion( rManifest );
                     if ( !needsUpdate ) {
-                        output.innerHTML += `\nis up to date...`;
-                        updateBar.add('active'); 
+                        updateBar.add('active');
+                        setTimeout(() => {
+                            output.innerHTML = `There is no new updates...`;
+                        }, 2000); 
+                        setTimeout(() => {
+                            updateBar.remove('active');
+                        }, 4000);
                     } else {
-                        output.innerHTML = `There is new update`;
-                        updateBar.add('active'); 
+                        output.innerHTML = `Update available...`;
+                        updateBar.add('active', 'update-av'); 
+                        initUpdate();
                     }
                 } catch ( e ) {
                     console.error( e );
                 }
             }
+
             function updateApp() {
+                var rManifest = updater.readRemoteManifest();
+                
                 // Subscribe for progress events
                 updater.on( "download", ( downloadSize, totalSize ) => {
                     output.innerHTML = `Downloading...`;
                     console.log( "download progress", Math.floor( downloadSize / totalSize * 100 ), "%" );
                 });
                 updater.on( "install", ( installFiles, totalFiles ) => {
-                    output.innerHTML = `Installing...\n`;
+                    output.innerHTML = `Installing...`;
                     console.log( "install progress", Math.floor( installFiles / totalFiles * 100 ), "%" );
                 });
                 const updateFile = updater.download( rManifest );
                 updater.unpack( updateFile );
-                alert( `The application will automatically restart to finish installing the update` );
-                updater.restartToSwap();
+                updateAppSwap();
             }
-            output.innerHTML = `Application v${nw.App.manifest.version}\n`;
+            
+            function updateAppSwap() {
+                output.innerHTML = `The application will automatically restart to finish installing the update...`;
+                setTimeout(() => {
+                    updater.restartToSwap();  
+                }, 3000);
+            }
+
+            function updateAppLater() {
+                updateBar.remove('active');
+            }
+
+            function initUpdate() {
+                var btnUPDLTR = document.createElement("BUTTON");
+                    btnUPDLTR.setAttribute("id", "update-app-later");
+                    btnUPDLTR.innerHTML = 'Later';
+            
+                    document.getElementById("update-buttons").appendChild(btnUPDLTR);
+            
+                    btnUPDLTR.onclick = updateAppLater;                 
+            
+                var btnUPD = document.createElement("BUTTON");
+                    btnUPD.setAttribute("id", "update-app");
+                    btnUPD.innerHTML = 'Update';
+                    document.getElementById("update-buttons").appendChild(btnUPD);
+            
+                    btnUPD.onclick = updateApp;
+            }
+
             main();
 
         </script>

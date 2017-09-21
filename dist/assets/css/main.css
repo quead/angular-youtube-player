@@ -555,13 +555,71 @@ a:active {
   color: white;
   bottom: 0;
   font-size: 14px;
-  padding: 5px 15px;
+  height: 32px;
+  padding: 0 15px;
   width: 100%;
+  align-items: center;
   display: none;
 }
 
+.update-bar #output {
+  display: inline-block;
+}
+
+.update-bar .update-loading {
+  margin-left: 10px;
+}
+
+.update-bar .update-loading .fa {
+  font-size: 10px;
+}
+
 .update-bar.active {
-  display: block;
+  display: flex;
+}
+
+.update-bar.update-av .fa {
+  display: none;
+}
+
+.update-bar #update-buttons {
+  margin-left: auto;
+  height: 100%;
+}
+
+.update-bar button {
+  float: right;
+  border: none;
+  margin: 0;
+  font-size: 12px;
+  padding: 0 10px;
+  height: 100%;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.update-bar button + button {
+  margin-right: 5px;
+}
+
+#update-app {
+  background-color: #007bc3;
+  color: #ffffff;
+}
+
+#update-app:hover {
+  background-color: #006eaf;
+}
+
+#update-app:active {
+  background-color: #0066a2;
+}
+
+#update-app-later {
+  background-color: transparent;
+  color: var(--c-white);
+  text-transform: capitalize;
 }
 
 .current-video-all {
@@ -661,7 +719,7 @@ a:active {
   position: relative;
   border: none;
   outline: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--c-primary);
   height: 30px;
   width: 30px;
   font-size: 12px;

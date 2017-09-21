@@ -291,10 +291,59 @@
     color: white;
     bottom: 0;
     font-size: 14px;
-    padding: 5px 15px;
+    height: 32px;
+    padding: 0 15px;
     width: 100%;
+    align-items: center;
     display: none;
-    &.active {
-        display: block;
+    #output {
+        display: inline-block;
     }
+    .update-loading {
+        margin-left: 10px;
+        .fa {
+            font-size: 10px;
+        }
+    }
+    &.active {
+        display: flex;
+    }
+    &.update-av .fa {
+        display: none;
+    }
+    #update-buttons {
+        margin-left: auto;
+        height: 100%;
+    }
+    button {
+        float: right;        
+        border: none;
+        margin: 0;
+        font-size: 12px;
+        padding: 0 10px;
+        height: 100%;
+        text-transform: uppercase;
+        cursor: pointer;
+        line-height: 1;
+        + button {
+            margin-right: 5px;
+        }
+    }
+}
+
+#update-app {
+    background-color: #007bc3;
+    color: #ffffff;
+    &:hover {
+        background-color: #006eaf;
+    }
+    &:active {
+        background-color: #0066a2;
+    }
+}
+
+#update-app-later {
+    background-color: transparent;
+    color: var(--c-white);
+    text-transform: capitalize;
 }
