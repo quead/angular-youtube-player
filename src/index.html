@@ -27,9 +27,9 @@
             const AutoUpdater = require( "nw-autoupdater" ),
                 updater = new AutoUpdater( require( "./package.json" ) ),
                 output =  document.querySelector( "#output" ),
-                updateBar = document.getElementsByClassName("update-bar")[0].classList;      
+                updateBar = document.getElementsByClassName("update-bar")[0].classList;   
                                 
-            async function main(){
+            async function main(update){
                 try {
                     // Update copy is running to replace app with the update
                     if ( updater.isSwapRequest() ) {
@@ -40,6 +40,7 @@
                         await updater.restart();
                         return;
                     }
+
                     // Download/unpack update if any available
                     const rManifest = await updater.readRemoteManifest();
                     const needsUpdate = await updater.checkNewVersion( rManifest );
@@ -51,35 +52,42 @@
                         setTimeout(() => {
                             updateBar.remove('active');
                         }, 4000);
+                        return;
+                    } 
+
+                    if (update) {
+                        output.innerHTML = `Preparing files...`;
+                        if (document.getElementById('update-buttons').hasChildNodes()) {
+                            var children = document.getElementById('update-buttons').childNodes;
+                            document.getElementById('update-buttons').removeChild(children[0]);                                
+                            document.getElementById('update-buttons').removeChild(children[0]);
+                        }
+                        return;
                     } else {
                         output.innerHTML = `Update available...`;
                         updateBar.add('active', 'update-av'); 
                         initUpdate();
+                        return;
                     }
+
+                    // Subscribe for progress events
+                    updater.on( "download", ( downloadSize, totalSize ) => {
+                        output.innerHTML = `Downloading...`;
+                        console.log( "download progress", Math.floor( downloadSize / totalSize * 100 ), "%" );
+                    });
+                    updater.on( "install", ( installFiles, totalFiles ) => {
+                        output.innerHTML = `Installing...`;
+                        console.log( "install progress", Math.floor( installFiles / totalFiles * 100 ), "%" );
+                    });
+                    const updateFile = await updater.download( rManifest );
+                    updater.unpack( updateFile );
+                    updateAppSwap();
                 } catch ( e ) {
                     console.error( e );
                 }
             }
-
-            function updateApp() {
-                var rManifest = updater.readRemoteManifest();
-                
-                // Subscribe for progress events
-                updater.on( "download", ( downloadSize, totalSize ) => {
-                    output.innerHTML = `Downloading...`;
-                    console.log( "download progress", Math.floor( downloadSize / totalSize * 100 ), "%" );
-                });
-                updater.on( "install", ( installFiles, totalFiles ) => {
-                    output.innerHTML = `Installing...`;
-                    console.log( "install progress", Math.floor( installFiles / totalFiles * 100 ), "%" );
-                });
-                const updateFile = updater.download( rManifest );
-                updater.unpack( updateFile );
-                updateAppSwap();
-            }
             
             function updateAppSwap() {
-                output.innerHTML = `The application will automatically restart to finish installing the update...`;
                 setTimeout(() => {
                     updater.restartToSwap();  
                 }, 3000);
@@ -103,10 +111,12 @@
                     btnUPD.innerHTML = 'Update';
                     document.getElementById("update-buttons").appendChild(btnUPD);
             
-                    btnUPD.onclick = updateApp;
+                    btnUPD.addEventListener("click", function(){ 
+                        main(true);
+                    });
             }
 
-            main();
+            main(false);
 
         </script>
     </body>
