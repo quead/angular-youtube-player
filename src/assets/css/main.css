@@ -223,18 +223,19 @@ a:active {
   box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.05);
 }
 
+.col-2, .col-3 {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
 .col-2 {
   width: calc(40% - var(--menu-diff));
   left: calc(60% - var(--menu-diff));
+  background: linear-gradient(-90deg, rgba(255, 0, 0, 0.05) 0%, #1d1d25 30%);
 }
 
 .col-3 {
   width: calc(60% - var(--menu-diff));
   left: calc(-40% + var(--menu-diff));
-}
-
-.col-2, .col-3 {
-  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .loading-app {
@@ -1385,12 +1386,11 @@ nav a:hover {
 
 nav a.is-active, nav a:active {
   opacity: 1;
-  color: var(--c-primary);
-  text-shadow: 0 0 10px var(--c-primary);
+  color: var(--c-white);
 }
 
 nav a.is-active .fa, nav a:active .fa {
-  color: var(--c-primary);
+  color: var(--c-white);
 }
 
 nav a.is-active .description, nav a:active .description {
