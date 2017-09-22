@@ -1,40 +1,40 @@
 <div class="app-head">
-    <h2>Search</h2>
-</div>
-<div class="app-content">
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
       <div class="form-group">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" formControlName="searchInput">
+          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput">
+          <label for="input-search" class="search-icon"><span class="fa fa-search"></span></label>
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
       </div>
       <ng-container *ngIf="searchForm.valid">
-      <span class="search-list arrow-up"></span>
-      <div id="search-video-list" class="video-list">
-        <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
-          <div class="video-item-info">
-            <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
-            <div class="video-item-content">
-                <p class="video-item-title">{{ video.snippet.title }}</p>
-                <p class="video-item-autor">by <span>{{ video.snippet.channelTitle }}</span></p>
+        <span class="search-list arrow-up"></span>
+        <div id="search-video-list" class="video-list">
+          <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
+            <div class="video-item-info">
+              <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
+              <div class="video-item-content">
+                  <p class="video-item-title">{{ video.snippet.title }}</p>
+                  <p class="video-item-autor">by <span>{{ video.snippet.channelTitle }}</span></p>
+              </div>
+            </div>
+            <div class="video-item-settings">
+              <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
+                <span class="fa fa-play"></span>
+              </button>
+              <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
+                <span class="fa fa-share-alt"></span>
+              </button>
+              <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
+                <span class="fa fa-plus-circle"></span>
+              </button>
             </div>
           </div>
-          <div class="video-item-settings">
-            <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
-              <span class="fa fa-play"></span>
-            </button>
-            <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
-              <span class="fa fa-share-alt"></span>
-            </button>
-            <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
-              <span class="fa fa-plus-circle"></span>
-            </button>
-          </div>
         </div>
-      </div>
       </ng-container>
   </form>
+</div>
+<div class="app-content">
   <ng-container *ngIf="feedVideos">
     <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
         <div class="video-item" [attr.data-index]="0">

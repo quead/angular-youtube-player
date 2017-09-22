@@ -41,7 +41,7 @@
 }
 
 :root {
-  --c-base: #1e1e27;
+  --c-base: #1b1b23;
   --c-primary: red;
   --c-primary-active: #d42222;
   --c-primary-active-focus: #bb2222;
@@ -380,17 +380,6 @@ a:active {
 
 .app-feed .app-content {
   padding: 0 20px;
-}
-
-.app-feed:before {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 330px;
-  left: 0;
-  top: -230px;
-  background: radial-gradient(ellipse at center, rgba(162, 173, 214, 0.42) 0%, transparent 70%);
 }
 
 .app-player .app-head {
@@ -1407,6 +1396,19 @@ nav a.is-active .description, nav a:active .description {
   display: block;
   position: relative;
   color: var(--c-white);
+  margin-top: 5px;
+}
+
+#main-search .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  font-size: 18px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.1s ease-out;
 }
 
 #main-search .form-group {
@@ -1422,22 +1424,23 @@ nav a.is-active .description, nav a:active .description {
   border: none;
   display: block;
   width: 100%;
-  padding: 10px 40px 10px 20px;
-  border-radius: 20px;
+  padding: 15px 40px 15px 40px;
+  border-radius: 0;
   margin: 0;
   outline: 0;
   position: relative;
-  background-color: var(--c-gray);
+  background-color: transparent;
   color: inherit;
   z-index: 1;
   transition: all 0.1s ease-out;
-}
-
-#main-search input[type="text"]:focus {
-  background-color: var(--c-black);
+  border-bottom: 1px solid #2f2f3a;
 }
 
 #main-search input[type="text"]::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+#main-search input[type="text"]:focus + .search-icon {
   color: var(--c-white);
 }
 
@@ -1476,7 +1479,7 @@ iframe {
 .video-list {
   position: absolute;
   width: 100%;
-  top: 45px;
+  top: 55px;
   overflow-y: auto;
 }
 
@@ -1505,7 +1508,7 @@ iframe {
 
 .search-list.arrow-up {
   position: absolute;
-  top: 38px;
+  top: 48px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1538,11 +1541,14 @@ iframe {
 }
 
 .video-item-head {
-  background-color: var(--c-gray);
+  background-color: rgba(255, 255, 255, 0.03);
   color: var(--c-white);
   width: 100%;
   height: 39px;
   padding: 8px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
 }
 
 .video-item-head-btn {
@@ -1752,6 +1758,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
+  z-index: 0;
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-track {
@@ -1795,6 +1802,7 @@ iframe {
   width: 100%;
   overflow: auto;
   background-color: var(--c-dark-gray);
+  z-index: 0;
 }
 
 #playlist-video-list .playlist-video-content .video-item:not(.active) {
@@ -1895,7 +1903,7 @@ iframe {
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 246px);
+  height: calc(100% - 210px);
   width: calc(100% - 40px);
   max-height: none;
   background-color: var(--c-gray);
