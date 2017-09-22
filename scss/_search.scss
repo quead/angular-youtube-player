@@ -35,12 +35,11 @@
         color: inherit;
         z-index: 1;
         transition: all 0.1s ease-out;
-        border-bottom: 1px solid #2f2f3a;
         &::-webkit-input-placeholder {
             color: rgba(255, 255, 255, 0.3);
         }
         &:focus + .search-icon {
-            color: var(--c-white);
+            color: rgba(255, 255, 255, 0.6);
         }
     }
     .clear-button {

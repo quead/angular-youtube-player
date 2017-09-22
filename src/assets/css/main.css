@@ -41,7 +41,7 @@
 }
 
 :root {
-  --c-base: #1b1b23;
+  --c-base: #272731;
   --c-primary: red;
   --c-primary-active: #d42222;
   --c-primary-active-focus: #bb2222;
@@ -113,6 +113,7 @@ a:active {
 #app-container {
   position: relative;
   height: 100%;
+  background: linear-gradient(120deg, rgba(255, 38, 38, 0.1) 0%, var(--c-base) 30%);
 }
 
 .btn {
@@ -219,6 +220,7 @@ a:active {
 
 .col-1 {
   width: 320px;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.05);
 }
 
 .col-2 {
@@ -229,6 +231,10 @@ a:active {
 .col-3 {
   width: calc(60% - var(--menu-diff));
   left: calc(-40% + var(--menu-diff));
+}
+
+.col-2, .col-3 {
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .loading-app {
@@ -1433,7 +1439,6 @@ nav a.is-active .description, nav a:active .description {
   color: inherit;
   z-index: 1;
   transition: all 0.1s ease-out;
-  border-bottom: 1px solid #2f2f3a;
 }
 
 #main-search input[type="text"]::-webkit-input-placeholder {
@@ -1441,7 +1446,7 @@ nav a.is-active .description, nav a:active .description {
 }
 
 #main-search input[type="text"]:focus + .search-icon {
-  color: var(--c-white);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 #main-search .clear-button {
@@ -1541,7 +1546,7 @@ iframe {
 }
 
 .video-item-head {
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: rgba(255, 255, 255, 0.04);
   color: var(--c-white);
   width: 100%;
   height: 39px;
@@ -1815,7 +1820,7 @@ iframe {
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-dark-gray);
+  background-color: transparent;
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-thumb {
