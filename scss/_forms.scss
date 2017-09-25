@@ -1,5 +1,9 @@
 select {
     -webkit-appearance: none;
+    option {
+        background-color: var(--c-base);
+        color: var(--c-white);
+    }
 }
 
 .round-check {

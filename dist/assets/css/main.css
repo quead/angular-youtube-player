@@ -113,7 +113,7 @@ a:active {
 #app-container {
   position: relative;
   height: 100%;
-  background: linear-gradient(120deg, rgba(255, 38, 38, 0.1) 0%, var(--c-base) 30%);
+  background: linear-gradient(120deg, rgba(0, 243, 255, 0.1) 0%, var(--c-base) 30%);
 }
 
 .btn {
@@ -230,7 +230,7 @@ a:active {
 .col-2 {
   width: calc(40% - var(--menu-diff));
   left: calc(60% - var(--menu-diff));
-  background: linear-gradient(-90deg, rgba(255, 0, 0, 0.05) 0%, #1d1d25 30%);
+  background: linear-gradient(-90deg, rgba(0, 243, 255, 0.05) 0%, #1d1d25 30%);
 }
 
 .col-3 {
@@ -946,6 +946,11 @@ select {
   -webkit-appearance: none;
 }
 
+select option {
+  background-color: var(--c-base);
+  color: var(--c-white);
+}
+
 .round-check {
   position: absolute;
   right: 0;
@@ -1551,7 +1556,7 @@ iframe {
   width: 100%;
   height: 39px;
   padding: 8px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
 }
@@ -1651,7 +1656,7 @@ iframe {
 }
 
 .video-item-settings {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.4);
   color: var(--c-white);
   position: absolute;
   right: 0;
@@ -2029,7 +2034,7 @@ iframe {
 
 #app-container.light-mode .col-2,
 #app-container.light-mode .col-3 {
-  background-color: var(--c-white);
+  background: var(--c-white);
 }
 
 #app-container.light-mode .col-2 .app-content,
