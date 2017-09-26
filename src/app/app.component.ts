@@ -352,30 +352,23 @@ export class AppComponent implements OnInit {
   }
 
   getVideo(data: any) {
-    const tempData = {
-      id: '',
-      title: '',
-      thumbnail: '',
-      channelTitle: '',
-    };
     this.setCurrentVideoObject(data);
     if (data.id.videoId) {
-      tempData.id = data.id.videoId;
       this.getStatsVideos(data.id.videoId);
     } else if (data.id) {
-      tempData.id = data.id;
       this.getStatsVideos(data.id);
     }
-    tempData.title = data.snippet.title;
-    tempData.channelTitle = data.snippet.channelTitle;
-    tempData.thumbnail = data.snippet.thumbnails.medium.url;
-    this.playVideo(tempData);
+    this.playVideo(data);
   }
 
   playVideo(data: any) {
     if (data.id !== this.currentVideo.id || this.currentState === -1) {
-      this.currentVideo.id = data.id;
-      this.currentVideo.title = data.title;
+      if (data.id.videoId !== 'undefined') {
+        this.currentVideo.id = data.id.videoId;
+      } else {
+        this.currentVideo.id = data.id;
+      }
+      this.currentVideo.title = data.snippet.title;
       this._shared.addHistoryVideo(data);
       this.player.loadVideoById(this.currentVideo.id);
       this.getRelatedVideos();
@@ -600,6 +593,10 @@ export class AppComponent implements OnInit {
     }
     if (list === 3) {
       listType = this.playlistVideos[i];
+    }
+    if (list === 4) {
+      console.log('antena 3 e aici');
+      listType = this._shared.historyVideos[i];
     }
 
     if (typeof listType.id.videoId !== 'undefined') {

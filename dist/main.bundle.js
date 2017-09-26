@@ -46,7 +46,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AppComponent = /** @class */ (function () {
+var AppComponent = (function () {
     function AppComponent(youtube, shared, nwjs) {
         this.youtube = youtube;
         this.shared = shared;
@@ -344,30 +344,24 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.prototype.getVideo = function (data) {
-        var tempData = {
-            id: '',
-            title: '',
-            thumbnail: '',
-            channelTitle: '',
-        };
         this.setCurrentVideoObject(data);
         if (data.id.videoId) {
-            tempData.id = data.id.videoId;
             this.getStatsVideos(data.id.videoId);
         }
         else if (data.id) {
-            tempData.id = data.id;
             this.getStatsVideos(data.id);
         }
-        tempData.title = data.snippet.title;
-        tempData.channelTitle = data.snippet.channelTitle;
-        tempData.thumbnail = data.snippet.thumbnails.medium.url;
-        this.playVideo(tempData);
+        this.playVideo(data);
     };
     AppComponent.prototype.playVideo = function (data) {
         if (data.id !== this.currentVideo.id || this.currentState === -1) {
-            this.currentVideo.id = data.id;
-            this.currentVideo.title = data.title;
+            if (data.id.videoId !== 'undefined') {
+                this.currentVideo.id = data.id.videoId;
+            }
+            else {
+                this.currentVideo.id = data.id;
+            }
+            this.currentVideo.title = data.snippet.title;
             this._shared.addHistoryVideo(data);
             this.player.loadVideoById(this.currentVideo.id);
             this.getRelatedVideos();
@@ -566,6 +560,10 @@ var AppComponent = /** @class */ (function () {
         if (list === 3) {
             listType = this.playlistVideos[i];
         }
+        if (list === 4) {
+            console.log('antena 3 e aici');
+            listType = this._shared.historyVideos[i];
+        }
         if (typeof listType.id.videoId !== 'undefined') {
             this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId;
         }
@@ -619,25 +617,25 @@ var AppComponent = /** @class */ (function () {
             + (parseInt(seconds, 10) < 10 ? '0' : '') + parseInt(seconds, 10);
         return value;
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('playlistContainer'),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
-    ], AppComponent.prototype, "myScrollContainer", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('videoItemIDvalue'),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _b || Object)
-    ], AppComponent.prototype, "videoItemIDvalue", void 0);
-    AppComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-            selector: 'app-yt',
-            template: __webpack_require__("../../../../../src/app/app.component.html")
-        }),
-        __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */]) === "function" && _e || Object])
-    ], AppComponent);
     return AppComponent;
-    var _a, _b, _c, _d, _e;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('playlistContainer'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _a || Object)
+], AppComponent.prototype, "myScrollContainer", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('videoItemIDvalue'),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */]) === "function" && _b || Object)
+], AppComponent.prototype, "videoItemIDvalue", void 0);
+AppComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-yt',
+        template: __webpack_require__("../../../../../src/app/app.component.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_nwjs_service__["a" /* NwjsService */]) === "function" && _e || Object])
+], AppComponent);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -681,31 +679,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var AppModule = /** @class */ (function () {
+var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_13_ng2_youtube_player__["a" /* YoutubePlayerModule */],
-                __WEBPACK_IMPORTED_MODULE_4__app_router__["a" /* routes */]
-            ],
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__components_youtube_settings_component__["a" /* SettingsComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_youtube_search_component__["a" /* SearchComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__components_youtube_about_component__["a" /* AboutComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__components_youtube_history_component__["a" /* HistoryComponent */]
-            ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
-            providers: [__WEBPACK_IMPORTED_MODULE_8__shared_youtube_service__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__["a" /* SharedService */], __WEBPACK_IMPORTED_MODULE_7__shared_nwjs_service__["a" /* NwjsService */]]
-        })
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+        imports: [
+            __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* ReactiveFormsModule */],
+            __WEBPACK_IMPORTED_MODULE_13_ng2_youtube_player__["a" /* YoutubePlayerModule */],
+            __WEBPACK_IMPORTED_MODULE_4__app_router__["a" /* routes */]
+        ],
+        declarations: [
+            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__components_youtube_settings_component__["a" /* SettingsComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__components_youtube_search_component__["a" /* SearchComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__components_youtube_about_component__["a" /* AboutComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__components_youtube_history_component__["a" /* HistoryComponent */]
+        ],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_8__shared_youtube_service__["a" /* YoutubeGetVideo */], __WEBPACK_IMPORTED_MODULE_6__shared_lists_service__["a" /* SharedService */], __WEBPACK_IMPORTED_MODULE_7__shared_nwjs_service__["a" /* NwjsService */]]
+    })
+], AppModule);
 
 //# sourceMappingURL=app.module.js.map
 
@@ -759,20 +757,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var AboutComponent = /** @class */ (function () {
+var AboutComponent = (function () {
     function AboutComponent() {
     }
     AboutComponent.prototype.ngOnInit = function () {
         console.log('about');
     };
-    AboutComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-            selector: 'app-about',
-            template: __webpack_require__("../../../../../src/app/components/youtube-about.component.html")
-        })
-    ], AboutComponent);
     return AboutComponent;
 }());
+AboutComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-about',
+        template: __webpack_require__("../../../../../src/app/components/youtube-about.component.html")
+    })
+], AboutComponent);
 
 //# sourceMappingURL=youtube-about.component.js.map
 
@@ -781,7 +779,7 @@ var AboutComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/youtube-history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app-head\">\r\n    <h2>History</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <div class=\"history-video-content\">\r\n        <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\r\n            No history\r\n        </div>\r\n        <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\">\r\n            <div class=\"video-item-info\">                        \r\n                <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + historyVideo.thumbnail +')'}\"></div>\r\n                <div class=\"video-item-content\">\r\n                    <p class=\"video-item-title\">{{ historyVideo.title }}</p>   \r\n                    <p class=\"video-item-autor\">by <span>{{ historyVideo.channelTitle }}</span></p>\r\n                </div>\r\n            </div>\r\n            <div class=\"video-item-settings\">\r\n                <button class=\"video-item-play\" (click)=\"onClickHistory($event, i)\">\r\n                    <span class=\"fa fa-play\"></span>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"app-head\">\r\n    <h2>History</h2>\r\n</div>\r\n<div class=\"app-content\">\r\n    <div class=\"history-video-content\">\r\n        <div *ngIf=\"historyVideos.length === 0\" class=\"video-list-info\">\r\n            No history\r\n        </div>\r\n        <div *ngFor=\"let historyVideo of historyVideos; let i = index\" [attr.data-index]=\"i\" class=\"video-item\">\r\n            <div class=\"video-item-info\">\r\n                <div *ngIf=\"thumbnails\" class=\"video-item-image\" [ngStyle]=\"{'background-image': 'url(' + historyVideo.snippet.thumbnails.default.url +')'}\"></div>\r\n                <div class=\"video-item-content\">\r\n                <p class=\"video-item-title\">{{ historyVideo.snippet.title }}</p>\r\n                <p class=\"video-item-autor\">by <span>{{ historyVideo.snippet.channelTitle }}</span></p>                      \r\n                </div>\r\n            </div>\r\n            <div class=\"video-item-settings\">\r\n                <button class=\"video-item-play\" (click)=\"onClickHistory($event, i)\">\r\n                <span class=\"fa fa-play\"></span>\r\n                </button>\r\n                <button class=\"video-item-share\" (click)=\"onCopyVideoItemLink(i, 4)\">\r\n                <span class=\"fa fa-share-alt\"></span>\r\n                </button>\r\n                <button class=\"video-item-add\" (click)=\"addPlaylistItem(i, 4)\">\r\n                <span class=\"fa fa-plus-circle\"></span>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -805,7 +803,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var HistoryComponent = /** @class */ (function () {
+var HistoryComponent = (function () {
     function HistoryComponent(shared, app) {
         this.shared = shared;
         this.app = app;
@@ -827,20 +825,26 @@ var HistoryComponent = /** @class */ (function () {
             _this.thumbnails = data.form_settings[0].value;
         });
     };
+    HistoryComponent.prototype.addPlaylistItem = function (i, list) {
+        this._app.addPlaylistItem(i, list);
+    };
+    HistoryComponent.prototype.onCopyVideoItemLink = function (i, list) {
+        this._app.onCopyVideoItemLink(i, list);
+    };
     HistoryComponent.prototype.onClickHistory = function (event, i) {
         this._app.playVideo(this.historyVideos[i]);
     };
-    HistoryComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-            selector: 'app-history',
-            template: __webpack_require__("../../../../../src/app/components/youtube-history.component.html")
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__app_component__["a" /* AppComponent */]) === "function" && _b || Object])
-    ], HistoryComponent);
     return HistoryComponent;
-    var _a, _b;
 }());
+HistoryComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-history',
+        template: __webpack_require__("../../../../../src/app/components/youtube-history.component.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__shared_lists_service__["a" /* SharedService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__app_component__["a" /* AppComponent */]) === "function" && _b || Object])
+], HistoryComponent);
 
+var _a, _b;
 //# sourceMappingURL=youtube-history.component.js.map
 
 /***/ }),
@@ -879,7 +883,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SearchComponent = /** @class */ (function () {
+var SearchComponent = (function () {
     function SearchComponent(youtube, shared, app) {
         this.youtube = youtube;
         this.shared = shared;
@@ -992,17 +996,17 @@ var SearchComponent = /** @class */ (function () {
     SearchComponent.prototype.addPlaylistItem = function (i, list) {
         this._app.addPlaylistItem(i, list);
     };
-    SearchComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-            selector: 'app-search',
-            template: __webpack_require__("../../../../../src/app/components/youtube-search.component.html")
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _c || Object])
-    ], SearchComponent);
     return SearchComponent;
-    var _a, _b, _c;
 }());
+SearchComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-search',
+        template: __webpack_require__("../../../../../src/app/components/youtube-search.component.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_lists_service__["a" /* SharedService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _c || Object])
+], SearchComponent);
 
+var _a, _b, _c;
 //# sourceMappingURL=youtube-search.component.js.map
 
 /***/ }),
@@ -1042,7 +1046,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SettingsComponent = /** @class */ (function () {
+var SettingsComponent = (function () {
     function SettingsComponent(fb, http, shared, app, search) {
         this.fb = fb;
         this.http = http;
@@ -1144,18 +1148,18 @@ var SettingsComponent = /** @class */ (function () {
             this.updateNotify();
         }
     };
-    SettingsComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
-            selector: 'app-settings',
-            template: __webpack_require__("../../../../../src/app/components/youtube-settings.component.html"),
-            providers: [__WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */], __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */]]
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
-    ], SettingsComponent);
     return SettingsComponent;
-    var _a, _b, _c, _d, _e;
 }());
+SettingsComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+        selector: 'app-settings',
+        template: __webpack_require__("../../../../../src/app/components/youtube-settings.component.html"),
+        providers: [__WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */], __WEBPACK_IMPORTED_MODULE_5__shared_validators_service__["a" /* NumberVal */]]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_lists_service__["a" /* SharedService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__youtube_search_component__["a" /* SearchComponent */]) === "function" && _e || Object])
+], SettingsComponent);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=youtube-settings.component.js.map
 
 /***/ }),
@@ -1186,7 +1190,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var SharedService = /** @class */ (function () {
+var SharedService = (function () {
     function SharedService(youtube, http) {
         this.youtube = youtube;
         this.http = http;
@@ -1302,14 +1306,14 @@ var SharedService = /** @class */ (function () {
         }
         this.historyVideos.unshift(data);
     };
-    SharedService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _b || Object])
-    ], SharedService);
     return SharedService;
-    var _a, _b;
 }());
+SharedService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__youtube_service__["a" /* YoutubeGetVideo */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]) === "function" && _b || Object])
+], SharedService);
 
+var _a, _b;
 //# sourceMappingURL=lists.service.js.map
 
 /***/ }),
@@ -1339,7 +1343,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 function _window() {
     return window;
 }
-var NwjsService = /** @class */ (function () {
+var NwjsService = (function () {
     function NwjsService() {
         this.mw = _window().mw;
         this.up = _window();
@@ -1360,12 +1364,12 @@ var NwjsService = /** @class */ (function () {
             }
         });
     };
-    NwjsService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [])
-    ], NwjsService);
     return NwjsService;
 }());
+NwjsService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [])
+], NwjsService);
 
 //# sourceMappingURL=nwjs.service.js.map
 
@@ -1387,7 +1391,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var NumberVal = /** @class */ (function () {
+var NumberVal = (function () {
     function NumberVal() {
     }
     NumberVal.max = function (max) {
@@ -1423,12 +1427,12 @@ var NumberVal = /** @class */ (function () {
             return { 'invalid': true };
         };
     };
-    NumberVal = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [])
-    ], NumberVal);
     return NumberVal;
 }());
+NumberVal = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [])
+], NumberVal);
 
 //# sourceMappingURL=validators.service.js.map
 
@@ -1455,7 +1459,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var YoutubeGetVideo = /** @class */ (function () {
+var YoutubeGetVideo = (function () {
     function YoutubeGetVideo(http) {
         this.http = http;
         this.url = 'https://www.googleapis.com/youtube/v3/';
@@ -1515,14 +1519,14 @@ var YoutubeGetVideo = /** @class */ (function () {
                 .map(function (response) { return response.json(); });
         }
     };
-    YoutubeGetVideo = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
-    ], YoutubeGetVideo);
     return YoutubeGetVideo;
-    var _a;
 }());
+YoutubeGetVideo = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
+], YoutubeGetVideo);
 
+var _a;
 //# sourceMappingURL=youtube.service.js.map
 
 /***/ }),
@@ -1536,6 +1540,7 @@ var YoutubeGetVideo = /** @class */ (function () {
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
+// The file contents for the current environment will overwrite these during build.
 var environment = {
     production: true
 };

@@ -321,7 +321,7 @@ iframe {
 }
 
 .video-list-featured {
-    margin: 10px 0 0;
+    margin: 0;
     height: 200px;
     background-position: center center;
     background-size: cover;
@@ -387,7 +387,7 @@ iframe {
 #feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 210px);
+    height: calc(100% - 200px);
     width: calc(100% - 40px);
     max-height: none;
     background-color: var(--c-gray);
