@@ -3,7 +3,7 @@
   "name": "yt-app",
   "description": "YouTube Player",
   "author": "Alex Olari <queadx@gmail.com>",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "youtube app",
     "node-webkit"

@@ -40,15 +40,15 @@ export class HistoryComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-    this._app.addPlaylistItem(i, list);
-}
+      this._app.addPlaylistItem(i, list);
+  }
 
   onCopyVideoItemLink(i: number, list: number) {
     this._app.onCopyVideoItemLink(i, list);
   }
 
   onClickHistory(event: Event, i: number) {
-    this._app.playVideo(this.historyVideos[i]);
+    this._app.getVideo(this.historyVideos[i]);
   }
 
 }

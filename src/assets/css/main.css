@@ -113,7 +113,7 @@ a:active {
 #app-container {
   position: relative;
   height: 100%;
-  background: linear-gradient(120deg, rgba(0, 243, 255, 0.1) 0%, var(--c-base) 30%);
+  background: linear-gradient(120deg, rgba(255, 0, 0, 0.1) 0%, var(--c-base) 30%);
 }
 
 .btn {
@@ -230,7 +230,7 @@ a:active {
 .col-2 {
   width: calc(40% - var(--menu-diff));
   left: calc(60% - var(--menu-diff));
-  background: linear-gradient(-90deg, rgba(0, 243, 255, 0.05) 0%, #1d1d25 30%);
+  background: linear-gradient(-90deg, rgba(255, 0, 0, 0.05) 0%, #1d1d25 30%);
 }
 
 .col-3 {
@@ -1526,15 +1526,12 @@ iframe {
 #search-video-list {
   z-index: 10;
   max-height: 430px;
-  background-color: var(--c-black);
-}
-
-#search-video-list .video-item {
-  background-color: var(--c-black);
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.5);
 }
 
 #search-video-list .video-item-settings {
-  background-color: rgba(41, 41, 53, 0.5);
+  background-color: rgba(41, 41, 53, 0.6);
 }
 
 #search-video-list::-webkit-scrollbar {
@@ -1741,10 +1738,6 @@ iframe {
 
 .video-item:hover .video-item-image {
   transform: scale(1.1);
-}
-
-.video-item.active {
-  background-color: var(--c-gray);
 }
 
 .video-item.active .video-item-hint {

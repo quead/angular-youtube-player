@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="assets/css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body class="">
+    <body class="application app-win">
         <div class="update-bar">
             <div id="output">Checking for updates...</div>
             <span class="update-loading">
@@ -62,7 +62,6 @@
                             document.getElementById('update-buttons').removeChild(children[0]);                                
                             document.getElementById('update-buttons').removeChild(children[0]);
                         }
-                        return;
                     } else {
                         output.innerHTML = `Update available...`;
                         updateBar.add('active', 'update-av'); 

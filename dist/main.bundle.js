@@ -356,10 +356,10 @@ var AppComponent = (function () {
     AppComponent.prototype.playVideo = function (data) {
         if (data.id !== this.currentVideo.id || this.currentState === -1) {
             if (data.id.videoId !== 'undefined') {
-                this.currentVideo.id = data.id.videoId;
+                this.currentVideo.id = data.id;
             }
             else {
-                this.currentVideo.id = data.id;
+                this.currentVideo.id = data.id.videoId;
             }
             this.currentVideo.title = data.snippet.title;
             this._shared.addHistoryVideo(data);
@@ -832,7 +832,7 @@ var HistoryComponent = (function () {
         this._app.onCopyVideoItemLink(i, list);
     };
     HistoryComponent.prototype.onClickHistory = function (event, i) {
-        this._app.playVideo(this.historyVideos[i]);
+        this._app.getVideo(this.historyVideos[i]);
     };
     return HistoryComponent;
 }());
