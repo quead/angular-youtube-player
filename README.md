@@ -70,6 +70,11 @@ Just take files from ***dist*** folder
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
 
 ## Changelog
+Angular2 YT Player v2.0
+- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, macOS x64, Linux x64
+- Auto updating the app (desktop version)
+
 Angular2 YT Player v1.9.2
 - UX improvements and fixes
 - Preparing files for 2.0
@@ -150,11 +155,6 @@ Angular2 YT Player v1.0.0
 - Change and create theme **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
-
-#### Roadmap to 2.0
-- Global hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
-- Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
-- Auto updating the app (desktop version) **(in v2.0)**
 
 #### Roadmap to 3.0
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**

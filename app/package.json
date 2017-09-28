@@ -3,13 +3,13 @@
   "name": "yt-app",
   "description": "YouTube Player",
   "author": "Alex Olari <queadx@gmail.com>",
-  "version": "1.0.2",
+  "version": "1.9.0",
   "keywords": [
     "youtube app",
     "node-webkit"
   ],
   "license": "MIT",
-  "manifestUrl": "https://quead.github.io/updates/package.json",
+  "manifestUrl": "http://noxien.net/quead/package.json",
   "window": {
     "height": 720,
     "width": 1270,
