@@ -1527,7 +1527,7 @@ iframe {
   z-index: 10;
   max-height: 430px;
   background-color: rgba(0, 0, 0, 0.9);
-  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 #search-video-list .video-item-settings {

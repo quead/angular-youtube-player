@@ -355,11 +355,11 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.playVideo = function (data) {
         if (data.id !== this.currentVideo.id || this.currentState === -1) {
-            if (data.id.videoId !== 'undefined') {
-                this.currentVideo.id = data.id;
+            if (typeof data.id.videoId !== 'undefined') {
+                this.currentVideo.id = data.id.videoId;
             }
             else {
-                this.currentVideo.id = data.id.videoId;
+                this.currentVideo.id = data.id;
             }
             this.currentVideo.title = data.snippet.title;
             this._shared.addHistoryVideo(data);
