@@ -50,20 +50,20 @@ This player is compatible only with Chrome/webkit browsers.
 
 1. Add to body classes application app-win / app-mac / app-linux
 `<body class="application app-mac">`
-1. Build the src folder with
+2. Build the src folder with
 `ng build` in root folder
 *You need to have angular-cli installed on global (check above)*
 *This is compiling typescript into Javascript*
 
-2. Copy package.json from **/app** folder and paste it to **dist** folder
-3. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
-4. Path your system enviroment to folder where you unarchived
-5. Run
+3. Copy package.json from **/app** folder and paste it to **dist** folder
+4. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
+5. Path your system enviroment to folder where you unarchived
+6. Run
 
 `gulp build` in root folder
 *This is compiling javascript into desktop app*
 
-6. In release folder (root) you have the compiled apps
+7. In release folder (root) you have the compiled apps
 
 **For personal use**
 
