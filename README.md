@@ -48,6 +48,8 @@ This player is compatible only with Chrome/webkit browsers.
 
 **For building app**
 
+1. Add to body classes application app-win / app-mac / app-linux
+`<body class="application app-mac">`
 1. Build the src folder with
 `ng build` in root folder
 *You need to have angular-cli installed on global (check above)*

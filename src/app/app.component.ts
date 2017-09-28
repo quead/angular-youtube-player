@@ -595,7 +595,6 @@ export class AppComponent implements OnInit {
       listType = this.playlistVideos[i];
     }
     if (list === 4) {
-      console.log('antena 3 e aici');
       listType = this._shared.historyVideos[i];
     }
 

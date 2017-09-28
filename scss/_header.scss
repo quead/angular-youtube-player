@@ -24,11 +24,11 @@
     }
 }
 
-.mac-controls {
+.linux-controls {
     display: none;
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 7px;
     z-index: 9999;
     button {
         background: transparent;
@@ -38,6 +38,7 @@
         height: 14px;
         width: 14px;
         padding: 0;
+        border-radius: 50%;        
         cursor: pointer;
         + button {
             margin-left: 5px;
@@ -45,34 +46,50 @@
     }
 }
 
-#mac-close {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: 0 -16px;
+.app-mac {
+    #linux-close {
+        background-color: #fc5753;
+        &:active {
+            background-color: #F53B38;
+        }
     }
+    
+    #linux-minimize {
+        background-color: #fdbc40;
+        &:active {
+            background-color: #FC9F00;
+        }
+    }
+    
+    #linux-maximize {
+        background-color: #33c748;
+        &:active {
+            background-color: #23A134;
+        }
+    }    
 }
 
-#mac-minimize {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: -16px 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: -16px -16px;
+.app-linux {
+    #linux-close {
+        background-color: #fc5753;
+        &:active {
+            background-color: #F53B38;
+        }
     }
-}
-
-#mac-maximize {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: -32px 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: -32px -16px;
+    
+    #linux-minimize {
+        background-color: #585869;
+        &:active {
+            background-color: #464657;
+        }
     }
+    
+    #linux-maximize {
+        background-color: #4f4f54;
+        &:active {
+            background-color: #38383D;
+        }
+    }    
 }
 
 .win-controls {
