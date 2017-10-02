@@ -1094,15 +1094,15 @@ input[type="radio"]:checked + label .round-check:after {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.mac-controls {
+.linux-controls {
   display: none;
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 7px;
   z-index: 9999;
 }
 
-.mac-controls button {
+.linux-controls button {
   background: transparent;
   border: none;
   outline: 0;
@@ -1110,44 +1110,60 @@ input[type="radio"]:checked + label .round-check:after {
   height: 14px;
   width: 14px;
   padding: 0;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-.mac-controls button + button {
+.linux-controls button + button {
   margin-left: 5px;
 }
 
-#mac-close {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: 0 0;
-  background-repeat: no-repeat;
+.app-mac #linux-close {
+  background-color: #fc5753;
 }
 
-#mac-close:active {
-  background-position: 0 -16px;
+.app-mac #linux-close:active {
+  background-color: #F53B38;
 }
 
-#mac-minimize {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: -16px 0;
-  background-repeat: no-repeat;
+.app-mac #linux-minimize {
+  background-color: #fdbc40;
 }
 
-#mac-minimize:active {
-  background-position: -16px -16px;
+.app-mac #linux-minimize:active {
+  background-color: #FC9F00;
 }
 
-#mac-maximize {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: -32px 0;
-  background-repeat: no-repeat;
+.app-mac #linux-maximize {
+  background-color: #33c748;
 }
 
-#mac-maximize:active {
-  background-position: -32px -16px;
+.app-mac #linux-maximize:active {
+  background-color: #23A134;
+}
+
+.app-linux #linux-close {
+  background-color: #fc5753;
+}
+
+.app-linux #linux-close:active {
+  background-color: #F53B38;
+}
+
+.app-linux #linux-minimize {
+  background-color: #585869;
+}
+
+.app-linux #linux-minimize:active {
+  background-color: #464657;
+}
+
+.app-linux #linux-maximize {
+  background-color: #4f4f54;
+}
+
+.app-linux #linux-maximize:active {
+  background-color: #38383D;
 }
 
 .win-controls {
@@ -2438,5 +2454,10 @@ iframe {
 }
 
 .app-win .win-controls {
+  display: flex;
+}
+
+.app-linux .linux-controls,
+.app-mac .linux-controls {
   display: flex;
 }
