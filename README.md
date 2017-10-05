@@ -5,12 +5,13 @@
 
 # About Player
 [![Version](https://img.shields.io/badge/Current%20version-v2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ngx-youtube-player](https://github.com/orizens/ngx-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers.
 
