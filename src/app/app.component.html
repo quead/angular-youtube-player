@@ -1,6 +1,6 @@
 <header>
   <div class="header-bar">
-      <h1>YouTube Player v2.0</h1>
+      <h1><span class="favicon-app"></span>YouTube Player v2.0</h1>
       <div class="win-controls">
           <button id="win-minimize" (click)="winMinimize();"></button>
           <button id="win-maximize" (click)="winMaximize();"></button>
@@ -89,7 +89,7 @@
             <div class="app-head">
                 <h2>Player</h2>
                 <div class="settings">
-                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus-circle"></span>Add to playlist</p>
+                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
                 </div>
             </div>
             <div class="app-content">
@@ -153,7 +153,7 @@
                         <span class="fa fa-share-alt"></span>
                       </button>
                       <button class="video-item-add" (click)="addPlaylistItem(i, 2)">
-                        <span class="fa fa-plus-circle"></span>
+                        <span class="fa fa-plus"></span>
                       </button>
                     </div>
                   </div>

@@ -24,7 +24,7 @@
     "@types/youtube": "0.0.31",
     "child_process": "^1.0.2",
     "core-js": "^2.4.1",
-    "ng2-youtube-player": "0.0.3",
+    "ngx-youtube-player": "0.0.41",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },

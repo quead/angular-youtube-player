@@ -10,7 +10,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ngx-youtube-player](https://github.com/orizens/ngx-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -48,8 +48,8 @@ This player is compatible only with Chrome/webkit browsers.
 
 **For building app**
 
-1. Add to body classes application app-win / app-mac / app-linux
-`<body class="application app-mac">`
+1. Add to body classes application app-win / app-linux
+`<body class="application app-win">`
 2. Build the src folder with
 `ng build` in root folder
 *You need to have angular-cli installed on global (check above)*
@@ -74,7 +74,7 @@ Just take files from ***dist*** folder
 ## Changelog
 Angular2 YT Player v2.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
-- Adding support for NW.js to export the app for desktop compatible: Windows x64, macOS x64, Linux x64
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
 
 Angular2 YT Player v1.9.2
@@ -155,6 +155,7 @@ Angular2 YT Player v1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
+- macOS app release **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
 
@@ -163,6 +164,8 @@ Angular2 YT Player v1.0.0
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
+- Integrating Google accounts **(in v2.4)**
+- Integrating firebase **(in v2.5)**
 
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***

@@ -163,6 +163,18 @@
     }
 }
 
+.header-bar h1 {
+    display: flex;
+    align-items: center;
+    width: 130px;
+    margin: 0 auto;
+}
+
+.favicon-app {
+    display: inline-block;
+    @include icon-svg(logoNew, 20px, 15px, red, white, white);
+}
+
 .logo-svg {
     display: block;
     @include icon-svg(logo, 111px, 25px, red, white, white);

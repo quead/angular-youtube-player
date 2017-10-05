@@ -94,6 +94,14 @@ export class AppComponent implements OnInit {
   // ---------------- Init player ----------------
 
   savePlayer(player) {
+      /*let playerSrc = player.a.src;
+      if (playerSrc.indexOf('origin') > 0) {
+        const playerSrcOrigin = playerSrc.substr(playerSrc.indexOf('origin'));
+        const playerOrigin = playerSrcOrigin.substr(0, playerSrcOrigin.indexOf('&'));
+        const playerNewSrc = playerSrc.replace(playerOrigin, 'origin=http%3A%2F%2Fgoogle.com');
+        player.a.src = playerNewSrc;
+      }
+      console.log(player);*/
       this.player = player;
   }
 
@@ -106,6 +114,7 @@ export class AppComponent implements OnInit {
       'playsinline': 1,
       'autoplay': 0,
       'loop': 0,
+      'origin': 'http://google.com',
       'rel': 0
     };
     return playerVars;
