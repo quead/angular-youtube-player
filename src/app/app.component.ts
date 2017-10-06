@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
   menuActive = false;
 
   modal = false;
+  modalPlaylist = false;
+  modalExportPlaylist = false;
   modalPlaylistItem: number;
 
   playlistPrefill = true;
@@ -308,6 +310,18 @@ export class AppComponent implements OnInit {
       this._shared.updatePlaylist();
   }
 
+  exportPlaylist() {
+      this.showExportPlaylistModal();
+  }
+
+  exportFilePlaylist() {
+      var a = document.createElement("a");
+      var file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
+      a.href = URL.createObjectURL(file);
+      a.download = 'playlist.json';
+      a.click();
+  }
+
   // ---------------- Init settings ----------------
 
   preventOldSettings() {
@@ -486,11 +500,19 @@ export class AppComponent implements OnInit {
 
   closeModal() {
     this.modal = false;
+    this.modalPlaylist = false;
+    this.modalExportPlaylist = false;
   }
 
-  showModal(i: number) {
+  showPlaylistModal(i: number) {
     this.modal = true;
+    this.modalPlaylist = true;
     this.modalPlaylistItem = i;
+  }
+
+  showExportPlaylistModal() {
+    this.modal = true;
+    this.modalExportPlaylist = true;
   }
 
   confirmModal() {
