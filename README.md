@@ -1,5 +1,6 @@
 <p align="center">
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
+  <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
   <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GmAP7ip.png" style="height: auto; max-width:100%;" />
 </p>
 
@@ -71,6 +72,7 @@ This player is compatible only with Chrome/webkit browsers.
 Just take files from ***dist*** folder
 
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
+<a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
 Angular2 YT Player v2.0
