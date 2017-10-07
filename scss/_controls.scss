@@ -100,9 +100,11 @@
             transform: translate(-50%, -50%);
         }
         &:not(#play-song):hover {
+            color: var(--c-primary);
             text-shadow: 0 0 10px var(--c-primary);
         }
         &:not(#play-song):active {
+            color: var(--c-primary);
             transform: scale(1.2);
         }
     }
@@ -146,7 +148,7 @@
 
 .player-range {
     width: 100%;
-    height: 16px;
+    height: 3px;
     cursor: pointer;
     background: transparent;
     -webkit-appearance: none;
@@ -176,13 +178,16 @@
     }
 }
 
+.current-video-range {
+    margin: 12px auto;
+    padding: 3px 0;
+}
+
 .duration-range-container {
     position: relative;
-    height: 9px;
+    height: 3px;
     background-color: var(--c-gray);
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
     border-radius: 20px;
     .duration-input-shadow {
         position: absolute;
@@ -191,21 +196,21 @@
         height: 100%;
         border-radius: 0;
         background-color: var(--c-primary);
-        border-radius: 20px;
         box-shadow: 0 0 10px transparent;        
         transition: box-shadow 0.2s ease-out;
     }
     .player-range {
         -webkit-appearance: none;
         z-index: 1;
-        position: relative;
+        position: absolute;
+        top: 0;
         overflow: visible;
         &::-webkit-slider-thumb {
             position: relative;
             -webkit-appearance: none;
-            top: -4px;
-            height: 16px;
-            width: 16px;
+            top: 0;
+            height: 15px;
+            width: 15px;
             border-radius: 50px;
             background-color: var(--c-white);
             opacity: 0;
@@ -235,15 +240,13 @@
 .volume-input-container {
     position: relative;
     width: 80px;
-    height: 8px;
+    height: 3px;
     background-color: var(--c-gray);
-    border-radius: 5px;
     .volume-input-shadow {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
-        border-radius: 20px;
         background-color: var(--c-primary);
         box-shadow: 0 0 10px transparent;        
         transition: box-shadow 0.2s ease-out;
@@ -258,14 +261,14 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 11px;
+        height: 3px;
         -webkit-appearance: none;
         outline: 0;
         z-index: 1;
         &::-webkit-slider-thumb {
             position: relative;
             -webkit-appearance: none;
-            top: -2px;
+            top: 0;
             height: 12px;
             width: 12px;
             border-radius: 50px;

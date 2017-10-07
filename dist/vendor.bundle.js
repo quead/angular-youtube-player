@@ -1,6 +1,6 @@
 webpackJsonp(["vendor"],{
 
-/***/ "../../../../ng2-youtube-player/modules/ng2-youtube-player.es5.js":
+/***/ "../../../../ngx-youtube-player/modules/ngx-youtube-player.es5.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -218,17 +218,19 @@ var YoutubePlayerComponent = (function () {
     /**
      * @param {?} playerService
      * @param {?} elementRef
+     * @param {?} renderer
      */
-    function YoutubePlayerComponent(playerService, elementRef) {
+    function YoutubePlayerComponent(playerService, elementRef, renderer) {
         this.playerService = playerService;
         this.elementRef = elementRef;
+        this.renderer = renderer;
         this.videoId = '';
         /**
          * \@description sets the protocol by the navigator object
          * if there is no window, it sets a default http protocol
          * unless the protocol is set from outside
          */
-        this.protocol = this.getProtocol();
+        this.protocol = 'http';
         this.playerVars = {};
         // player created and initialized - sends instance of the player
         this.ready = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
@@ -241,7 +243,8 @@ var YoutubePlayerComponent = (function () {
     YoutubePlayerComponent.prototype.ngAfterContentInit = function () {
         var /** @type {?} */ htmlId = this.playerService.generateUniqueId();
         var /** @type {?} */ playerSize = { height: this.height, width: this.width };
-        this.ytPlayerContainer.nativeElement.setAttribute('id', htmlId);
+        var /** @type {?} */ container = this.renderer.selectRootElement('#yt-player-ngx-component');
+        this.renderer.setAttribute(container, 'id', htmlId);
         this.playerService.loadPlayerApi({
             protocol: this.protocol
         });
@@ -266,7 +269,7 @@ YoutubePlayerComponent.decorators = [
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */], args: [{
                 changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* ChangeDetectionStrategy */].OnPush,
                 selector: 'youtube-player',
-                template: "\n    <div id=\"yt-player-ng2-component\" #ytPlayerContainer></div>\n  ",
+                template: "\n    <div id=\"yt-player-ngx-component\"></div>\n  ",
             },] },
 ];
 /**
@@ -275,6 +278,7 @@ YoutubePlayerComponent.decorators = [
 YoutubePlayerComponent.ctorParameters = function () { return [
     { type: YoutubePlayerService, },
     { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ElementRef */], },
+    { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* Renderer2 */], },
 ]; };
 YoutubePlayerComponent.propDecorators = {
     'videoId': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
@@ -284,7 +288,6 @@ YoutubePlayerComponent.propDecorators = {
     'playerVars': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* Input */] },],
     'ready': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
     'change': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["T" /* Output */] },],
-    'ytPlayerContainer': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */], args: ['ytPlayerContainer',] },],
 };
 var YoutubePlayerModule = (function () {
     function YoutubePlayerModule() {
@@ -325,7 +328,7 @@ YoutubePlayerModule.ctorParameters = function () { return []; };
  * Generated bundle index. Do not edit.
  */
 
-//# sourceMappingURL=ng2-youtube-player.es5.js.map
+//# sourceMappingURL=ngx-youtube-player.es5.js.map
 
 
 /***/ }),
@@ -5623,7 +5626,7 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9590,7 +9593,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9632,6 +9635,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* unused harmony export VERSION */
 /* unused harmony export TEMPLATE_TRANSFORMS */
 /* unused harmony export CompilerConfig */
+/* unused harmony export preserveWhitespacesDefault */
 /* unused harmony export JitCompiler */
 /* unused harmony export DirectiveResolver */
 /* unused harmony export PipeResolver */
@@ -9833,6 +9837,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* unused harmony export getNsPrefix */
 /* unused harmony export mergeNsAndName */
 /* unused harmony export NAMED_ENTITIES */
+/* unused harmony export NGSP_UNICODE */
 /* unused harmony export debugOutputAstAsTypeScript */
 /* unused harmony export TypeScriptEmitter */
 /* unused harmony export ParseLocation */
@@ -9859,7 +9864,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9879,7 +9884,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10869,6 +10874,10 @@ var NAMED_ENTITIES = {
     'zwj': '\u200D',
     'zwnj': '\u200C',
 };
+// The &ngsp; pseudo-entity is denoting a space. see:
+// https://github.com/dart-lang/angular/blob/0bb611387d29d65b5af7f9d2515ab571fd3fbee4/_tests/test/compiler/preserve_whitespace_test.dart
+var NGSP_UNICODE = '\uE500';
+NAMED_ENTITIES['ngsp'] = NGSP_UNICODE;
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -11892,7 +11901,7 @@ var CompileTemplateMetadata = (function () {
      * @param {?} __0
      */
     function CompileTemplateMetadata(_a) {
-        var encapsulation = _a.encapsulation, template = _a.template, templateUrl = _a.templateUrl, styles = _a.styles, styleUrls = _a.styleUrls, externalStylesheets = _a.externalStylesheets, animations = _a.animations, ngContentSelectors = _a.ngContentSelectors, interpolation = _a.interpolation, isInline = _a.isInline;
+        var encapsulation = _a.encapsulation, template = _a.template, templateUrl = _a.templateUrl, styles = _a.styles, styleUrls = _a.styleUrls, externalStylesheets = _a.externalStylesheets, animations = _a.animations, ngContentSelectors = _a.ngContentSelectors, interpolation = _a.interpolation, isInline = _a.isInline, preserveWhitespaces = _a.preserveWhitespaces;
         this.encapsulation = encapsulation;
         this.template = template;
         this.templateUrl = templateUrl;
@@ -11906,6 +11915,7 @@ var CompileTemplateMetadata = (function () {
         }
         this.interpolation = interpolation;
         this.isInline = isInline;
+        this.preserveWhitespaces = preserveWhitespaces;
     }
     /**
      * @return {?}
@@ -12062,7 +12072,8 @@ function createHostComponentMeta(hostTypeReference, compMeta, hostViewType) {
             animations: [],
             isInline: true,
             externalStylesheets: [],
-            interpolation: null
+            interpolation: null,
+            preserveWhitespaces: false,
         }),
         exportAs: null,
         changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["k" /* ChangeDetectionStrategy */].Default,
@@ -12390,14 +12401,24 @@ var CompilerConfig = (function () {
      * @param {?=} __0
      */
     function CompilerConfig(_a) {
-        var _b = _a === void 0 ? {} : _a, _c = _b.defaultEncapsulation, defaultEncapsulation = _c === void 0 ? __WEBPACK_IMPORTED_MODULE_1__angular_core__["_19" /* ViewEncapsulation */].Emulated : _c, _d = _b.useJit, useJit = _d === void 0 ? true : _d, missingTranslation = _b.missingTranslation, enableLegacyTemplate = _b.enableLegacyTemplate;
+        var _b = _a === void 0 ? {} : _a, _c = _b.defaultEncapsulation, defaultEncapsulation = _c === void 0 ? __WEBPACK_IMPORTED_MODULE_1__angular_core__["_19" /* ViewEncapsulation */].Emulated : _c, _d = _b.useJit, useJit = _d === void 0 ? true : _d, missingTranslation = _b.missingTranslation, enableLegacyTemplate = _b.enableLegacyTemplate, preserveWhitespaces = _b.preserveWhitespaces;
         this.defaultEncapsulation = defaultEncapsulation;
         this.useJit = !!useJit;
         this.missingTranslation = missingTranslation || null;
         this.enableLegacyTemplate = enableLegacyTemplate !== false;
+        this.preserveWhitespaces = preserveWhitespacesDefault(noUndefined(preserveWhitespaces));
     }
     return CompilerConfig;
 }());
+/**
+ * @param {?} preserveWhitespacesOption
+ * @param {?=} defaultSetting
+ * @return {?}
+ */
+function preserveWhitespacesDefault(preserveWhitespacesOption, defaultSetting) {
+    if (defaultSetting === void 0) { defaultSetting = true; }
+    return preserveWhitespacesOption === null ? defaultSetting : preserveWhitespacesOption;
+}
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -21014,6 +21035,116 @@ function createTokenForExternalReference(reflector, reference) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var PRESERVE_WS_ATTR_NAME = 'ngPreserveWhitespaces';
+var SKIP_WS_TRIM_TAGS = new Set(['pre', 'template', 'textarea', 'script', 'style']);
+// Equivalent to \s with \u00a0 (non-breaking space) excluded.
+// Based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+var WS_CHARS = ' \f\n\r\t\v\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff';
+var NO_WS_REGEXP = new RegExp("[^" + WS_CHARS + "]");
+var WS_REPLACE_REGEXP = new RegExp("[" + WS_CHARS + "]{2,}", 'g');
+/**
+ * @param {?} attrs
+ * @return {?}
+ */
+function hasPreserveWhitespacesAttr(attrs) {
+    return attrs.some(function (attr) { return attr.name === PRESERVE_WS_ATTR_NAME; });
+}
+/**
+ * Angular Dart introduced &ngsp; as a placeholder for non-removable space, see:
+ * https://github.com/dart-lang/angular/blob/0bb611387d29d65b5af7f9d2515ab571fd3fbee4/_tests/test/compiler/preserve_whitespace_test.dart#L25-L32
+ * In Angular Dart &ngsp; is converted to the 0xE500 PUA (Private Use Areas) unicode character
+ * and later on replaced by a space. We are re-implementing the same idea here.
+ * @param {?} value
+ * @return {?}
+ */
+function replaceNgsp(value) {
+    // lexer is replacing the &ngsp; pseudo-entity with NGSP_UNICODE
+    return value.replace(new RegExp(NGSP_UNICODE, 'g'), ' ');
+}
+/**
+ * This visitor can walk HTML parse tree and remove / trim text nodes using the following rules:
+ * - consider spaces, tabs and new lines as whitespace characters;
+ * - drop text nodes consisting of whitespace characters only;
+ * - for all other text nodes replace consecutive whitespace characters with one space;
+ * - convert &ngsp; pseudo-entity to a single space;
+ *
+ * Removal and trimming of whitespaces have positive performance impact (less code to generate
+ * while compiling templates, faster view creation). At the same time it can be "destructive"
+ * in some cases (whitespaces can influence layout). Because of the potential of breaking layout
+ * this visitor is not activated by default in Angular 4 and people need to explicitly opt-in for
+ * whitespace removal. The default option for whitespace removal will be revisited post Angular 5
+ * and might be changed to "on" by default.
+ */
+var WhitespaceVisitor = (function () {
+    function WhitespaceVisitor() {
+    }
+    /**
+     * @param {?} element
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitElement = function (element, context) {
+        if (SKIP_WS_TRIM_TAGS.has(element.name) || hasPreserveWhitespacesAttr(element.attrs)) {
+            // don't descent into elements where we need to preserve whitespaces
+            // but still visit all attributes to eliminate one used as a market to preserve WS
+            return new Element(element.name, visitAll(this, element.attrs), element.children, element.sourceSpan, element.startSourceSpan, element.endSourceSpan);
+        }
+        return new Element(element.name, element.attrs, visitAll(this, element.children), element.sourceSpan, element.startSourceSpan, element.endSourceSpan);
+    };
+    /**
+     * @param {?} attribute
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitAttribute = function (attribute, context) {
+        return attribute.name !== PRESERVE_WS_ATTR_NAME ? attribute : null;
+    };
+    /**
+     * @param {?} text
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitText = function (text, context) {
+        var /** @type {?} */ isNotBlank = text.value.match(NO_WS_REGEXP);
+        if (isNotBlank) {
+            return new Text(replaceNgsp(text.value).replace(WS_REPLACE_REGEXP, ' '), text.sourceSpan);
+        }
+        return null;
+    };
+    /**
+     * @param {?} comment
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitComment = function (comment, context) { return comment; };
+    /**
+     * @param {?} expansion
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitExpansion = function (expansion, context) { return expansion; };
+    /**
+     * @param {?} expansionCase
+     * @param {?} context
+     * @return {?}
+     */
+    WhitespaceVisitor.prototype.visitExpansionCase = function (expansionCase, context) { return expansionCase; };
+    return WhitespaceVisitor;
+}());
+/**
+ * @param {?} htmlAstWithErrors
+ * @return {?}
+ */
+function removeWhitespaces(htmlAstWithErrors) {
+    return new ParseTreeResult(visitAll(new WhitespaceVisitor(), htmlAstWithErrors.rootNodes), htmlAstWithErrors.errors);
+}
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // http://cldr.unicode.org/index/cldr-spec/plural-rules
 var PLURAL_CASES = ['zero', 'one', 'two', 'few', 'many', 'other'];
 /**
@@ -22654,10 +22785,11 @@ var TemplateParser = (function () {
      * @param {?} pipes
      * @param {?} schemas
      * @param {?} templateUrl
+     * @param {?} preserveWhitespaces
      * @return {?}
      */
-    TemplateParser.prototype.parse = function (component, template, directives, pipes, schemas, templateUrl) {
-        var /** @type {?} */ result = this.tryParse(component, template, directives, pipes, schemas, templateUrl);
+    TemplateParser.prototype.parse = function (component, template, directives, pipes, schemas, templateUrl, preserveWhitespaces) {
+        var /** @type {?} */ result = this.tryParse(component, template, directives, pipes, schemas, templateUrl, preserveWhitespaces);
         var /** @type {?} */ warnings = ((result.errors)).filter(function (error) { return error.level === ParseErrorLevel.WARNING; })
             .filter(warnOnlyOnce([TEMPLATE_ATTR_DEPRECATION_WARNING, TEMPLATE_ELEMENT_DEPRECATION_WARNING]));
         var /** @type {?} */ errors = ((result.errors)).filter(function (error) { return error.level === ParseErrorLevel.ERROR; });
@@ -22677,10 +22809,15 @@ var TemplateParser = (function () {
      * @param {?} pipes
      * @param {?} schemas
      * @param {?} templateUrl
+     * @param {?} preserveWhitespaces
      * @return {?}
      */
-    TemplateParser.prototype.tryParse = function (component, template, directives, pipes, schemas, templateUrl) {
-        return this.tryParseHtml(this.expandHtml(/** @type {?} */ ((this._htmlParser)).parse(template, templateUrl, true, this.getInterpolationConfig(component))), component, directives, pipes, schemas);
+    TemplateParser.prototype.tryParse = function (component, template, directives, pipes, schemas, templateUrl, preserveWhitespaces) {
+        var /** @type {?} */ htmlParseResult = ((this._htmlParser)).parse(template, templateUrl, true, this.getInterpolationConfig(component));
+        if (!preserveWhitespaces) {
+            htmlParseResult = removeWhitespaces(htmlParseResult);
+        }
+        return this.tryParseHtml(this.expandHtml(htmlParseResult), component, directives, pipes, schemas);
     };
     /**
      * @param {?} htmlAstWithErrors
@@ -22836,9 +22973,10 @@ var TemplateParseVisitor = (function () {
      */
     TemplateParseVisitor.prototype.visitText = function (text, parent) {
         var /** @type {?} */ ngContentIndex = ((parent.findNgContentIndex(TEXT_CSS_SELECTOR)));
-        var /** @type {?} */ expr = this._bindingParser.parseInterpolation(text.value, /** @type {?} */ ((text.sourceSpan)));
+        var /** @type {?} */ valueNoNgsp = replaceNgsp(text.value);
+        var /** @type {?} */ expr = this._bindingParser.parseInterpolation(valueNoNgsp, /** @type {?} */ ((text.sourceSpan)));
         return expr ? new BoundTextAst(expr, ngContentIndex, /** @type {?} */ ((text.sourceSpan))) :
-            new TextAst(text.value, ngContentIndex, /** @type {?} */ ((text.sourceSpan)));
+            new TextAst(valueNoNgsp, ngContentIndex, /** @type {?} */ ((text.sourceSpan)));
     };
     /**
      * @param {?} attribute
@@ -23120,7 +23258,7 @@ var TemplateParseVisitor = (function () {
             _this._createDirectivePropertyAsts(directive.inputs, props, directiveProperties, targetBoundDirectivePropNames);
             elementOrDirectiveRefs.forEach(function (elOrDirRef) {
                 if ((elOrDirRef.value.length === 0 && directive.isComponent) ||
-                    (directive.exportAs == elOrDirRef.value)) {
+                    (elOrDirRef.isReferenceToDirective(directive))) {
                     targetReferences.push(new ReferenceAst(elOrDirRef.name, createTokenForReference(directive.type.reference), elOrDirRef.sourceSpan));
                     matchedReferences.add(elOrDirRef.name);
                 }
@@ -23384,6 +23522,13 @@ var NonBindableVisitor = (function () {
     NonBindableVisitor.prototype.visitExpansionCase = function (expansionCase, context) { return expansionCase; };
     return NonBindableVisitor;
 }());
+/**
+ * A reference to an element or directive in a template. E.g., the reference in this template:
+ *
+ * <div #myMenu="coolMenu">
+ *
+ * would be {name: 'myMenu', value: 'coolMenu', sourceSpan: ...}
+ */
 var ElementOrDirectiveRef = (function () {
     /**
      * @param {?} name
@@ -23395,8 +23540,24 @@ var ElementOrDirectiveRef = (function () {
         this.value = value;
         this.sourceSpan = sourceSpan;
     }
+    /**
+     * Gets whether this is a reference to the given directive.
+     * @param {?} directive
+     * @return {?}
+     */
+    ElementOrDirectiveRef.prototype.isReferenceToDirective = function (directive) {
+        return splitExportAs(directive.exportAs).indexOf(this.value) !== -1;
+    };
     return ElementOrDirectiveRef;
 }());
+/**
+ * Splits a raw, potentially comma-delimted `exportAs` value into an array of names.
+ * @param {?} exportAs
+ * @return {?}
+ */
+function splitExportAs(exportAs) {
+    return exportAs ? exportAs.split(',').map(function (e) { return e.trim(); }) : [];
+}
 /**
  * @param {?} classAttrValue
  * @return {?}
@@ -23952,6 +24113,10 @@ var DirectiveNormalizer = (function () {
         else {
             throw syntaxError("No template specified for component " + Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_69" /* ɵstringify */])(prenormData.componentType));
         }
+        if (isDefined(prenormData.preserveWhitespaces) &&
+            typeof prenormData.preserveWhitespaces !== 'boolean') {
+            throw syntaxError("The preserveWhitespaces option for component " + Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_69" /* ɵstringify */])(prenormData.componentType) + " must be a boolean");
+        }
         return SyncAsync.then(this.normalizeTemplateOnly(prenormData), function (result) { return _this.normalizeExternalStylesheets(result); });
     };
     /**
@@ -24011,7 +24176,8 @@ var DirectiveNormalizer = (function () {
             ngContentSelectors: visitor.ngContentSelectors,
             animations: prenormData.animations,
             interpolation: prenormData.interpolation, isInline: isInline,
-            externalStylesheets: []
+            externalStylesheets: [],
+            preserveWhitespaces: preserveWhitespacesDefault(prenormData.preserveWhitespaces, this._config.preserveWhitespaces),
         });
     };
     /**
@@ -24030,6 +24196,7 @@ var DirectiveNormalizer = (function () {
             animations: templateMeta.animations,
             interpolation: templateMeta.interpolation,
             isInline: templateMeta.isInline,
+            preserveWhitespaces: templateMeta.preserveWhitespaces,
         }); });
     };
     /**
@@ -24311,7 +24478,8 @@ var DirectiveResolver = (function () {
                 styleUrls: directive.styleUrls,
                 encapsulation: directive.encapsulation,
                 animations: directive.animations,
-                interpolation: directive.interpolation
+                interpolation: directive.interpolation,
+                preserveWhitespaces: directive.preserveWhitespaces,
             });
         }
         else {
@@ -24991,7 +25159,8 @@ var CompileMetadataResolver = (function () {
                 styles: template.styles,
                 styleUrls: template.styleUrls,
                 animations: template.animations,
-                interpolation: template.interpolation
+                interpolation: template.interpolation,
+                preserveWhitespaces: template.preserveWhitespaces
             });
             if (Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_56" /* ɵisPromise */])(templateMeta) && isSync) {
                 this._reportError(componentStillLoadingError(directiveType), directiveType);
@@ -25040,7 +25209,8 @@ var CompileMetadataResolver = (function () {
                 interpolation: noUndefined(dirMeta.interpolation),
                 isInline: !!dirMeta.template,
                 externalStylesheets: [],
-                ngContentSelectors: []
+                ngContentSelectors: [],
+                preserveWhitespaces: noUndefined(dirMeta.preserveWhitespaces),
             });
         }
         var /** @type {?} */ changeDetectionStrategy = ((null));
@@ -28805,7 +28975,7 @@ var EmitterVisitorContext = (function () {
     EmitterVisitorContext.prototype.spanOf = function (line, column) {
         var /** @type {?} */ emittedLine = this._lines[line - this._preambleLineCount];
         if (emittedLine) {
-            var /** @type {?} */ columnsLeft = column - emittedLine.indent;
+            var /** @type {?} */ columnsLeft = column - _createIndent(emittedLine.indent).length;
             for (var /** @type {?} */ partIndex = 0; partIndex < emittedLine.parts.length; partIndex++) {
                 var /** @type {?} */ part = emittedLine.parts[partIndex];
                 if (part.length > columnsLeft) {
@@ -33788,9 +33958,10 @@ var AotCompiler = (function () {
         var /** @type {?} */ ngModule = ((this._metadataResolver.getNgModuleMetadata(ngModuleType)));
         var /** @type {?} */ providers = [];
         if (this._localeId) {
+            var /** @type {?} */ normalizedLocale = this._localeId.replace(/_/g, '-');
             providers.push({
                 token: createTokenForExternalReference(this._reflector, Identifiers.LOCALE_ID),
-                useValue: this._localeId,
+                useValue: normalizedLocale,
             });
         }
         if (this._translationFormat) {
@@ -33848,7 +34019,8 @@ var AotCompiler = (function () {
         var _this = this;
         var /** @type {?} */ directives = directiveIdentifiers.map(function (dir) { return _this._metadataResolver.getDirectiveSummary(dir.reference); });
         var /** @type {?} */ pipes = ngModule.transitiveModule.pipes.map(function (pipe) { return _this._metadataResolver.getPipeSummary(pipe.reference); });
-        var _a = this._templateParser.parse(compMeta, /** @type {?} */ ((((compMeta.template)).template)), directives, pipes, ngModule.schemas, templateSourceUrl(ngModule.type, compMeta, /** @type {?} */ ((compMeta.template)))), parsedTemplate = _a.template, usedPipes = _a.pipes;
+        var /** @type {?} */ preserveWhitespaces = ((((compMeta)).template)).preserveWhitespaces;
+        var _a = this._templateParser.parse(compMeta, /** @type {?} */ ((((compMeta.template)).template)), directives, pipes, ngModule.schemas, templateSourceUrl(ngModule.type, compMeta, /** @type {?} */ ((compMeta.template))), preserveWhitespaces), parsedTemplate = _a.template, usedPipes = _a.pipes;
         var /** @type {?} */ stylesExpr = componentStyles ? variable(componentStyles.stylesVar) : literalArr([]);
         var /** @type {?} */ viewResult = this._viewCompiler.compileComponent(outputCtx, compMeta, parsedTemplate, stylesExpr, usedPipes);
         if (componentStyles) {
@@ -34557,7 +34729,9 @@ var StaticReflector = (function () {
                         var item = _a[_i];
                         // Check for a spread expression
                         if (item && item.__symbolic === 'spread') {
-                            var /** @type {?} */ spreadArray = simplify(item.expression);
+                            // We call with references as 0 because we require the actual value and cannot
+                            // tolerate a reference here.
+                            var /** @type {?} */ spreadArray = simplifyInContext(context, item.expression, depth, 0);
                             if (Array.isArray(spreadArray)) {
                                 for (var _b = 0, spreadArray_1 = spreadArray; _b < spreadArray_1.length; _b++) {
                                     var spreadItem = spreadArray_1[_b];
@@ -34577,7 +34751,7 @@ var StaticReflector = (function () {
                 if (expression instanceof StaticSymbol) {
                     // Stop simplification at builtin symbols or if we are in a reference context
                     if (expression === self.injectionToken || expression === self.opaqueToken ||
-                        self.conversionMap.has(expression) || references > 0) {
+                        self.conversionMap.has(expression) || (references > 0 && !expression.members.length)) {
                         return expression;
                     }
                     else {
@@ -35577,6 +35751,7 @@ function createAotCompiler(compilerHost, options) {
         useJit: false,
         enableLegacyTemplate: options.enableLegacyTemplate !== false,
         missingTranslation: options.missingTranslation,
+        preserveWhitespaces: options.preserveWhitespaces,
     });
     var /** @type {?} */ normalizer = new DirectiveNormalizer({ get: function (url) { return compilerHost.loadResource(url); } }, urlResolver, htmlParser, config);
     var /** @type {?} */ expressionParser = new Parser(new Lexer());
@@ -36810,7 +36985,8 @@ var JitCompiler = (function () {
         var /** @type {?} */ compMeta = template.compMeta;
         var /** @type {?} */ externalStylesheetsByModuleUrl = new Map();
         var /** @type {?} */ outputContext = createOutputContext();
-        var /** @type {?} */ componentStylesheet = this._styleCompiler.compileComponent(outputContext, compMeta); /** @type {?} */
+        var /** @type {?} */ componentStylesheet = this._styleCompiler.compileComponent(outputContext, compMeta);
+        var /** @type {?} */ preserveWhitespaces = ((((compMeta)).template)).preserveWhitespaces; /** @type {?} */
         ((compMeta.template)).externalStylesheets.forEach(function (stylesheetMeta) {
             var /** @type {?} */ compiledStylesheet = _this._styleCompiler.compileStyles(createOutputContext(), compMeta, stylesheetMeta);
             externalStylesheetsByModuleUrl.set(/** @type {?} */ ((stylesheetMeta.moduleUrl)), compiledStylesheet);
@@ -36818,7 +36994,7 @@ var JitCompiler = (function () {
         this._resolveStylesCompileResult(componentStylesheet, externalStylesheetsByModuleUrl);
         var /** @type {?} */ directives = template.directives.map(function (dir) { return _this._metadataResolver.getDirectiveSummary(dir.reference); });
         var /** @type {?} */ pipes = template.ngModule.transitiveModule.pipes.map(function (pipe) { return _this._metadataResolver.getPipeSummary(pipe.reference); });
-        var _a = this._templateParser.parse(compMeta, /** @type {?} */ ((((compMeta.template)).template)), directives, pipes, template.ngModule.schemas, templateSourceUrl(template.ngModule.type, template.compMeta, /** @type {?} */ ((template.compMeta.template)))), parsedTemplate = _a.template, usedPipes = _a.pipes;
+        var _a = this._templateParser.parse(compMeta, /** @type {?} */ ((((compMeta.template)).template)), directives, pipes, template.ngModule.schemas, templateSourceUrl(template.ngModule.type, template.compMeta, /** @type {?} */ ((template.compMeta.template))), preserveWhitespaces), parsedTemplate = _a.template, usedPipes = _a.pipes;
         var /** @type {?} */ compileResult = this._viewCompiler.compileComponent(outputContext, compMeta, parsedTemplate, variable(componentStylesheet.stylesVar), usedPipes);
         var /** @type {?} */ evalResult;
         if (!this._compilerConfig.useJit) {
@@ -37370,6 +37546,7 @@ var JitCompilerFactory = (function () {
             defaultEncapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_19" /* ViewEncapsulation */].Emulated,
             missingTranslation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["J" /* MissingTranslationStrategy */].Warning,
             enableLegacyTemplate: true,
+            preserveWhitespaces: true,
         };
         this._defaultOptions = [compilerOptions].concat(defaultOptions);
     }
@@ -37393,6 +37570,7 @@ var JitCompilerFactory = (function () {
                         defaultEncapsulation: opts.defaultEncapsulation,
                         missingTranslation: opts.missingTranslation,
                         enableLegacyTemplate: opts.enableLegacyTemplate,
+                        preserveWhitespaces: opts.preserveWhitespaces,
                     });
                 },
                 deps: []
@@ -37431,6 +37609,7 @@ function _mergeOptions(optionsArr) {
         providers: _mergeArrays(optionsArr.map(function (options) { return ((options.providers)); })),
         missingTranslation: _lastDefined(optionsArr.map(function (options) { return options.missingTranslation; })),
         enableLegacyTemplate: _lastDefined(optionsArr.map(function (options) { return options.enableLegacyTemplate; })),
+        preserveWhitespaces: _lastDefined(optionsArr.map(function (options) { return options.preserveWhitespaces; })),
     };
 }
 /**
@@ -37706,7 +37885,7 @@ function _mergeArrays(parts) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -38502,7 +38681,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.6');
+var VERSION = new Version('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43285,6 +43464,14 @@ var QueryList = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * internal
+     * @return {?}
+     */
+    QueryList.prototype.destroy = function () {
+        this._emitter.complete();
+        this._emitter.unsubscribe();
+    };
     return QueryList;
 }());
 /**
@@ -49619,33 +49806,19 @@ function viewDef(flags, nodes, updateDirectives, updateRenderer) {
     var /** @type {?} */ viewRootNodeFlags = 0;
     var /** @type {?} */ viewMatchedQueries = 0;
     var /** @type {?} */ currentParent = null;
+    var /** @type {?} */ currentRenderParent = null;
     var /** @type {?} */ currentElementHasPublicProviders = false;
     var /** @type {?} */ currentElementHasPrivateProviders = false;
     var /** @type {?} */ lastRenderRootNode = null;
     for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
-        while (currentParent && i > currentParent.index + currentParent.childCount) {
-            var /** @type {?} */ newParent = currentParent.parent;
-            if (newParent) {
-                newParent.childFlags |= ((currentParent.childFlags));
-                newParent.childMatchedQueries |= currentParent.childMatchedQueries;
-            }
-            currentParent = newParent;
-        }
         var /** @type {?} */ node = nodes[i];
         node.index = i;
         node.parent = currentParent;
         node.bindingIndex = viewBindingCount;
         node.outputIndex = viewDisposableCount;
-        // renderParent needs to account for ng-container!
-        var /** @type {?} */ currentRenderParent = void 0;
-        if (currentParent && currentParent.flags & 1 /* TypeElement */ &&
-            !((currentParent.element)).name) {
-            currentRenderParent = currentParent.renderParent;
-        }
-        else {
-            currentRenderParent = currentParent;
-        }
         node.renderParent = currentRenderParent;
+        viewNodeFlags |= node.flags;
+        viewMatchedQueries |= node.matchedQueryIds;
         if (node.element) {
             var /** @type {?} */ elDef = node.element;
             elDef.publicProviders =
@@ -49654,24 +49827,11 @@ function viewDef(flags, nodes, updateDirectives, updateRenderer) {
             // Note: We assume that all providers of an element are before any child element!
             currentElementHasPublicProviders = false;
             currentElementHasPrivateProviders = false;
-        }
-        validateNode(currentParent, node, nodes.length);
-        viewNodeFlags |= node.flags;
-        viewMatchedQueries |= node.matchedQueryIds;
-        if (node.element && node.element.template) {
-            viewMatchedQueries |= node.element.template.nodeMatchedQueries;
-        }
-        if (currentParent) {
-            currentParent.childFlags |= node.flags;
-            currentParent.directChildFlags |= node.flags;
-            currentParent.childMatchedQueries |= node.matchedQueryIds;
-            if (node.element && node.element.template) {
-                currentParent.childMatchedQueries |= node.element.template.nodeMatchedQueries;
+            if (node.element.template) {
+                viewMatchedQueries |= node.element.template.nodeMatchedQueries;
             }
         }
-        else {
-            viewRootNodeFlags |= node.flags;
-        }
+        validateNode(currentParent, node, nodes.length);
         viewBindingCount += node.bindings.length;
         viewDisposableCount += node.outputs.length;
         if (!currentRenderParent && (node.flags & 3 /* CatRenderNode */)) {
@@ -49695,7 +49855,7 @@ function viewDef(flags, nodes, updateDirectives, updateRenderer) {
                 if (!currentElementHasPrivateProviders) {
                     currentElementHasPrivateProviders = true; /** @type {?} */
                     ((((
-                    // Use protoyypical inheritance to not get O(n^2) complexity...
+                    // Use prototypical inheritance to not get O(n^2) complexity...
                     currentParent)).element)).allProviders =
                         Object.create(/** @type {?} */ ((((currentParent)).element)).publicProviders);
                 } /** @type {?} */
@@ -49705,17 +49865,45 @@ function viewDef(flags, nodes, updateDirectives, updateRenderer) {
                 ((((currentParent)).element)).componentProvider = node;
             }
         }
-        if (node.childCount) {
+        if (currentParent) {
+            currentParent.childFlags |= node.flags;
+            currentParent.directChildFlags |= node.flags;
+            currentParent.childMatchedQueries |= node.matchedQueryIds;
+            if (node.element && node.element.template) {
+                currentParent.childMatchedQueries |= node.element.template.nodeMatchedQueries;
+            }
+        }
+        else {
+            viewRootNodeFlags |= node.flags;
+        }
+        if (node.childCount > 0) {
             currentParent = node;
+            if (!isNgContainer(node)) {
+                currentRenderParent = node;
+            }
         }
-    }
-    while (currentParent) {
-        var /** @type {?} */ newParent = currentParent.parent;
-        if (newParent) {
-            newParent.childFlags |= currentParent.childFlags;
-            newParent.childMatchedQueries |= currentParent.childMatchedQueries;
+        else {
+            // When the current node has no children, check if it is the last children of its parent.
+            // When it is, propagate the flags up.
+            // The loop is required because an element could be the last transitive children of several
+            // elements. We loop to either the root or the highest opened element (= with remaining
+            // children)
+            while (currentParent && i === currentParent.index + currentParent.childCount) {
+                var /** @type {?} */ newParent = currentParent.parent;
+                if (newParent) {
+                    newParent.childFlags |= currentParent.childFlags;
+                    newParent.childMatchedQueries |= currentParent.childMatchedQueries;
+                }
+                currentParent = newParent;
+                // We also need to update the render parent & account for ng-container
+                if (currentParent && isNgContainer(currentParent)) {
+                    currentRenderParent = currentParent.renderParent;
+                }
+                else {
+                    currentRenderParent = currentParent;
+                }
+            }
         }
-        currentParent = newParent;
     }
     var /** @type {?} */ handleEvent = function (view, nodeIndex, eventName, event) { return ((((nodes[nodeIndex].element)).handleEvent))(view, eventName, event); };
     return {
@@ -49726,11 +49914,17 @@ function viewDef(flags, nodes, updateDirectives, updateRenderer) {
         nodeMatchedQueries: viewMatchedQueries, flags: flags,
         nodes: nodes,
         updateDirectives: updateDirectives || NOOP,
-        updateRenderer: updateRenderer || NOOP,
-        handleEvent: handleEvent || NOOP,
+        updateRenderer: updateRenderer || NOOP, handleEvent: handleEvent,
         bindingCount: viewBindingCount,
         outputCount: viewDisposableCount, lastRenderRootNode: lastRenderRootNode
     };
+}
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isNgContainer(node) {
+    return (node.flags & 1 /* TypeElement */) !== 0 && ((node.element)).name === null;
 }
 /**
  * @param {?} parent
@@ -50225,6 +50419,9 @@ function destroyViewNodes(view) {
         }
         else if (def.flags & 2 /* TypeText */) {
             ((view.renderer.destroyNode))(asTextData(view, i).renderText);
+        }
+        else if (def.flags & 67108864 /* TypeContentQuery */ || def.flags & 134217728 /* TypeViewQuery */) {
+            asQueryList(view, i).destroy();
         }
     }
 }
@@ -52606,7 +52803,7 @@ function transition$$1(stateChangeExpr, steps) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -57172,12 +57369,12 @@ var formControlBinding$1 = {
  * {\@link AbstractControl}.
  *
  * **Set the value**: You can pass in an initial value when instantiating the {\@link FormControl},
- * or you can set it programmatically later using {\@link AbstractControl#setValue} or
- * {\@link AbstractControl#patchValue}.
+ * or you can set it programmatically later using {\@link AbstractControl#setValue setValue} or
+ * {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the control, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -57322,12 +57519,13 @@ var formDirectiveProvider$1 = {
  *
  * **Set value**: You can set the form's initial value when instantiating the
  * {\@link FormGroup}, or you can set it programmatically later using the {\@link FormGroup}'s
- * {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue} methods.
+ * {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}
+ * methods.
  *
  * **Listen to value**: If you want to listen to changes in the value of the form, you can subscribe
- * to the {\@link FormGroup}'s {\@link AbstractControl#valueChanges} event.  You can also listen to
- * its {\@link AbstractControl#statusChanges} event to be notified when the validation status is
- * re-calculated.
+ * to the {\@link FormGroup}'s {\@link AbstractControl#valueChanges valueChanges} event.  You can also
+ * listen to its {\@link AbstractControl#statusChanges statusChanges} event to be notified when the
+ * validation status is re-calculated.
  *
  * Furthermore, you can listen to the directive's `ngSubmit` event to be notified when the user has
  * triggered a form submission. The `ngSubmit` event will be emitted with the original form
@@ -57610,11 +57808,11 @@ var formGroupNameProvider = {
  *
  * **Set the value**: You can set an initial value for each child control when instantiating
  * the {\@link FormGroup}, or you can set it programmatically later using
- * {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue}.
+ * {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the group, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -57852,7 +58050,7 @@ var controlNameBinding = {
  * closest {\@link FormGroup} or {\@link FormArray} above it.
  *
  * **Access the control**: You can access the {\@link FormControl} associated with
- * this directive by using the {\@link AbstractControl#get} method.
+ * this directive by using the {\@link AbstractControl#get get} method.
  * Ex: `this.form.get('first');`
  *
  * **Get value**: the `value` property is always synced and available on the {\@link FormControl}.
@@ -57860,11 +58058,11 @@ var controlNameBinding = {
  *
  *  **Set value**: You can set an initial value for the control when instantiating the
  *  {\@link FormControl}, or you can set it programmatically later using
- *  {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue}.
+ *  {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the control, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -58530,7 +58728,7 @@ FormBuilder.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -58743,7 +58941,7 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -60898,7 +61096,7 @@ JsonpModule.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -60944,7 +61142,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -61077,7 +61275,7 @@ var CachedResourceLoader = (function (_super) {
 /**
  * @stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -61165,7 +61363,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__[
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -65572,7 +65770,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -65703,7 +65901,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version *
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.4
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -71956,7 +72154,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["_15" /* Version */]('4.4.4');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

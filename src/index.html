@@ -2,19 +2,121 @@
 <html>
     <head>
         <base href="/">
-        <title>YouTube Player v1.9.2</title>
+        <title>YouTube Player v2.0</title>
         <link rel="icon" href="favicon.ico">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/normalize.css">
         <link rel="stylesheet" href="assets/css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body>
-    <app-yt>
-        <div class="loading-app">
-            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
-            <span class="sr-only">Loading...</span>
+    <body class="">
+        <div class="update-bar">
+            <div id="output">Checking for updates...</div>
+            <span class="update-loading">
+                <span class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></span>       
+            </span>
+            <div id="update-buttons"></div>
         </div>
-    </app-yt>
+        <app-yt>
+            <div class="loading-app">
+                <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </app-yt>
+        <script>
+            const AutoUpdater = require( "nw-autoupdater" ),
+                updater = new AutoUpdater( require( "./package.json" ) ),
+                output =  document.querySelector( "#output" ),
+                updateBar = document.getElementsByClassName("update-bar")[0].classList;   
+                                
+            async function main(update){
+                try {
+                    // Update copy is running to replace app with the update
+                    if ( updater.isSwapRequest() ) {
+                        updateBar.add('active');
+                        output.innerHTML = `Finishing update...`;
+                        await updater.swap();
+                        output.innerHTML = `Restarting...`;
+                        await updater.restart();
+                        return;
+                    }
+
+                    // Download/unpack update if any available
+                    const rManifest = await updater.readRemoteManifest();
+                    const needsUpdate = await updater.checkNewVersion( rManifest );
+                    if ( !needsUpdate ) {
+                        updateBar.add('active');
+                        setTimeout(() => {
+                            output.innerHTML = `There is no new updates...`;
+                        }, 2000); 
+                        setTimeout(() => {
+                            updateBar.remove('active');
+                        }, 4000);
+                        return;
+                    } 
+
+                    if (update) {
+                        output.innerHTML = `Preparing files...`;
+                        if (document.getElementById('update-buttons').hasChildNodes()) {
+                            var children = document.getElementById('update-buttons').childNodes;
+                            document.getElementById('update-buttons').removeChild(children[0]);                                
+                            document.getElementById('update-buttons').removeChild(children[0]);
+                        }
+                    } else {
+                        output.innerHTML = `Update available...`;
+                        updateBar.add('active', 'update-av'); 
+                        initUpdate();
+                        return;
+                    }
+
+                    // Subscribe for progress events
+                    updater.on( "download", ( downloadSize, totalSize ) => {
+                        output.innerHTML = `Downloading...`;
+                        console.log( "download progress", Math.floor( downloadSize / totalSize * 100 ), "%" );
+                    });
+                    updater.on( "install", ( installFiles, totalFiles ) => {
+                        output.innerHTML = `Installing...`;
+                        console.log( "install progress", Math.floor( installFiles / totalFiles * 100 ), "%" );
+                    });
+                    const updateFile = await updater.download( rManifest );
+                    updater.unpack( updateFile );
+                    updateAppSwap();
+                } catch ( e ) {
+                    console.error( e );
+                }
+            }
+            
+            function updateAppSwap() {
+                setTimeout(() => {
+                    updater.restartToSwap();  
+                }, 3000);
+            }
+
+            function updateAppLater() {
+                updateBar.remove('active');
+            }
+
+            function initUpdate() {
+                var btnUPDLTR = document.createElement("BUTTON");
+                    btnUPDLTR.setAttribute("id", "update-app-later");
+                    btnUPDLTR.innerHTML = 'Later';
+            
+                    document.getElementById("update-buttons").appendChild(btnUPDLTR);
+            
+                    btnUPDLTR.onclick = updateAppLater;                 
+            
+                var btnUPD = document.createElement("BUTTON");
+                    btnUPD.setAttribute("id", "update-app");
+                    btnUPD.innerHTML = 'Update';
+                    document.getElementById("update-buttons").appendChild(btnUPD);
+            
+                    btnUPD.addEventListener("click", function(){ 
+                        main(true);
+                    });
+            }
+
+            main(false);
+
+        </script>
     </body>
 </html>

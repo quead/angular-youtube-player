@@ -3,16 +3,17 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 function _window(): any {
-  // return the native window obj
   return window;
 }
 
 @Injectable()
 export class NwjsService {
   mw: any;
+  up: any;
 
   constructor() {
     this.mw = _window().mw;
+    this.up = _window();
   }
 
   init(): Observable<any> {

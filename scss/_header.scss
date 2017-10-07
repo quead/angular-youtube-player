@@ -3,6 +3,8 @@
     text-align: center;
     position: relative;
     height: 26px;
+    width: 100%;
+    z-index: 2;    
     &:before {
         content: '';
         background-color: var(--c-black);
@@ -22,11 +24,11 @@
     }
 }
 
-.mac-controls {
+.linux-controls {
     display: none;
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 7px;
     z-index: 9999;
     button {
         background: transparent;
@@ -36,6 +38,7 @@
         height: 14px;
         width: 14px;
         padding: 0;
+        border-radius: 50%;        
         cursor: pointer;
         + button {
             margin-left: 5px;
@@ -43,34 +46,50 @@
     }
 }
 
-#mac-close {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: 0 -16px;
+.app-mac {
+    #linux-close {
+        background-color: #fc5753;
+        &:active {
+            background-color: #F53B38;
+        }
     }
+    
+    #linux-minimize {
+        background-color: #fdbc40;
+        &:active {
+            background-color: #FC9F00;
+        }
+    }
+    
+    #linux-maximize {
+        background-color: #33c748;
+        &:active {
+            background-color: #23A134;
+        }
+    }    
 }
 
-#mac-minimize {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: -16px 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: -16px -16px;
+.app-linux {
+    #linux-close {
+        background-color: #fc5753;
+        &:active {
+            background-color: #F53B38;
+        }
     }
-}
-
-#mac-maximize {
-    background-image: url('../img/ui/mac-sprites.png');
-    background-size: 62px auto;
-    background-position: -32px 0;
-    background-repeat: no-repeat;
-    &:active {
-        background-position: -32px -16px;
+    
+    #linux-minimize {
+        background-color: #585869;
+        &:active {
+            background-color: #464657;
+        }
     }
+    
+    #linux-maximize {
+        background-color: #4f4f54;
+        &:active {
+            background-color: #38383D;
+        }
+    }    
 }
 
 .win-controls {
@@ -111,9 +130,9 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 13px auto;
-    width: 30px;
+    width: 35px;
     &:active {
-        background-color: var(--c-light-gray);
+        background-color: rgba(255, 255, 255, 0.15);
     }
 }
 
@@ -122,25 +141,38 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 13px auto;
-    width: 20px;
+    width: 25px;
     &:active {
-        background-color: var(--c-light-gray);
+        background-color: rgba(255, 255, 255, 0.15);
     }
 }
 
 #logo {
+    position: relative;
+    margin: 0 auto;
     cursor: pointer;
     transition: all 0.1s ease-out;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     small {
         position: absolute;
         left: calc(100% + 5px);
         top: 0;
         color: var(--c-primary);
     }
+    a {
+        -webkit-user-drag: none;        
+    }
+}
+
+.header-bar h1 {
+    display: flex;
+    align-items: center;
+    width: 130px;
+    margin: 0 auto;
+}
+
+.favicon-app {
+    display: inline-block;
+    @include icon-svg(logoNew, 20px, 15px, red, white, white);
 }
 
 .logo-svg {
@@ -156,10 +188,11 @@
     &-head {
         height: 100px;
         display: flex;
-        padding: 30px 20px 0 20px;
+        align-items: center;
+        padding: 0 20px 0 20px;
         .settings {
             margin-left: auto;
-            margin-top: 10px;
+            margin-top: 7px;
         }
     }
 }

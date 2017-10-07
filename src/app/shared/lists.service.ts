@@ -104,6 +104,7 @@ export class SharedService {
 
     updateSettings() {
         localStorage.setItem('settings', JSON.stringify(this.settings));
+        this.setLocalVersion();
     }
 
     getPlaylist() {
@@ -112,10 +113,17 @@ export class SharedService {
 
     updatePlaylist() {
         localStorage.setItem('playlist', JSON.stringify(this.playlist));
+        this.setLocalVersion();
     }
 
     setApiSettings() {
         this.youtube.defaultApiSet(this.settings);
+    }
+
+    setLocalVersion() {
+        if (localStorage.getItem('version') === null) {
+            localStorage.setItem('version', '1');
+        }
     }
 
     triggerNotify(message: string) {

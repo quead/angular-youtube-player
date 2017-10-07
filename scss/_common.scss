@@ -127,15 +127,10 @@
         .app-content {
             padding: 0 20px;
         }
-        &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 330px;
-            left: 0;
-            top: -230px;
-            background: radial-gradient(ellipse at center, rgba(162, 173, 214, 0.42) 0%, rgba(0,0,0,0) 70%);
+    }
+    &-player {
+        .app-head {
+            padding-left: 0;
         }
     }
 }
@@ -276,5 +271,94 @@
             width: 70%;
             border-radius: 30px;
         }
+    }
+}
+
+.update-bar {
+    position: fixed;
+    z-index: 999;
+    background-color: #0097ef;
+    color: white;
+    bottom: 0;
+    font-size: 14px;
+    height: 32px;
+    padding: 0 15px;
+    width: 100%;
+    align-items: center;
+    display: none;
+    #output {
+        display: inline-block;
+    }
+    .update-loading {
+        margin-left: 10px;
+        .fa {
+            font-size: 10px;
+        }
+    }
+    &.active {
+        display: flex;
+    }
+    &.update-av .fa {
+        display: none;
+    }
+    #update-buttons {
+        margin-left: auto;
+        height: 100%;
+    }
+    button {
+        float: right;        
+        border: none;
+        margin: 0;
+        font-size: 12px;
+        padding: 0 10px;
+        height: 100%;
+        text-transform: uppercase;
+        cursor: pointer;
+        line-height: 1;
+        + button {
+            margin-right: 5px;
+        }
+    }
+}
+
+#update-app {
+    background-color: #007bc3;
+    color: #ffffff;
+    &:hover {
+        background-color: #006eaf;
+    }
+    &:active {
+        background-color: #0066a2;
+    }
+}
+
+.export-playlist {
+    height: 190px;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    border-radius: 0;
+}
+
+#update-app-later {
+    background-color: transparent;
+    color: var(--c-white);
+    text-transform: capitalize;
+}
+
+@media screen and (max-width: 1200px) {
+    #mobile-unavailable {
+        background-color: var(--c-base);
+        font-size: 24px;
+        padding: 0 10px;
+        z-index: 3;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

@@ -9,7 +9,7 @@
 
 .col-2,
 .col-3 {
-    background-color: var(--c-white);
+    background: var(--c-white);
     .app-content {
         color: var(--c-black);
     }
@@ -256,6 +256,12 @@ input[type="checkbox"]:checked + label .round-check:before, input[type="radio"]:
     &::-webkit-slider-thumb {
         background-color: var(--c-primary);
         border: 1px solid var(--c-primary-active);
+    }
+}
+
+.player-buttons {
+    button {
+        color: var(--c-primary);
     }
 }
 

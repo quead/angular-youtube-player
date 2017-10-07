@@ -41,7 +41,7 @@
 }
 
 :root {
-  --c-base: #212129;
+  --c-base: #272731;
   --c-primary: red;
   --c-primary-active: #d42222;
   --c-primary-active-focus: #bb2222;
@@ -80,12 +80,14 @@ html {
 }
 
 body {
+  position: relative;
   background-color: var(--c-base);
   font-family: "San Francisco";
   color: var(--c-white);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
+  user-select: none;
   margin: 0;
   padding: 0;
   cursor: default;
@@ -111,17 +113,7 @@ a:active {
 #app-container {
   position: relative;
   height: 100%;
-}
-
-#app-container:before {
-  content: '';
-  background-image: url(http://blog.marmakoide.org/wp-content/uploads/2012/06/noise-good.png);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.025;
+  background: linear-gradient(120deg, rgba(255, 0, 0, 0.1) 0%, var(--c-base) 30%);
 }
 
 .btn {
@@ -228,11 +220,17 @@ a:active {
 
 .col-1 {
   width: 320px;
+  box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.05);
+}
+
+.col-2, .col-3 {
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .col-2 {
   width: calc(40% - var(--menu-diff));
   left: calc(60% - var(--menu-diff));
+  background: linear-gradient(-90deg, rgba(255, 0, 0, 0.05) 0%, #1d1d25 30%);
 }
 
 .col-3 {
@@ -391,15 +389,8 @@ a:active {
   padding: 0 20px;
 }
 
-.app-feed:before {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 330px;
-  left: 0;
-  top: -230px;
-  background: radial-gradient(ellipse at center, rgba(162, 173, 214, 0.42) 0%, transparent 70%);
+.app-player .app-head {
+  padding-left: 0;
 }
 
 #youtube-player {
@@ -553,6 +544,105 @@ a:active {
   border-radius: 30px;
 }
 
+.update-bar {
+  position: fixed;
+  z-index: 999;
+  background-color: #0097ef;
+  color: white;
+  bottom: 0;
+  font-size: 14px;
+  height: 32px;
+  padding: 0 15px;
+  width: 100%;
+  align-items: center;
+  display: none;
+}
+
+.update-bar #output {
+  display: inline-block;
+}
+
+.update-bar .update-loading {
+  margin-left: 10px;
+}
+
+.update-bar .update-loading .fa {
+  font-size: 10px;
+}
+
+.update-bar.active {
+  display: flex;
+}
+
+.update-bar.update-av .fa {
+  display: none;
+}
+
+.update-bar #update-buttons {
+  margin-left: auto;
+  height: 100%;
+}
+
+.update-bar button {
+  float: right;
+  border: none;
+  margin: 0;
+  font-size: 12px;
+  padding: 0 10px;
+  height: 100%;
+  text-transform: uppercase;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.update-bar button + button {
+  margin-right: 5px;
+}
+
+#update-app {
+  background-color: #007bc3;
+  color: #ffffff;
+}
+
+#update-app:hover {
+  background-color: #006eaf;
+}
+
+#update-app:active {
+  background-color: #0066a2;
+}
+
+.export-playlist {
+  height: 190px;
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #e2e2e2;
+  border-radius: 0;
+}
+
+#update-app-later {
+  background-color: transparent;
+  color: var(--c-white);
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 1200px) {
+  #mobile-unavailable {
+    background-color: var(--c-base);
+    font-size: 24px;
+    padding: 0 10px;
+    z-index: 3;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .current-video-all {
   padding: 0px 10px;
   display: inline-block;
@@ -669,10 +759,12 @@ a:active {
 }
 
 .player-buttons button:not(#play-song):hover {
+  color: var(--c-primary);
   text-shadow: 0 0 10px var(--c-primary);
 }
 
 .player-buttons button:not(#play-song):active {
+  color: var(--c-primary);
   transform: scale(1.2);
 }
 
@@ -723,7 +815,7 @@ a:active {
 
 .player-range {
   width: 100%;
-  height: 16px;
+  height: 3px;
   cursor: pointer;
   background: transparent;
   -webkit-appearance: none;
@@ -757,13 +849,16 @@ a:active {
   visibility: hidden;
 }
 
+.current-video-range {
+  margin: 12px auto;
+  padding: 3px 0;
+}
+
 .duration-range-container {
   position: relative;
-  height: 9px;
+  height: 3px;
   background-color: var(--c-gray);
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
   border-radius: 20px;
 }
 
@@ -774,7 +869,6 @@ a:active {
   height: 100%;
   border-radius: 0;
   background-color: var(--c-primary);
-  border-radius: 20px;
   box-shadow: 0 0 10px transparent;
   transition: box-shadow 0.2s ease-out;
 }
@@ -782,16 +876,17 @@ a:active {
 .duration-range-container .player-range {
   -webkit-appearance: none;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  top: 0;
   overflow: visible;
 }
 
 .duration-range-container .player-range::-webkit-slider-thumb {
   position: relative;
   -webkit-appearance: none;
-  top: -4px;
-  height: 16px;
-  width: 16px;
+  top: 0;
+  height: 15px;
+  width: 15px;
   border-radius: 50px;
   background-color: var(--c-white);
   opacity: 0;
@@ -817,9 +912,8 @@ a:active {
 .volume-input-container {
   position: relative;
   width: 80px;
-  height: 8px;
+  height: 3px;
   background-color: var(--c-gray);
-  border-radius: 5px;
 }
 
 .volume-input-container .volume-input-shadow {
@@ -827,7 +921,6 @@ a:active {
   top: 0;
   left: 0;
   height: 100%;
-  border-radius: 20px;
   background-color: var(--c-primary);
   box-shadow: 0 0 10px transparent;
   transition: box-shadow 0.2s ease-out;
@@ -844,7 +937,7 @@ a:active {
   top: 0;
   left: 0;
   width: 100%;
-  height: 11px;
+  height: 3px;
   -webkit-appearance: none;
   outline: 0;
   z-index: 1;
@@ -853,7 +946,7 @@ a:active {
 .volume-input-container .volume-input::-webkit-slider-thumb {
   position: relative;
   -webkit-appearance: none;
-  top: -2px;
+  top: 0;
   height: 12px;
   width: 12px;
   border-radius: 50px;
@@ -876,6 +969,11 @@ a:active {
 
 select {
   -webkit-appearance: none;
+}
+
+select option {
+  background-color: var(--c-base);
+  color: var(--c-white);
 }
 
 .round-check {
@@ -998,6 +1096,8 @@ input[type="radio"]:checked + label .round-check:after {
   text-align: center;
   position: relative;
   height: 26px;
+  width: 100%;
+  z-index: 2;
 }
 
 .header-bar:before {
@@ -1019,15 +1119,15 @@ input[type="radio"]:checked + label .round-check:after {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.mac-controls {
+.linux-controls {
   display: none;
   position: absolute;
   left: 10px;
-  top: 10px;
+  top: 7px;
   z-index: 9999;
 }
 
-.mac-controls button {
+.linux-controls button {
   background: transparent;
   border: none;
   outline: 0;
@@ -1035,44 +1135,60 @@ input[type="radio"]:checked + label .round-check:after {
   height: 14px;
   width: 14px;
   padding: 0;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-.mac-controls button + button {
+.linux-controls button + button {
   margin-left: 5px;
 }
 
-#mac-close {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: 0 0;
-  background-repeat: no-repeat;
+.app-mac #linux-close {
+  background-color: #fc5753;
 }
 
-#mac-close:active {
-  background-position: 0 -16px;
+.app-mac #linux-close:active {
+  background-color: #F53B38;
 }
 
-#mac-minimize {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: -16px 0;
-  background-repeat: no-repeat;
+.app-mac #linux-minimize {
+  background-color: #fdbc40;
 }
 
-#mac-minimize:active {
-  background-position: -16px -16px;
+.app-mac #linux-minimize:active {
+  background-color: #FC9F00;
 }
 
-#mac-maximize {
-  background-image: url("../img/ui/mac-sprites.png");
-  background-size: 62px auto;
-  background-position: -32px 0;
-  background-repeat: no-repeat;
+.app-mac #linux-maximize {
+  background-color: #33c748;
 }
 
-#mac-maximize:active {
-  background-position: -32px -16px;
+.app-mac #linux-maximize:active {
+  background-color: #23A134;
+}
+
+.app-linux #linux-close {
+  background-color: #fc5753;
+}
+
+.app-linux #linux-close:active {
+  background-color: #F53B38;
+}
+
+.app-linux #linux-minimize {
+  background-color: #585869;
+}
+
+.app-linux #linux-minimize:active {
+  background-color: #464657;
+}
+
+.app-linux #linux-maximize {
+  background-color: #4f4f54;
+}
+
+.app-linux #linux-maximize:active {
+  background-color: #38383D;
 }
 
 .win-controls {
@@ -1116,11 +1232,11 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 30px;
+  width: 35px;
 }
 
 #win-maximize:active {
-  background-color: var(--c-light-gray);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 #win-minimize {
@@ -1128,20 +1244,18 @@ input[type="radio"]:checked + label .round-check:after {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 13px auto;
-  width: 20px;
+  width: 25px;
 }
 
 #win-minimize:active {
-  background-color: var(--c-light-gray);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 #logo {
+  position: relative;
+  margin: 0 auto;
   cursor: pointer;
   transition: all 0.1s ease-out;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 #logo small {
@@ -1149,6 +1263,27 @@ input[type="radio"]:checked + label .round-check:after {
   left: calc(100% + 5px);
   top: 0;
   color: var(--c-primary);
+}
+
+#logo a {
+  -webkit-user-drag: none;
+}
+
+.header-bar h1 {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  margin: 0 auto;
+}
+
+.favicon-app {
+  display: inline-block;
+  width: 20px;
+  height: 15px;
+  background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 250 250' style='enable-background:new 0 0 250 250;' xml:space='preserve'%3E %3Cstyle type='text/css'%3E .st0%7Bfill:%23FF0000;%7D .st1%7Bfill:%23DF0000;%7D .st2%7Bfill:%23FFFFFF;%7D %3C/style%3E %3Cpolygon class='st0' points='122.2,25.4 122.2,25.4 122.2,25.4 29.1,58.6 43.3,181.7 122.2,225.4 122.2,225.4 122.2,225.4 201.1,181.7 215.3,58.6 '/%3E %3Cpolygon class='st1' points='122.2,25.4 122.2,47.6 122.2,47.5 122.2,148.8 122.2,148.8 122.2,225.4 122.2,225.4 201.1,181.7 215.3,58.6 '/%3E %3Cg%3E %3Cpath class='st2' d='M155.8,92.5c1.9,0.2,6,0.2,9.7,4.1c0,0,2.9,2.9,3.8,9.5c1,7.8,1,15.6,1,15.6v7.3c0,0,0.1,7.8-1,15.6 c-0.9,6.6-3.8,9.5-3.8,9.5c-3.6,3.8-7.8,3.8-9.7,4c0,0-13.4,1-33.6,1c-25-0.2-32.7-1-32.7-1c-2.1-0.4-7-0.3-10.6-4.1 c0,0-2.9-2.9-3.8-9.5c-1-7.8-1-15.6-1-15.6v-7.3c0,0-0.1-7.8,1-15.6c0.9-6.7,3.8-9.5,3.8-9.5c3.6-3.9,7.8-3.9,9.7-4.1 c0,0,13.4-1,33.6-1S155.8,92.5,155.8,92.5z M138.2,124.4l-26-13.6v27L138.2,124.4z'/%3E %3C/g%3E %3C/svg%3E");
+  background-size: 20px 15px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .logo-svg {
@@ -1174,12 +1309,13 @@ input[type="radio"]:checked + label .round-check:after {
 .app-head {
   height: 100px;
   display: flex;
-  padding: 30px 20px 0 20px;
+  align-items: center;
+  padding: 0 20px 0 20px;
 }
 
 .app-head .settings {
   margin-left: auto;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .settings .fa {
@@ -1283,6 +1419,7 @@ nav a {
   text-decoration: none;
   color: var(--c-white);
   font-size: 14px;
+  -webkit-user-drag: none;
   position: relative;
   padding: 10px 15px 10px 35px;
   transition: all 0.1s ease-out;
@@ -1312,12 +1449,11 @@ nav a:hover {
 
 nav a.is-active, nav a:active {
   opacity: 1;
-  color: var(--c-primary);
-  text-shadow: 0 0 10px var(--c-primary);
+  color: var(--c-white);
 }
 
 nav a.is-active .fa, nav a:active .fa {
-  color: var(--c-primary);
+  color: var(--c-white);
 }
 
 nav a.is-active .description, nav a:active .description {
@@ -1329,6 +1465,19 @@ nav a.is-active .description, nav a:active .description {
   display: block;
   position: relative;
   color: var(--c-white);
+  margin-top: 5px;
+}
+
+#main-search .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  font-size: 18px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.1s ease-out;
 }
 
 #main-search .form-group {
@@ -1344,23 +1493,23 @@ nav a.is-active .description, nav a:active .description {
   border: none;
   display: block;
   width: 100%;
-  padding: 10px 40px 10px 20px;
-  border-radius: 20px;
+  padding: 15px 40px 15px 40px;
+  border-radius: 0;
   margin: 0;
   outline: 0;
   position: relative;
-  background-color: var(--c-gray);
+  background-color: transparent;
   color: inherit;
   z-index: 1;
   transition: all 0.1s ease-out;
 }
 
-#main-search input[type="text"]:focus {
-  background-color: var(--c-black);
+#main-search input[type="text"]::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
 
-#main-search input[type="text"]::-webkit-input-placeholder {
-  color: var(--c-white);
+#main-search input[type="text"]:focus + .search-icon {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 #main-search .clear-button {
@@ -1398,7 +1547,7 @@ iframe {
 .video-list {
   position: absolute;
   width: 100%;
-  top: 45px;
+  top: 55px;
   overflow-y: auto;
 }
 
@@ -1427,7 +1576,7 @@ iframe {
 
 .search-list.arrow-up {
   position: absolute;
-  top: 38px;
+  top: 48px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1435,15 +1584,12 @@ iframe {
 #search-video-list {
   z-index: 10;
   max-height: 430px;
-  background-color: var(--c-black);
-}
-
-#search-video-list .video-item {
-  background-color: var(--c-black);
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 #search-video-list .video-item-settings {
-  background-color: rgba(41, 41, 53, 0.5);
+  background-color: rgba(41, 41, 53, 0.6);
 }
 
 #search-video-list::-webkit-scrollbar {
@@ -1460,11 +1606,14 @@ iframe {
 }
 
 .video-item-head {
-  background-color: var(--c-gray);
+  background-color: rgba(255, 255, 255, 0.04);
   color: var(--c-white);
   width: 100%;
   height: 39px;
   padding: 8px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .video-item-head-btn {
@@ -1472,7 +1621,7 @@ iframe {
   background-color: var(--c-primary);
   cursor: pointer;
   color: var(--c-wihte);
-  border-radius: 3px;
+  border-radius: 20px;
   padding: 4px 8px;
   margin-top: 2px;
   text-transform: uppercase;
@@ -1562,7 +1711,7 @@ iframe {
 }
 
 .video-item-settings {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.4);
   color: var(--c-white);
   position: absolute;
   right: 0;
@@ -1587,6 +1736,7 @@ iframe {
   text-align: center;
   border: none;
   margin: 0 5px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
 }
@@ -1648,10 +1798,6 @@ iframe {
   transform: scale(1.1);
 }
 
-.video-item.active {
-  background-color: var(--c-gray);
-}
-
 .video-item.active .video-item-hint {
   display: inline-block;
 }
@@ -1673,6 +1819,7 @@ iframe {
   height: calc(100% - 39px);
   width: 100%;
   overflow: auto;
+  z-index: 0;
 }
 
 #related-video-list .related-video-content::-webkit-scrollbar-track {
@@ -1716,6 +1863,7 @@ iframe {
   width: 100%;
   overflow: auto;
   background-color: var(--c-dark-gray);
+  z-index: 0;
 }
 
 #playlist-video-list .playlist-video-content .video-item:not(.active) {
@@ -1728,7 +1876,7 @@ iframe {
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar {
   width: 6px;
-  background-color: var(--c-dark-gray);
+  background-color: transparent;
 }
 
 #playlist-video-list .playlist-video-content::-webkit-scrollbar-thumb {
@@ -1741,7 +1889,7 @@ iframe {
 }
 
 .video-list-featured {
-  margin: 10px 0 0;
+  margin: 0;
   height: 200px;
   background-position: center center;
   background-size: cover;
@@ -1816,7 +1964,7 @@ iframe {
 #feed-video-list {
   top: inherit;
   bottom: 0;
-  height: calc(100% - 246px);
+  height: calc(100% - 200px);
   width: calc(100% - 40px);
   max-height: none;
   background-color: var(--c-gray);
@@ -1937,7 +2085,7 @@ iframe {
 
 #app-container.light-mode .col-2,
 #app-container.light-mode .col-3 {
-  background-color: var(--c-white);
+  background: var(--c-white);
 }
 
 #app-container.light-mode .col-2 .app-content,
@@ -2177,6 +2325,10 @@ iframe {
   border: 1px solid var(--c-primary-active);
 }
 
+#app-container.light-mode .player-buttons button {
+  color: var(--c-primary);
+}
+
 #app-container.light-mode .app-feed:before {
   display: none;
 }
@@ -2333,14 +2485,21 @@ iframe {
   }
 }
 
-.application #app-container > .container {
-  height: calc(100% - 26px);
-}
-
 .application .header-bar {
   display: block;
+  position: absolute;
+  top: 0;
+}
+
+.application .app-head {
+  padding-top: 25px;
 }
 
 .app-win .win-controls {
+  display: flex;
+}
+
+.app-linux .linux-controls,
+.app-mac .linux-controls {
   display: flex;
 }

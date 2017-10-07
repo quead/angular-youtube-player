@@ -9,12 +9,14 @@ html {
     display: block;
 }
 body {
+    position: relative;
     background-color: var(--c-base);
     font-family: "San Francisco";
     color: var(--c-white);    
     font-weight: 400;    
     font-size: $f-14;
     line-height: 1.5;
+    user-select: none;
     margin: 0;
     padding: 0;
     cursor: default;
@@ -40,14 +42,5 @@ a {
 #app-container {
     position: relative;
     height: 100%;
-    &:before {
-        content: '';
-        background-image: url(http://blog.marmakoide.org/wp-content/uploads/2012/06/noise-good.png);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.025;
-    }
+    background: linear-gradient(120deg, rgba(255, 0, 0, 0.1) 0%, var(--c-base) 30%);
 }

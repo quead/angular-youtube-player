@@ -1,15 +1,15 @@
 <header>
   <div class="header-bar">
-      <h1>YouTube Player v1.9.1</h1>
+      <h1><span class="favicon-app"></span>YouTube Player v2.0</h1>
       <div class="win-controls">
           <button id="win-minimize" (click)="winMinimize();"></button>
           <button id="win-maximize" (click)="winMaximize();"></button>
           <button id="win-close" (click)="winClose();"></button>
       </div>
-      <div class="mac-controls">
-          <button id="mac-close"></button>
-          <button id="mac-minimize"></button>
-          <button id="mac-maximize"></button>
+      <div class="linux-controls">
+          <button id="linux-close" (click)="winMinimize();"></button>
+          <button id="linux-minimize" (click)="winMaximize();"></button>
+          <button id="linux-maximize" (click)="winClose();"></button>
       </div>
   </div>
   <div class="device-bar">
@@ -45,6 +45,7 @@
                 <div class="video-item-head">
                     Current playlist
                     <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
+                    <!--<button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>-->
                 </div>
                 <div class="playlist-video-content" #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
@@ -74,7 +75,7 @@
                       <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
                         <span class="fa fa-share-alt"></span>
                       </button>
-                      <button class="video-item-remove" (click)="showModal(i)">
+                      <button class="video-item-remove" (click)="showPlaylistModal(i)">
                         <span class="fa fa-times"></span>
                       </button>
                     </div>
@@ -89,7 +90,7 @@
             <div class="app-head">
                 <h2>Player</h2>
                 <div class="settings">
-                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus-circle"></span>Add to playlist</p>
+                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
                 </div>
             </div>
             <div class="app-content">
@@ -153,7 +154,7 @@
                         <span class="fa fa-share-alt"></span>
                       </button>
                       <button class="video-item-add" (click)="addPlaylistItem(i, 2)">
-                        <span class="fa fa-plus-circle"></span>
+                        <span class="fa fa-plus"></span>
                       </button>
                     </div>
                   </div>
@@ -174,7 +175,7 @@
   </div>
   <div *ngIf="modal" class="modal-overlay">
     <div class="modal-background-overlay" (click)="closeModal()"></div>
-    <div class="modal-container">
+    <div *ngIf="modalPlaylist" class="modal-container">
       <h2>Do you want to remove this item from playlist?</h2>
       <div class="modal-content">
         <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
@@ -188,5 +189,21 @@
         <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
       </div>
     </div>
+    <div *ngIf="modalExportPlaylist" class="modal-container">
+      <h2>Manage playlist</h2>
+      <div class="modal-content">
+        <textarea class="export-playlist" [value]="this.playlistVideos | json" readonly></textarea>
+      </div>
+      <button class="modal-close" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
+      <div class="modal-buttons">
+        <button type="button" class="btn btn-primary" (click)="exportFilePlaylist()">Export playlist</button>        
+        <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+      </div>
+    </div>
+  </div>
+  <div id="mobile-unavailable">
+    The app is not available for mobile/tablet.
   </div>
 </div>

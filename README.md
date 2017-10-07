@@ -1,24 +1,28 @@
 <p align="center">
-  <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GmAP7ip.png" style="height: auto; max-width:100%;" />
+  Check 
+  <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a> 
+  or
+  <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
+  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GyNXPTg.png" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v1.9.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [ng2-youtube-player](https://github.com/orizens/ng2-youtube-player "ng2 youtube player") 0.0.3 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
-This player is compatible only with Chrome/webkit browsers because in future I want to implement [NW.js](https://nwjs.io/ 'NWjs website') for compiling the code in Windows/Mac OS X/Linux desktop app.
+This player is compatible only with Chrome/webkit browsers.
 
-*The project status is alpha.*
+*The project status is beta.*
 
 ## Usage
 
-**For angular2/typescript development**
+**For Angular and Typescript Development**
 1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
 2. Install [angular-cli 1.1.3+](https://github.com/angular/angular-cli "Angular Cli")
 
@@ -32,7 +36,6 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm start` in root folder
 
-------
 
 **For SASS development**
 
@@ -41,17 +44,46 @@ This player is compatible only with Chrome/webkit browsers because in future I w
 
 `npm install -g gulp`
 
-4. Start compiling the SCSS files by
+3. Start compiling the SCSS files by
 
-`gulp`
+`gulp sw` in root folder
+
+------
+
+**For building app**
+
+1. Add to body classes application app-win / app-linux
+`<body class="application app-win">`
+2. Build the src folder with
+`ng build` in root folder
+*You need to have angular-cli installed on global (check above)*
+*This is compiling typescript into Javascript*
+
+3. Copy package.json from **/app** folder and paste it to **dist** folder
+4. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
+5. Path your system enviroment to folder where you unarchived
+6. Run
+
+`gulp build` in root folder
+*This is compiling javascript into desktop app*
+
+7. In release folder (root) you have the compiled apps
 
 **For personal use**
 
 Just take files from ***dist*** folder
 
-<a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
+Check 
+<a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a> 
+or
+<a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
+Angular2 YT Player v2.0
+- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
+- Auto updating the app (desktop version)
+
 Angular2 YT Player v1.9.2
 - UX improvements and fixes
 - Preparing files for 2.0
@@ -130,19 +162,17 @@ Angular2 YT Player v1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
+- macOS app release **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
-
-#### Roadmap to 2.0
-- Global hotkeys for application in desktop (play/pause/next/prev) **(in v2.0)**
-- Adding support for NW.js to export the app for desktop compatible: Windows/Mac OS X/Linux **(in v2.0)**
-- Auto updating the app (desktop version) **(in v2.0)**
 
 #### Roadmap to 3.0
 - Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**
 - Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
+- Integrating Google accounts **(in v2.4)**
+- Integrating firebase **(in v2.5)**
 
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***

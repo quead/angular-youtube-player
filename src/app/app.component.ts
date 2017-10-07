@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
   menuActive = false;
 
   modal = false;
+  modalPlaylist = false;
+  modalExportPlaylist = false;
   modalPlaylistItem: number;
 
   playlistPrefill = true;
@@ -66,6 +68,7 @@ export class AppComponent implements OnInit {
   _nwjs: any;
 
   loading = true;
+  maximized = false;
 
   constructor(
     private youtube: YoutubeGetVideo,
@@ -78,7 +81,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-      console.log('app comp');
       this._nwjs.init().subscribe((data) => {
         if (typeof data !== 'undefined') {
           this.nw = data;
@@ -94,6 +96,14 @@ export class AppComponent implements OnInit {
   // ---------------- Init player ----------------
 
   savePlayer(player) {
+      /*let playerSrc = player.a.src;
+      if (playerSrc.indexOf('origin') > 0) {
+        const playerSrcOrigin = playerSrc.substr(playerSrc.indexOf('origin'));
+        const playerOrigin = playerSrcOrigin.substr(0, playerSrcOrigin.indexOf('&'));
+        const playerNewSrc = playerSrc.replace(playerOrigin, 'origin=http%3A%2F%2Fgoogle.com');
+        player.a.src = playerNewSrc;
+      }
+      console.log(player);*/
       this.player = player;
   }
 
@@ -106,6 +116,7 @@ export class AppComponent implements OnInit {
       'playsinline': 1,
       'autoplay': 0,
       'loop': 0,
+      'origin': 'http://google.com',
       'rel': 0
     };
     return playerVars;
@@ -299,11 +310,24 @@ export class AppComponent implements OnInit {
       this._shared.updatePlaylist();
   }
 
+  exportPlaylist() {
+      this.showExportPlaylistModal();
+  }
+
+  exportFilePlaylist() {
+      var a = document.createElement("a");
+      var file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
+      a.href = URL.createObjectURL(file);
+      a.download = 'playlist.json';
+      a.click();
+  }
+
   // ---------------- Init settings ----------------
 
   preventOldSettings() {
-    if (localStorage.length === 1) {
-      console.log('I get default settings');
+    if (localStorage.length === 1 || localStorage.getItem('version') === null) {
+      console.log('Updating localstorage...');
+      localStorage.removeItem('version');
       localStorage.removeItem('playlist');
       localStorage.removeItem('settings');
       this._shared.settings = null;
@@ -351,30 +375,23 @@ export class AppComponent implements OnInit {
   }
 
   getVideo(data: any) {
-    const tempData = {
-      id: '',
-      title: '',
-      thumbnail: '',
-      channelTitle: '',
-    };
     this.setCurrentVideoObject(data);
     if (data.id.videoId) {
-      tempData.id = data.id.videoId;
       this.getStatsVideos(data.id.videoId);
     } else if (data.id) {
-      tempData.id = data.id;
       this.getStatsVideos(data.id);
     }
-    tempData.title = data.snippet.title;
-    tempData.channelTitle = data.snippet.channelTitle;
-    tempData.thumbnail = data.snippet.thumbnails.medium.url;
-    this.playVideo(tempData);
+    this.playVideo(data);
   }
 
   playVideo(data: any) {
     if (data.id !== this.currentVideo.id || this.currentState === -1) {
-      this.currentVideo.id = data.id;
-      this.currentVideo.title = data.title;
+      if (typeof data.id.videoId !== 'undefined') {
+        this.currentVideo.id = data.id.videoId;
+      } else {
+        this.currentVideo.id = data.id;
+      }
+      this.currentVideo.title = data.snippet.title;
       this._shared.addHistoryVideo(data);
       this.player.loadVideoById(this.currentVideo.id);
       this.getRelatedVideos();
@@ -428,7 +445,7 @@ export class AppComponent implements OnInit {
     this.videoRangeMouseActive = true;
     this.stopRange();
   }
-  
+
   RangeMouseMove(value: number) {
       if (this.videoRangeMouseActive) {
         this.videoCurRange = value;
@@ -436,7 +453,7 @@ export class AppComponent implements OnInit {
         this.videoCurFull = this.timeFormat(this.videoCurRange);
       }
   }
-  
+
   RangeMouseUp(value: number) {
     if (this.currentState !== -1 && this.currentState !== 1) {
       this.player.playVideo();
@@ -446,7 +463,7 @@ export class AppComponent implements OnInit {
     } else {
       this.stopRange();
     }
-    
+
     this.videoCurRange = value;
     this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
     this.videoCurFull = this.timeFormat(this.videoCurRange);
@@ -483,11 +500,19 @@ export class AppComponent implements OnInit {
 
   closeModal() {
     this.modal = false;
+    this.modalPlaylist = false;
+    this.modalExportPlaylist = false;
   }
 
-  showModal(i: number) {
+  showPlaylistModal(i: number) {
     this.modal = true;
+    this.modalPlaylist = true;
     this.modalPlaylistItem = i;
+  }
+
+  showExportPlaylistModal() {
+    this.modal = true;
+    this.modalExportPlaylist = true;
   }
 
   confirmModal() {
@@ -500,11 +525,19 @@ export class AppComponent implements OnInit {
   initNWJS() {
     const win = this.nw.Window.get();
 
-    win.maximize();
-
     this.nw.Window.get().on('new-win-policy', (frame, url, policy) => {
         policy.ignore();
         this.nw.Shell.openExternal(url);
+    });
+
+    this.nw.Window.get().on('restore', () => {
+        console.log('e restored');
+        this.maximized = false;
+    });
+
+    this.nw.Window.get().on('maximize', () => {
+        console.log('e max');
+        this.maximized = true;
     });
   }
 
@@ -548,14 +581,13 @@ export class AppComponent implements OnInit {
 
   winMaximize() {
     const win = this.nw.Window.get();
-    let maximized = false;
 
-    if (maximized) {
+    if (!this.maximized) {
       win.maximize();
-      maximized = true;
+      this.maximized = true;
     } else {
       win.unmaximize();
-      maximized = false;
+      this.maximized = false;
     }
   }
 
@@ -592,6 +624,9 @@ export class AppComponent implements OnInit {
     }
     if (list === 3) {
       listType = this.playlistVideos[i];
+    }
+    if (list === 4) {
+      listType = this._shared.historyVideos[i];
     }
 
     if (typeof listType.id.videoId !== 'undefined') {

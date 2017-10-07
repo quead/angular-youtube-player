@@ -1,17 +1,15 @@
 {
   "main": "index.html",
-  "name": "Youtube Player 2.0",
-  "description": "Youtube Player based on Angular and Typescript",
+  "name": "yt-app",
+  "description": "YouTube Player",
   "author": "Alex Olari <queadx@gmail.com>",
-  "version": "1.0",
-  "keywords": [ "youtube app", "node-webkit" ],
+  "version": "2.0.0",
+  "keywords": [
+    "youtube app",
+    "node-webkit"
+  ],
   "license": "MIT",
-  "manifestUrl": "https://quead.github.io/updates/package.json",
-  "packages": {
-    "win": {
-      "url": "https://quead.github.io/updates/upwin.zip"
-    }
-  },
+  "manifestUrl": "http://noxien.net/quead/package.json",
   "window": {
     "height": 720,
     "width": 1270,
@@ -24,11 +22,14 @@
   "webkit": {
     "plugin": true
   },
+  "scripts": {
+    "postversion": "npm run package",
+    "package": "nwb nwbuild -v 0.25.2-sdk . -o ../release --output-format=ZIP --output-name={name}-v{version}-{target}"    
+  },
   "dependencies": {
-    "ncp": "2.0.0",
-    "request": "~2.64.0",
-    "tar.gz": "^0.1.1",
-    "del": "~0.1.2",
-    "semver": "^5.0.3"
+    "nw-autoupdater": "*"
+  },
+  "devDependencies": {
+    "nwjs-builder": "^1.14.0"
   }
 }
