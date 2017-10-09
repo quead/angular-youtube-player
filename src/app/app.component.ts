@@ -3,6 +3,10 @@ import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
 import { NwjsService } from './shared/nwjs.service';
 
+import { IRelatedVideo } from './models/related-video.model';
+import { INotify } from './models/notify.model';
+import { IFeedVideo } from './models/feed-video.model';
+
 @Component({
   selector: 'app-yt',
   templateUrl: 'app.component.html'
@@ -12,12 +16,12 @@ export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
   @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
-  notify: any;
+  notify: INotify;
   nw: any;
   videoRangePercent = 0;
 
-  relatedVideos: Array<any>;
-  feedVideos: Array<any>;
+  relatedVideos: Array<IRelatedVideo>;
+  feedVideos: Array<IFeedVideo>;
   playlistVideos: Array<any> = [];
   currentVideoObject: Array<any> = [];
 
@@ -315,8 +319,8 @@ export class AppComponent implements OnInit {
   }
 
   exportFilePlaylist() {
-      var a = document.createElement("a");
-      var file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
+      const a = document.createElement('a');
+      const file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
       a.href = URL.createObjectURL(file);
       a.download = 'playlist.json';
       a.click();
@@ -441,12 +445,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  RangeNouseDown() {
+  rangeNouseDown() {
     this.videoRangeMouseActive = true;
     this.stopRange();
   }
 
-  RangeMouseMove(value: number) {
+  rangeMouseMove(value: number) {
       if (this.videoRangeMouseActive) {
         this.videoCurRange = value;
         this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
@@ -454,7 +458,7 @@ export class AppComponent implements OnInit {
       }
   }
 
-  RangeMouseUp(value: number) {
+  rangeMouseUp(value: number) {
     if (this.currentState !== -1 && this.currentState !== 1) {
       this.player.playVideo();
     }
@@ -655,6 +659,7 @@ export class AppComponent implements OnInit {
 
   copyShareLink() {
     if (!this.notify.enabled) {
+      console.log('test');
       document.execCommand('Copy');
       this._shared.triggerNotify('Copied');
       this.updateNotify();

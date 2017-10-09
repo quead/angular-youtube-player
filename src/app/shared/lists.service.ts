@@ -4,11 +4,14 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { IFeedVideo } from '../models/feed-video.model';
+import { ISearchVideo } from '../models/search-video.model';
+
 @Injectable()
 export class SharedService {
 
-    public feedVideos: Array<any>;
-    public lastSearchedVideos: Array<any>;
+    public feedVideos: Array<IFeedVideo>;
+    public lastSearchedVideos: Array<ISearchVideo>;
     public historyVideos: Array<any> = [];
     public settings: Array<any>;
     public channel: Array<any>;

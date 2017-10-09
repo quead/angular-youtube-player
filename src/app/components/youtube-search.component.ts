@@ -5,6 +5,9 @@ import { SharedService } from '../shared/lists.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
+import { IFeedVideo } from '../models/feed-video.model';
+import { ISearchVideo } from '../models/search-video.model';
+
 @Component({
   selector: 'app-search',
   templateUrl: 'youtube-search.component.html'
@@ -15,8 +18,8 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   thumbnails = false;
 
-  videos: any;
-  feedVideos: any;
+  videos: Array<ISearchVideo>;
+  feedVideos: Array<IFeedVideo>;
   channel: any;
 
   _shared: any;

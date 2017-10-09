@@ -109,7 +109,7 @@
                     </div>
                     <div class="current-video-range">
                       <div class="duration-range-container">
-                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="RangeNouseDown()" (mousemove)="RangeMouseMove(videoRange.value)" (mouseup)="RangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
+                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
                         <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
                       </div>
                       <p class="current-video-range-value">{{videoCurFull}}</p>
