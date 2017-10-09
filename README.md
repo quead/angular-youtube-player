@@ -40,13 +40,12 @@ This player is compatible only with Chrome/webkit browsers.
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
-2. Install [Gulp](https://github.com/gulpjs/gulp "Gulp download")
 
-`npm install -g gulp`
+2. Start project by
 
-3. Start compiling the SCSS files by
+`npm start`
 
-`gulp sw` in root folder
+3. Edit files from src/assets/scss
 
 ------
 

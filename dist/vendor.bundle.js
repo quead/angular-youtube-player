@@ -230,7 +230,7 @@ var YoutubePlayerComponent = (function () {
          * if there is no window, it sets a default http protocol
          * unless the protocol is set from outside
          */
-        this.protocol = 'http';
+        this.protocol = this.getProtocol();
         this.playerVars = {};
         // player created and initialized - sends instance of the player
         this.ready = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();

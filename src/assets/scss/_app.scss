@@ -1,0 +1,23 @@
+.application {
+    .header-bar {
+        display: block;
+        position: absolute;
+        top: 0;
+    }
+    .app-head {
+        padding-top: 25px;
+    }
+}
+
+.app-win {
+    .win-controls {
+        display: flex;
+    }
+}
+
+.app-linux,
+.app-mac {
+    .linux-controls {
+        display: flex;
+    }
+}
