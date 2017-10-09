@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 
 import { IFeedVideo } from '../models/feed-video.model';
 import { ISearchVideo } from '../models/search-video.model';
+import { IChannelList } from '../models/channel.model';
 
 @Injectable()
 export class SharedService {
@@ -14,7 +15,7 @@ export class SharedService {
     public lastSearchedVideos: Array<ISearchVideo>;
     public historyVideos: Array<any> = [];
     public settings: Array<any>;
-    public channel: Array<any>;
+    public channel: IChannelList;
     public playlist: Array<any>;
 
     _update: any;

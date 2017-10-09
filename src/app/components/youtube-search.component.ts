@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 
 import { IFeedVideo } from '../models/feed-video.model';
 import { ISearchVideo } from '../models/search-video.model';
+import { IChannelList } from '../models/channel.model';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,7 @@ export class SearchComponent implements OnInit {
 
   videos: Array<ISearchVideo>;
   feedVideos: Array<IFeedVideo>;
-  channel: any;
+  channel: IChannelList;
 
   _shared: any;
   _app: any;
