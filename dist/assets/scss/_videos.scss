@@ -113,7 +113,7 @@ iframe {
     }
     &-autor {
         font-size: $f-12;
-        color: #888888;
+        color: var(--c-white);
     }
     &-image {
         display: block;
@@ -125,7 +125,7 @@ iframe {
     }
     .video-item-details {
         display: flex;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.8);
         font-weight: 400;
         font-size: $f-12;
         p {
