@@ -4,7 +4,7 @@ import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
 import { SharedService } from '../shared/lists.service';
 import { NumberVal } from '../shared/validators.service';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-settings',
@@ -14,7 +14,7 @@ import { Http } from '@angular/http';
 
 export class SettingsComponent implements OnInit {
 
-    private finished = false;
+    finished = false;
     notify: any;
 
     _shared: any;
@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private http: Http,
+        private http: HttpClient,
         private shared: SharedService,
         private app: AppComponent,
         private search: SearchComponent,

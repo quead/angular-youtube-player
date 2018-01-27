@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { routes } from './app.router';
 
 import { AppComponent } from './app.component';
@@ -18,9 +19,10 @@ import { YoutubePlayerModule } from 'ngx-youtube-player';
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
     YoutubePlayerModule,
+    FormsModule,
     routes
   ],
   declarations: [

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -10,8 +10,8 @@ export class SharedService {
     public feedVideos: Array<any>;
     public lastSearchedVideos: Array<any>;
     public historyVideos: Array<any> = [];
-    public settings: Array<any>;
-    public channel: Array<any>;
+    public settings: any;
+    public channel: any;
     public playlist: Array<any>;
 
     _update: any;
@@ -23,7 +23,7 @@ export class SharedService {
 
     constructor(
         private youtube: YoutubeGetVideo,
-        private http: Http,
+        private http: HttpClient,
     ) {}
 
     getFeed(): Observable<any> {
@@ -37,8 +37,8 @@ export class SharedService {
                 this.settings = data;
                 this.youtube.feedVideos().subscribe(
                     result => {
-                        this.feedVideos = result.items;
-                        this.youtube.getChannel(result.items[0].snippet.channelId).subscribe(
+                        this.feedVideos = result['items'];
+                        this.youtube.getChannel(result['items'][0].snippet.channelId).subscribe(
                         resultChannel => {
                             this.channel = resultChannel;
                             observer.next(this.feedVideos);
@@ -81,7 +81,7 @@ export class SharedService {
             } else {
                 if (localStorage.length <= 0) {
                     this.http.get('assets/settings.json')
-                        .map(res => res.json())
+                        .map(res => res)
                         .subscribe(
                         data => {
                             this.settings = data;

@@ -459,3 +459,7 @@ template {
 [hidden] {
   display: none;
 }
+
+.update-bar {
+  display: none;
+}

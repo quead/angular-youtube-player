@@ -88,6 +88,9 @@ iframe {
         &:active {
             background-color: var(--c-primary-active);
         }
+        + .video-item-head-btn {
+            margin-right: 5px;
+        }
     }
     .fa {
         margin-right: 3px;

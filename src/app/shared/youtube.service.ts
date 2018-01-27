@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -18,7 +18,7 @@ export class YoutubeGetVideo {
     private settings: Array<any>;
 
     constructor(
-        private http: Http,
+        private http: HttpClient,
     ) {}
 
     defaultApiSet(data: any) {
@@ -37,7 +37,7 @@ export class YoutubeGetVideo {
                     + query + '&key='
                     + this.apiKey
                 )
-                .map(response => response.json());
+                .map(response => response);
         }
     }
 
@@ -49,7 +49,7 @@ export class YoutubeGetVideo {
                     + this.numSearchRes + '&type=video&key='
                     + this.apiKey
                 )
-                .map(response => response.json());
+                .map(response => response);
         }
     }
 
@@ -61,7 +61,7 @@ export class YoutubeGetVideo {
                     + this.numRelatedRes + '&type=video&key='
                     + this.apiKey
                 )
-                .map(response => response.json());
+                .map(response => response);
         }
     }
 
@@ -73,7 +73,7 @@ export class YoutubeGetVideo {
                     + query + '&key='
                     + this.apiKey
                 )
-                .map(response => response.json());
+                .map(response => response);
         }
     }
 
@@ -85,7 +85,7 @@ export class YoutubeGetVideo {
                     + this.regionCode + '&maxResults=25&key='
                     + this.apiKey
                 )
-                .map(response => response.json());
+                .map(response => response);
         }
     }
 }

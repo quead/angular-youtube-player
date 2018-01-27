@@ -69,8 +69,8 @@ export class SearchComponent implements OnInit {
         this.youtube.searchVideo(form.searchInput).subscribe(
           result => {
             if (!this.searchForm.invalid) {
-              this.videos = result.items;
-              this._shared.lastSearchedVideos = result.items;
+              this.videos = result['items'];
+              this._shared.lastSearchedVideos = result['items'];
             } else {
               this.videos = null;
             }

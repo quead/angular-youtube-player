@@ -45,7 +45,7 @@
                 <div class="video-item-head">
                     Current playlist
                     <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
-                    <!--<button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>-->
+                    <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
                 </div>
                 <div class="playlist-video-content" #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
@@ -178,7 +178,7 @@
     <div *ngIf="modalPlaylist" class="modal-container">
       <h2>Do you want to remove this item from playlist?</h2>
       <div class="modal-content">
-        <img src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
+        <img *ngIf="thumbnails" src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
         <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
       </div>
       <button class="modal-close" (click)="closeModal()">
@@ -189,10 +189,20 @@
         <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
       </div>
     </div>
-    <div *ngIf="modalExportPlaylist" class="modal-container">
+    <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
       <h2>Manage playlist</h2>
       <div class="modal-content">
-        <textarea class="export-playlist" [value]="this.playlistVideos | json" readonly></textarea>
+        <h3>Import Playlist</h3>
+        <div class="form-group file-upload">
+          <input type="file" id="importPlaylist" (change)="uploadPlaylist($event)" [(ngModel)]="importPlaylistInput" [ngModelOptions]="{standalone: true}" value="Import" />
+          <label for="importPlaylist">Choose file</label>
+        </div>
+        <div *ngIf="tempPlaylist.length">
+          <p>Number of videos to import: {{tempPlaylist.length}}</p>
+          <button type="button" class="btn btn-round btn-primary" (click)="importPlaylist(importPlaylistInput)">Replace</button>        
+        </div>
+        <h3>Export Playlist</h3>
+        <p>Number of videos to export: {{playlistVideos.length}}</p>
       </div>
       <button class="modal-close" (click)="closeModal()">
         <span class="fa fa-times"></span>
@@ -204,6 +214,6 @@
     </div>
   </div>
   <div id="mobile-unavailable">
-    The app is not available for mobile/tablet.
+    The app is not ready for mobile/tablet, soon...
   </div>
 </div>

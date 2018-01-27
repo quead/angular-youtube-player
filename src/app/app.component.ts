@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
 import { NwjsService } from './shared/nwjs.service';
+import { Event } from '@angular/router/src/events';
 
 @Component({
   selector: 'app-yt',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   relatedVideos: Array<any>;
   feedVideos: Array<any>;
   playlistVideos: Array<any> = [];
+  tempPlaylist: Array<any> = [];
   currentVideoObject: Array<any> = [];
 
   thumbnails = true;
@@ -70,6 +72,8 @@ export class AppComponent implements OnInit {
   loading = true;
   maximized = false;
 
+  importPlaylistInput: any;
+
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
@@ -96,14 +100,6 @@ export class AppComponent implements OnInit {
   // ---------------- Init player ----------------
 
   savePlayer(player) {
-      /*let playerSrc = player.a.src;
-      if (playerSrc.indexOf('origin') > 0) {
-        const playerSrcOrigin = playerSrc.substr(playerSrc.indexOf('origin'));
-        const playerOrigin = playerSrcOrigin.substr(0, playerSrcOrigin.indexOf('&'));
-        const playerNewSrc = playerSrc.replace(playerOrigin, 'origin=http%3A%2F%2Fgoogle.com');
-        player.a.src = playerNewSrc;
-      }
-      console.log(player);*/
       this.player = player;
   }
 
@@ -199,6 +195,20 @@ export class AppComponent implements OnInit {
   }
 
   // ---------------- Playlist settings ----------------
+
+  uploadPlaylist(event: Event) {
+    const files = event['target'].files[0];
+    if (files.length <= 0) {
+      return false;
+    }
+
+    const fr = new FileReader();
+    fr.onload = (e) => {
+      this.tempPlaylist = JSON.parse(e.target['result']);
+    };
+
+    fr.readAsText(files);
+  }
 
   playlistInit() {
       if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 2) {
@@ -315,11 +325,19 @@ export class AppComponent implements OnInit {
   }
 
   exportFilePlaylist() {
-      var a = document.createElement("a");
-      var file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
+      const a = document.createElement('a');
+      const file = new Blob([JSON.stringify(this.playlistVideos)], {type: 'data:text/json;charset=utf8'});
       a.href = URL.createObjectURL(file);
       a.download = 'playlist.json';
       a.click();
+  }
+
+  importPlaylist(input: any) {
+    this.playlistVideos = this.tempPlaylist;
+    this._shared.playlist = this.tempPlaylist;
+    this.tempPlaylist = [];
+    this._shared.updatePlaylist();
+    this.closeModal();
   }
 
   // ---------------- Init settings ----------------
@@ -402,12 +420,12 @@ export class AppComponent implements OnInit {
   getStatsVideos(query: string) {
     this.youtube.statsVideos(query).subscribe(
         result => {
-          this.currentVideo.id = result.items[0].id;
-          this.currentVideo.title = result.items[0].snippet.title;
-          this.currentVideo.channelTitle = result.items[0].snippet.channelTitle;
-          this.currentVideo.stats.likes = result.items[0].statistics.likeCount;
-          this.currentVideo.stats.dislikes = result.items[0].statistics.dislikeCount;
-          this.currentVideo.stats.views = result.items[0].statistics.viewCount;
+          this.currentVideo.id = result['items'][0].id;
+          this.currentVideo.title = result['items'][0].snippet.title;
+          this.currentVideo.channelTitle = result['items'][0].snippet.channelTitle;
+          this.currentVideo.stats.likes = result['items'][0].statistics.likeCount;
+          this.currentVideo.stats.dislikes = result['items'][0].statistics.dislikeCount;
+          this.currentVideo.stats.views = result['items'][0].statistics.viewCount;
           this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
         },
         error => {
@@ -419,7 +437,7 @@ export class AppComponent implements OnInit {
   getRelatedVideos() {
     this.youtube.relatedVideos(this.currentVideo.id).subscribe(
         result => {
-          this.relatedVideos = result.items;
+          this.relatedVideos = result['items'];
           if (this.playlistPrefill) {
             this.playlistInit();
             this.playlistPrefill = false;
