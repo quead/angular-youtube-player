@@ -1,0 +1,29 @@
+:root {
+    --menu-diff: 160px;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.col {
+    position: relative;
+    &-1 {
+        width: 320px;
+        box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.05);
+    }
+    &-2,
+    &-3 {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+    &-2 {
+        width: calc(40% - var(--menu-diff));
+        left: calc(60% - var(--menu-diff));
+        background: linear-gradient(-90deg, rgba(255, 0, 0, 0.05) 0%, #1d1d25 30%);
+    }
+    &-3 {
+        width: calc(60% - var(--menu-diff));
+        left: calc(-40% + var(--menu-diff));
+    }
+}

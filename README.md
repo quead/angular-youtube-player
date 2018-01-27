@@ -41,13 +41,12 @@ This player is compatible only with Chrome/webkit browsers.
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
-2. Install [Gulp](https://github.com/gulpjs/gulp "Gulp download")
 
-`npm install -g gulp`
+2. Start project by
 
-3. Start compiling the SCSS files by
+`npm start`
 
-`gulp sw` in root folder
+3. Edit files from src/assets/scss
 
 ------
 
@@ -80,6 +79,9 @@ or
 <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
+Angular2 YT Player v2.0.1
+- Import & export youtube playlist as .JSON file
+
 Angular2 YT Player v2.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
@@ -168,8 +170,7 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Import/Export playlist (probably json file and youtube playlist) **(in v2.1)**
-- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
+- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.2)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
 - Integrating Google accounts **(in v2.4)**

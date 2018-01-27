@@ -209,12 +209,17 @@
     padding-top: 30px;
     padding-bottom: 90px;
     animation: loading-modal 0.2s 1;
+    overflow-y: auto;
+    max-height: 100%;
     h2 {
         margin-top: 10px;
         font-size: $f-18;
         font-weight: 400;
         padding: 0 40px;
         margin-bottom: 30px;
+    }
+    &#manage-playlist {
+        height: auto;
     }
 }
 
@@ -265,7 +270,7 @@
         border: none;
         text-transform: uppercase;
         font-weight: 600;
-        padding: 11px 10px;
+        padding: 13px 10px;
         font-size: $f-12;
         &-primary {
             width: 70%;
@@ -346,6 +351,44 @@
     text-transform: capitalize;
 }
 
+.file-upload {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    label {
+        display: block;
+        padding: 20px;
+        width: 100%;
+        display: block;
+        padding: 20px;
+        width: 100%;
+        border: 2px dashed rgba(red, 0.3);
+        border-radius: 5px;
+        text-transform: uppercase;
+        color: var(--c-primary);
+        text-indent: -9999px;
+        &:hover {
+            border: 2px dashed rgba(red, 0.5);
+        }
+    }
+    input {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-indent: -9999px;
+        color: var(--c-primary);
+        outline: 0;
+        &:hover + label {
+            border: 2px dashed rgba(red, 0.5);
+        }
+        &:active + label {
+            border: 2px dashed var(--c-primary);
+        }
+    }
+}
 @media screen and (max-width: 1200px) {
     #mobile-unavailable {
         background-color: var(--c-base);
