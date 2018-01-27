@@ -1,0 +1,50 @@
+nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        padding-left: 0;
+    }
+    a {
+        display: block;
+        text-decoration: none;
+        color: var(--c-white);
+        font-size: $f-14;
+        -webkit-user-drag: none;
+        position: relative;
+        padding: 10px 15px 10px 35px;
+        transition: all 0.1s ease-out;
+        opacity: 0.3;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        .fa {
+            color: var(--c-white);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .description {
+            display: block;
+            font-size: $f-12;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: normal;
+        }
+        &:hover {
+            opacity: 1;
+        }
+        &.is-active,
+        &:active {
+            opacity: 1;
+            color: var(--c-white);
+            .fa {
+                color: var(--c-white);
+            }
+            .description {
+                text-shadow: none;
+            }
+        }
+    }
+}

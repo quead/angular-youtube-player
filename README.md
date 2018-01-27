@@ -1,6 +1,9 @@
 <p align="center">
-  <a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
-  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GmAP7ip.png" style="height: auto; max-width:100%;" />
+  Check 
+  <a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
+  or
+  <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
+  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GyNXPTg.png" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
@@ -37,13 +40,12 @@ This player is compatible only with Chrome/webkit browsers.
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
-2. Install [Gulp](https://github.com/gulpjs/gulp "Gulp download")
 
-`npm install -g gulp`
+2. Start project by
 
-3. Start compiling the SCSS files by
+`npm start`
 
-`gulp sw` in root folder
+3. Edit files from src/assets/scss
 
 ------
 
@@ -70,7 +72,10 @@ This player is compatible only with Chrome/webkit browsers.
 
 Just take files from ***dist*** folder
 
-<a href="https://quead.github.io/demo/" title="YouTube Player Demo">View Demo</a>
+Check 
+<a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
+or
+<a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
 Angular2 YT Player v2.0

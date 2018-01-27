@@ -1,0 +1,77 @@
+.btn {
+    display: inline-block;
+    color: var(--c-white);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 6px 15px;
+    text-decoration: none;
+    transition: all .1s ease-out;
+    outline: 0;
+    line-height: 1;
+    .fa {
+        margin-right: 8px;
+        font-size: $f-10;
+        top: -1px;
+        position: relative;
+    }
+    &-round {
+        border-radius: 50px;
+    }
+
+    &-small {
+        padding: 5px 17px;
+    }
+    &-link {
+        background-color: transparent;
+        color: rgba(#232228, 0.3);
+        &:hover {
+            color: rgba(#232228, 0.6);
+        }
+        &:active {
+            color: var(--c-primary-inverse);
+        }
+    }
+
+    &-primary {
+        background-color: var(--c-primary);
+        color: var(--c-white);
+        &:hover {
+            box-shadow: 0 0 10px var(--c-primary);
+        }
+        &:active {
+            background-color: var(--c-primary-active);
+        }
+    }
+
+    &-primary-inverse {
+        background-color: var(--c-primary-inverse);
+        color: rgba(255, 255, 255, 0.6);
+        &:hover {
+            color: var(--c-white);
+        }
+        &:active {
+            background-color: var(--c-black);
+            color: var(--c-white);
+        }
+    }
+
+    &-outline {
+        border: 1px solid var(--c-white);
+        opacity: 0.6;
+        background-color: transparent;
+        &:hover {
+            opacity: 1;
+        }
+        &:active {
+            background-color: var(--c-white);
+            color: var(--c-black);
+        }
+    }
+}
