@@ -170,7 +170,7 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.2)**
+- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
 - Integrating Google accounts **(in v2.4)**
