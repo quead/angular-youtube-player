@@ -78,9 +78,8 @@ or
 <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
-Angular2 YT Player v2.1
+Angular2 YT Player v2.0.1
 - Import & export youtube playlist as .JSON file
-- Categories with videos like (music, gaming, autos, films, sports, much more)
 
 Angular2 YT Player v2.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
@@ -170,6 +169,7 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
+- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.2)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
 - Integrating Google accounts **(in v2.4)**
