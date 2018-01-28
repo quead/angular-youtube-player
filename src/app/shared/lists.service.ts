@@ -12,6 +12,8 @@ export class SharedService {
     public historyVideos: Array<any> = [];
     public settings: any;
     public channel: any;
+    public categories: any;
+    public videoCategories: any;
     public playlist: Array<any>;
 
     _update: any;
@@ -67,6 +69,46 @@ export class SharedService {
                     },
                     error => {
                         console.log('error on get channel ' + error);
+                    }
+                );
+            }
+        });
+    }
+
+    getCategories(): Observable<any> {
+        return new Observable(observer => {
+            if (this.categories) {
+                observer.next(this.categories);
+                return observer.complete();
+            } else {
+                this.youtube.categories().subscribe(
+                    result => {
+                        this.categories = result;
+                        observer.next(this.categories);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+            }
+        });
+    }
+
+    getVideoCategories(value: number): Observable<any> {
+        return new Observable(observer => {
+            if (this.videoCategories) {
+                observer.next(this.videoCategories);
+                return observer.complete();
+            } else {
+                this.youtube.videoCategories(value).subscribe(
+                    result => {
+                        this.videoCategories = result;
+                        observer.next(this.videoCategories);
+                        observer.complete();
+                    },
+                    error => {
+                        console.log(error);
                     }
                 );
             }

@@ -68,3 +68,34 @@
         align-items: center;
     }
 }
+
+.categories {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 69px;
+    overflow-x: scroll;
+    > div {
+        width: 80px;
+        flex: 0 0 80px;
+    }
+    p {
+        margin: 0;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+        height: 6px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: rgba(#FFF, 0.1);
+        &:hover {
+            background-color: rgba(#FFF, 0.4);
+        }
+    }
+}

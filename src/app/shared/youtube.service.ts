@@ -88,4 +88,27 @@ export class YoutubeGetVideo {
                 .map(response => response);
         }
     }
+
+    categories() {
+        if (this.apiKey) {
+            return this.http.get(
+                    this.url + 'videoCategories?part=snippet&regionCode='
+                    + this.regionCode + '&key='
+                    + this.apiKey
+                )
+                .map(response => response);
+        }
+    }
+
+    videoCategories(category: number) {
+        if (this.apiKey) {
+            return this.http.get(
+                    this.url + 'videos?part=snippet,contentDetails&chart=mostPopular&maxResults=25&videoCategoryId='
+                    + category + '&regionCode='
+                    + this.regionCode + '&key='
+                    + this.apiKey
+                )
+                .map(response => response);
+        }
+    }
 }

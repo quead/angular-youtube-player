@@ -67,6 +67,11 @@
         <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
         <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
     </div>
+    <div class="categories">
+      <div *ngFor="let category of categories.items" id="category-{{category.id}}">
+        <p>{{category.snippet.title}}</p>
+      </div>
+    </div>
     <div id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
       <div *ngFor="let feedVideo of feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !thumbnails }" [attr.data-index]="i" class="video-item">
         <div class="video-item-info">

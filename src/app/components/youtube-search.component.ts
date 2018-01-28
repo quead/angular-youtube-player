@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
   videos: Array<ISearchVideo>;
   feedVideos: Array<IFeedVideo>;
   channel: IChannelList;
+  categories: any;
 
   _shared: any;
   _app: any;
@@ -62,6 +63,21 @@ export class SearchComponent implements OnInit {
     this.setSettings();
     this.searchFunction();
     this.getFeedVideos();
+    this.initCategories();
+  }
+
+  initCategories() {
+    this._shared.getCategories().subscribe(
+      data => {
+        this.categories = data;
+        console.log(this.categories);
+      }
+    );
+    this._shared.getVideoCategories(2).subscribe(
+      result => {
+        console.log(result);
+      }
+    );
   }
 
   searchFunction() {
