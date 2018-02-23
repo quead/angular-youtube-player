@@ -80,12 +80,12 @@ export class SettingsComponent implements OnInit {
             Object.keys(data.settings).map(i => {
                 this.internal_settings[i].value = data.settings[i];
             });
-            this._shared.form_settings = this.internal_settings;
+            this._shared.settings.form_settings = this.internal_settings;
+            this._shared.updateSettings();
 
             this._app.setSettings();
             this._app.checkVolumeRange();
             this._search.setSettings();
-            this._shared.updateSettings();
 
             this._shared.triggerNotify('Changed');
             this.updateNotify();
@@ -100,13 +100,11 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this._shared.getSettings().subscribe(data => {
-            this.internal_settings = data.form_settings;
-            this.external_settings = data.api_settings;
-            this.initExternalForm();
-            this.finished = true;
-            this.setForm();
-        });
+        this.internal_settings = this._shared.settings.form_settings;
+        this.external_settings = this._shared.settings.api_settings;
+        this.initExternalForm();
+        this.finished = true;
+        this.setForm();
     }
 
     updateNotify() {
@@ -121,13 +119,13 @@ export class SettingsComponent implements OnInit {
             this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
             this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
             this._shared.settings.api_settings = this.external_settings;
-
             this._shared.feedVideos = null;
+
+            this._shared.updateSettings();
 
             this._shared.setApiSettings();
             this._app.setSettings();
             this._app.getFeedVideos();
-            this._shared.updateSettings();
 
             this._shared.triggerNotify('Saved');
             this.updateNotify();

@@ -29,86 +29,62 @@ export class YoutubeGetVideo {
         this.numRelatedRes = this.settings[3].value;
     }
 
-    getChannel(query: string) {
+    // Calling 1 time
+    async getChannel(query: string) {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'channels?'
-                    + this.channelDetails + '&id='
-                    + query + '&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}channels?${this.channelDetails}&id=${query}&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
         }
     }
 
-    searchVideo(query: string) {
+    // Calling 2 times
+    async feedVideos() {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'search?part=snippet&q='
-                    + query + '&maxResults='
-                    + this.numSearchRes + '&type=video&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}videos?${this.videoDetails}${this.feedDetails}&regionCode=${this.regionCode}&maxResults=25&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res; 
         }
     }
 
-    relatedVideos(query: string) {
+    // Calling 1 time
+    async relatedVideos(query: string) {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'search?part=snippet&relatedToVideoId='
-                    + query + '&maxResults='
-                    + this.numRelatedRes + '&type=video&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}search?part=snippet&relatedToVideoId=${query}&maxResults=${this.numRelatedRes}&type=video&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
+        }
+    }
+    
+    async searchVideo(query: string) {
+        if (this.apiKey) {
+            const res = await this.http.get(`${this.url}search?part=snippet&q=${query}&maxResults=${this.numRelatedRes}&type=video&regionCode=${this.regionCode}&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
         }
     }
 
-    statsVideos(query: string) {
+    async categories() {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'videos?'
-                    + this.videoDetails + '&id='
-                    + query + '&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}videoCategories?part=snippet&regionCode=${this.regionCode}&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
         }
     }
 
-    feedVideos() {
+    async videoCategories(category: number) {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'videos?'
-                    + this.videoDetails + this.feedDetails + '&regionCode='
-                    + this.regionCode + '&maxResults=25&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}videos?part=snippet,contentDetails&chart=mostPopular&maxResults=25&videoCategoryId=${category}&regionCode=${this.regionCode}&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
         }
     }
-
-    categories() {
+    
+    async statsVideos(query: string) {
         if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'videoCategories?part=snippet&regionCode='
-                    + this.regionCode + '&key='
-                    + this.apiKey
-                )
-                .map(response => response);
-        }
-    }
-
-    videoCategories(category: number) {
-        if (this.apiKey) {
-            return this.http.get(
-                    this.url + 'videos?part=snippet,contentDetails&chart=mostPopular&maxResults=25&videoCategoryId='
-                    + category + '&regionCode='
-                    + this.regionCode + '&key='
-                    + this.apiKey
-                )
-                .map(response => response);
+            const res = await this.http.get(`${this.url}videos?${this.videoDetails}&id=${query}&key=${this.apiKey}`)
+            .map(response => response).toPromise();
+            return res;
         }
     }
 }

@@ -12,7 +12,6 @@ export class SharedService {
     public historyVideos: Array<any> = [];
     public settings: any;
     public channel: any;
-    public categories: any;
     public videoCategories: any;
     public playlist: Array<any>;
 
@@ -28,120 +27,31 @@ export class SharedService {
         private http: HttpClient,
     ) {}
 
-    getFeed(): Observable<any> {
-        return new Observable(observer => {
-            if (this.feedVideos) {
-                observer.next(this.feedVideos);
-                return observer.complete();
-            }
-            this.getSettings().subscribe(data => {
-                this.setApiSettings();
-                this.settings = data;
-                this.youtube.feedVideos().subscribe(
-                    result => {
-                        this.feedVideos = result['items'];
-                        this.youtube.getChannel(result['items'][0].snippet.channelId).subscribe(
-                        resultChannel => {
-                            this.channel = resultChannel;
-                            observer.next(this.feedVideos);
-                            observer.complete();
-                        });
-                    },
-                    error => {
-                        console.log('error on feed videos' + error);
-                    }
-                );
-            });
-        });
+    async getSettings() {
+        if (localStorage.length <= 0) {
+            const res = await this.initSettings();
+            this.settings = res;
+            localStorage.setItem('settings', JSON.stringify(res));
+        } else {
+            this.settings = JSON.parse(localStorage.getItem('settings'));
+        }
     }
 
-    getChannel(query: any): Observable<any> {
-        return new Observable(observer => {
-            if (this.channel) {
-                observer.next(this.channel);
-                return observer.complete();
-            } else {
-                this.youtube.getChannel(query).subscribe(
-                    result => {
-                        this.channel = result;
-                        observer.next(this.channel);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log('error on get channel ' + error);
-                    }
-                );
-            }
-        });
+    async initSettings() {
+        const res = await this.http.get('assets/settings.json')
+        .map(response => response).toPromise();
+        return res;
     }
 
-    getCategories(): Observable<any> {
-        return new Observable(observer => {
-            if (this.categories) {
-                observer.next(this.categories);
-                return observer.complete();
-            } else {
-                this.youtube.categories().subscribe(
-                    result => {
-                        this.categories = result;
-                        observer.next(this.categories);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log(error);
-                    }
-                );
-            }
-        });
+    async initFeed() {
+        await this.setApiSettings();
+        const res = await this.youtube.feedVideos();
+        this.feedVideos = res['items'];
     }
 
-    getVideoCategories(value: number): Observable<any> {
-        return new Observable(observer => {
-            if (this.videoCategories) {
-                observer.next(this.videoCategories);
-                return observer.complete();
-            } else {
-                this.youtube.videoCategories(value).subscribe(
-                    result => {
-                        this.videoCategories = result;
-                        observer.next(this.videoCategories);
-                        observer.complete();
-                    },
-                    error => {
-                        console.log(error);
-                    }
-                );
-            }
-        });
-    }
-
-    getSettings(): Observable<any> {
-        return new Observable(observer => {
-            if (this.settings) {
-                observer.next(this.settings);
-                return observer.complete();
-            } else {
-                if (localStorage.length <= 0) {
-                    this.http.get('assets/settings.json')
-                        .map(res => res)
-                        .subscribe(
-                        data => {
-                            this.settings = data;
-                            localStorage.setItem('settings', JSON.stringify(data));
-                            observer.next(this.settings);
-                            observer.complete();
-                        },
-                        error => {
-                            console.log('error on get settings ' + error);
-                        }
-                    );
-                } else {
-                    this.settings = JSON.parse(localStorage.getItem('settings'));
-                    observer.next(this.settings);
-                    observer.complete();
-                }
-            }
-        });
+    async initChannel() {
+        const res = await this.youtube.getChannel(this.feedVideos[0].snippet.channelId);
+        this.channel = res;
     }
 
     updateSettings() {
@@ -158,8 +68,13 @@ export class SharedService {
         this.setLocalVersion();
     }
 
-    setApiSettings() {
-        this.youtube.defaultApiSet(this.settings);
+    async setApiSettings() {
+        if (this.settings) {
+            this.youtube.defaultApiSet(this.settings);
+        } else {
+            await this.getSettings();
+            this.youtube.defaultApiSet(this.settings);
+        }
     }
 
     setLocalVersion() {

@@ -34,9 +34,7 @@ export class HistoryComponent implements OnInit {
   }
 
   getSettings() {
-    this._shared.getSettings().subscribe(data => {
-        this.thumbnails = data.form_settings[0].value;
-    });
+    this.thumbnails = this._shared.settings.form_settings[0].value;
   }
 
   addPlaylistItem(i: number, list: number) {

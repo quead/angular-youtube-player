@@ -62,22 +62,36 @@ export class SearchComponent implements OnInit {
     console.log('search');
     this.setSettings();
     this.searchFunction();
+  
     this.getFeedVideos();
-    this.initCategories();
+  
+    this.getCategories();
   }
 
-  initCategories() {
-    this._shared.getCategories().subscribe(
-      data => {
-        this.categories = data;
-        console.log(this.categories);
-      }
-    );
-    this._shared.getVideoCategories(2).subscribe(
-      result => {
-        console.log(result);
-      }
-    );
+  async getCategories() {
+    const res = await this.youtube.categories();
+    this.categories = res;
+
+    const res2 = await this.youtube.videoCategories(2);
+  }
+
+  async setSettings() {
+    this.thumbnails = this._shared.settings.form_settings[0].value;
+    this.listGrid = this._shared.settings.form_settings[1].value;
+  }
+  
+  async getFeedVideos() {
+    await this._shared.initFeed();
+    await this._shared.initChannel();
+    this.feedVideos = this._shared.feedVideos;
+    this.channel = this._shared.channel;
+    this.getChannelTrending();
+  }
+
+  async searchVideo(query: any) {
+    const res = await this.youtube.searchVideo(query);
+    this.videos = res['items'];
+    this._shared.lastSearchedVideos = res['items'];
   }
 
   searchFunction() {
@@ -86,56 +100,28 @@ export class SearchComponent implements OnInit {
     });
 
     this.searchForm.valueChanges.subscribe((form) => {
-        this.youtube.searchVideo(form.searchInput).subscribe(
-          result => {
-            if (!this.searchForm.invalid) {
-              this.videos = result['items'];
-              this._shared.lastSearchedVideos = result['items'];
-            } else {
-              this.videos = null;
-            }
-          },
-          error => {
-            console.log('error on search');
-          }
-        );
+      this.searchVideo(form.searchInput);
     });
   }
 
-  setSettings() {
-    this._shared.getSettings().subscribe(data => {
-        this.thumbnails = data.form_settings[0].value;
-        this.listGrid = data.form_settings[1].value;
-    });
-  }
-
-  getFeedVideos() {
-      this._shared.getFeed().subscribe(data => {
-          this.feedVideos = data;
-          this.getChannelTrending(this.feedVideos[0].snippet.channelId);
-      });
-  }
-
-  getChannelTrending(query: any) {
-      this._shared.getChannel(query).subscribe(data => {
-          this.feedVideos = this._shared.feedVideos;
-          this.channel = this._shared.channel;
-          this.trendingFirst.video.id = this.feedVideos[0].id;
-          this.trendingFirst.video.title = this.feedVideos[0].snippet.title;
-          this.trendingFirst.video.img = this.feedVideos[0].snippet.thumbnails.medium.url;
-          this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
-          this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
-          this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
-          this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
-          this.trendingFirst.video.channelTitle = this.channel.items[0].snippet.title;
-          if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
-            this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
-          } else {
-            this.trendingFirst.stats.subscribers = '0';
-          }
-          this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
-          this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
-      });
+  getChannelTrending() {
+    this.feedVideos = this._shared.feedVideos;
+    this.channel = this._shared.channel;
+    this.trendingFirst.video.id = this.feedVideos[0].id;
+    this.trendingFirst.video.title = this.feedVideos[0].snippet.title;
+    this.trendingFirst.video.img = this.feedVideos[0].snippet.thumbnails.medium.url;
+    this.trendingFirst.video.stats.likes = this.feedVideos[0].statistics.likeCount;
+    this.trendingFirst.video.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+    this.trendingFirst.video.stats.views = this.feedVideos[0].statistics.viewCount;
+    this.trendingFirst.bannerURL = this.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
+    this.trendingFirst.video.channelTitle = this.channel.items[0].snippet.title;
+    if (!this.channel.items[0].statistics.hiddenSubscriberCount) {
+      this.trendingFirst.stats.subscribers = this.channel.items[0].statistics.subscriberCount;
+    } else {
+      this.trendingFirst.stats.subscribers = '0';
+    }
+    this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
+    this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
   }
 
   clearSearch() {
