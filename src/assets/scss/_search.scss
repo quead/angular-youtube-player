@@ -72,7 +72,7 @@
 .tooltip {
     background-color: var(--c-black);
     padding: 5px 10px;
-    line-height: 22px;
+    line-height: 18px;
     width: 111px;
     font-size: 12px;
     position: absolute;
@@ -98,10 +98,10 @@
 
 .categories {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
     height: 70px;
-    button {
+    .trigger {
         background-color: var(--c-base);
         color: var(--c-white);
         display: flex;
@@ -114,20 +114,26 @@
         color: inherit;
         padding: 0 5px;
         margin: auto;
-        display: block;
         height: 40px;
         width: 40px;
         transition: all 0.1s ease-out;
+        text-decoration: none;
         &:hover {
             background-color: #40404c;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
+        }
+        &:active {
+            background-color: #363642;
             .tooltip {
                 opacity: 1;
                 bottom: calc(100% + 10px);
             }
         }
-        &:active {
-            background-color: #363642;
+        &.back {
+            background-color: var(--c-primary);
+            &:active {
+                background-color: #d21f1f;
+            }
         }
     }
     > div {

@@ -72,7 +72,7 @@ export class YoutubeGetVideo {
         }
     }
 
-    async videoCategories(category: number) {
+    async videoCategories(category: string) {
         if (this.apiKey) {
             const res = await this.http.get(`${this.url}videos?part=snippet,contentDetails,statistics&chart=mostPopular&maxResults=25&videoCategoryId=${category}&regionCode=${this.regionCode}&key=${this.apiKey}`)
             .map(response => response).toPromise();

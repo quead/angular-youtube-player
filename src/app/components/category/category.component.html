@@ -1,0 +1,112 @@
+<ng-container *ngIf="loading">
+    <div class="loading-app">
+        <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+    </div>
+</ng-container>
+<ng-container *ngIf="feedVideos">
+  <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
+      <div class="video-item" [attr.data-index]="0">
+        <div class="video-item-info">
+          <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + trendingFirst.video.img +')'}"></div>
+          <div class="video-item-content">
+            <p class="video-item-title">{{ trendingFirst.video.title }}</p>
+            <p class="video-item-autor">by <span>{{ trendingFirst.video.channelTitle }}</span></p>
+            <div *ngIf="trendingFirst.video.id?.length > 0" class="video-item-details">
+                <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
+                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
+                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes | number:'1.0' }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="video-item-settings-featured">
+          <button class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
+            <span class="fa fa-play"></span>Play video
+          </button>
+          <button class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
+            <span class="fa fa-plus"></span>Add to playlist
+          </button>
+          <button class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
+            <span class="fa fa-share-alt"></span>Copy link
+          </button>
+        </div>
+      </div>
+      <!--
+      <p>{{ trendingFirst.stats.subscribers | number:'1.0' }}</p>
+      <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
+      <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
+  </div>
+</ng-container>
+<div class="categories" *ngIf="categories">
+  <ng-container *ngFor="let category of categories.items">
+    <div *ngIf="category.id === currentCategory">
+      <button type="button" (click)="resetCategories()" class="trigger back">
+        <span class="tooltip">Go back</span>
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+    <div *ngIf="category.snippet.assignable && categoriesBlocked.indexOf(category.id) === -1 && category.id !== currentCategory" id="category-{{category.id}}">
+      <!-- (click)="getCategoriesVideos(category.id)" -->
+      <a routerLink="/category/{{category.id}}" class="trigger">
+        <span class="tooltip">{{category.snippet.title}}</span>
+        <ng-container *ngIf="category.snippet.title === 'Film & Animation'">
+          <i class="material-icons">movie</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Autos & Vehicles'">
+          <i class="material-icons">directions_car</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Music'">
+          <i class="material-icons">library_music</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Pets & Animals'">
+          <i class="material-icons">pets</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Sports'">
+          <i class="material-icons">pool</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Gaming'">
+          <i class="material-icons">videogame_asset</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Comedy'">
+          <i class="material-icons">insert_emoticon</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Entertainment'">
+          <i class="material-icons">local_movies</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Howto & Style'">
+          <i class="material-icons">directions_bike</i>
+        </ng-container>
+        <ng-container *ngIf="category.snippet.title === 'Science & Technology'">
+          <i class="material-icons">wifi</i>
+        </ng-container>
+      </a>
+    </div>
+  </ng-container>
+</div>
+<div id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
+  <div *ngFor="let feedVideo of feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !thumbnails }" [attr.data-index]="i" class="video-item">
+    <div class="video-item-info">
+      <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.snippet.thumbnails.medium.url +')'}"></div>
+      <div class="video-item-content">
+        <p class="video-item-title">{{ feedVideo.snippet.title }}</p>
+        <p class="video-item-autor">by <span>{{ feedVideo.snippet.channelTitle }}</span></p>
+        <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
+            <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
+            <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
+            <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="video-item-settings">
+        <button class="video-item-play" (click)="onClickVideo($event, i, 3)">
+          <span class="fa fa-play"></span>
+        </button>
+        <button class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
+          <span class="fa fa-share-alt"></span>
+        </button>
+        <button class="video-item-add" (click)="addPlaylistItem(i, 0)">
+          <span class="fa fa-plus"></span>
+        </button>
+      </div>
+  </div>
+</div>
