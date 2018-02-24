@@ -36,6 +36,7 @@ This player is compatible only with Chrome/webkit browsers.
 
 `npm start` in root folder
 
+5. Add your youtube api key
 
 **For SASS development**
 
