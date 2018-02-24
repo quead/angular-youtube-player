@@ -85,7 +85,6 @@ export class CategoryComponent implements OnInit {
     this.feedVideos = res2['items'];
     this._shared.feedVideos = res2['items'];
 
-
     await this._shared.initChannel();
     this.getChannelTrending();
   }
@@ -139,5 +138,19 @@ export class CategoryComponent implements OnInit {
     this.getChannelTrending();
   }
 
+  onClickVideo(event: Event, i: any, list: number) {
+    if (list === 3) {
+      this._app.getVideo(this._shared.feedVideos[i]);
+    }
+  }
+
+
+  onCopyVideoItemLink(i: number, list: number) {
+    this._app.onCopyVideoItemLink(i, list);
+  }
+
+  addPlaylistItem(i: number, list: number) {
+    this._app.addPlaylistItem(i, list);
+  }
 
 }
