@@ -2,7 +2,7 @@
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput">
+          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput" autocomplete="off">
           <label for="input-search" class="search-icon"><span class="fa fa-search"></span></label>
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
@@ -10,6 +10,9 @@
       <ng-container *ngIf="searchForm.valid">
         <span class="search-list arrow-up"></span>
         <div id="search-video-list" class="video-list">
+          <div *ngIf="noResults" class="video-item text-center">
+            There are no results
+          </div>
           <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
             <div class="video-item-info">
               <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
@@ -35,6 +38,12 @@
   </form>
 </div>
 <div class="app-content">
+  <ng-container *ngIf="loading">
+      <div class="loading-app">
+          <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+          <span class="sr-only">Loading...</span>
+      </div>
+  </ng-container>
   <ng-container *ngIf="feedVideos">
     <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
         <div class="video-item" [attr.data-index]="0">
@@ -67,10 +76,11 @@
         <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
         <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
     </div>
-    <div class="categories">
+    <div class="categories" *ngIf="categories">
       <ng-container *ngFor="let category of categories.items">
         <div *ngIf="category.snippet.assignable && categoriesBlocked.indexOf(category.id) === -1" id="category-{{category.id}}" id="category-{{category.id}}">
           <button type="button" (click)="getCategoriesVideos(category.id)">
+            <span class="tooltip">{{category.snippet.title}}</span>
             <ng-container *ngIf="category.snippet.title === 'Film & Animation'">
               <i class="material-icons">movie</i>
             </ng-container>

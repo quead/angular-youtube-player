@@ -191,9 +191,11 @@ nav {
         }
     }
 
+    .search-icon,
     .clear-button {
         color: var(--c-black);
     }
+
 } 
 
 .related-video-content {
@@ -267,4 +269,8 @@ input[type="checkbox"]:checked + label .round-check:before, input[type="radio"]:
 
 .app-feed:before {
     display: none;
+}
+
+.categories {
+    color: var(--c-white);
 }

@@ -69,30 +69,71 @@
     }
 }
 
+.tooltip {
+    background-color: var(--c-black);
+    padding: 5px 10px;
+    line-height: 22px;
+    width: 111px;
+    font-size: 12px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    opacity: 0;
+    bottom: 100%;
+    transition: all 0.1s ease-out;
+    &:before {
+        content: '';
+        background-color: var(--c-black);
+        height: 10px;
+        width: 10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        display: block;
+        position: absolute;
+        bottom: -4px;
+        z-index: -1;
+    }
+}
+
 .categories {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    > div {
-        margin: 8px 0;
-        flex: 0 0 calc(10% - 10px);
-        button {
-            background-color: var(--c-primary);
-            color: var(--c-white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 3px;
-            border: none;
-            color: inherit;
-            padding: 0 5px;
-            margin: 0;
-            display: block;
-            height: 55px;
-            width: calc(100% - 2px);
+    height: 70px;
+    button {
+        background-color: var(--c-base);
+        color: var(--c-white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 3px;
+        border: none;
+        color: inherit;
+        padding: 0 5px;
+        margin: auto;
+        display: block;
+        height: 40px;
+        width: 40px;
+        transition: all 0.1s ease-out;
+        &:hover {
+            background-color: #40404c;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
+            .tooltip {
+                opacity: 1;
+                bottom: calc(100% + 10px);
+            }
         }
+        &:active {
+            background-color: #363642;
+        }
+    }
+    > div {
+        position: relative;
+        margin: auto 0;
+        flex: 0 0 calc(10% - 10px);
         + div {
             margin-left: 10px;
         }

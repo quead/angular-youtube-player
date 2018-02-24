@@ -82,6 +82,8 @@ Angular2 YT Player v2.1
 - Categories with videos like (music, gaming, autos, films, sports, etc.)
 - Refactoring code
 - Search on specific region
+- Fixing copy link for featured video
+- UX improvements
 
 Angular2 YT Player v2.0.1
 - Import & export youtube playlist as .JSON file

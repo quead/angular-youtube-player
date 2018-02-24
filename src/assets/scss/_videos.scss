@@ -82,9 +82,6 @@ iframe {
         border: none;
         display: block;
         user-select: none;
-        &:hover {
-            box-shadow: 0 0 10px var(--c-primary);
-        }
         &:active {
             background-color: var(--c-primary-active);
         }

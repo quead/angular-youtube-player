@@ -126,10 +126,15 @@ export class AppComponent implements OnInit {
 
   async getFeedVideos() {
     await this._shared.initFeed();
+    await this._shared.initChannel();
     this.feedVideos = this._shared.feedVideos;
     if (!this.currentVideo.id) {
       this.setDefaultPlayer();
     }
+  }
+
+  async getChannel() {
+    await this._shared.initChannel();
   }
 
   setCurrentVideoObject(data: any) {
@@ -623,7 +628,7 @@ export class AppComponent implements OnInit {
     let listType;
     const youtubeLink = 'https://youtu.be/';
     if (list === 0) {
-      listType = this.feedVideos[i];
+      listType = this._shared.feedVideos[i];
     }
     if (list === 1) {
       listType = this._shared.lastSearchedVideos[i];

@@ -42,9 +42,6 @@
     &-primary {
         background-color: var(--c-primary);
         color: var(--c-white);
-        &:hover {
-            box-shadow: 0 0 10px var(--c-primary);
-        }
         &:active {
             background-color: var(--c-primary-active);
         }

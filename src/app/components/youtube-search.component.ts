@@ -18,6 +18,8 @@ export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
   thumbnails = false;
+  loading = true;
+  noResults = false;
 
   videos: Array<ISearchVideo>;
   feedVideos: Array<IFeedVideo>;
@@ -77,6 +79,10 @@ export class SearchComponent implements OnInit {
   async getCategoriesVideos(val: number) {
     const res2 = await this.youtube.videoCategories(val);
     this.feedVideos = res2['items'];
+    this._shared.feedVideos = res2['items'];
+
+    await this._shared.initChannel();
+    this.getChannelTrending();
   }
 
   async setSettings() {
@@ -85,8 +91,13 @@ export class SearchComponent implements OnInit {
   }
 
   async getFeedVideos() {
-    await this._shared.initFeed();
-    await this._shared.initChannel();
+    this.loading = true;
+    if (!this._shared.feedVideos) {
+      await this._shared.initFeed();
+    }
+    if (!this._shared.channel) {
+      await this._shared.initChannel();
+    }
     this.feedVideos = this._shared.feedVideos;
     this.channel = this._shared.channel;
     this.getChannelTrending();
@@ -95,6 +106,11 @@ export class SearchComponent implements OnInit {
   async searchVideo(query: any) {
     const res = await this.youtube.searchVideo(query);
     this.videos = res['items'];
+    if (res['items'].length === 0) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
     this._shared.lastSearchedVideos = res['items'];
   }
 
@@ -126,6 +142,7 @@ export class SearchComponent implements OnInit {
     }
     this.trendingFirst.stats.videoCount = this.channel.items[0].statistics.videoCount;
     this.trendingFirst.stats.views = this.channel.items[0].statistics.viewCount;
+    this.loading = false;
   }
 
   clearSearch() {
@@ -144,13 +161,16 @@ export class SearchComponent implements OnInit {
     } else if (list === 3) {
       this._app.getVideo(this.feedVideos[i]);
     }
+    this.clearSearch();
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-      this._app.onCopyVideoItemLink(i, list);
+    this._app.onCopyVideoItemLink(i, list);
+    this.clearSearch();
   }
 
   addPlaylistItem(i: number, list: number) {
-      this._app.addPlaylistItem(i, list);
+    this._app.addPlaylistItem(i, list);
+    this.clearSearch();
   }
 }
