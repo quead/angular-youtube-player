@@ -43,7 +43,7 @@ export class YoutubeGetVideo {
         if (this.apiKey) {
             const res = await this.http.get(`${this.url}videos?${this.videoDetails}${this.feedDetails}&regionCode=${this.regionCode}&maxResults=25&key=${this.apiKey}`)
             .map(response => response).toPromise();
-            return res; 
+            return res;
         }
     }
 
@@ -55,7 +55,7 @@ export class YoutubeGetVideo {
             return res;
         }
     }
-    
+
     async searchVideo(query: string) {
         if (this.apiKey) {
             const res = await this.http.get(`${this.url}search?part=snippet&q=${query}&maxResults=${this.numRelatedRes}&type=video&regionCode=${this.regionCode}&key=${this.apiKey}`)
@@ -79,7 +79,7 @@ export class YoutubeGetVideo {
             return res;
         }
     }
-    
+
     async statsVideos(query: string) {
         if (this.apiKey) {
             const res = await this.http.get(`${this.url}videos?${this.videoDetails}&id=${query}&key=${this.apiKey}`)

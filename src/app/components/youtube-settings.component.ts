@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-settings',
     templateUrl: 'youtube-settings.component.html',
-    providers: [ SearchComponent, CategoryComponent,NumberVal ]
+    providers: [ SearchComponent, CategoryComponent, NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {

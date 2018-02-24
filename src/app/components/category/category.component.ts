@@ -17,7 +17,7 @@ export class CategoryComponent implements OnInit {
   channel: IChannelList;
   categories: any;
   currentCategory: string;
-  categoriesBlocked = ['19', '22', '25', '27', '29']
+  categoriesBlocked = ['19', '22', '25', '27', '29'];
 
   thumbnails = false;
   loading = true;
@@ -69,7 +69,7 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  
+
   async getCategories() {
     const res = await this.youtube.categories();
     this.categories = res;
