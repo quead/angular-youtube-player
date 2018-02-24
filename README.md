@@ -7,7 +7,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.1-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
