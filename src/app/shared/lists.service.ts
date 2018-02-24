@@ -54,6 +54,15 @@ export class SharedService {
         this.channel = res;
     }
 
+    async setApiSettings() {
+        if (this.settings) {
+            this.youtube.defaultApiSet(this.settings);
+        } else {
+            await this.getSettings();
+            this.youtube.defaultApiSet(this.settings);
+        }
+    }
+
     updateSettings() {
         localStorage.setItem('settings', JSON.stringify(this.settings));
         this.setLocalVersion();
@@ -66,15 +75,6 @@ export class SharedService {
     updatePlaylist() {
         localStorage.setItem('playlist', JSON.stringify(this.playlist));
         this.setLocalVersion();
-    }
-
-    async setApiSettings() {
-        if (this.settings) {
-            this.youtube.defaultApiSet(this.settings);
-        } else {
-            await this.getSettings();
-            this.youtube.defaultApiSet(this.settings);
-        }
     }
 
     setLocalVersion() {

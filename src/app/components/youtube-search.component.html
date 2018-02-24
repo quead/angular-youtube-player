@@ -68,9 +68,42 @@
         <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
     </div>
     <div class="categories">
-      <div *ngFor="let category of categories.items" id="category-{{category.id}}">
-        <p>{{category.snippet.title}}</p>
-      </div>
+      <ng-container *ngFor="let category of categories.items">
+        <div *ngIf="category.snippet.assignable && categoriesBlocked.indexOf(category.id) === -1" id="category-{{category.id}}" id="category-{{category.id}}">
+          <button type="button" (click)="getCategoriesVideos(category.id)">
+            <ng-container *ngIf="category.snippet.title === 'Film & Animation'">
+              <i class="material-icons">movie</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Autos & Vehicles'">
+              <i class="material-icons">directions_car</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Music'">
+              <i class="material-icons">library_music</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Pets & Animals'">
+              <i class="material-icons">pets</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Sports'">
+              <i class="material-icons">pool</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Gaming'">
+              <i class="material-icons">videogame_asset</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Comedy'">
+              <i class="material-icons">insert_emoticon</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Entertainment'">
+              <i class="material-icons">local_movies</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Howto & Style'">
+              <i class="material-icons">directions_bike</i>
+            </ng-container>
+            <ng-container *ngIf="category.snippet.title === 'Science & Technology'">
+              <i class="material-icons">wifi</i>
+            </ng-container>
+          </button>
+        </div>
+      </ng-container>
     </div>
     <div id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
       <div *ngFor="let feedVideo of feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !thumbnails }" [attr.data-index]="i" class="video-item">

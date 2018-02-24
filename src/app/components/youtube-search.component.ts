@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
   feedVideos: Array<IFeedVideo>;
   channel: IChannelList;
   categories: any;
+  categoriesBlocked = ['19', '22', '25', '27']
 
   _shared: any;
   _app: any;
@@ -71,15 +72,18 @@ export class SearchComponent implements OnInit {
   async getCategories() {
     const res = await this.youtube.categories();
     this.categories = res;
+  }
 
-    const res2 = await this.youtube.videoCategories(2);
+  async getCategoriesVideos(val: number) {
+    const res2 = await this.youtube.videoCategories(val);
+    this.feedVideos = res2['items'];
   }
 
   async setSettings() {
     this.thumbnails = this._shared.settings.form_settings[0].value;
     this.listGrid = this._shared.settings.form_settings[1].value;
   }
-  
+
   async getFeedVideos() {
     await this._shared.initFeed();
     await this._shared.initChannel();
