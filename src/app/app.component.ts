@@ -97,7 +97,9 @@ export class AppComponent implements OnInit {
         }
       });
       this.preventOldSettings();
+
       this.setSettings();
+
       this.getFeedVideos();
   }
 
@@ -122,13 +124,17 @@ export class AppComponent implements OnInit {
     return playerVars;
   }
 
-  getFeedVideos() {
-    this._shared.getFeed().subscribe(data => {
-      this.feedVideos = data;
-      if (!this.currentVideo.id) {
-        this.setDefaultPlayer();
-      }
-    });
+  async getFeedVideos() {
+    await this._shared.initFeed();
+    await this._shared.initChannel();
+    this.feedVideos = this._shared.feedVideos;
+    if (!this.currentVideo.id) {
+      this.setDefaultPlayer();
+    }
+  }
+
+  async getChannel() {
+    await this._shared.initChannel();
   }
 
   setCurrentVideoObject(data: any) {
@@ -186,7 +192,6 @@ export class AppComponent implements OnInit {
     this.stopRange();
     if (this.currentState) {
       this.videoRangeTimer = setInterval(() => {
-        console.log('Rangeu merge de nebun...');
         this.videoCurRange = this.player.getCurrentTime();
         this.videoCurFull = this.timeFormat(this.videoCurRange);
         this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
@@ -347,7 +352,7 @@ export class AppComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   preventOldSettings() {
-    if (localStorage.length === 1 || localStorage.getItem('version') === null) {
+    if (localStorage.length === 1 || !localStorage.getItem('version')) {
       console.log('Updating localstorage...');
       localStorage.removeItem('version');
       localStorage.removeItem('playlist');
@@ -359,14 +364,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setSettings() {
-    this._shared.getSettings().subscribe(data => {
-        this.regionCode = data.api_settings[1].value;
-        this.thumbnails = data.form_settings[0].value;
-        this.displayVideoPlayer = data.form_settings[2].value;
-        this.repeatMode = data.form_settings[3].value;
-        this.darkMode = data.form_settings[4].value;
-    });
+  async setSettings() {
+    await this._shared.getSettings();
+    this.regionCode = this._shared.settings.api_settings[1].value;
+    this.thumbnails = this._shared.settings.form_settings[0].value;
+    this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
+    this.repeatMode = this._shared.settings.form_settings[3].value;
+    this.darkMode = this._shared.settings.form_settings[4].value;
   }
 
   toggleHeadSettings(int: number) {
@@ -421,36 +425,24 @@ export class AppComponent implements OnInit {
     }
   }
 
-  getStatsVideos(query: string) {
-    this.youtube.statsVideos(query).subscribe(
-        result => {
-          this.currentVideo.id = result['items'][0].id;
-          this.currentVideo.title = result['items'][0].snippet.title;
-          this.currentVideo.channelTitle = result['items'][0].snippet.channelTitle;
-          this.currentVideo.stats.likes = result['items'][0].statistics.likeCount;
-          this.currentVideo.stats.dislikes = result['items'][0].statistics.dislikeCount;
-          this.currentVideo.stats.views = result['items'][0].statistics.viewCount;
-          this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-        },
-        error => {
-          console.log('error on related videos');
-        }
-    );
+  async getStatsVideos(query: string) {
+    const res = await this.youtube.statsVideos(query);
+    this.currentVideo.id = res['items'][0].id;
+    this.currentVideo.title = res['items'][0].snippet.title;
+    this.currentVideo.channelTitle = res['items'][0].snippet.channelTitle;
+    this.currentVideo.stats.likes = res['items'][0].statistics.likeCount;
+    this.currentVideo.stats.dislikes = res['items'][0].statistics.dislikeCount;
+    this.currentVideo.stats.views = res['items'][0].statistics.viewCount;
+    this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
   }
 
-  getRelatedVideos() {
-    this.youtube.relatedVideos(this.currentVideo.id).subscribe(
-        result => {
-          this.relatedVideos = result['items'];
-          if (this.playlistPrefill) {
-            this.playlistInit();
-            this.playlistPrefill = false;
-          }
-        },
-        error => {
-          console.log('error on related videos');
-        }
-      );
+  async getRelatedVideos() {
+    const res = await this.youtube.relatedVideos(this.currentVideo.id);
+    this.relatedVideos = res['items'];
+    if (this.playlistPrefill) {
+      this.playlistInit();
+      this.playlistPrefill = false;
+    }
   }
 
   // ---------------- Player controls ----------------
@@ -636,7 +628,7 @@ export class AppComponent implements OnInit {
     let listType;
     const youtubeLink = 'https://youtu.be/';
     if (list === 0) {
-      listType = this.feedVideos[i];
+      listType = this._shared.feedVideos[i];
     }
     if (list === 1) {
       listType = this._shared.lastSearchedVideos[i];
@@ -677,7 +669,6 @@ export class AppComponent implements OnInit {
 
   copyShareLink() {
     if (!this.notify.enabled) {
-      console.log('test');
       document.execCommand('Copy');
       this._shared.triggerNotify('Copied');
       this.updateNotify();

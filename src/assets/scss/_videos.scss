@@ -82,9 +82,6 @@ iframe {
         border: none;
         display: block;
         user-select: none;
-        &:hover {
-            box-shadow: 0 0 10px var(--c-primary);
-        }
         &:active {
             background-color: var(--c-primary-active);
         }
@@ -322,6 +319,7 @@ iframe {
 .video-list-featured {
     margin: 0;
     height: 200px;
+    width: 100%;
     background-position: center center;
     background-size: cover;
     position: relative;
@@ -386,7 +384,7 @@ iframe {
 #feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 200px);
+    height: calc(100% - 270px);
     width: calc(100% - 40px);
     max-height: none;
     background-color: var(--c-gray);

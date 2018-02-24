@@ -2,7 +2,7 @@
   <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput">
+          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput" autocomplete="off">
           <label for="input-search" class="search-icon"><span class="fa fa-search"></span></label>
           <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
         </div>
@@ -10,6 +10,9 @@
       <ng-container *ngIf="searchForm.valid">
         <span class="search-list arrow-up"></span>
         <div id="search-video-list" class="video-list">
+          <div *ngIf="noResults" class="video-item text-center">
+            There are no results
+          </div>
           <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
             <div class="video-item-info">
               <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
@@ -35,64 +38,5 @@
   </form>
 </div>
 <div class="app-content">
-  <ng-container *ngIf="feedVideos">
-    <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
-        <div class="video-item" [attr.data-index]="0">
-          <div class="video-item-info">
-            <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + trendingFirst.video.img +')'}"></div>
-            <div class="video-item-content">
-              <p class="video-item-title">{{ trendingFirst.video.title }}</p>
-              <p class="video-item-autor">by <span>{{ trendingFirst.video.channelTitle }}</span></p>
-              <div *ngIf="trendingFirst.video.id?.length > 0" class="video-item-details">
-                  <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
-                  <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
-                  <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes | number:'1.0' }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="video-item-settings-featured">
-            <button class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
-              <span class="fa fa-play"></span>Play video
-            </button>
-            <button class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
-              <span class="fa fa-plus"></span>Add to playlist
-            </button>
-            <button class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
-              <span class="fa fa-share-alt"></span>Copy link
-            </button>
-          </div>
-        </div>
-       <!--
-        <p>{{ trendingFirst.stats.subscribers | number:'1.0' }}</p>
-        <p>{{ trendingFirst.stats.views | number:'1.0' }}</p>
-        <p>{{ trendingFirst.stats.videoCount | number:'1.0' }}</p>-->
-    </div>
-    <div id="feed-video-list" class="video-list" [ngClass]="{'grid-list': !listGrid }">
-      <div *ngFor="let feedVideo of feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !thumbnails }" [attr.data-index]="i" class="video-item">
-        <div class="video-item-info">
-          <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.snippet.thumbnails.medium.url +')'}"></div>
-          <div class="video-item-content">
-            <p class="video-item-title">{{ feedVideo.snippet.title }}</p>
-            <p class="video-item-autor">by <span>{{ feedVideo.snippet.channelTitle }}</span></p>
-            <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-                <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
-                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
-                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="video-item-settings">
-            <button class="video-item-play" (click)="onClickVideo($event, i, 3)">
-              <span class="fa fa-play"></span>
-            </button>
-            <button class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
-              <span class="fa fa-share-alt"></span>
-            </button>
-            <button class="video-item-add" (click)="addPlaylistItem(i, 0)">
-              <span class="fa fa-plus"></span>
-            </button>
-          </div>
-      </div>
-    </div>
-  </ng-container>
+  <router-outlet></router-outlet>
 </div>

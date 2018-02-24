@@ -15,7 +15,7 @@
   <div class="device-bar">
     <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
     <div id="logo">
-        <a routerLink="/home" class="logo-svg-small" title="Homepage"></a>
+        <a routerLink="" class="logo-svg-small" title="Homepage"></a>
         <small *ngIf="regionCode">{{ regionCode }}</small>
       </div>
   </div>
@@ -28,14 +28,14 @@
         <div class="app app-services">
             <div class="app-head">
                 <div id="logo">
-                  <a routerLink="/home" class="logo-svg" title="Homepage"></a>
+                  <a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
                   <small *ngIf="regionCode">{{ regionCode }}</small>
                 </div>
             </div>
             <div class="app-content">
               <nav>
                 <ul>
-                  <li><a routerLink="/home" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
+                  <li><a routerLink="/category/all" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
                   <li><a routerLink="/history" routerLinkActive="is-active" title="History page"><span class="fa fa-history"></span>History<span class="description">Recently played</span></a></li>
                   <li><a routerLink="/about" routerLinkActive="is-active" title="About application page"><span class="fa fa-info-circle"></span>About<span class="description">All informations about the app</span></a></li>
                   <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>

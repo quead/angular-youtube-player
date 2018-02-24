@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
+import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../shared/lists.service';
 import { NumberVal } from '../shared/validators.service';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-settings',
     templateUrl: 'youtube-settings.component.html',
-    providers: [ SearchComponent, NumberVal ]
+    providers: [ SearchComponent, CategoryComponent, NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit {
     _fb: any;
     _app: any;
     _search: any;
+    _category: any;
 
     internalSettings: FormGroup;
     externalSettings: FormGroup;
@@ -34,11 +36,13 @@ export class SettingsComponent implements OnInit {
         private shared: SharedService,
         private app: AppComponent,
         private search: SearchComponent,
+        private category: CategoryComponent,
     ) {
         this._shared = shared;
         this._fb = fb;
         this._app = app;
         this._search = search;
+        this._category = category;
         this.notify = this._shared.notify;
     }
 
@@ -80,12 +84,13 @@ export class SettingsComponent implements OnInit {
             Object.keys(data.settings).map(i => {
                 this.internal_settings[i].value = data.settings[i];
             });
-            this._shared.form_settings = this.internal_settings;
+            this._shared.settings.form_settings = this.internal_settings;
+            this._shared.updateSettings();
 
             this._app.setSettings();
             this._app.checkVolumeRange();
             this._search.setSettings();
-            this._shared.updateSettings();
+            this._category.setSettings();
 
             this._shared.triggerNotify('Changed');
             this.updateNotify();
@@ -100,13 +105,11 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this._shared.getSettings().subscribe(data => {
-            this.internal_settings = data.form_settings;
-            this.external_settings = data.api_settings;
-            this.initExternalForm();
-            this.finished = true;
-            this.setForm();
-        });
+        this.internal_settings = this._shared.settings.form_settings;
+        this.external_settings = this._shared.settings.api_settings;
+        this.initExternalForm();
+        this.finished = true;
+        this.setForm();
     }
 
     updateNotify() {
@@ -121,13 +124,14 @@ export class SettingsComponent implements OnInit {
             this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
             this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
             this._shared.settings.api_settings = this.external_settings;
-
             this._shared.feedVideos = null;
+
+            this._shared.updateSettings();
 
             this._shared.setApiSettings();
             this._app.setSettings();
+            this._category.setSettings();
             this._app.getFeedVideos();
-            this._shared.updateSettings();
 
             this._shared.triggerNotify('Saved');
             this.updateNotify();

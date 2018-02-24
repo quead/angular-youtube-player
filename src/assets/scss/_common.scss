@@ -17,6 +17,11 @@
   100% { opacity: 1; top: 50%; }
 }
 
+.text-center {
+    text-align: center;
+    justify-content: center;
+}
+
 .loading-bar {
     position: fixed;
     margin: 0;
@@ -126,6 +131,10 @@
         overflow: hidden;
         .app-content {
             padding: 0 20px;
+            position: absolute;
+            .loading-app {
+                position: absolute;
+            }
         }
     }
     &-player {

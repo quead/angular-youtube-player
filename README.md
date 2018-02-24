@@ -3,11 +3,11 @@
   <a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
   or
   <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
-  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/GyNXPTg.png" style="height: auto; max-width:100%;" />
+  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/EKqK4ip.png" style="height: auto; max-width:100%;" />
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.1-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
@@ -79,6 +79,13 @@ or
 <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
+Angular2 YT Player v2.1
+- Categories with videos like (music, gaming, autos, films, sports, etc.)
+- Refactoring code
+- Search on specific region
+- Fixing copy link for featured video
+- UX improvements
+
 Angular2 YT Player v2.0.1
 - Import & export youtube playlist as .JSON file
 
@@ -170,7 +177,6 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Categories with videos like (music, gaming, autos, films, sports, much more) **(in v2.1)**
 - Drag and drop videos to playlist **(in v2.2)**
 - Arrange playlist by drag and drop **(in v2.2)**
 - Integrating Google accounts **(in v2.4)**

@@ -15,6 +15,7 @@ import { AboutComponent } from './components/youtube-about.component';
 import { HistoryComponent } from './components/youtube-history.component';
 
 import { YoutubePlayerModule } from 'ngx-youtube-player';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { YoutubePlayerModule } from 'ngx-youtube-player';
     SettingsComponent,
     SearchComponent,
     AboutComponent,
-    HistoryComponent
+    HistoryComponent,
+    CategoryComponent
   ],
   bootstrap:    [ AppComponent ],
   providers:    [ YoutubeGetVideo, SharedService, NwjsService ]
