@@ -285,7 +285,7 @@ export class AppComponent implements OnInit {
       let listType;
       let playlistItem;
       if (list === 0) {
-        listType = this.feedVideos[i];
+        listType = this._shared.feedVideos[i];
       }
       if (list === 1) {
         listType = this._shared.lastSearchedVideos[i];
