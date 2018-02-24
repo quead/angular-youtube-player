@@ -1,81 +1,143 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Http } from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AppComponent } from '../app.component';
+import { SearchComponent } from './youtube-search.component';
+import { CategoryComponent } from './category/category.component';
+import { SharedService } from '../shared/lists.service';
+import { NumberVal } from '../shared/validators.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: 'youtube-settings.component.html'
+    selector: 'app-settings',
+    templateUrl: 'youtube-settings.component.html',
+    providers: [ SearchComponent, CategoryComponent, NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {
 
-    @Output() states = new EventEmitter();
+    finished = false;
+    notify: any;
 
-    private menuOpened = false;
-    private finished = false;
+    _shared: any;
+    _fb: any;
+    _app: any;
+    _search: any;
+    _category: any;
 
-    settingsForm: FormGroup;
+    internalSettings: FormGroup;
+    externalSettings: FormGroup;
 
-    playerAttr = {
-        settings: []
-    };
+    private internal_settings: Array<any>;
+    private external_settings: Array<any>;
 
-    constructor(private fb: FormBuilder, private http: Http) {
-        this.fb = fb;
+    constructor(
+        private fb: FormBuilder,
+        private http: HttpClient,
+        private shared: SharedService,
+        private app: AppComponent,
+        private search: SearchComponent,
+        private category: CategoryComponent,
+    ) {
+        this._shared = shared;
+        this._fb = fb;
+        this._app = app;
+        this._search = search;
+        this._category = category;
+        this.notify = this._shared.notify;
     }
 
     ngOnInit() {
-        this.fetchJSONsettings();
+        console.log('settings');
+        this.getDefaultSettings();
     }
 
     setForm() {
-        this.settingsForm = this.fb.group({
+        this.internalSettings = this._fb.group({
             settings: this.mapSettings()
         });
         this.checkInputs();
     }
 
-    get getSettings(): FormArray {
-        return this.settingsForm.get('settings') as FormArray;
-    };
+    initExternalForm() {
+        this.externalSettings = new FormGroup({
+            fcApi: new FormControl(this.external_settings[0].value),
+            fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
+            fcSearchresults: new FormControl(this.external_settings[2].value,
+                            [Validators.required,
+                            NumberVal.max(50),
+                            NumberVal.min(1),
+                            NumberVal.isNumber(true)]),
+            fcRelatedResults: new FormControl(this.external_settings[3].value,
+                            [Validators.required,
+                            NumberVal.max(50),
+                            NumberVal.min(1),
+                            NumberVal.isNumber(true)])
+        });
+    }
 
-    fetchJSONsettings() {
-        this.http.get('assets/settings.json')
-            .map(res => res.json())
-            .subscribe(
-            data => {
-                this.playerAttr.settings = data;
-            },
-            err => console.log('JSON Settings ' + err),
-            () => {
-                this.finished = true; this.setForm();
-            }
-        );
+    get initInternalForm(): FormArray {
+        return this.internalSettings.get('settings') as FormArray;
     }
 
     checkInputs() {
-        this.showSettings(this.playerAttr);
-        this.settingsForm.valueChanges.subscribe((data) => {
+        this.internalSettings.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
-                this.playerAttr.settings[i].selected = data.settings[i];
+                this.internal_settings[i].value = data.settings[i];
             });
-            this.showSettings(data);
+            this._shared.settings.form_settings = this.internal_settings;
+            this._shared.updateSettings();
+
+            this._app.setSettings();
+            this._app.checkVolumeRange();
+            this._search.setSettings();
+            this._category.setSettings();
+
+            this._shared.triggerNotify('Changed');
+            this.updateNotify();
         });
     }
 
     mapSettings() {
-        const arr = this.playerAttr.settings.map(s => {
-            return this.fb.control(s.selected);
+        const arr = this.internal_settings.map(s => {
+            return this._fb.control(s.value);
         });
         return this.fb.array(arr);
     }
 
-    toggleMenu() {
-        this.menuOpened = !this.menuOpened;
+    getDefaultSettings() {
+        this.internal_settings = this._shared.settings.form_settings;
+        this.external_settings = this._shared.settings.api_settings;
+        this.initExternalForm();
+        this.finished = true;
+        this.setForm();
     }
 
-    showSettings(data: any) {
-        this.states.emit(data);
+    updateNotify() {
+        this.notify = this._shared.notify;
+        setTimeout(() => this.notify = this._shared.notify, 1000);
     }
 
+    externalSave() {
+        if (this.externalSettings.valid) {
+            this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
+            this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
+            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
+            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
+            this._shared.settings.api_settings = this.external_settings;
+            this._shared.feedVideos = null;
+
+            this._shared.updateSettings();
+
+            this._shared.setApiSettings();
+            this._app.setSettings();
+            this._category.setSettings();
+            this._app.getFeedVideos();
+
+            this._shared.triggerNotify('Saved');
+            this.updateNotify();
+        } else {
+            this._shared.triggerNotify('Please check external settings');
+            this.updateNotify();
+        }
+    }
 }

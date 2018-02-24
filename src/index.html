@@ -1,95 +1,123 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>YouTube Player v1.1</title>
+        <base href="/">
+        <title>YouTube Player v2.1</title>
         <link rel="icon" href="favicon.ico">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,400i,700,900" rel="stylesheet">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="assets/css/normalize.css">
-        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css.map">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />        
     </head>
-    <body ondragstart="return false;" ondrop="return false;">
+    <body class="">
+        <div class="update-bar">
+            <div id="output">Checking for updates...</div>
+            <span class="update-loading">
+                <span class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></span>       
+            </span>
+            <div id="update-buttons"></div>
+        </div>
         <app-yt>
             <div class="loading-app">
                 <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
                 <span class="sr-only">Loading...</span>
             </div>
         </app-yt>
-        
-        <div class="app-yt-2">
-            <div class="container">
-                <div class="col col-3">
-                    <div class="app app-services">
-                        <div class="app-head">
-                            YouTube
-                        </div>
-                        <div class="app-content">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-6">
-                    <div class="app app-feed">
-                        <div class="app-head">
-                            Feed
-                        </div>
-                        <div class="app-content">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-3">
-                    <div class="app app-player">
-                        <div class="app-head">
-                            Player
-                        </div>
-                        <div class="app-content">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <script>
-		/*
-            // Reload pentru NWJS (DE EDITAT)
-            var path = 'assets/',
-                fs = require('fs');
+            /*
+            const AutoUpdater = require( "nw-autoupdater" ),
+                updater = new AutoUpdater( require( "./package.json" ) ),
+                output =  document.querySelector( "#output" ),
+                updateBar = document.getElementsByClassName("update-bar")[0].classList;   
+                                
+            async function main(update){
+                try {
+                    // Update copy is running to replace app with the update
+                    if ( updater.isSwapRequest() ) {
+                        updateBar.add('active');
+                        output.innerHTML = `Finishing update...`;
+                        await updater.swap();
+                        output.innerHTML = `Restarting...`;
+                        await updater.restart();
+                        return;
+                    }
 
-            var win = nw.Window.get();
+                    // Download/unpack update if any available
+                    const rManifest = await updater.readRemoteManifest();
+                    const needsUpdate = await updater.checkNewVersion( rManifest );
+                    if ( !needsUpdate ) {
+                        updateBar.add('active');
+                        setTimeout(() => {
+                            output.innerHTML = `There is no new updates...`;
+                        }, 2000); 
+                        setTimeout(() => {
+                            updateBar.remove('active');
+                        }, 4000);
+                        return;
+                    } 
+
+                    if (update) {
+                        output.innerHTML = `Preparing files...`;
+                        if (document.getElementById('update-buttons').hasChildNodes()) {
+                            var children = document.getElementById('update-buttons').childNodes;
+                            document.getElementById('update-buttons').removeChild(children[0]);                                
+                            document.getElementById('update-buttons').removeChild(children[0]);
+                        }
+                    } else {
+                        output.innerHTML = `Update available...`;
+                        updateBar.add('active', 'update-av'); 
+                        initUpdate();
+                        return;
+                    }
+
+                    // Subscribe for progress events
+                    updater.on( "download", ( downloadSize, totalSize ) => {
+                        output.innerHTML = `Downloading...`;
+                        console.log( "download progress", Math.floor( downloadSize / totalSize * 100 ), "%" );
+                    });
+                    updater.on( "install", ( installFiles, totalFiles ) => {
+                        output.innerHTML = `Installing...`;
+                        console.log( "install progress", Math.floor( installFiles / totalFiles * 100 ), "%" );
+                    });
+                    const updateFile = await updater.download( rManifest );
+                    updater.unpack( updateFile );
+                    updateAppSwap();
+                } catch ( e ) {
+                    console.error( e );
+                }
+            }
             
-            win.on('blur', function() {
-                //console.log('blur');
-            });
+            function updateAppSwap() {
+                setTimeout(() => {
+                    updater.restartToSwap();  
+                }, 3000);
+            }
 
-            win.on('focus', function() {
-                //console.log('focused');
-            });
+            function updateAppLater() {
+                updateBar.remove('active');
+            }
 
-            // Top functions
+            function initUpdate() {
+                var btnUPDLTR = document.createElement("BUTTON");
+                    btnUPDLTR.setAttribute("id", "update-app-later");
+                    btnUPDLTR.innerHTML = 'Later';
             
-            document.getElementById('win-minimize').onclick = function(){
-                win.minimize();
-            };
+                    document.getElementById("update-buttons").appendChild(btnUPDLTR);
+            
+                    btnUPDLTR.onclick = updateAppLater;                 
+            
+                var btnUPD = document.createElement("BUTTON");
+                    btnUPD.setAttribute("id", "update-app");
+                    btnUPD.innerHTML = 'Update';
+                    document.getElementById("update-buttons").appendChild(btnUPD);
+            
+                    btnUPD.addEventListener("click", function(){ 
+                        main(true);
+                    });
+            }
 
-            document.getElementById('win-maximize').onclick = function(){
-                win.maximize();
-            };
-
-            document.getElementById('win-unmaximize').onclick = function(){
-                win.unmaximize();
-            };
-
-            document.getElementById('win-close').onclick = function(){
-                win.close();
-            };
-
-            win.on('maximize', function() {
-                console.log('maximized');
-            });
-		*/
-
+            main(false);
+*/
         </script>
     </body>
 </html>

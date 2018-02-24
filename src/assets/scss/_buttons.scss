@@ -1,6 +1,6 @@
 .btn {
     display: inline-block;
-    color: $c-gray;
+    color: var(--c-white);
     font-size: 14px;
     font-weight: 400;
     line-height: 1.25;
@@ -10,11 +10,17 @@
     vertical-align: middle;
     user-select: none;
     border: 1px solid transparent;
-    padding: .5rem 1rem;
+    padding: 9px 15px;
     text-decoration: none;
     transition: all .1s ease-out;
     outline: 0;
-
+    line-height: 1;
+    .fa {
+        margin-right: 8px;
+        font-size: $f-10;
+        top: -1px;
+        position: relative;
+    }
     &-round {
         border-radius: 50px;
     }
@@ -22,40 +28,47 @@
     &-small {
         padding: 5px 17px;
     }
+    &-link {
+        background-color: transparent;
+        color: rgba(#232228, 0.3);
+        &:hover {
+            color: rgba(#232228, 0.6);
+        }
+        &:active {
+            color: var(--c-primary-inverse);
+        }
+    }
 
     &-primary {
-        background-color: $c-primary;
-        color: $c-white;
-        &:hover {
-            background-color: darken($c-primary, 5%);
-        }
+        background-color: var(--c-primary);
+        color: var(--c-white);
         &:active {
-            color: $c-white;
-            background-color: darken($c-primary, 10%);
+            background-color: var(--c-primary-active);
         }
     }
 
-    &-secondary {
-        background-color: $c-secondary;
-        color: $c-white;
+    &-primary-inverse {
+        background-color: var(--c-primary-inverse);
+        color: rgba(255, 255, 255, 0.6);
         &:hover {
-            background-color: darken($c-secondary, 5%);
+            color: var(--c-white);
         }
         &:active {
-            color: $c-white;
-            background-color: darken($c-secondary, 10%);
+            background-color: var(--c-black);
+            color: var(--c-white);
         }
     }
 
-    &-default {
-        background-color: darken($c-base, 20%);
-        color: $c-white;
+    &-outline {
+        border: 1px solid var(--c-white);
+        opacity: 0.6;
+        background-color: transparent;
         &:hover {
-            background-color: darken($c-base, 25%);
+            opacity: 1;
         }
         &:active {
-            color: $c-white;
-            background-color: darken($c-base, 30%);
+            background-color: var(--c-white);
+            color: var(--c-black);
         }
     }
 }

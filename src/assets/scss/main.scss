@@ -6,14 +6,18 @@
 @import 'buttons';
 @import 'grid';
 @import 'common';
+@import 'controls';
+@import 'forms';
 
 @import 'header';
-@import 'footer';
 
 @import 'navbar';
 @import 'search';
 @import 'videos';
 
-app-yt {
-    display: none; 
+#app-container.light-mode {
+    @import 'theme/light';
 }
+
+@import 'responsive';
+@import 'app';

@@ -1,28 +1,41 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { routes } from './app.router';
+
 import { AppComponent } from './app.component';
-import { YoutubeGetVideo } from './config/youtube.config';
+import { SharedService } from './shared/lists.service';
+import { NwjsService } from './shared/nwjs.service';
+import { YoutubeGetVideo } from './shared/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
+import { AboutComponent } from './components/youtube-about.component';
+import { HistoryComponent } from './components/youtube-history.component';
 
-import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { YoutubePlayerModule } from 'ngx-youtube-player';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     ReactiveFormsModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    FormsModule,
+    routes
   ],
   declarations: [
     AppComponent,
     SettingsComponent,
-    SearchComponent
+    SearchComponent,
+    AboutComponent,
+    HistoryComponent,
+    CategoryComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo ]
+  providers:    [ YoutubeGetVideo, SharedService, NwjsService ]
 })
 
 export class AppModule { }

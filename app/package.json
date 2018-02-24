@@ -1,0 +1,35 @@
+{
+  "main": "index.html",
+  "name": "yt-app",
+  "description": "YouTube Player",
+  "author": "Alex Olari <queadx@gmail.com>",
+  "version": "2.0.0",
+  "keywords": [
+    "youtube app",
+    "node-webkit"
+  ],
+  "license": "MIT",
+  "manifestUrl": "http://noxien.net/quead/package.json",
+  "window": {
+    "height": 720,
+    "width": 1270,
+    "min_width": 1270,
+    "min_height": 720,
+    "frame": false,
+    "icon": "favicon.ico",
+    "toolbar": false
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "scripts": {
+    "postversion": "npm run package",
+    "package": "nwb nwbuild -v 0.25.2-sdk . -o ../release --output-format=ZIP --output-name={name}-v{version}-{target}"    
+  },
+  "dependencies": {
+    "nw-autoupdater": "*"
+  },
+  "devDependencies": {
+    "nwjs-builder": "^1.14.0"
+  }
+}

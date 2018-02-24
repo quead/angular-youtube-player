@@ -1,0 +1,30 @@
+<div class="app-head">
+    <h2>History</h2>
+</div>
+<div class="app-content">
+    <div class="history-video-content">
+        <div *ngIf="historyVideos.length === 0" class="video-list-info">
+            No history
+        </div>
+        <div *ngFor="let historyVideo of historyVideos; let i = index" [attr.data-index]="i" class="video-item">
+            <div class="video-item-info">
+                <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + historyVideo.snippet.thumbnails.default.url +')'}"></div>
+                <div class="video-item-content">
+                <p class="video-item-title">{{ historyVideo.snippet.title }}</p>
+                <p class="video-item-autor">by <span>{{ historyVideo.snippet.channelTitle }}</span></p>                      
+                </div>
+            </div>
+            <div class="video-item-settings">
+                <button class="video-item-play" (click)="onClickHistory($event, i)">
+                <span class="fa fa-play"></span>
+                </button>
+                <button class="video-item-share" (click)="onCopyVideoItemLink(i, 4)">
+                <span class="fa fa-share-alt"></span>
+                </button>
+                <button class="video-item-add" (click)="addPlaylistItem(i, 4)">
+                <span class="fa fa-plus"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,44 @@
-[{
-  "name": "Toggle Debugging Info",
-  "selected": true
-}, {
-  "name": "Toggle Search Thumbnails",
-  "selected": true
-}]
+{
+  "form_settings": [
+    {
+      "name": "Show Thumbnails",
+      "value": true,
+      "visible": true
+    },
+    {
+      "name": "Set list for trending",
+      "value": false,
+      "visible": true
+    },
+    {
+      "name": "Toggle video",
+      "value": true,
+      "visible": true
+    },
+    {
+      "name": "Toggle repeat mode",
+      "value": true,
+      "visible": true
+    },
+    {
+      "name": "Toggle dark mode",
+      "value": true,
+      "visible": true
+    }
+  ],
+  "api_settings": [
+    {
+      "name": "Api key",
+      "value": "AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc"
+    }, {
+      "name": "Country trending",
+      "value": "US"
+    }, {
+      "name": "Number of search results",
+      "value": 15
+    }, {
+      "name": "Number of related results",
+      "value": 15
+    }
+  ]
+}

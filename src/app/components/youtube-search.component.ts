@@ -1,7 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { YoutubeGetVideo } from '../config/youtube.config';
+import { Component, OnInit } from '@angular/core';
+import { YoutubeGetVideo } from '../shared/youtube.service';
+import { AppComponent } from '../app.component';
+import { SharedService } from '../shared/lists.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import 'rxjs/add/operator/map';
+
+import { IFeedVideo } from '../models/feed-video.model';
+import { ISearchVideo } from '../models/search-video.model';
+import { IChannelList } from '../models/channel.model';
 
 @Component({
   selector: 'app-search',
@@ -10,44 +15,43 @@ import 'rxjs/add/operator/map';
 
 export class SearchComponent implements OnInit {
 
-  @Input() set showStates(event: string){
-    if (event) {
-      this.changeStates(event);
-    }
-  }
-
   searchForm: FormGroup;
+  noResults = false;
+  thumbnails = true;
 
-  videos: any;
-  relatedVideos = false;
+  videos: Array<ISearchVideo>;
 
-  debuggingInfo: boolean;
-  searchVideoImage: boolean;
+  _shared: any;
+  _app: any;
 
-  player: YT.Player;
-  currentVideoID = 'Not Exist';
-  currentVideoName: string;
-  currentVideoImage: string;
-  currentState: number;
-  currentMuteState = true;
-
-  _ref: any;
-
-  videoRangeTimer: any;
-  videoCurRange = 0;
-  videoMaxRange = 0;
-
-  videoCurFull = '00:00:00';
-  videoMaxFull = '00:00:00';
-
-  videoCurVolume = -1;
-
-  constructor(private youtube: YoutubeGetVideo, ref: ChangeDetectorRef) {
-    this._ref = ref;
+  constructor(
+    private youtube: YoutubeGetVideo,
+    private shared: SharedService,
+    private app: AppComponent,
+  ) {
+    this._shared = shared;
+    this._app = app;
   }
 
   ngOnInit() {
+    console.log('search');
+    this.setSettings();
     this.searchFunction();
+  }
+
+  async setSettings() {
+    this.thumbnails = this._shared.settings.form_settings[0].value;
+  }
+
+  async searchVideo(query: any) {
+    const res = await this.youtube.searchVideo(query);
+    this.videos = res['items'];
+    if (res['items'].length === 0) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
+    this._shared.lastSearchedVideos = res['items'];
   }
 
   searchFunction() {
@@ -56,58 +60,8 @@ export class SearchComponent implements OnInit {
     });
 
     this.searchForm.valueChanges.subscribe((form) => {
-        this.youtube.searchVideo(form.searchInput).subscribe(
-          result => {
-            if (!this.searchForm.invalid) {
-              this.videos = result.items;
-            } else {
-              this.videos = null;
-            }
-          },
-          error => {
-            console.log('error on search');
-          }
-        );
+      this.searchVideo(form.searchInput);
     });
-  }
-
-  playerVars() {
-    const playerVars = {
-      'controls': 0,
-      'disablekb': 1,
-      'rel': 0
-    };
-    return playerVars;
-  }
-
-  changeStates(event) {
-    // Trigger from youtube-settings.component
-    if (event.settings[0].selected != null) {
-      this.debuggingInfo = event.settings[0].selected;
-    } else {
-      this.debuggingInfo = event.settings[0];
-    }
-
-    if (event.settings[1].selected != null) {
-      this.searchVideoImage = event.settings[1].selected;
-    } else {
-      this.searchVideoImage = event.settings[1];
-    }
-  }
-
-  getRelatedVideos() {
-    this.youtube.relatedVideos(this.currentVideoID).subscribe(
-        result => {
-          this.relatedVideos = result.items;
-        },
-        error => {
-          console.log('error on related videos');
-        }
-      );
-  }
-
-  clearRelatedVideos() {
-    this.relatedVideos = null;
   }
 
   clearSearch() {
@@ -119,109 +73,23 @@ export class SearchComponent implements OnInit {
     event.preventDefault();
   }
 
-  onClickVideo(event: Event, i: any) {
-    const clickedVideo = this.videos[i];
-    this.currentVideoID = clickedVideo.id.videoId;
-    this.currentVideoName = clickedVideo.snippet.title;
-    this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
-    this.player.loadVideoById(this.currentVideoID);
-    this.getRelatedVideos();
+  onClickVideo(event: Event, i: any, list: number) {
+    if (list === 1) {
+      this._app.getVideo(this.videos[i]);
+      this.clearSearch();
+    } else if (list === 3) {
+      this._app.getVideo(this._shared.feedVideos[i]);
+    }
     this.clearSearch();
   }
 
-  onClickRelatedVideo(event: Event, i: any) {
-    const clickedVideo = this.relatedVideos[i];
-    this.currentVideoID = clickedVideo.id.videoId;
-    this.currentVideoName = clickedVideo.snippet.title;
-    this.currentVideoImage = clickedVideo.snippet.thumbnails.default.url;
-    this.player.loadVideoById(this.currentVideoID);
-    this.getRelatedVideos();
+  onCopyVideoItemLink(i: number, list: number) {
+    this._app.onCopyVideoItemLink(i, list);
+    this.clearSearch();
   }
 
-  toggleMute() {
-    if (this.currentMuteState) {
-      this.player.unMute();
-      this.currentMuteState = false;
-    } else {
-      this.player.mute();
-      this.currentMuteState = true;
-    }
+  addPlaylistItem(i: number, list: number) {
+    this._app.addPlaylistItem(i, list);
+    this.clearSearch();
   }
-
-  savePlayer(player) {
-    this.player = player;
-  }
-
-  onStateChange(event) {
-    this.currentState = event.data;
-    this.videoMaxRange = this.player.getDuration();
-
-    if (this.currentState === 1) {
-      this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.videoCurVolume = this.player.getVolume();
-      this.currentMuteState = this.player.isMuted();
-      this.startRange();
-    }
-
-    if (this.currentState === 0) {
-      this.stopRange();
-    }
-  }
-
-  playPauseVideo() {
-    if (this.currentState === 0) {
-      this.player.playVideo();
-    }
-    if (this.currentState === 1) {
-      this.player.pauseVideo();
-    }
-    if (this.currentState === 2) {
-      this.player.playVideo();
-    }
-  }
-
-  startRange() {
-    this.stopRange();
-    this.videoRangeTimer = setInterval(() => {
-      this.videoCurRange = this.player.getCurrentTime();
-      this.videoCurFull = this.timeFormat(this.videoCurRange);
-      this._ref.markForCheck();
-    }, 1000);
-  }
-
-  stopRange() {
-     clearTimeout(this.videoRangeTimer);
-  }
-
-
-  RangeNouseDown(event: Event) {
-    if (event['buttons'] === 1) {
-      this.stopRange();
-    }
-  }
-
-  RangeMouseUp(value: number) {
-    this.player.seekTo(value, true);
-    this.videoCurRange = value;
-    this.startRange();
-  }
-
-  volumeRangeMouseUp(value: number) {
-    if (this.currentMuteState) {
-      this.player.unMute();
-      this.currentMuteState = false;
-    }
-    this.player.setVolume(value);
-  }
-
-  timeFormat(time: number) {
-    const hours: any = Math.floor(time / 3600);
-    const minutes: any = Math.floor(time % 3600 / 60);
-    const seconds: any = Math.floor(time % 3600 % 60);
-    const value = (parseInt(hours, 10) < 10 ? '0' : '' ) + parseInt(hours, 10) + ':'
-              + (parseInt(minutes, 10) < 10 ? '0' : '' ) + parseInt(minutes, 10) + ':'
-              + (parseInt(seconds, 10) < 10 ? '0' : '' ) + parseInt(seconds, 10);
-    return value;
-  }
-
 }

@@ -1,57 +1,50 @@
-.nav-overlay {
-    background-color: rgba($c-black, 0.6);
-    position: fixed;
-    opacity: 0;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: all 0.4s ease-out;
-    z-index: 9998;
-}
-
-#main-nav {
-    background-color: $c-white;
-    position: fixed;
-    padding: 10px 15px;
-    box-shadow: 5px 0px 10px 0px rgba($c-black, 0.05);
-    top: 0;
-    left: -295px;
-    width: 280px;
-    height: 100%;
-    transition: left 0.2s ease-out;
-    z-index: 9999;
-    h2 {
-        margin: 2px 0;
-        padding-right: 20px;
-        font-size: 16px;
+nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
-    &.active {
-        left: 0;
-        + .nav-overlay {
-            position: fixed;
-            opacity: 1;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 9998;
-        }
+    li {
+        padding-left: 0;
     }
-}
-
-#settingsForm {
-    margin-top: 15px;
-    input[type="checkbox"],
-    input[type="radio"] {
-        display: none;
-    }
-    label {
-        position: relative;
-        cursor: pointer;
+    a {
         display: block;
-    }
-    .form-group {
-        padding: 5px 0;
+        text-decoration: none;
+        color: var(--c-white);
+        font-size: $f-14;
+        -webkit-user-drag: none;
+        position: relative;
+        padding: 10px 15px 10px 35px;
+        transition: all 0.1s ease-out;
+        opacity: 0.3;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        .fa {
+            color: var(--c-white);
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .description {
+            display: block;
+            font-size: $f-12;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: normal;
+        }
+        &:hover {
+            opacity: 1;
+        }
+        &.is-active,
+        &:active {
+            opacity: 1;
+            color: var(--c-white);
+            .fa {
+                color: var(--c-white);
+            }
+            .description {
+                text-shadow: none;
+            }
+        }
     }
 }
