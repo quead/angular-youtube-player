@@ -238,6 +238,28 @@ iframe {
     }
 }
 
+.gu-transit {
+    background-color: #c72020 !important;
+    .video-item-hint {
+        color: var(--c-white);
+        border-color: var(--c-white);
+    }
+}
+
+.ex-over {
+    background-color: rgba(255, 255, 255, 0.01) !important;
+    border: 2px dashed rgba(255, 255, 255, 0.2) !important;
+    .video-item:hover {
+        .video-item-image {
+            transform: scale(1);
+        }
+        .video-item-settings {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
 #related-video-list {
     display: flex;
     flex-wrap: wrap;
@@ -294,6 +316,13 @@ iframe {
         overflow: auto;
         background-color: var(--c-dark-gray);
         z-index: 0;
+        border: 0 dashed transparent;
+        transition: all 0.2s ease-out;
+        .video-item-settings {
+            cursor: grab;
+            cursor: -moz-grab;
+            cursor: -webkit-grab;
+        }
         .video-item:not(.active) {
             background-color: transparent;
         }

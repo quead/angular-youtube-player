@@ -3,6 +3,7 @@ import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
 import { NwjsService } from './shared/nwjs.service';
 import { Event } from '@angular/router/src/events';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 import { IRelatedVideo } from './models/related-video.model';
 import { INotify } from './models/notify.model';
@@ -81,11 +82,31 @@ export class AppComponent implements OnInit {
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
-    private nwjs: NwjsService
+    private nwjs: NwjsService,
+    private dragula: DragulaService
   ) {
     this._shared = shared;
     this._nwjs = nwjs;
     this.notify = this._shared.notify;
+    dragula.setOptions('playlistVideos', {
+      moves: (el, container, handle) => {
+        return handle.className === 'video-item-settings';
+      }
+    });
+    dragula.over.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.addClass(el, 'ex-over');
+    });
+    dragula.out.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.removeClass(el, 'ex-over');
+      this.updatePlaylist();
+    });
+    dragula.drop.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.removeClass(el, 'ex-over');
+      this.updatePlaylist();
+    });
   }
 
   ngOnInit() {
@@ -101,6 +122,22 @@ export class AppComponent implements OnInit {
       this.setSettings();
 
       this.getFeedVideos();
+  }
+
+  private hasClass(el: any, name: string) {
+    return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
+  }
+
+  private addClass(el: any, name: string) {
+    if (!this.hasClass(el, name)) {
+      el.className = el.className ? [el.className, name].join(' ') : name;
+    }
+  }
+
+  private removeClass(el: any, name: string) {
+    if (this.hasClass(el, name)) {
+      el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
+    }
   }
 
   // ---------------- Init player ----------------
@@ -205,6 +242,12 @@ export class AppComponent implements OnInit {
 
   // ---------------- Playlist settings ----------------
 
+  updatePlaylist() {
+    this.findPlaylistItem();
+    this._shared.playlist = this.playlistVideos;
+    this._shared.updatePlaylist();
+  }
+
   uploadPlaylist(event: Event) {
     const files = event['target'].files[0];
     if (files.length <= 0) {
@@ -273,11 +316,7 @@ export class AppComponent implements OnInit {
           this.currentPlaylistItem = -1;
         }
         this.playlistVideos.splice(i, 1);
-
-        this._shared.playlist.splice(i, 1);
-        this._shared.updatePlaylist();
-
-        this.findPlaylistItem();
+        this.updatePlaylist();
       }, 200);
   }
 
@@ -300,6 +339,8 @@ export class AppComponent implements OnInit {
         listType = this._shared.historyVideos[i];
       }
 
+      console.log(listType);
+
       if (typeof listType.id.videoId !== 'undefined') {
         playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);
       } else {
@@ -308,11 +349,8 @@ export class AppComponent implements OnInit {
 
       if (typeof playlistItem === 'undefined') {
         this.playlistVideos.push(listType);
+        this.updatePlaylist();
 
-        this._shared.playlist.push(listType);
-        this._shared.updatePlaylist();
-
-        this.findPlaylistItem();
         this._shared.triggerNotify('Added to playlist');
         this.updateNotify();
         this.scrollToBottom();

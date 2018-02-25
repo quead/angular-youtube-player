@@ -47,7 +47,7 @@
                     <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
                     <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
                 </div>
-                <div class="playlist-video-content" #playlistContainer>
+                <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='playlistVideos' #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
                     Empty playlist
                   </div>
