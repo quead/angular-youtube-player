@@ -7,7 +7,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.1-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
@@ -79,26 +79,29 @@ or
 <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
-Angular2 YT Player v2.1
+Angular YouTube Player 2.2
+- Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
+
+Angular YT Player v2.1
 - Categories with videos like (music, gaming, autos, films, sports, etc.)
 - Refactoring code
 - Search on specific region
 - Fixing copy link for featured video
 - UX improvements
 
-Angular2 YT Player v2.0.1
+Angular YouTube Player 2.0.1
 - Import & export youtube playlist as .JSON file
 
-Angular2 YT Player v2.0
+Angular YouTube Player 2.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
 
-Angular2 YT Player v1.9.2
+Angular YouTube Player 1.9.2
 - UX improvements and fixes
 - Preparing files for 2.0
 
-Angular2 YT Player v1.9.1
+Angular YouTube Player 1.9.1
 - Get settings.json for localstorage if your localstorage is empty
 - The playlist automatically saving, if is empty it will be populated with related videos
 - Toggle light/dark theme mode
@@ -108,31 +111,31 @@ Angular2 YT Player v1.9.1
 - Manual saving for external settings (check settings)
 - Performance, UI and UX improvements and fixes
 
-Angular2 YT Player v1.9
+Angular YouTube Player 1.9
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos
 - Next/prev video from your playlist
 - Moved history to separate page
 - Adding toggle video, repeat mode and list & grid on trending to settings.json
 - Small fixes
 
-Angular2 YT Player v1.7
+Angular YouTube Player 1.7
 - Added featured video as first video from trending
 - Notifications for important actions you do
 - Removed debugging mode
 - Preparing packages, code and files for v2.0
 - Improved UI/UX for lists
 
-Angular2 YT Player v1.6
+Angular YouTube Player 1.6
 - Video details for current video and trending videos like number of views, likes and dislikes
 - Share link for current video
 - Added new setting for hiding all thumbnails
 - Custom player buttons shows now only when you hide video
 
-Angular2 YT Player v1.4
+Angular YouTube Player 1.4
 - History of your watched videos
 - Small fixes
 
-Angular2 YT Player v1.3
+Angular YouTube Player 1.3
  - Show/hide video player
  - Repeat video
  - Grid/list mode for trending videos
@@ -142,7 +145,7 @@ Angular2 YT Player v1.3
 - *YOUR_API Key*
 - *Max related videos (0 to 50)*
 
-Angular2 YT Player v1.2
+Angular YouTube Player 1.2
 - Introducing trending videos, currently default trending videos are from United States
 - Refactoring the code
 - Adding routes for future components which it will show in left navbar
@@ -150,7 +153,7 @@ Angular2 YT Player v1.2
 - Adding the video player
 - Update the design to match the new features
 
-Angular2 YT Player v1.1
+Angular YouTube Player 1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
 - Adding settings functionality, the settings will get from ***assets/settings.json***
@@ -159,11 +162,11 @@ Angular2 YT Player v1.1
 - *Show/hide thumbnails in search*
 
 
-Angular2 YT Player v1.0.2
+Angular YouTube Player 1.0.2
 - Change volume on your video
 - Related videos
 
-Angular2 YT Player v1.0.0
+Angular YouTube Player 1.0.0
 - Search and play video from youtube
 - Play/pause video
 - Change time of your video that you want to listen
@@ -177,16 +180,14 @@ Angular2 YT Player v1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Drag and drop videos to playlist **(in v2.2)**
-- Arrange playlist by drag and drop **(in v2.2)**
 - Integrating Google accounts **(in v2.4)**
 - Integrating firebase **(in v2.5)**
 
 - **Rooms**
-- *Create room where you can watch videos with others in sync by sharing the room link **(in v3.0)***
-- *Set private/public room **(in v3.0)***
-- *List of public rooms **(in v3.0)***
-- *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v3.3)***
+- *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
+- *Set private/public room **(in v2.7)***
+- *List of public rooms **(in v2.8)***
+- *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

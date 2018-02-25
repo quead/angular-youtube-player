@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.router';
 
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+
 import { AppComponent } from './app.component';
 import { SharedService } from './shared/lists.service';
 import { NwjsService } from './shared/nwjs.service';
@@ -24,6 +26,7 @@ import { CategoryComponent } from './components/category/category.component';
     ReactiveFormsModule,
     YoutubePlayerModule,
     FormsModule,
+    DragulaModule,
     routes
   ],
   declarations: [
