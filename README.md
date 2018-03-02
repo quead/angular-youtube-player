@@ -82,7 +82,7 @@ or
 Angular YouTube Player 2.2
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
 
-Angular YT Player v2.1
+Angular YouTube Player 2.1
 - Categories with videos like (music, gaming, autos, films, sports, etc.)
 - Refactoring code
 - Search on specific region
