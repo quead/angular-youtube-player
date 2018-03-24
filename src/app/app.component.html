@@ -12,6 +12,11 @@
           <button id="linux-maximize" (click)="winClose();"></button>
       </div>
   </div>
+  <button *ngIf="!authService.isLogged" type="button" (click)="loginGoogle()">Login</button>
+  <ng-container *ngIf="authService.isLogged">
+    Hello, {{_shared.user.email}}
+    <button type="button" (click)="logout()">Logout</button>
+  </ng-container>
   <div class="device-bar">
     <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
     <div id="logo">

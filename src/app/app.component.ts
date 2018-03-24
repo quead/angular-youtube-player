@@ -5,13 +5,20 @@ import { NwjsService } from './shared/nwjs.service';
 import { Event } from '@angular/router/src/events';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
+// DB
+import { AuthService } from './services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+
 import { IRelatedVideo } from './models/related-video.model';
 import { INotify } from './models/notify.model';
 import { IFeedVideo } from './models/feed-video.model';
 
 @Component({
   selector: 'app-yt',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  providers: [ AuthService ]
 })
 
 export class AppComponent implements OnInit {
@@ -83,7 +90,11 @@ export class AppComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
     private nwjs: NwjsService,
-    private dragula: DragulaService
+    private dragula: DragulaService,
+
+    private authService: AuthService,
+    public afAuth: AngularFireAuth,
+    private db2: AngularFireDatabase
   ) {
     this._shared = shared;
     this._nwjs = nwjs;
@@ -122,6 +133,8 @@ export class AppComponent implements OnInit {
       this.setSettings();
 
       this.getFeedVideos();
+
+      this.updateUserDetails();
   }
 
   private hasClass(el: any, name: string) {
@@ -138,6 +151,34 @@ export class AppComponent implements OnInit {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
+  }
+
+  // ---------------- User ------------------
+
+  loginGoogle() {
+    this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  updateUserDetails() {
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      this.shared.user = user;
+      if (user) {
+        this.db2.database.ref('users/' + user.uid).once('value', data => {
+          this._shared.playlist = data.val().playlist;
+          this._shared.settings = data.val().settings;
+          this._shared.updateSettings();
+          this._shared.updatePlaylist();
+        });
+        this.authService.isLogged = true;
+      } else {
+        console.log('nu e logat');
+        this.authService.isLogged = false;
+      }      
+    });
   }
 
   // ---------------- Init player ----------------
@@ -338,8 +379,6 @@ export class AppComponent implements OnInit {
       if (list === 4) {
         listType = this._shared.historyVideos[i];
       }
-
-      console.log(listType);
 
       if (typeof listType.id.videoId !== 'undefined') {
         playlistItem = this.playlistVideos.find(item => item.id.videoId === listType.id.videoId);

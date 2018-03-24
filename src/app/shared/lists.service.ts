@@ -13,7 +13,8 @@ export class SharedService {
     public settings: any;
     public channel: any;
     public videoCategories: any;
-    public playlist: Array<any>;
+    public playlist: any;
+    public user: any;
 
     _update: any;
 
@@ -28,10 +29,11 @@ export class SharedService {
     ) {}
 
     async getSettings() {
-        if (localStorage.length <= 0) {
+        if (localStorage.length <= 1) {
             const res = await this.initSettings();
             this.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
+            console.log(localStorage.getItem('settings'));
         } else {
             this.settings = JSON.parse(localStorage.getItem('settings'));
         }
