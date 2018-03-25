@@ -129,11 +129,6 @@ export class AppComponent implements OnInit {
         }
       });
       this.preventOldSettings();
-
-      this.setSettings();
-
-      this.getFeedVideos();
-
       this.updateUserDetails();
   }
 
@@ -156,7 +151,7 @@ export class AppComponent implements OnInit {
   // ---------------- User ------------------
 
   loginGoogle() {
-    this.authService.login();
+    this.authService.login(this.currentVideo);
   }
 
   logout() {
@@ -165,19 +160,33 @@ export class AppComponent implements OnInit {
 
   updateUserDetails() {
     this.afAuth.auth.onAuthStateChanged((user) => {
-      this.shared.user = user;
       if (user) {
-        this.db2.database.ref('users/' + user.uid).once('value', data => {
-          this._shared.playlist = data.val().playlist;
-          this._shared.settings = data.val().settings;
-          this._shared.updateSettings();
-          this._shared.updatePlaylist();
+        this._shared.isLogged = true;
+        this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
+          console.log(data);
+          this.videoCurRange = data['0'];
+          if (this.player) {
+            this.player.seekTo(this.videoCurRange, true);
+          }
+          this.currentState = data['1'];
+          this.currentVideo = data['2'];
+          this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+          this.getRelatedVideos();
         });
-        this.authService.isLogged = true;
+        // this.feedVideos = this._shared.feedVideos;
+        // this.setCurrentVideoObject(this.feedVideos[0]);
+        // this.currentVideo.id = this.feedVideos[0].id;
+        // this.currentVideo.title = this.feedVideos[0].snippet.title;
+        // this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
+        // this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
+        // this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
+        // this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        // this.getRelatedVideos();
+        // this.findPlaylistItem();
       } else {
-        console.log('nu e logat');
-        this.authService.isLogged = false;
-      }      
+        this._shared.isLogged = false;
+      }
+      this.setSettings();  
     });
   }
 
@@ -206,7 +215,8 @@ export class AppComponent implements OnInit {
     await this._shared.initFeed();
     await this._shared.initChannel();
     this.feedVideos = this._shared.feedVideos;
-    if (!this.currentVideo.id) {
+    if (!this.currentVideo.id && !this._shared.isLogged) {
+      console.log('intru aici');
       this.setDefaultPlayer();
     }
   }
@@ -317,10 +327,12 @@ export class AppComponent implements OnInit {
 
   findPlaylistItem() {
       let playlistItem;
-      if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
-        playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
-      } else {
-        playlistItem = this.playlistVideos.find(item => item.id === this.currentVideoObject[0].id);
+      if (!this._shared.isLogged) {
+        if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
+          playlistItem = this.playlistVideos.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
+        } else {
+          playlistItem = this.playlistVideos.find(item => item.id === this.currentVideoObject[0].id);
+        }
       }
       this.currentPlaylistItem = this.playlistVideos.indexOf(playlistItem);
   }
@@ -431,9 +443,7 @@ export class AppComponent implements OnInit {
   preventOldSettings() {
     if (localStorage.length === 1 || !localStorage.getItem('version')) {
       console.log('Updating localstorage...');
-      localStorage.removeItem('version');
-      localStorage.removeItem('playlist');
-      localStorage.removeItem('settings');
+      localStorage.clear();
       this._shared.settings = null;
       this._shared.playlist = null;
 
@@ -443,11 +453,14 @@ export class AppComponent implements OnInit {
 
   async setSettings() {
     await this._shared.getSettings();
-    this.regionCode = this._shared.settings.api_settings[1].value;
-    this.thumbnails = this._shared.settings.form_settings[0].value;
-    this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
-    this.repeatMode = this._shared.settings.form_settings[3].value;
-    this.darkMode = this._shared.settings.form_settings[4].value;
+    if (this._shared.settings) {
+      this.regionCode = this._shared.settings.api_settings[1].value;
+      this.thumbnails = this._shared.settings.form_settings[0].value;
+      this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
+      this.repeatMode = this._shared.settings.form_settings[3].value;
+      this.darkMode = this._shared.settings.form_settings[4].value;
+      this.getFeedVideos();
+    }
   }
 
   toggleHeadSettings(int: number) {
@@ -561,6 +574,7 @@ export class AppComponent implements OnInit {
 
     this.player.seekTo(this.videoCurRange, true);
     this.videoRangeMouseActive = false;
+    this.db2.database.ref('sessions/' + localStorage.getItem('session_key') + '/currentSeek').set(this.videoCurRange);
   }
 
   volumeRangeMouseMove(value: number) {

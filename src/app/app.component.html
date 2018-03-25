@@ -12,9 +12,8 @@
           <button id="linux-maximize" (click)="winClose();"></button>
       </div>
   </div>
-  <button *ngIf="!authService.isLogged" type="button" (click)="loginGoogle()">Login</button>
-  <ng-container *ngIf="authService.isLogged">
-    Hello, {{_shared.user.email}}
+  <button *ngIf="!_shared.isLogged" type="button" (click)="loginGoogle()">Login</button>
+  <ng-container *ngIf="_shared.isLogged">
     <button type="button" (click)="logout()">Logout</button>
   </ng-container>
   <div class="device-bar">
@@ -99,7 +98,7 @@
                 </div>
             </div>
             <div class="app-content">
-              <div id="youtube-player" *ngIf="feedVideos" [ngClass]="{'active': displayVideoPlayer }">
+              <div id="youtube-player" *ngIf="currentVideo.id" [ngClass]="{'active': displayVideoPlayer }">
                 <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
               </div>
               <div *ngIf="currentVideo.id" class="current-video-all">

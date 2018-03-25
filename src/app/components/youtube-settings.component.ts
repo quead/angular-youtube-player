@@ -90,7 +90,6 @@ export class SettingsComponent implements OnInit {
             this._app.setSettings();
             this._app.checkVolumeRange();
             this._search.setSettings();
-            this._category.setSettings();
 
             this._shared.triggerNotify('Changed');
             this.updateNotify();
@@ -105,11 +104,13 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this.internal_settings = this._shared.settings.form_settings;
-        this.external_settings = this._shared.settings.api_settings;
-        this.initExternalForm();
-        this.finished = true;
-        this.setForm();
+        if (this._shared.settings) {
+            this.internal_settings = this._shared.settings.form_settings;
+            this.external_settings = this._shared.settings.api_settings;
+            this.initExternalForm();
+            this.finished = true;
+            this.setForm();
+        }
     }
 
     updateNotify() {
@@ -130,7 +131,6 @@ export class SettingsComponent implements OnInit {
 
             this._shared.setApiSettings();
             this._app.setSettings();
-            this._category.setSettings();
             this._app.getFeedVideos();
 
             this._shared.triggerNotify('Saved');

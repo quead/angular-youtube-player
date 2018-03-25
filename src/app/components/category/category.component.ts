@@ -65,7 +65,6 @@ export class CategoryComponent implements OnInit {
         this.currentCategory = data['params'].id;
       }
       this.setSettings();
-      this.getCategories();
     });
   }
 
@@ -73,10 +72,13 @@ export class CategoryComponent implements OnInit {
   async getCategories() {
     const res = await this.youtube.categories();
     this.categories = res;
-    if (res['items'].find(x => x.id === this.currentCategory)) {
-      this.getCategoriesVideos(this.currentCategory);
-    } else {
-      this.router.navigate(['']);
+    console.log(res);
+    if (this.categories) {
+      if (this.categories['items'].find(x => x.id === this.currentCategory)) {
+        this.getCategoriesVideos(this.currentCategory);
+      } else {
+        this.router.navigate(['']);
+      }
     }
   }
 
@@ -90,8 +92,19 @@ export class CategoryComponent implements OnInit {
   }
 
   async setSettings() {
-    this.thumbnails = this._shared.settings.form_settings[0].value;
-    this.listGrid = this._shared.settings.form_settings[1].value;
+    if (this._shared.settings) {
+      this.thumbnails = this._shared.settings.form_settings[0].value;
+      this.listGrid = this._shared.settings.form_settings[1].value;
+      this.getCategories();
+    } else {
+      await this._shared.initSettings().then(
+        (done) => {
+          this.thumbnails = this._shared.settings.form_settings[0].value;
+          this.listGrid = this._shared.settings.form_settings[1].value;
+          this.getCategories();
+        }
+      );
+    }
   }
 
   async getFeedVideos() {

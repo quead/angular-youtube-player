@@ -15,6 +15,7 @@ export class SharedService {
     public videoCategories: any;
     public playlist: any;
     public user: any;
+    public isLogged = false;
 
     _update: any;
 
@@ -29,13 +30,21 @@ export class SharedService {
     ) {}
 
     async getSettings() {
-        if (localStorage.length <= 1) {
+        if (localStorage.length <= 0) {
             const res = await this.initSettings();
             this.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
-            console.log(localStorage.getItem('settings'));
         } else {
             this.settings = JSON.parse(localStorage.getItem('settings'));
+        }
+        if (!localStorage.getItem('session_key') && !this.isLogged) {
+            const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const length = 16;
+            let rtn = '';
+            for (var i = 0; i < length; i++) {
+                rtn += code.charAt(Math.floor(Math.random() * code.length));
+            }
+            localStorage.setItem('session_key', rtn);
         }
     }
 
