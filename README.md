@@ -160,16 +160,17 @@ Angular YouTube Player 1.0.0
 - Integrating Google accounts **(in v2.4)**
 - Integrating firebase **(in v2.5)**
 
-#### Removed features
-- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
-- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
-- Auto updating the app (desktop version)
-
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.8)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
+
+
+#### Removed features
+- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
+- Auto updating the app (desktop version)
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).
