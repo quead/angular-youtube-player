@@ -23,8 +23,8 @@ This player is compatible only with Chrome/webkit browsers.
 ## Usage
 
 **For Angular and Typescript Development**
-1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install [angular-cli 1.1.3+](https://github.com/angular/angular-cli "Angular Cli")
+1. Install [NodeJS 8.9.0+](https://nodejs.org/en/download/ "Node JS Download")
+2. Install [angular-cli 6.0.7+](https://github.com/angular/angular-cli "Angular Cli")
 
 `npm install -g @angular/cli`
 
@@ -48,35 +48,8 @@ This player is compatible only with Chrome/webkit browsers.
 
 3. Edit files from src/assets/scss
 
-------
-
-**For building app**
-
-1. Add to body classes application app-win / app-linux
-`<body class="application app-win">`
-2. Build the src folder with
-`ng build` in root folder
-*You need to have angular-cli installed on global (check above)*
-*This is compiling typescript into Javascript*
-
-3. Copy package.json from **/app** folder and paste it to **dist** folder
-4. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
-5. Path your system enviroment to folder where you unarchived
-6. Run
-
-`gulp build` in root folder
-*This is compiling javascript into desktop app*
-
-7. In release folder (root) you have the compiled apps
-
-**For personal use**
-
-Just take files from ***dist*** folder
-
-Check 
+**Demo**
 <a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
-or
-<a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
 
 ## Changelog
 Angular YouTube Player 2.2
