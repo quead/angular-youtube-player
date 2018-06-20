@@ -176,7 +176,7 @@
 .duration-range-container {
     position: relative;
     height: 3px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: var(--c-gray);
     width: 100%;
     border-radius: 20px;
     .duration-input-shadow {
@@ -198,7 +198,7 @@
         &::-webkit-slider-thumb {
             position: relative;
             -webkit-appearance: none;
-            top: 0;
+            top: -3px;
             height: 15px;
             width: 15px;
             border-radius: 50px;

@@ -137,7 +137,7 @@ export class AppComponent implements OnInit {
       if (data.length > 0) {
         this.currentVideo = data['2'];
         this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-        this.getRelatedVideos();          
+        this.getRelatedVideos();    
       } else {
         this.setDefaultPlayer();
       }
@@ -435,7 +435,6 @@ export class AppComponent implements OnInit {
       this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
       this.repeatMode = this._shared.settings.form_settings[3].value;
       this.darkMode = this._shared.settings.form_settings[4].value;
-      this.getFeedVideos();
     }
   }
 
