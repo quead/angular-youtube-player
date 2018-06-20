@@ -33,6 +33,7 @@
         position: relative;
         background-color: transparent;
         color: inherit;
+        font-size: 14px;
         z-index: 1;
         transition: all 0.1s ease-out;
         &::-webkit-input-placeholder {
@@ -44,6 +45,7 @@
     }
     .clear-button {
         border: none;
+        font-size: 12px;
         background: transparent;
         color: inherit;
         padding: 0;

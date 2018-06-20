@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('masterclean App', () => {
+describe('angular-youtube-player App', () => {
   let page: AppPage;
 
   beforeEach(() => {
