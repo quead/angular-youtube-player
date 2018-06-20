@@ -7,7 +7,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
@@ -36,22 +36,27 @@ This player is compatible only with Chrome/webkit browsers.
 
 `npm start` in root folder
 
-5. Add your youtube api key
+5. Add your youtube api key in settings.json or in the app
 
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
 
-2. Start project by
+2. Do steps from above
+
+3. Start project by
 
 `npm start`
 
-3. Edit files from src/assets/scss
-
-**Demo**
-<a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
+4. Edit files from src/assets/scss
 
 ## Changelog
+Angular YouTube Player 2.3
+- Updating to lts angular
+- Fixed player issues
+- Implemented login with google account
+- Keep your playlist and settings in cloud
+
 Angular YouTube Player 2.2
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
 
