@@ -92,7 +92,7 @@ Angular YT Player v2.1
 Angular YouTube Player 2.0.1
 - Import & export youtube playlist as .JSON file
 
-Angular YouTube Player 2.0
+Angular YouTube Player 2.0 (Removed due restrictions of 90% of content)
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
@@ -175,13 +175,17 @@ Angular YouTube Player 1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
-- macOS app release **(unversioned)**
 - **Rooms**
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
 - Integrating Google accounts **(in v2.4)**
 - Integrating firebase **(in v2.5)**
+
+#### Removed features
+- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
+- Auto updating the app (desktop version)
 
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
