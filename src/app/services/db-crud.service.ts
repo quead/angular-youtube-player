@@ -11,4 +11,19 @@ export class DbCrudService {
     public afAuth: AngularFireAuth,
   ) { }
 
+  update(section: string, title: string, value: any) {
+    const sessionKey = localStorage.getItem('session_key');
+    this.afAuth.auth.onAuthStateChanged((user) => {
+      switch(section) {
+        case 'sessions': {
+          this.db2.database.ref(`${section}/${sessionKey}/${title}`).set(value);
+          break;
+        }
+        default: {
+          console.log('ERROR DB CRUD');
+          break;
+        }
+      }
+    });
+  }
 }

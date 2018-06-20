@@ -131,29 +131,18 @@ export class AppComponent implements OnInit {
   }
 
   updateUserDetails() {
-    this.afAuth.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this._shared.isLogged = true;
-        this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
-          this.videoCurRange = data['0'];
-          if (this.player) {
-            this.player.seekTo(this.videoCurRange, true);
-            const obj = {
-              data: data['1']
-            }
-            console.log(data['1']);
-            // this.onStateChange(obj);
-          }
-          this.currentVideo = data['2'];
-          this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-          this.getRelatedVideos();
-        });
+    // To fix update in realtime
+    this.authService.checkLogged();
+    this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
+      if (data.length > 0) {
+        this.currentVideo = data['2'];
+        this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        this.getRelatedVideos();          
       } else {
-        this._shared.isLogged = false;
+        this.setDefaultPlayer();
       }
     });
-    this.setSettings();  
-    
+    this.setSettings(); 
   }
 
   // ---------------- Init player ----------------

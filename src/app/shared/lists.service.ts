@@ -29,22 +29,25 @@ export class SharedService {
         private http: HttpClient,
     ) {}
 
+
+    generateKey() {
+        const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const length = 16;
+        let rtn = '';
+        for (var i = 0; i < length; i++) {
+            rtn += code.charAt(Math.floor(Math.random() * code.length));
+        }
+        return rtn;
+    }
+
     async getSettings() {
-        if (localStorage.length <= 0) {
+        if (localStorage.length < 1) {
             const res = await this.initSettings();
             this.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
+            localStorage.setItem('session_key', this.generateKey());
         } else {
             this.settings = JSON.parse(localStorage.getItem('settings'));
-        }
-        if (!localStorage.getItem('session_key') && !this.isLogged) {
-            const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const length = 16;
-            let rtn = '';
-            for (var i = 0; i < length; i++) {
-                rtn += code.charAt(Math.floor(Math.random() * code.length));
-            }
-            localStorage.setItem('session_key', rtn);
         }
     }
 

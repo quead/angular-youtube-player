@@ -72,9 +72,8 @@ export class CategoryComponent implements OnInit {
   async getCategories() {
     const res = await this.youtube.categories();
     this.categories = res;
-    console.log(res);
-    if (this.categories) {
-      if (this.categories['items'].find(x => x.id === this.currentCategory)) {
+    if (res) {
+      if (res['items'].find(x => x.id === this.currentCategory)) {
         this.getCategoriesVideos(this.currentCategory);
       } else {
         this.router.navigate(['']);
@@ -95,12 +94,14 @@ export class CategoryComponent implements OnInit {
     if (this._shared.settings) {
       this.thumbnails = this._shared.settings.form_settings[0].value;
       this.listGrid = this._shared.settings.form_settings[1].value;
+      this._shared.setApiSettings();
       this.getCategories();
     } else {
       await this._shared.initSettings().then(
         (done) => {
           this.thumbnails = this._shared.settings.form_settings[0].value;
           this.listGrid = this._shared.settings.form_settings[1].value;
+          this._shared.setApiSettings();          
           this.getCategories();
         }
       );
