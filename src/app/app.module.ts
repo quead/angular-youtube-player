@@ -9,7 +9,6 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { AppComponent } from './app.component';
 import { SharedService } from './shared/lists.service';
-import { NwjsService } from './shared/nwjs.service';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
@@ -31,6 +30,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-yt-player-quead'),
     BrowserModule,
     HttpClientModule,
@@ -49,7 +49,7 @@ import { environment } from '../environments/environment';
     CategoryComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo, SharedService, NwjsService, AngularFireAuth, AngularFireDatabase ]
+  providers:    [ YoutubeGetVideo, SharedService, AngularFireAuth, AngularFireDatabase ]
 })
 
 export class AppModule { }

@@ -1,11 +1,11 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular/core';
 import { YoutubeGetVideo } from './shared/youtube.service';
 import { SharedService } from './shared/lists.service';
-import { NwjsService } from './shared/nwjs.service';
 import { Event } from '@angular/router/src/events';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 // DB
+import { DbCrudService } from './services/db-crud.service';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -18,7 +18,7 @@ import { IFeedVideo } from './models/feed-video.model';
 @Component({
   selector: 'app-yt',
   templateUrl: 'app.component.html',
-  providers: [ AuthService ]
+  providers: [ AuthService, DbCrudService ]
 })
 
 export class AppComponent implements OnInit {
@@ -79,55 +79,27 @@ export class AppComponent implements OnInit {
   videoCurVolume = -1;
 
   _shared: any;
-  _nwjs: any;
 
   loading = true;
-  maximized = false;
 
   importPlaylistInput: any;
 
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
-    private nwjs: NwjsService,
     private dragula: DragulaService,
 
     private authService: AuthService,
     public afAuth: AngularFireAuth,
-    private db2: AngularFireDatabase
+    private db2: AngularFireDatabase,
+    private dbcrud: DbCrudService
   ) {
     this._shared = shared;
-    this._nwjs = nwjs;
     this.notify = this._shared.notify;
-    dragula.setOptions('playlistVideos', {
-      moves: (el, container, handle) => {
-        return handle.className === 'video-item-settings';
-      }
-    });
-    dragula.over.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
-      this.addClass(el, 'ex-over');
-    });
-    dragula.out.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
-      this.removeClass(el, 'ex-over');
-      this.updatePlaylist();
-    });
-    dragula.drop.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
-      this.removeClass(el, 'ex-over');
-      this.updatePlaylist();
-    });
+    this.initDragula();
   }
 
   ngOnInit() {
-      this._nwjs.init().subscribe((data) => {
-        if (typeof data !== 'undefined') {
-          this.nw = data;
-          this.initNWJS();
-          this.initShortcut();
-        }
-      });
       this.preventOldSettings();
       this.updateUserDetails();
   }
@@ -163,31 +135,25 @@ export class AppComponent implements OnInit {
       if (user) {
         this._shared.isLogged = true;
         this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
-          console.log(data);
           this.videoCurRange = data['0'];
           if (this.player) {
             this.player.seekTo(this.videoCurRange, true);
+            const obj = {
+              data: data['1']
+            }
+            console.log(data['1']);
+            // this.onStateChange(obj);
           }
-          this.currentState = data['1'];
           this.currentVideo = data['2'];
           this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
           this.getRelatedVideos();
         });
-        // this.feedVideos = this._shared.feedVideos;
-        // this.setCurrentVideoObject(this.feedVideos[0]);
-        // this.currentVideo.id = this.feedVideos[0].id;
-        // this.currentVideo.title = this.feedVideos[0].snippet.title;
-        // this.currentVideo.stats.likes = this.feedVideos[0].statistics.likeCount;
-        // this.currentVideo.stats.dislikes = this.feedVideos[0].statistics.dislikeCount;
-        // this.currentVideo.stats.views = this.feedVideos[0].statistics.viewCount;
-        // this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-        // this.getRelatedVideos();
-        // this.findPlaylistItem();
       } else {
         this._shared.isLogged = false;
       }
-      this.setSettings();  
     });
+    this.setSettings();  
+    
   }
 
   // ---------------- Init player ----------------
@@ -216,7 +182,6 @@ export class AppComponent implements OnInit {
     await this._shared.initChannel();
     this.feedVideos = this._shared.feedVideos;
     if (!this.currentVideo.id && !this._shared.isLogged) {
-      console.log('intru aici');
       this.setDefaultPlayer();
     }
   }
@@ -241,9 +206,9 @@ export class AppComponent implements OnInit {
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
       this.findPlaylistItem();
-    }
+  }
 
-  onStateChange(event) {
+  onStateChange(event: any) {
     this.currentState = event.data;
     this.videoMaxRange = this.player.getDuration();
     this.videoCurVolume = this.player.getVolume();
@@ -440,6 +405,28 @@ export class AppComponent implements OnInit {
 
   // ---------------- Init settings ----------------
 
+  initDragula() {
+    this.dragula.setOptions('playlistVideos', {
+      moves: (el, container, handle) => {
+        return handle.className === 'video-item-settings';
+      }
+    });
+    this.dragula.over.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.addClass(el, 'ex-over');
+    });
+    this.dragula.out.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.removeClass(el, 'ex-over');
+      this.updatePlaylist();
+    });
+    this.dragula.drop.subscribe((value) => {
+      const [e, el, container] = value.slice(1);
+      this.removeClass(el, 'ex-over');
+      this.updatePlaylist();
+    });
+  }
+
   preventOldSettings() {
     if (localStorage.length === 1 || !localStorage.getItem('version')) {
       console.log('Updating localstorage...');
@@ -451,8 +438,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async setSettings() {
-    await this._shared.getSettings();
+  setSettings() {
+    this._shared.getSettings();
     if (this._shared.settings) {
       this.regionCode = this._shared.settings.api_settings[1].value;
       this.thumbnails = this._shared.settings.form_settings[0].value;
@@ -539,7 +526,7 @@ export class AppComponent implements OnInit {
 
   playPauseVideo() {
     if (this.currentState === 1) {
-      this.player.pauseVideo();
+      this.player.pauseVideo();      
     } else {
       this.player.playVideo();
     }
@@ -574,7 +561,7 @@ export class AppComponent implements OnInit {
 
     this.player.seekTo(this.videoCurRange, true);
     this.videoRangeMouseActive = false;
-    this.db2.database.ref('sessions/' + localStorage.getItem('session_key') + '/currentSeek').set(this.videoCurRange);
+    // this.dbcrud.update('sessions', 'currentSeek', this.videoCurRange);
   }
 
   volumeRangeMouseMove(value: number) {
@@ -625,86 +612,6 @@ export class AppComponent implements OnInit {
     this.modal = false;
   }
 
-  // ---------------- NwJS Init ----------------
-
-  initNWJS() {
-    const win = this.nw.Window.get();
-
-    this.nw.Window.get().on('new-win-policy', (frame, url, policy) => {
-        policy.ignore();
-        this.nw.Shell.openExternal(url);
-    });
-
-    this.nw.Window.get().on('restore', () => {
-        console.log('e restored');
-        this.maximized = false;
-    });
-
-    this.nw.Window.get().on('maximize', () => {
-        console.log('e max');
-        this.maximized = true;
-    });
-  }
-
-  initShortcut() {
-    const globalThis = this;
-    const option = [
-      {
-        key : 'MediaNextTrack',
-        active : () => {
-          globalThis.playPlaylistItem('next', globalThis.currentPlaylistItem);
-        },
-        failed : (msg) => {
-          console.log(msg);
-        }
-      },
-      {
-        key : 'MediaPrevTrack',
-        active : () => {
-          globalThis.playPlaylistItem('prev', globalThis.currentPlaylistItem);
-        },
-        failed : (msg) => {
-          console.log(msg);
-        }
-      },
-      {
-        key : 'MediaPlayPause',
-        active : () => {
-          globalThis.playPauseVideo();
-        },
-        failed : (msg) => {
-          console.log(msg);
-        }
-      }
-    ];
-
-    Object.keys(option).map(i => {
-      const shortcut = this.nw.Shortcut(option[i]);
-      this.nw.Shortcut.registerGlobalHotKey(shortcut);
-    });
-  }
-
-  winMaximize() {
-    const win = this.nw.Window.get();
-
-    if (!this.maximized) {
-      win.maximize();
-      this.maximized = true;
-    } else {
-      win.unmaximize();
-      this.maximized = false;
-    }
-  }
-
-  winClose() {
-    const win = this.nw.Window.get();
-    win.close();
-  }
-
-  winMinimize() {
-    const win = this.nw.Window.get();
-    win.minimize();
-  }
   // ---------------- Related functions ----------------
 
   openMobileMenu() {
@@ -786,5 +693,10 @@ export class AppComponent implements OnInit {
               + (parseInt(seconds, 10) < 10 ? '0' : '' ) + parseInt(seconds, 10);
     return value;
   }
+
+  // @HostListener('window:beforeunload')
+  // doSomething() {
+  //   this.dbcrud.update('sessions', 'currentState', -1);
+  // }
 
 }
