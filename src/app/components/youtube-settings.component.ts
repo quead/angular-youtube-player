@@ -104,13 +104,14 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        if (this._shared.settings) {
-            this.internal_settings = this._shared.settings.form_settings;
-            this.external_settings = this._shared.settings.api_settings;
-            this.initExternalForm();
-            this.finished = true;
-            this.setForm();
+        if (!this._shared.settings) {
+            this._shared.setApiSettings();        
         }
+        this.internal_settings = this._shared.settings.form_settings;
+        this.external_settings = this._shared.settings.api_settings;
+        this.initExternalForm();
+        this.finished = true;
+        this.setForm();
     }
 
     updateNotify() {
