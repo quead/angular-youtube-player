@@ -14,7 +14,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.7.3, [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.7.3, [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
 
 This player is compatible only with Chrome/webkit browsers.
 
