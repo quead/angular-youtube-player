@@ -34,7 +34,7 @@ export class SharedService {
         const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const length = 16;
         let rtn = '';
-        for (var i = 0; i < length; i++) {
+        for (let i = 0; i < length; i++) {
             rtn += code.charAt(Math.floor(Math.random() * code.length));
         }
         return rtn;

@@ -36,13 +36,13 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     console.log('search');
     this.setSettings();
-    this.searchFunction();    
+    this.searchFunction();
   }
 
   async setSettings() {
     if (!this._shared.settings) {
       setTimeout(() => {
-        this.thumbnails = this._shared.settings.form_settings[0].value;        
+        this.thumbnails = this._shared.settings.form_settings[0].value;
       }, 1000);
     } else {
       this.thumbnails = this._shared.settings.form_settings[0].value;

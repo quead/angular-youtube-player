@@ -49,10 +49,10 @@ export class AuthService {
       console.log(authData.user.uid);
       this.itemsRef = this.db2.list('users/' + authData.user.uid);
       this.itemsRef.valueChanges().subscribe(data => {
-        this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(data => {
-          console.log(data);
-          if (data.length === 0) {
-            console.log('First time login')
+        this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(userData => {
+          console.log(userData);
+          if (userData.length === 0) {
+            console.log('First time login');
             // First time login create user and session
             const profile = authData.additionalUserInfo.profile;
             const defaultUser = {
@@ -61,14 +61,14 @@ export class AuthService {
               settings: this.shared.settings,
               session: localStorage.getItem('session_key'),
             };
-  
+
             const afList = this.db2.list('users/');
-  
+
             afList.set(authData.user.uid, defaultUser);
             this.initSession(currentDetails);
           } else {
             // Get session and settings from logged user
-            console.log('Normal login')
+            console.log('Normal login');
             localStorage.removeItem('session_key');
             localStorage.setItem('session_key', data['2']);
             this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {

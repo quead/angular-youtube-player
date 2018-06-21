@@ -105,7 +105,7 @@ export class SettingsComponent implements OnInit {
 
     getDefaultSettings() {
         if (!this._shared.settings) {
-            this._shared.setApiSettings();        
+            this._shared.setApiSettings();
         }
         this.internal_settings = this._shared.settings.form_settings;
         this.external_settings = this._shared.settings.api_settings;

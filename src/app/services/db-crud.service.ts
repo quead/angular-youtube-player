@@ -14,7 +14,7 @@ export class DbCrudService {
   update(section: string, title: string, value: any) {
     const sessionKey = localStorage.getItem('session_key');
     this.afAuth.auth.onAuthStateChanged((user) => {
-      switch(section) {
+      switch (section) {
         case 'sessions': {
           this.db2.database.ref(`${section}/${sessionKey}/${title}`).set(value);
           break;

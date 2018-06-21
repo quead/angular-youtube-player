@@ -101,7 +101,7 @@ export class CategoryComponent implements OnInit {
         (done) => {
           this.thumbnails = this._shared.settings.form_settings[0].value;
           this.listGrid = this._shared.settings.form_settings[1].value;
-          this._shared.setApiSettings();          
+          this._shared.setApiSettings();
           this.getCategories();
         }
       );
