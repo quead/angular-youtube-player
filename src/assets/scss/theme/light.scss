@@ -78,7 +78,7 @@ nav {
     }
 }
 
-#feed-video-list {
+.feed-video-list {
     &.grid-list .hidden-thumbnails {
         .video-item-info {
             background-color: rgba(0, 0, 0, 0.8);
@@ -86,7 +86,7 @@ nav {
     }
 }
 
-#feed-video-list,
+.feed-video-list,
 #related-video-list {
     .video-item {
         background-color: var(--c-soft-gray);
@@ -156,7 +156,7 @@ nav {
     color: rgba(255, 255, 255, 0.6);
 }
 
-#feed-video-list {
+.feed-video-list {
     background-color: var(--c-white);
     &.grid-list {
         .video-item {

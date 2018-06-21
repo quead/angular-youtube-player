@@ -142,7 +142,7 @@ export class AppComponent implements OnInit {
         this.setDefaultPlayer();
       }
     });
-    this.setSettings(); 
+    this.setSettings();
   }
 
   // ---------------- Init player ----------------

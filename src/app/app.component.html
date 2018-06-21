@@ -12,7 +12,9 @@
           <button id="linux-maximize" (click)="winClose();"></button>
       </div>
   </div>
-  <button *ngIf="!_shared.isLogged" type="button" (click)="loginGoogle()">Login</button>
+  <ng-container *ngIf="!_shared.isLogged">
+    <button type="button" (click)="loginGoogle()">Login</button>
+  </ng-container>
   <ng-container *ngIf="_shared.isLogged">
     <button type="button" (click)="logout()">Logout</button>
   </ng-container>
