@@ -50,7 +50,6 @@ export class AuthService {
       this.itemsRef = this.db2.list('users/' + authData.user.uid);
       this.itemsRef.valueChanges().subscribe(data => {
         this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(userData => {
-          console.log(userData);
           if (userData.length === 0) {
             console.log('First time login');
             // First time login create user and session
@@ -71,14 +70,15 @@ export class AuthService {
             console.log('Normal login');
             localStorage.removeItem('session_key');
             localStorage.setItem('session_key', data['2']);
-            this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
-              localStorage.removeItem('settings');
-              localStorage.removeItem('playlist');
-              this.shared.playlist = sessionData[3];
-              this.shared.settings = data[3];
-              this.shared.updateSettings();
-              this.shared.updatePlaylist();
-            });
+            this.shared.isAffected(true);
+            // this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
+            //   localStorage.removeItem('settings');
+            //   localStorage.removeItem('playlist');
+            //   this.shared.playlist = sessionData[3];
+            //   this.shared.settings = data[3];
+            //   this.shared.updateSettings();
+            //   this.shared.updatePlaylist();
+            // });
           }
           this.shared.isLogged = true;
         });

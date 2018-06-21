@@ -53,16 +53,16 @@
                     <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
                     <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
                 </div>
-                <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='playlistVideos' #playlistContainer>
-                  <div *ngIf="playlistVideos.length === 0" class="video-list-info">
+                <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='_shared.playlist' #playlistContainer>
+                  <ng-container *ngIf="_shared.playlist.length === 0">
                     <div *ngFor="let i of [1,2,3,4,5]" class="video-item">
                       <div class="video-item-info">
                         <div class="video-item-image loading-featured"></div>
                         <div class="video-item-content loading-featured"></div>
                       </div>
                     </div>
-                  </div>
-                  <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+                  </ng-container>
+                  <div *ngFor="let playlistVideo of _shared.playlist; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
                     <div class="video-item-info">
                       <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.snippet.thumbnails.default.url +')'}"></div>
                       <div class="video-item-content">
@@ -152,14 +152,14 @@
                     Similar videos
                 </div>
                 <div class="related-video-content">
-                  <div *ngIf="relatedVideos.length === 0" class="video-list-info">
+                  <ng-container *ngIf="relatedVideos.length === 0">
                     <div *ngFor="let i of [1,2,3,4]" class="video-item">
                       <div class="video-item-info">
                         <div class="video-item-image loading-featured"></div>
                         <div class="video-item-content loading-featured"></div>
                       </div>
                     </div>
-                  </div>
+                  </ng-container>
                   <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
                     <div class="video-item-info">
                       <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}"></div>
@@ -200,8 +200,8 @@
     <div *ngIf="modalPlaylist" class="modal-container">
       <h2>Do you want to remove this item from playlist?</h2>
       <div class="modal-content">
-        <img *ngIf="thumbnails" src="{{ playlistVideos[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ playlistVideos[modalPlaylistItem].snippet.title }}" />
-        <p>{{ playlistVideos[modalPlaylistItem].snippet.title }}</p>
+        <img *ngIf="thumbnails" src="{{ _shared.playlist[modalPlaylistItem].snippet.thumbnails.medium.url }}" alt="{{ _shared.playlist[modalPlaylistItem].snippet.title }}" />
+        <p>{{ _shared.playlist[modalPlaylistItem].snippet.title }}</p>
       </div>
       <button class="modal-close" (click)="closeModal()">
         <span class="fa fa-times"></span>
@@ -224,7 +224,7 @@
           <button type="button" class="btn btn-round btn-primary" (click)="importPlaylist(importPlaylistInput)">Replace</button>        
         </div>
         <h3>Export Playlist</h3>
-        <p>Number of videos to export: {{playlistVideos.length}}</p>
+        <p>Number of videos to export: {{_shared.playlist.length}}</p>
       </div>
       <button class="modal-close" (click)="closeModal()">
         <span class="fa fa-times"></span>

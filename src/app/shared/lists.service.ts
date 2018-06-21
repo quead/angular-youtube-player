@@ -8,12 +8,12 @@ import 'rxjs/add/operator/map';
 export class SharedService {
 
     public feedVideos: Array<any>;
+    public playlist: Array<any> = [];    
     public lastSearchedVideos: Array<any>;
     public historyVideos: Array<any> = [];
     public settings: any;
     public channel: any;
     public videoCategories: any;
-    public playlist: any;
     public user: any;
     public isLogged = false;
 
