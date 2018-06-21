@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { SharedService } from '../shared/lists.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-history',

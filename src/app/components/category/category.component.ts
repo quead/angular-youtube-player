@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from '../../shared/youtube.service';
+import { YoutubeGetVideo } from '../../services/youtube.service';
 import { AppComponent } from '../../app.component';
-import { SharedService } from '../../shared/lists.service';
+import { SharedService } from '../../services/shared.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { IFeedVideo } from '../../models/feed-video.model';

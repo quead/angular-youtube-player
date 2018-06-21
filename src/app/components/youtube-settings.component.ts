@@ -3,8 +3,8 @@ import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Va
 import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
 import { CategoryComponent } from './category/category.component';
-import { SharedService } from '../shared/lists.service';
-import { NumberVal } from '../shared/validators.service';
+import { SharedService } from '../services/shared.service';
+import { NumberVal } from '../services/validators.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

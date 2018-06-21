@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular/core';
-import { YoutubeGetVideo } from './shared/youtube.service';
-import { SharedService } from './shared/lists.service';
+import { YoutubeGetVideo } from './services/youtube.service';
+import { SharedService } from './services/shared.service';
 import { Event } from '@angular/router/src/events';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -134,29 +134,20 @@ export class AppComponent implements OnInit {
     // To fix update in realtime
     this.authService.checkLogged();
     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
+      this.shared.updateData('check status');      
       if (data.length > 0) {
-        this.clearSession();
-        localStorage.setItem('settings', JSON.parse(data['3']));
-        this.currentVideo = data['2'];
-        this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-        this.playlistInit();
-        this.updatePlaylist();
-        this.getRelatedVideos();
+        // this.clearSession();
+        // localStorage.setItem('settings', JSON.parse(data['3']));
+        // this.currentVideo = data['2'];
+        // this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        // this.playlistInit();
+        // this.updatePlaylist();
+        // this.getRelatedVideos();
       } else {
         this.setDefaultPlayer();
       }
       this.setSettings();
     });
-  }
-
-  refreshNow() {
-    console.log('si-a facut update');
-  }
-
-  refresh() {
-    this.clearSession();
-    // this.playlistInit();
-    // this.getRelatedVideos();
   }
 
   // ---------------- Init player ----------------
@@ -295,8 +286,6 @@ export class AppComponent implements OnInit {
     } else {
       playlistItem = this._shared.playlist.find(item => item.id === this.currentVideoObject[0].id);
     }
-    console.log(this._shared.playlist);
-    console.log(this.currentVideoObject[0].id);
     this.currentPlaylistItem = this._shared.playlist.indexOf(playlistItem);
   }
 
@@ -447,8 +436,6 @@ export class AppComponent implements OnInit {
       console.log('Updating localstorage...');
       localStorage.clear();
       this._shared.settings = null;
-      this._shared.playlist = null;
-
       this._shared.playlist = [];
     }
   }

@@ -8,8 +8,8 @@ import { routes } from './app.router';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { AppComponent } from './app.component';
-import { SharedService } from './shared/lists.service';
-import { YoutubeGetVideo } from './shared/youtube.service';
+import { SharedService } from './services/shared.service';
+import { YoutubeGetVideo } from './services/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';

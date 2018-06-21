@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedService } from '../shared/lists.service';
+import { SharedService } from '../services/shared.service';
 // DB
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -35,8 +35,8 @@ export class AuthService {
       // Sign-out successful.
       console.log('Sign-out successful');
       localStorage.clear();
+      this.shared.updateData('logout');      
       this.shared.isLogged = false;
-      // location.reload();
     }, (error) => {
       // An error happened.
       console.log('An error happened sign out');
@@ -51,7 +51,6 @@ export class AuthService {
       this.itemsRef.valueChanges().subscribe(data => {
         this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(userData => {
           if (userData.length === 0) {
-            console.log('First time login');
             // First time login create user and session
             const profile = authData.additionalUserInfo.profile;
             const defaultUser = {
@@ -65,12 +64,12 @@ export class AuthService {
 
             afList.set(authData.user.uid, defaultUser);
             this.initSession(currentDetails);
+            this.shared.updateData('first time login');            
           } else {
             // Get session and settings from logged user
-            console.log('Normal login');
             localStorage.removeItem('session_key');
             localStorage.setItem('session_key', data['2']);
-            this.shared.isAffected(true);
+            
             // this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
             //   localStorage.removeItem('settings');
             //   localStorage.removeItem('playlist');
@@ -79,6 +78,7 @@ export class AuthService {
             //   this.shared.updateSettings();
             //   this.shared.updatePlaylist();
             // });
+            this.shared.updateData('normal login');
           }
           this.shared.isLogged = true;
         });
