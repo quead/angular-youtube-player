@@ -56,6 +56,7 @@ Angular YouTube Player 2.3
 - Fixed player issues
 - Implemented login with google account
 - Keep your playlist and settings in cloud
+- New way to loading the app
 
 Angular YouTube Player 2.2
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
