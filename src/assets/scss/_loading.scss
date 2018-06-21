@@ -37,3 +37,12 @@
     width: 100%;
     height: 100%;
 }
+
+.video-item-content.loading-featured,
+.video-item-image.loading-featured {
+    height: 60px;
+}
+
+.youtube-player.loading-featured {
+    height: 375px;
+}

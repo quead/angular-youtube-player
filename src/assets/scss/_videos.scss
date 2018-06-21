@@ -279,6 +279,9 @@ iframe {
         width: 100%;
         overflow: auto;
         z-index: 0;
+        .video-list-info {
+            margin: 0;
+        }
         &::-webkit-scrollbar-track {
             border-radius: 2px;
         }

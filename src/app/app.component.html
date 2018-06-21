@@ -18,6 +18,7 @@
   <ng-container *ngIf="_shared.isLogged">
     <button type="button" (click)="logout()">Logout</button>
   </ng-container>
+  <button type="button" (click)="refresh()">Reinit</button>
   <div class="device-bar">
     <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
     <div id="logo">
@@ -27,7 +28,6 @@
   </div>
 </header>
 <div id="app-container" [ngClass]="{'light-mode': !darkMode, 'menu-active': menuActive }">
-  <div class="loading-bar inactive"></div>
   <input type="text" class="hide-input" #videoItemIDvalue />
   <div class="container">
     <div class="col col-1">
@@ -55,7 +55,12 @@
                 </div>
                 <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='playlistVideos' #playlistContainer>
                   <div *ngIf="playlistVideos.length === 0" class="video-list-info">
-                    Empty playlist
+                    <div *ngFor="let i of [1,2,3,4,5]" class="video-item">
+                      <div class="video-item-info">
+                        <div class="video-item-image loading-featured"></div>
+                        <div class="video-item-content loading-featured"></div>
+                      </div>
+                    </div>
                   </div>
                   <div *ngFor="let playlistVideo of playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
                     <div class="video-item-info">
@@ -99,11 +104,14 @@
                     <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
                 </div>
             </div>
+            <div *ngIf="!currentVideo.id" class="app-content">
+              <div class="youtube-player active loading-featured"></div>
+            </div>
             <div class="app-content">
-              <div id="youtube-player" *ngIf="currentVideo.id" [ngClass]="{'active': displayVideoPlayer }">
+              <div class="youtube-player" *ngIf="currentVideo.id" [ngClass]="{'active': displayVideoPlayer }">
                 <youtube-player [videoId]="currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
               </div>
-              <div *ngIf="currentVideo.id" class="current-video-all">
+              <div class="current-video-all" *ngIf="currentVideo.id">
                   <div class="current-video-details">
                     <p class="current-video-name">{{ currentVideo.title }}</p>
                   </div>
@@ -139,11 +147,19 @@
                     <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())" readonly>
                   </div>
               </div>
-              <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
+              <div *ngIf="relatedVideos" id="related-video-list" class="video-list" [ngClass]="{'activePlayer': displayVideoPlayer }">
                 <div class="video-item-head">
                     Similar videos
                 </div>
                 <div class="related-video-content">
+                  <div *ngIf="relatedVideos.length === 0" class="video-list-info">
+                    <div *ngFor="let i of [1,2,3,4]" class="video-item">
+                      <div class="video-item-info">
+                        <div class="video-item-image loading-featured"></div>
+                        <div class="video-item-content loading-featured"></div>
+                      </div>
+                    </div>
+                  </div>
                   <div *ngFor="let relatedVideo of relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
                     <div class="video-item-info">
                       <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.snippet.thumbnails.default.url +')'}"></div>

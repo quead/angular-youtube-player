@@ -9,16 +9,18 @@ import { DbCrudService } from './services/db-crud.service';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 
 import { IRelatedVideo } from './models/related-video.model';
 import { INotify } from './models/notify.model';
 import { IFeedVideo } from './models/feed-video.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-yt',
   templateUrl: 'app.component.html',
-  providers: [ AuthService, DbCrudService ]
+  providers: [ AuthService, DbCrudService, AngularFirestore ]
 })
 
 export class AppComponent implements OnInit {
@@ -29,12 +31,12 @@ export class AppComponent implements OnInit {
   nw: any;
   videoRangePercent = 0;
 
-  relatedVideos: Array<IRelatedVideo>;
+  relatedVideos: Array<IRelatedVideo> = [];
   feedVideos: Array<IFeedVideo>;
   playlistVideos: Array<any> = [];
   tempPlaylist: Array<any> = [];
   currentVideoObject: Array<any> = [];
-
+  
   thumbnails = true;
   darkMode = true;
   menuActive = false;
@@ -91,6 +93,7 @@ export class AppComponent implements OnInit {
 
     private authService: AuthService,
     public afAuth: AngularFireAuth,
+    private db: AngularFirestore,
     private db2: AngularFireDatabase,
     private dbcrud: DbCrudService
   ) {
@@ -137,12 +140,21 @@ export class AppComponent implements OnInit {
       if (data.length > 0) {
         this.currentVideo = data['2'];
         this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
+        this.updatePlaylist();
         this.getRelatedVideos();    
       } else {
         this.setDefaultPlayer();
       }
     });
     this.setSettings();
+  }
+
+  refresh() {
+    console.log('da');
+    this.currentVideo.id = '';
+    this.clearSession();
+    // this.playlistInit();
+    // this.updatePlaylist();
   }
 
   // ---------------- Init player ----------------
@@ -366,10 +378,17 @@ export class AppComponent implements OnInit {
   }
 
   clearPlaylist() {
-      this.currentPlaylistItem = -1;
-      this.playlistVideos = [];
-      this._shared.playlist = [];
-      this._shared.updatePlaylist();
+    this.currentPlaylistItem = -1;
+    this.playlistVideos = [];
+    this._shared.playlist = [];
+    this._shared.updatePlaylist();
+  }
+
+  clearSession() {
+    this.currentPlaylistItem = -1;
+    this.playlistVideos = [];
+    this._shared.playlist = [];
+    this.relatedVideos = [];
   }
 
   exportPlaylist() {
