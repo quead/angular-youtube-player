@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
+import { IFeedVideo } from '../models/feed-video.model';
+import { ISearchVideo } from '../models/search-video.model';
+import { IRelatedVideo } from '../models/related-video.model';
 
 @Injectable()
 export class GlobalsService {
 
-  relatedVideos: Array<any>;
-  feedVideos: Array<any>;
+  relatedVideos: Array<IRelatedVideo>;
+  feedVideos: Array<IFeedVideo>;
   playlist: Array<any> = [];
   lastSearchedVideos: Array<any>;
   historyVideos: Array<any> = [];
-  searchedVideos: Array<any>;
+  searchedVideos: Array<ISearchVideo>;
   
   categories: any;
   currentCategory: string;

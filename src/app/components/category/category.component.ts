@@ -5,9 +5,6 @@ import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { IFeedVideo } from '../../models/feed-video.model';
-import { IChannelList } from '../../models/channel.model';
-
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -58,7 +55,7 @@ export class CategoryComponent implements OnInit {
       } else {
         this.globals.currentCategory = data['params'].id;
       }
-      this.setSettings();
+      this.initCategories();
     });
   }
 
@@ -83,16 +80,13 @@ export class CategoryComponent implements OnInit {
     this.getChannelTrending();
   }
 
-  async setSettings() {
-    if (this._shared.settings) {
-      this.globals.listGrid = this._shared.settings.form_settings[1].value;
-      this._shared.setApiSettings();
+  async initCategories() {
+    this._shared.setApiSettings();
+    if (this.globals.settings) {
       this.getCategories();
     } else {
       await this._shared.initSettings().then(
         (done) => {
-          this.globals.listGrid = this._shared.settings.form_settings[1].value;
-          this._shared.setApiSettings();
           this.getCategories();
         }
       );
@@ -142,7 +136,6 @@ export class CategoryComponent implements OnInit {
       this._app.getVideo(this.globals.feedVideos[i]);
     }
   }
-
 
   onCopyVideoItemLink(i: number, list: number) {
     this._app.onCopyVideoItemLink(i, list);

@@ -17,7 +17,6 @@ import { HttpClient } from '@angular/common/http';
 export class SettingsComponent implements OnInit {
 
     finished = false;
-    notify: any;
 
     _shared: any;
     _fb: any;
@@ -42,7 +41,6 @@ export class SettingsComponent implements OnInit {
         this._app = app;
         this._search = search;
         this._category = category;
-        this.notify = this._shared.notify;
     }
 
     ngOnInit() {
@@ -83,14 +81,13 @@ export class SettingsComponent implements OnInit {
             Object.keys(data.settings).map(i => {
                 this.globals.internal_settings[i].value = data.settings[i];
             });
-            this._shared.settings.form_settings = this.globals.internal_settings;
+            this.globals.settings.form_settings = this.globals.internal_settings;
             this._shared.updateSettings();
 
             this._app.setSettings();
             this._app.checkVolumeRange();
 
             this._shared.triggerNotify('Changed');
-            this.updateNotify();
         });
     }
 
@@ -102,19 +99,12 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        if (!this._shared.settings) {
-            this._shared.setApiSettings();
-        }
-        this.globals.internal_settings = this._shared.settings.form_settings;
-        this.globals.external_settings = this._shared.settings.api_settings;
+        this._shared.setApiSettings();
+        this.globals.internal_settings = this.globals.settings.form_settings;
+        this.globals.external_settings = this.globals.settings.api_settings;
         this.initExternalForm();
         this.finished = true;
         this.setForm();
-    }
-
-    updateNotify() {
-        this.notify = this._shared.notify;
-        setTimeout(() => this.notify = this._shared.notify, 1000);
     }
 
     externalSave() {
@@ -123,20 +113,17 @@ export class SettingsComponent implements OnInit {
             this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
             this.globals.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
-            this._shared.settings.api_settings = this.globals.external_settings;
-            this._shared.feedVideos = null;
+            this.globals.settings.api_settings = this.globals.external_settings;
+            this.globals.feedVideos = null;
 
             this._shared.updateSettings();
-
             this._shared.setApiSettings();
             this._app.setSettings();
             this._app.getFeedVideos();
 
             this._shared.triggerNotify('Saved');
-            this.updateNotify();
         } else {
             this._shared.triggerNotify('Please check external settings');
-            this.updateNotify();
         }
     }
 }

@@ -13,8 +13,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 
-import { IRelatedVideo } from './models/related-video.model';
-import { INotify } from './models/notify.model';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -27,8 +25,6 @@ export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
   @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
-  notify: INotify;
-  nw: any;
   videoRangePercent = 0;
 
   tempPlaylist: Array<any> = [];
@@ -95,7 +91,6 @@ export class AppComponent implements OnInit {
     private dbcrud: DbCrudService
   ) {
     this._shared = shared;
-    this.notify = this._shared.notify;
   }
 
   ngOnInit() {
@@ -134,7 +129,6 @@ export class AppComponent implements OnInit {
     // To fix update in realtime
     this.authService.checkLogged();
     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
-      this.shared.updateData('check status');
       if (data.length > 0) {
         // this.clearSession();
         // localStorage.setItem('settings', JSON.parse(data['3']));
@@ -309,13 +303,11 @@ export class AppComponent implements OnInit {
       this.getVideo(this.globals.playlist[i]);
     } else {
       this._shared.triggerNotify('Playlist is empty');
-      this.updateNotify();
     }
   }
 
   removePlaylistItem(i: number) {
       this._shared.triggerNotify('Video removed');
-      this.updateNotify();
       setTimeout(() => {
         if (i === this.currentPlaylistItem) {
           this.currentPlaylistItem = -1;
@@ -344,10 +336,12 @@ export class AppComponent implements OnInit {
         listType = this.globals.historyVideos[i];
       }
 
+      // TO BE FIXED duplicated related and feed
       if (typeof listType.id.videoId !== 'undefined') {
         playlistItem = this.globals.playlist.find(item => item.id.videoId === listType.id.videoId);
       } else {
         playlistItem = this.globals.playlist.find(item => item.id === listType.id);
+        // playlistItem = this.globals.playlist.find(item => item.id.videoId === listType.id);
       }
 
       if (typeof playlistItem === 'undefined') {
@@ -355,11 +349,9 @@ export class AppComponent implements OnInit {
         this.updatePlaylist();
 
         this._shared.triggerNotify('Added to playlist');
-        this.updateNotify();
         this.scrollToBottom();
       } else {
         this._shared.triggerNotify('Video is already in playlist');
-        this.updateNotify();
       }
   }
 
@@ -435,19 +427,19 @@ export class AppComponent implements OnInit {
     if (localStorage.length === 1 || !localStorage.getItem('version')) {
       console.log('Updating localstorage...');
       localStorage.clear();
-      this._shared.settings = null;
+      this.globals.settings = null;
       this.globals.playlist = [];
     }
   }
 
   setSettings() {
     this._shared.getSettings();
-    if (this._shared.settings) {
-      this.regionCode = this._shared.settings.api_settings[1].value;
-      this.globals.thumbnails = this._shared.settings.form_settings[0].value;
-      this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
-      this.repeatMode = this._shared.settings.form_settings[3].value;
-      this.darkMode = this._shared.settings.form_settings[4].value;
+    if (this.globals.settings) {
+      this.regionCode = this.globals.settings.api_settings[1].value;
+      this.globals.thumbnails = this.globals.settings.form_settings[0].value;
+      this.displayVideoPlayer = this.globals.settings.form_settings[2].value;
+      this.repeatMode = this.globals.settings.form_settings[3].value;
+      this.darkMode = this.globals.settings.form_settings[4].value;
     }
   }
 
@@ -667,22 +659,8 @@ export class AppComponent implements OnInit {
 
 
   copyShareLink() {
-    if (!this.notify.enabled) {
       document.execCommand('Copy');
       this._shared.triggerNotify('Copied');
-      this.updateNotify();
-    } else {
-      setTimeout(() => {
-          document.execCommand('Copy');
-          this._shared.triggerNotify('Copied');
-          this.updateNotify();
-      }, 1000);
-    }
-  }
-
-  updateNotify() {
-    this.notify = this._shared.notify;
-    setTimeout(() => this.notify = this._shared.notify, 1000);
   }
 
   timeFormat(time: number) {

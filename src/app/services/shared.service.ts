@@ -9,13 +9,6 @@ import { GlobalsService } from './globals.service';
 @Injectable()
 export class SharedService {
 
-    public historyVideos: Array<any> = [];
-    public settings: any;
-    public channel: any;
-    public isLogged = false;
-
-    _update: any;
-
     notify = {
         enabled: false,
         message: 'No message'
@@ -41,11 +34,11 @@ export class SharedService {
     async getSettings() {
         if (localStorage.length < 1) {
             const res = await this.initSettings();
-            this.settings = res;
+            this.globals.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
             localStorage.setItem('session_key', this.generateKey());
         } else {
-            this.settings = JSON.parse(localStorage.getItem('settings'));
+            this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }
     }
 
@@ -67,11 +60,11 @@ export class SharedService {
     }
 
     async setApiSettings() {
-        if (this.settings) {
-            this.youtube.defaultApiSet(this.settings);
+        if (this.globals.settings) {
+            this.youtube.defaultApiSet(this.globals.settings);
         } else {
             await this.getSettings();
-            this.youtube.defaultApiSet(this.settings);
+            this.youtube.defaultApiSet(this.globals.settings);
         }
     }
 
@@ -80,7 +73,7 @@ export class SharedService {
     }
 
     updateSettings() {
-        localStorage.setItem('settings', JSON.stringify(this.settings));
+        localStorage.setItem('settings', JSON.stringify(this.globals.settings));
         this.setLocalVersion();
     }
 
