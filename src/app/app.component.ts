@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular/core';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { SharedService } from './services/shared.service';
+import { GlobalsService } from './services/globals.service';
 import { Event } from '@angular/router/src/events';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -30,11 +31,9 @@ export class AppComponent implements OnInit {
   nw: any;
   videoRangePercent = 0;
 
-  relatedVideos: Array<IRelatedVideo> = [];
   tempPlaylist: Array<any> = [];
   currentVideoObject: Array<any> = [];
 
-  thumbnails = true;
   darkMode = true;
   menuActive = false;
 
@@ -86,6 +85,7 @@ export class AppComponent implements OnInit {
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
+    private globals: GlobalsService,
     private dragula: DragulaService,
 
     private authService: AuthService,
@@ -101,7 +101,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
       this.preventOldSettings();
       this.updateUserDetails();
-      this.initDragula();      
+      this.initDragula();
   }
 
   private hasClass(el: any, name: string) {
@@ -134,7 +134,7 @@ export class AppComponent implements OnInit {
     // To fix update in realtime
     this.authService.checkLogged();
     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
-      this.shared.updateData('check status');      
+      this.shared.updateData('check status');
       if (data.length > 0) {
         // this.clearSession();
         // localStorage.setItem('settings', JSON.parse(data['3']));
@@ -174,7 +174,7 @@ export class AppComponent implements OnInit {
   async getFeedVideos() {
     await this._shared.initFeed();
     await this._shared.initChannel();
-    if (!this.currentVideo.id && !this._shared.isLogged) {
+    if (!this.currentVideo.id && !this.globals.isLogged) {
       this.setDefaultPlayer();
     }
   }
@@ -189,12 +189,12 @@ export class AppComponent implements OnInit {
   }
 
   setDefaultPlayer() {
-      this.setCurrentVideoObject(this._shared.feedVideos[0]);
-      this.currentVideo.id = this._shared.feedVideos[0].id;
-      this.currentVideo.title = this._shared.feedVideos[0].snippet.title;
-      this.currentVideo.stats.likes = this._shared.feedVideos[0].statistics.likeCount;
-      this.currentVideo.stats.dislikes = this._shared.feedVideos[0].statistics.dislikeCount;
-      this.currentVideo.stats.views = this._shared.feedVideos[0].statistics.viewCount;
+      this.setCurrentVideoObject(this.globals.feedVideos[0]);
+      this.currentVideo.id = this.globals.feedVideos[0].id;
+      this.currentVideo.title = this.globals.feedVideos[0].snippet.title;
+      this.currentVideo.stats.likes = this.globals.feedVideos[0].statistics.likeCount;
+      this.currentVideo.stats.dislikes = this.globals.feedVideos[0].statistics.dislikeCount;
+      this.currentVideo.stats.views = this.globals.feedVideos[0].statistics.viewCount;
       this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
       this.getRelatedVideos();
       this.findPlaylistItem();
@@ -216,14 +216,14 @@ export class AppComponent implements OnInit {
     if (this.currentState === 0) {
       this.stopRange();
       if (this.repeatMode) {
-        if (this._shared.playlist.length) {
+        if (this.globals.playlist.length) {
           this.findPlaylistItem();
           if (this.currentPlaylistItem < 0) {
             this.playPlaylistItem('next', this.currentPlaylistItem);
           } else {
             this.playPlaylistItem('next', this.currentPlaylistItem);
           }
-          if (this._shared.playlist.length === 1) {
+          if (this.globals.playlist.length === 1) {
             this.player.playVideo();
           }
         } else {
@@ -271,7 +271,7 @@ export class AppComponent implements OnInit {
 
   playlistInit() {
     if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 2) {
-      this._shared.playlist = JSON.parse(JSON.stringify(this.relatedVideos));
+      this.globals.playlist = JSON.parse(JSON.stringify(this.globals.relatedVideos));
       this._shared.updatePlaylist();
     } else {
       this._shared.getPlaylist();
@@ -282,31 +282,31 @@ export class AppComponent implements OnInit {
   findPlaylistItem() {
     let playlistItem;
     if (typeof this.currentVideoObject[0].id.videoId !== 'undefined') {
-      playlistItem = this._shared.playlist.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
+      playlistItem = this.globals.playlist.find(item => item.id.videoId === this.currentVideoObject[0].id.videoId);
     } else {
-      playlistItem = this._shared.playlist.find(item => item.id === this.currentVideoObject[0].id);
+      playlistItem = this.globals.playlist.find(item => item.id === this.currentVideoObject[0].id);
     }
-    this.currentPlaylistItem = this._shared.playlist.indexOf(playlistItem);
+    this.currentPlaylistItem = this.globals.playlist.indexOf(playlistItem);
   }
 
   playPlaylistItem(direction: string, i: number) {
     if (direction === 'next') {
-      if (i < this._shared.playlist.length) {
+      if (i < this.globals.playlist.length) {
         i += 1;
       }
-      if (i === this._shared.playlist.length) {
+      if (i === this.globals.playlist.length) {
         i = 0;
       }
     }
     if (direction === 'prev') {
       if (i === 0 || i < 0) {
-        i = this._shared.playlist.length - 1;
+        i = this.globals.playlist.length - 1;
       } else {
         i -= 1;
       }
     }
-    if (this._shared.playlist.length > 0) {
-      this.getVideo(this._shared.playlist[i]);
+    if (this.globals.playlist.length > 0) {
+      this.getVideo(this.globals.playlist[i]);
     } else {
       this._shared.triggerNotify('Playlist is empty');
       this.updateNotify();
@@ -320,7 +320,7 @@ export class AppComponent implements OnInit {
         if (i === this.currentPlaylistItem) {
           this.currentPlaylistItem = -1;
         }
-        this._shared.playlist.splice(i, 1);
+        this.globals.playlist.splice(i, 1);
         this.updatePlaylist();
       }, 200);
   }
@@ -329,29 +329,29 @@ export class AppComponent implements OnInit {
       let listType;
       let playlistItem;
       if (list === 0) {
-        listType = this._shared.feedVideos[i];
+        listType = this.globals.feedVideos[i];
       }
       if (list === 1) {
-        listType = this._shared.lastSearchedVideos[i];
+        listType = this.globals.lastSearchedVideos[i];
       }
       if (list === 2) {
-        listType = this.relatedVideos[i];
+        listType = this.globals.relatedVideos[i];
       }
       if (list === 3) {
         listType = this.currentVideoObject[i];
       }
       if (list === 4) {
-        listType = this._shared.historyVideos[i];
+        listType = this.globals.historyVideos[i];
       }
 
       if (typeof listType.id.videoId !== 'undefined') {
-        playlistItem = this._shared.playlist.find(item => item.id.videoId === listType.id.videoId);
+        playlistItem = this.globals.playlist.find(item => item.id.videoId === listType.id.videoId);
       } else {
-        playlistItem = this._shared.playlist.find(item => item.id === listType.id);
+        playlistItem = this.globals.playlist.find(item => item.id === listType.id);
       }
 
       if (typeof playlistItem === 'undefined') {
-        this._shared.playlist.push(listType);
+        this.globals.playlist.push(listType);
         this.updatePlaylist();
 
         this._shared.triggerNotify('Added to playlist');
@@ -365,7 +365,7 @@ export class AppComponent implements OnInit {
 
   clearPlaylist() {
     this.currentPlaylistItem = -1;
-    this._shared.playlist = [];
+    this.globals.playlist = [];
     this._shared.updatePlaylist();
   }
 
@@ -382,8 +382,8 @@ export class AppComponent implements OnInit {
     };
     this.currentVideo = removedCurrentVid;
     this.currentPlaylistItem = -1;
-    this._shared.playlist = [];
-    this.relatedVideos = [];
+    this.globals.playlist = [];
+    this.globals.relatedVideos = [];
     localStorage.removeItem('playlist');
     // localStorage.removeItem('settings');
   }
@@ -394,14 +394,14 @@ export class AppComponent implements OnInit {
 
   exportFilePlaylist() {
       const a = document.createElement('a');
-      const file = new Blob([JSON.stringify(this._shared.playlist)], {type: 'data:text/json;charset=utf8'});
+      const file = new Blob([JSON.stringify(this.globals.playlist)], {type: 'data:text/json;charset=utf8'});
       a.href = URL.createObjectURL(file);
       a.download = 'playlist.json';
       a.click();
   }
 
   importPlaylist(input: any) {
-    this._shared.playlist = this.tempPlaylist;
+    this.globals.playlist = this.tempPlaylist;
     this.tempPlaylist = [];
     this._shared.updatePlaylist();
     this.closeModal();
@@ -410,7 +410,7 @@ export class AppComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   initDragula() {
-    this.dragula.setOptions('_shared.playlist', {
+    this.dragula.setOptions('globals.playlist', {
       moves: (el, container, handle) => {
         return handle.className === 'video-item-settings';
       }
@@ -436,7 +436,7 @@ export class AppComponent implements OnInit {
       console.log('Updating localstorage...');
       localStorage.clear();
       this._shared.settings = null;
-      this._shared.playlist = [];
+      this.globals.playlist = [];
     }
   }
 
@@ -444,7 +444,7 @@ export class AppComponent implements OnInit {
     this._shared.getSettings();
     if (this._shared.settings) {
       this.regionCode = this._shared.settings.api_settings[1].value;
-      this.thumbnails = this._shared.settings.form_settings[0].value;
+      this.globals.thumbnails = this._shared.settings.form_settings[0].value;
       this.displayVideoPlayer = this._shared.settings.form_settings[2].value;
       this.repeatMode = this._shared.settings.form_settings[3].value;
       this.darkMode = this._shared.settings.form_settings[4].value;
@@ -467,14 +467,14 @@ export class AppComponent implements OnInit {
   // ---------------- Video fetching ----------------
 
   onClickRelated(event: Event, i: number) {
-    this.getVideo(this.relatedVideos[i]);
+    this.getVideo(this.globals.relatedVideos[i]);
   }
 
   onClickPlaylist(event: Event, i: number) {
     if (i === this.currentPlaylistItem) {
       this.playPauseVideo();
     } else {
-      this.getVideo(this._shared.playlist[i]);
+      this.getVideo(this.globals.playlist[i]);
     }
   }
 
@@ -516,7 +516,7 @@ export class AppComponent implements OnInit {
 
   async getRelatedVideos() {
     const res = await this.youtube.relatedVideos(this.currentVideo.id);
-    this.relatedVideos = res['items'];
+    this.globals.relatedVideos = res['items'];
     if (this.playlistPrefill) {
       this.playlistInit();
       this.playlistPrefill = false;
@@ -627,19 +627,19 @@ export class AppComponent implements OnInit {
     let listType;
     const youtubeLink = 'https://youtu.be/';
     if (list === 0) {
-      listType = this._shared.feedVideos[i];
+      listType = this.globals.feedVideos[i];
     }
     if (list === 1) {
-      listType = this._shared.lastSearchedVideos[i];
+      listType = this.globals.lastSearchedVideos[i];
     }
     if (list === 2) {
-      listType = this.relatedVideos[i];
+      listType = this.globals.relatedVideos[i];
     }
     if (list === 3) {
-      listType = this._shared.playlist[i];
+      listType = this.globals.playlist[i];
     }
     if (list === 4) {
-      listType = this._shared.historyVideos[i];
+      listType = this.globals.historyVideos[i];
     }
 
     if (typeof listType.id.videoId !== 'undefined') {

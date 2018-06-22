@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
+import { GlobalsService } from '../services/globals.service';
 // DB
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -16,16 +17,17 @@ export class AuthService {
   constructor(
     private db2: AngularFireDatabase,
     public afAuth: AngularFireAuth,
-    public shared: SharedService
+    public shared: SharedService,
+    public globals: GlobalsService
   ) {
   }
 
   checkLogged() {
     this.afAuth.user.subscribe(data => {
       if (data) {
-        this.shared.isLogged = true;
+        this.globals.isLogged = true;
       } else {
-        this.shared.isLogged = false;
+        this.globals.isLogged = false;
       }
     });
   }
@@ -35,8 +37,8 @@ export class AuthService {
       // Sign-out successful.
       console.log('Sign-out successful');
       localStorage.clear();
-      this.shared.updateData('logout');      
-      this.shared.isLogged = false;
+      this.shared.updateData('logout');
+      this.globals.isLogged = false;
     }, (error) => {
       // An error happened.
       console.log('An error happened sign out');
@@ -64,12 +66,12 @@ export class AuthService {
 
             afList.set(authData.user.uid, defaultUser);
             this.initSession(currentDetails);
-            this.shared.updateData('first time login');            
+            this.shared.updateData('first time login');
           } else {
             // Get session and settings from logged user
             localStorage.removeItem('session_key');
             localStorage.setItem('session_key', data['2']);
-            
+
             // this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
             //   localStorage.removeItem('settings');
             //   localStorage.removeItem('playlist');
@@ -80,7 +82,7 @@ export class AuthService {
             // });
             this.shared.updateData('normal login');
           }
-          this.shared.isLogged = true;
+          this.globals.isLogged = true;
         });
       });
     }).catch((error) => {
@@ -93,7 +95,7 @@ export class AuthService {
     const defaultSession = {
         currentState: -1,
         currentSeek: 0,
-        playlist: this.shared.playlist,
+        playlist: this.globals.playlist,
         details: currentDetails,
     };
     afList.set(localStorage.getItem('session_key'), defaultSession);

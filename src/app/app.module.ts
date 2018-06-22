@@ -8,6 +8,7 @@ import { routes } from './app.router';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { AppComponent } from './app.component';
+import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { SettingsComponent } from './components/youtube-settings.component';
@@ -49,7 +50,7 @@ import { environment } from '../environments/environment';
     CategoryComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo, SharedService, AngularFireAuth, AngularFireDatabase ]
+  providers:    [ YoutubeGetVideo, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase ]
 })
 
 export class AppModule { }

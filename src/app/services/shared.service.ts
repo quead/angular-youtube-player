@@ -4,17 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { GlobalsService } from './globals.service';
+
 @Injectable()
 export class SharedService {
 
-    public feedVideos: Array<any>;
-    public playlist: Array<any> = [];    
-    public lastSearchedVideos: Array<any>;
     public historyVideos: Array<any> = [];
     public settings: any;
     public channel: any;
-    public videoCategories: any;
-    public user: any;
     public isLogged = false;
 
     _update: any;
@@ -27,6 +24,7 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
+        private globals: GlobalsService
     ) {}
 
 
@@ -60,12 +58,12 @@ export class SharedService {
     async initFeed() {
         await this.setApiSettings();
         const res = await this.youtube.feedVideos();
-        this.feedVideos = res['items'];
+        this.globals.feedVideos = res['items'];
     }
 
     async initChannel() {
-        const res = await this.youtube.getChannel(this.feedVideos[0].snippet.channelId);
-        this.channel = res;
+        const res = await this.youtube.getChannel(this.globals.feedVideos[0].snippet.channelId);
+        this.globals.channel = res;
     }
 
     async setApiSettings() {
@@ -87,11 +85,11 @@ export class SharedService {
     }
 
     getPlaylist() {
-        this.playlist = JSON.parse(localStorage.getItem('playlist'));
+        this.globals.playlist = JSON.parse(localStorage.getItem('playlist'));
     }
 
     updatePlaylist() {
-        localStorage.setItem('playlist', JSON.stringify(this.playlist));
+        localStorage.setItem('playlist', JSON.stringify(this.globals.playlist));
         this.setLocalVersion();
     }
 
@@ -109,14 +107,14 @@ export class SharedService {
 
     addHistoryVideo(data: any) {
         let key;
-        for (key in this.historyVideos) {
-            if (this.historyVideos[key].id === data.id) {
-                this.historyVideos.splice(key, 1);
-                if (this.historyVideos[this.historyVideos.length - 1] === data) {
-                    this.historyVideos.splice(-1, 1);
+        for (key in this.globals.historyVideos) {
+            if (this.globals.historyVideos[key].id === data.id) {
+                this.globals.historyVideos.splice(key, 1);
+                if (this.globals.historyVideos[this.globals.historyVideos.length - 1] === data) {
+                    this.globals.historyVideos.splice(-1, 1);
                 }
             }
         }
-        this.historyVideos.unshift(data);
+        this.globals.historyVideos.unshift(data);
     }
 }

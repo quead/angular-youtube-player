@@ -4,6 +4,7 @@ import { AppComponent } from '../app.component';
 import { SearchComponent } from './youtube-search.component';
 import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../services/shared.service';
+import { GlobalsService } from '../services/globals.service';
 import { NumberVal } from '../services/validators.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -27,13 +28,11 @@ export class SettingsComponent implements OnInit {
     internalSettings: FormGroup;
     externalSettings: FormGroup;
 
-    private internal_settings: Array<any>;
-    private external_settings: Array<any>;
-
     constructor(
         private fb: FormBuilder,
         private http: HttpClient,
         private shared: SharedService,
+        private globals: GlobalsService,
         private app: AppComponent,
         private search: SearchComponent,
         private category: CategoryComponent,
@@ -60,14 +59,14 @@ export class SettingsComponent implements OnInit {
 
     initExternalForm() {
         this.externalSettings = new FormGroup({
-            fcApi: new FormControl(this.external_settings[0].value),
-            fcRegion: new FormControl(this.external_settings[1].value, Validators.required),
-            fcSearchresults: new FormControl(this.external_settings[2].value,
+            fcApi: new FormControl(this.globals.external_settings[0].value),
+            fcRegion: new FormControl(this.globals.external_settings[1].value, Validators.required),
+            fcSearchresults: new FormControl(this.globals.external_settings[2].value,
                             [Validators.required,
                             NumberVal.max(50),
                             NumberVal.min(1),
                             NumberVal.isNumber(true)]),
-            fcRelatedResults: new FormControl(this.external_settings[3].value,
+            fcRelatedResults: new FormControl(this.globals.external_settings[3].value,
                             [Validators.required,
                             NumberVal.max(50),
                             NumberVal.min(1),
@@ -82,14 +81,13 @@ export class SettingsComponent implements OnInit {
     checkInputs() {
         this.internalSettings.valueChanges.subscribe((data) => {
             Object.keys(data.settings).map(i => {
-                this.internal_settings[i].value = data.settings[i];
+                this.globals.internal_settings[i].value = data.settings[i];
             });
-            this._shared.settings.form_settings = this.internal_settings;
+            this._shared.settings.form_settings = this.globals.internal_settings;
             this._shared.updateSettings();
 
             this._app.setSettings();
             this._app.checkVolumeRange();
-            this._search.setSettings();
 
             this._shared.triggerNotify('Changed');
             this.updateNotify();
@@ -97,7 +95,7 @@ export class SettingsComponent implements OnInit {
     }
 
     mapSettings() {
-        const arr = this.internal_settings.map(s => {
+        const arr = this.globals.internal_settings.map(s => {
             return this._fb.control(s.value);
         });
         return this.fb.array(arr);
@@ -107,8 +105,8 @@ export class SettingsComponent implements OnInit {
         if (!this._shared.settings) {
             this._shared.setApiSettings();
         }
-        this.internal_settings = this._shared.settings.form_settings;
-        this.external_settings = this._shared.settings.api_settings;
+        this.globals.internal_settings = this._shared.settings.form_settings;
+        this.globals.external_settings = this._shared.settings.api_settings;
         this.initExternalForm();
         this.finished = true;
         this.setForm();
@@ -121,11 +119,11 @@ export class SettingsComponent implements OnInit {
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this.external_settings[0].value = this.externalSettings.controls.fcApi.value;
-            this.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
-            this.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
-            this.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
-            this._shared.settings.api_settings = this.external_settings;
+            this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
+            this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
+            this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
+            this.globals.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
+            this._shared.settings.api_settings = this.globals.external_settings;
             this._shared.feedVideos = null;
 
             this._shared.updateSettings();

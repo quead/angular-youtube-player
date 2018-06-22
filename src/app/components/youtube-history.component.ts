@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { SharedService } from '../services/shared.service';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-history',
@@ -9,32 +9,17 @@ import { SharedService } from '../services/shared.service';
 
 export class HistoryComponent implements OnInit {
 
-  _shared: any;
   _app: any;
-  historyVideos: Array<any>;
-
-  thumbnails = false;
 
   constructor(
-    private shared: SharedService,
+    private globals: GlobalsService,
     private app: AppComponent
   ) {
-    this._shared = shared;
     this._app = app;
   }
 
   ngOnInit() {
     console.log('history');
-    this.initHistory();
-    this.getSettings();
-  }
-
-  initHistory() {
-    this.historyVideos = this._shared.historyVideos;
-  }
-
-  getSettings() {
-    this.thumbnails = this._shared.settings.form_settings[0].value;
   }
 
   addPlaylistItem(i: number, list: number) {
@@ -46,7 +31,7 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickHistory(event: Event, i: number) {
-    this._app.getVideo(this.historyVideos[i]);
+    this._app.getVideo(this.globals.historyVideos[i]);
   }
 
 }

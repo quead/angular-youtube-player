@@ -13,9 +13,9 @@
           <div *ngIf="noResults" class="video-item text-center">
             There are no results
           </div>
-          <div *ngFor="let video of videos; let i = index" [attr.data-index]="i" class="video-item">
+          <div *ngFor="let video of globals.searchedVideos; let i = index" [attr.data-index]="i" class="video-item">
             <div class="video-item-info">
-              <div *ngIf="thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
+              <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.snippet.thumbnails.default.url +')'}"></div>
               <div class="video-item-content">
                   <p class="video-item-title">{{ video.snippet.title }}</p>
                   <p class="video-item-autor">by <span>{{ video.snippet.channelTitle }}</span></p>

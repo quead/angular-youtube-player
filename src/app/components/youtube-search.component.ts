@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
 import { AppComponent } from '../app.component';
-import { SharedService } from '../services/shared.service';
+import { GlobalsService } from '../services/globals.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { IFeedVideo } from '../models/feed-video.model';
@@ -17,47 +17,31 @@ export class SearchComponent implements OnInit {
 
   searchForm: FormGroup;
   noResults = false;
-  thumbnails = true;
 
-  videos: Array<ISearchVideo>;
-
-  _shared: any;
   _app: any;
 
   constructor(
     private youtube: YoutubeGetVideo,
-    private shared: SharedService,
+    private globals: GlobalsService,
     private app: AppComponent,
   ) {
-    this._shared = shared;
     this._app = app;
   }
 
   ngOnInit() {
     console.log('search');
-    this.setSettings();
     this.searchFunction();
-  }
-
-  async setSettings() {
-    if (!this._shared.settings) {
-      setTimeout(() => {
-        this.thumbnails = this._shared.settings.form_settings[0].value;
-      }, 1000);
-    } else {
-      this.thumbnails = this._shared.settings.form_settings[0].value;
-    }
   }
 
   async searchVideo(query: any) {
     const res = await this.youtube.searchVideo(query);
-    this.videos = res['items'];
+    this.globals.searchedVideos = res['items'];
     if (res['items'].length === 0) {
       this.noResults = true;
     } else {
       this.noResults = false;
     }
-    this._shared.lastSearchedVideos = res['items'];
+    this.globals.lastSearchedVideos = res['items'];
   }
 
   searchFunction() {
@@ -72,7 +56,7 @@ export class SearchComponent implements OnInit {
 
   clearSearch() {
     this.searchForm.reset();
-    this.videos = null;
+    this.globals.searchedVideos = null;
   }
 
   onSubmit(event: Event) {
@@ -81,10 +65,10 @@ export class SearchComponent implements OnInit {
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 1) {
-      this._app.getVideo(this.videos[i]);
+      this._app.getVideo(this.globals.searchedVideos[i]);
       this.clearSearch();
     } else if (list === 3) {
-      this._app.getVideo(this._shared.feedVideos[i]);
+      this._app.getVideo(this.globals.feedVideos[i]);
     }
     this.clearSearch();
   }
