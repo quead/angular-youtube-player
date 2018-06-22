@@ -12,7 +12,6 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
-  itemsRef: AngularFireList<any>;
 
   constructor(
     private db2: AngularFireDatabase,
@@ -49,8 +48,7 @@ export class AuthService {
     const provider = new auth.GoogleAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(authData => {
       console.log(authData.user.uid);
-      this.itemsRef = this.db2.list('users/' + authData.user.uid);
-      this.itemsRef.valueChanges().subscribe(data => {
+      this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(data => {
         this.db2.list('users/' + authData.user.uid).valueChanges().subscribe(userData => {
           if (userData.length === 0) {
             // First time login create user and session
@@ -58,7 +56,7 @@ export class AuthService {
             const defaultUser = {
               name: profile.name,
               email: profile.email,
-              settings: this.shared.settings,
+              settings: this.globals.settings,
               session: localStorage.getItem('session_key'),
             };
 

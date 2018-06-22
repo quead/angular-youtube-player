@@ -341,7 +341,6 @@ export class AppComponent implements OnInit {
         playlistItem = this.globals.playlist.find(item => item.id.videoId === listType.id.videoId);
       } else {
         playlistItem = this.globals.playlist.find(item => item.id === listType.id);
-        // playlistItem = this.globals.playlist.find(item => item.id.videoId === listType.id);
       }
 
       if (typeof playlistItem === 'undefined') {

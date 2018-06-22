@@ -12,7 +12,7 @@ export class GlobalsService {
   lastSearchedVideos: Array<any>;
   historyVideos: Array<any> = [];
   searchedVideos: Array<ISearchVideo>;
-  
+
   categories: any;
   currentCategory: string;
   categoriesBlocked = ['19', '22', '25', '27', '29'];
