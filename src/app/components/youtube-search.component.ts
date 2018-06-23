@@ -15,15 +15,12 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   noResults = false;
 
-  _app: any;
-
   constructor(
     private youtube: YoutubeGetVideo,
     private globals: GlobalsService,
     private shared: SharedService,
     private app: AppComponent,
   ) {
-    this._app = app;
   }
 
   ngOnInit() {
@@ -63,21 +60,21 @@ export class SearchComponent implements OnInit {
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 1) {
-      this._app.getVideo(this.globals.searchedVideos[i]);
+      this.app.getVideo(this.globals.searchedVideos[i]);
       this.clearSearch();
     } else if (list === 3) {
-      this._app.getVideo(this.globals.feedVideos[i]);
+      this.app.getVideo(this.globals.feedVideos[i]);
     }
     this.clearSearch();
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-    this._app.onCopyVideoItemLink(i, list);
+    this.app.onCopyVideoItemLink(i, list);
     this.clearSearch();
   }
 
   addPlaylistItem(i: number, list: number) {
-    this._app.addPlaylistItem(i, list);
+    this.app.addPlaylistItem(i, list);
     this.clearSearch();
   }
 }

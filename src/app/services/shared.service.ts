@@ -31,6 +31,12 @@ export class SharedService {
         return rtn;
     }
 
+    async initSettings() {
+        const res = await this.http.get('assets/settings.json')
+        .map(response => response).toPromise();
+        return res;
+    }
+
     async getSettings() {
         if (localStorage.length < 1) {
             const res = await this.initSettings();
@@ -43,21 +49,19 @@ export class SharedService {
     }
 
     setSettings() {
+        this.globals.apiKey = this.globals.settings.api_settings[0].value;
         this.globals.regionCode = this.globals.settings.api_settings[1].value;
+        this.globals.numSearchRes = this.globals.settings.api_settings[2].value;
+        this.globals.numRelatedRes = this.globals.settings.api_settings[3].value;
+
         this.globals.thumbnails = this.globals.settings.form_settings[0].value;
+        this.globals.listGrid = this.globals.settings.form_settings[1].value;
         this.globals.displayVideoPlayer = this.globals.settings.form_settings[2].value;
         this.globals.repeatMode = this.globals.settings.form_settings[3].value;
         this.globals.darkMode = this.globals.settings.form_settings[4].value;
     }
 
-    async initSettings() {
-        const res = await this.http.get('assets/settings.json')
-        .map(response => response).toPromise();
-        return res;
-    }
-
     async initFeed() {
-        await this.setApiSettings();
         const res = await this.youtube.feedVideos();
         this.convertVideoObject(res['items'], 'feedVideos');
     }
@@ -65,15 +69,6 @@ export class SharedService {
     async initChannel() {
         const res = await this.youtube.getChannel(this.globals.feedVideos[0].channelId);
         this.globals.channel = res;
-    }
-
-    async setApiSettings() {
-        if (this.globals.settings) {
-            this.youtube.defaultApiSet(this.globals.settings);
-        } else {
-            await this.getSettings();
-            this.youtube.defaultApiSet(this.globals.settings);
-        }
     }
 
     updateData(state: string) {

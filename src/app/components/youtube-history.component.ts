@@ -9,13 +9,10 @@ import { GlobalsService } from '../services/globals.service';
 
 export class HistoryComponent implements OnInit {
 
-  _app: any;
-
   constructor(
     private globals: GlobalsService,
     private app: AppComponent
   ) {
-    this._app = app;
   }
 
   ngOnInit() {
@@ -23,15 +20,15 @@ export class HistoryComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-      this._app.addPlaylistItem(i, list);
+      this.app.addPlaylistItem(i, list);
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-    this._app.onCopyVideoItemLink(i, list);
+    this.app.onCopyVideoItemLink(i, list);
   }
 
   onClickHistory(event: Event, i: number) {
-    this._app.getVideo(this.globals.historyVideos[i]);
+    this.app.getVideo(this.globals.historyVideos[i]);
   }
 
 }

@@ -21,16 +21,20 @@ export class CategoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
+    // INIT SETTINGS
+    this.shared.getSettings();
+    this.shared.setSettings();
   }
 
   ngOnInit() {
+
     this.activatedRoute.paramMap.subscribe(data => {
       if (data['params'].id === 'all') {
         this.getFeedVideos();
       } else {
         this.globals.currentCategory = data['params'].id;
       }
-      this.initCategories();
+      this.getCategories();
     });
   }
 
@@ -54,26 +58,11 @@ export class CategoryComponent implements OnInit {
     await this.shared.initChannel();
   }
 
-  async initCategories() {
-    this.shared.setApiSettings();
-    if (this.globals.settings) {
-      this.getCategories();
-    } else {
-      await this.shared.initSettings().then(
-        (done) => {
-          this.getCategories();
-        }
-      );
-    }
-  }
-
   async getFeedVideos() {
     if (!this.globals.feedVideos) {
       await this.shared.initFeed();
     }
-    if (!this.globals.channel) {
-      await this.shared.initChannel();
-    }
+    await this.shared.initChannel();
     this.loading = false;
   }
 

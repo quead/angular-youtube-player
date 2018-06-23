@@ -29,6 +29,9 @@ export class GlobalsService {
   darkMode = true;
   
   regionCode = '';
+  apiKey = '';
+  numSearchRes = '';
+  numRelatedRes = '';
   
   settings: any;
 

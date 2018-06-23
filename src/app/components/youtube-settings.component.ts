@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
-import { SearchComponent } from './youtube-search.component';
 import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
@@ -11,18 +10,12 @@ import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-settings',
     templateUrl: 'youtube-settings.component.html',
-    providers: [ SearchComponent, CategoryComponent, NumberVal ]
+    providers: [ CategoryComponent, NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {
 
-    finished = false;
-
-    _shared: any;
-    _fb: any;
-    _app: any;
-    _search: any;
-    _category: any;
+    loading = false;
 
     internalSettings: FormGroup;
     externalSettings: FormGroup;
@@ -33,14 +26,8 @@ export class SettingsComponent implements OnInit {
         private shared: SharedService,
         private globals: GlobalsService,
         private app: AppComponent,
-        private search: SearchComponent,
         private category: CategoryComponent,
     ) {
-        this._shared = shared;
-        this._fb = fb;
-        this._app = app;
-        this._search = search;
-        this._category = category;
     }
 
     ngOnInit() {
@@ -49,7 +36,7 @@ export class SettingsComponent implements OnInit {
     }
 
     setForm() {
-        this.internalSettings = this._fb.group({
+        this.internalSettings = this.fb.group({
             settings: this.mapSettings()
         });
         this.checkInputs();
@@ -82,34 +69,34 @@ export class SettingsComponent implements OnInit {
                 this.globals.internal_settings[i].value = data.settings[i];
             });
             this.globals.settings.form_settings = this.globals.internal_settings;
-            this._shared.updateSettings();
-            this._shared.setSettings();
+            this.shared.updateSettings();
+            this.shared.setSettings();
 
-            this._app.checkVolumeRange();
+            this.app.checkVolumeRange();
 
-            this._shared.triggerNotify('Changed');
+            this.shared.triggerNotify('Changed');
         });
     }
 
     mapSettings() {
         const arr = this.globals.internal_settings.map(s => {
-            return this._fb.control(s.value);
+            return this.fb.control(s.value);
         });
         return this.fb.array(arr);
     }
 
     getDefaultSettings() {
-        this._shared.setApiSettings();
+        this.shared.getSettings();
         this.globals.internal_settings = this.globals.settings.form_settings;
         this.globals.external_settings = this.globals.settings.api_settings;
         this.initExternalForm();
-        this.finished = true;
+        this.loading = true;
         this.setForm();
     }
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this._shared.triggerNotify('Saved');
+            this.shared.triggerNotify('Saved');
             this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
@@ -117,14 +104,14 @@ export class SettingsComponent implements OnInit {
             this.globals.settings.api_settings = this.globals.external_settings;
             this.globals.feedVideos = null;
 
-            this._shared.updateSettings();
-            this._shared.setApiSettings();
-            this._shared.setSettings();
+            this.shared.updateSettings();
+            this.shared.getSettings();
+            this.shared.setSettings();
 
-            this._app.getFeedVideos();
+            this.category.getFeedVideos();
 
         } else {
-            this._shared.triggerNotify('Please check external settings');
+            this.shared.triggerNotify('Please check external settings');
         }
     }
 }
