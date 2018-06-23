@@ -112,16 +112,12 @@ export class AppComponent implements OnInit {
     this.authService.checkLogged();
     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
       if (data.length > 0) {
-        // this.clearSession();
         // localStorage.setItem('settings', JSON.parse(data['3']));
-        // this.currentVideo = data['2'];
-        // this.shareLink = 'https://youtu.be/' + this.currentVideo.id;
-        // this.playlistInit();
-        // this.updatePlaylist();
-        // this.getRelatedVideos();
+        // this.shared.getSettings();
+        // this.setDefaultPlayer();
       } else {
-        this.setDefaultPlayer();
         this.shared.getSettings();
+        this.setDefaultPlayer();
       }
     });
   }
@@ -148,6 +144,12 @@ export class AppComponent implements OnInit {
   }
 
   setDefaultPlayer() {
+    this.shared.initFeed().then(data => {
+      this.initPlayer();
+    });
+  }
+
+  initPlayer() {
     this.globals.currentVideo = this.globals.feedVideos[0];
     this.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
     this.getRelatedVideos();

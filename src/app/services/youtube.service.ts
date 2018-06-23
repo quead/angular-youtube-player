@@ -18,7 +18,6 @@ export class YoutubeGetVideo {
         private globals: GlobalsService,
     ) {}
 
-    // Calling 1 time
     async getChannel(query: string) {
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}channels?${this.channelDetails}&id=${query}&key=${this.globals.apiKey}`)
@@ -27,7 +26,6 @@ export class YoutubeGetVideo {
         }
     }
 
-    // Calling 2 times
     async feedVideos() {
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}videos?${this.videoDetails}${this.feedDetails}&regionCode=${this.globals.regionCode}&maxResults=25&key=${this.globals.apiKey}`)
@@ -36,7 +34,6 @@ export class YoutubeGetVideo {
         }
     }
 
-    // Calling 1 time
     async relatedVideos(query: string) {
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}search?part=snippet&relatedToVideoId=${query}&maxResults=${this.globals.numRelatedRes}&type=video&key=${this.globals.apiKey}`)
@@ -52,7 +49,7 @@ export class YoutubeGetVideo {
             return res;
         }
     }
-
+    
     async categories() {
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}videoCategories?part=snippet&regionCode=${this.globals.regionCode}&key=${this.globals.apiKey}`)

@@ -63,9 +63,11 @@ export class SharedService {
     }
 
     async initFeed() {
-        await this.getSettings();
-        const res = await this.youtube.feedVideos();
-        this.convertVideoObject(res['items'], 'feedVideos');
+        if (!this.globals.feedVideos) {
+            await this.getSettings();
+            const res = await this.youtube.feedVideos();
+            this.convertVideoObject(res['items'], 'feedVideos');
+        }
     }
 
     async initChannel() {

@@ -17,7 +17,7 @@ export class AuthService {
     private db2: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     public shared: SharedService,
-    public globals: GlobalsService
+    public globals: GlobalsService,
   ) {
   }
 
@@ -70,14 +70,10 @@ export class AuthService {
             localStorage.removeItem('session_key');
             localStorage.setItem('session_key', data['2']);
 
-            // this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
-            //   localStorage.removeItem('settings');
-            //   localStorage.removeItem('playlist');
-            //   this.shared.playlist = sessionData[3];
-            //   this.shared.settings = data[3];
-            //   this.shared.updateSettings();
-            //   this.shared.updatePlaylist();
-            // });
+            this.db2.list('sessions/' + data['2']).valueChanges().subscribe((sessionData) => {
+              localStorage.setItem('settings', JSON.parse(data['3']));
+              this.shared.getSettings();
+            });
             this.shared.updateData('normal login');
           }
           this.globals.isLogged = true;

@@ -21,12 +21,13 @@ export class CategoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    // INIT SETTINGS
-    this.shared.getSettings();
   }
 
   ngOnInit() {
+    this.initComponent();
+  }
 
+  async initComponent() {
     this.activatedRoute.paramMap.subscribe(data => {
       if (data['params'].id === 'all') {
         this.getFeedVideos();
@@ -39,37 +40,41 @@ export class CategoryComponent implements OnInit {
 
 
   async getCategories() {
-    const res = await this.youtube.categories();
-    this.globals.categories = res;
-    if (res) {
-      if (res['items'].find(x => x.id === this.globals.currentCategory)) {
-        this.getCategoriesVideos(this.globals.currentCategory);
-      } else {
-        this.router.navigate(['']);
-      }
-    }
+    this.shared.getSettings().then(() => {
+      this.youtube.categories().then(catData => {
+        this.globals.categories = catData;
+        if (this.globals.categories['items'].find(x => x.id === this.globals.currentCategory)) {
+          this.loading = true;
+          this.getCategoriesVideos(this.globals.currentCategory);
+        } else {
+          this.router.navigate(['']);
+        }
+      });
+    });
   }
 
   async getCategoriesVideos(val: string) {
     const res2 = await this.youtube.videoCategories(val);
     this.shared.convertVideoObject(res2['items'], 'feedVideos');
-
     await this.shared.initChannel();
+    this.loading = false;
   }
 
   async getFeedVideos() {
-    if (!this.globals.feedVideos) {
-      await this.shared.initFeed();
-    }
+    await this.shared.initFeed();
     await this.shared.initChannel();
     this.loading = false;
   }
 
   async resetCategories() {
+    this.loading = true;
     this.globals.currentCategory = 'all';
     this.router.navigate(['category/all']);
-    await this.shared.initFeed();
-    await this.shared.initChannel();
+    this.globals.feedVideos = null;
+    await this.shared.initFeed().then(() => {
+      this.shared.initChannel();
+      this.loading = false;
+    });
   }
 
   onClickVideo(event: Event, i: any, list: number) {
