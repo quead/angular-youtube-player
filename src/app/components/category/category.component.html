@@ -23,18 +23,18 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="globals.feedVideos && !loading">
-  <div [ngStyle]="{'background-image': 'url(' + trendingFirst.bannerURL + ')'}" class="video-list-featured">
+<ng-container *ngIf="globals.feedVideos && globals.channel && !loading">
+  <div [ngStyle]="{'background-image': 'url(' + globals.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl + ')'}" class="video-list-featured">
       <div class="video-item" [attr.data-index]="0">
         <div class="video-item-info">
-          <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + trendingFirst.video.img +')'}"></div>
+          <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + globals.feedVideos[0].thumbnails.medium +')'}"></div>
           <div class="video-item-content">
-            <p class="video-item-title">{{ trendingFirst.video.title }}</p>
-            <p class="video-item-autor">by <span>{{ trendingFirst.video.channelTitle }}</span></p>
-            <div *ngIf="trendingFirst.video.id?.length > 0" class="video-item-details">
-                <p class="stats-views"><span class="fa fa-eye"></span> {{ trendingFirst.video.stats.views | number:'1.0' }}</p>
-                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ trendingFirst.video.stats.likes | number:'1.0' }}</p>
-                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ trendingFirst.video.stats.dislikes | number:'1.0' }}</p>
+            <p class="video-item-title">{{ globals.feedVideos[0].title }}</p>
+            <p class="video-item-autor">by <span>{{ globals.feedVideos[0].channelTitle }}</span></p>
+            <div class="video-item-details">
+                <p class="stats-views"><span class="fa fa-eye"></span> {{ globals.feedVideos[0].stats.views | number:'1.0' }}</p>
+                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ globals.feedVideos[0].stats.likes  | number:'1.0' }}</p>
+                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ globals.feedVideos[0].stats.dislikes | number:'1.0' }}</p>
             </div>
           </div>
         </div>
@@ -100,14 +100,14 @@
 <div *ngIf="!loading" class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
   <div *ngFor="let feedVideo of globals.feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
     <div class="video-item-info">
-      <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.snippet.thumbnails.medium.url +')'}"></div>
+      <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
       <div class="video-item-content">
-        <p class="video-item-title">{{ feedVideo.snippet.title }}</p>
-        <p class="video-item-autor">by <span>{{ feedVideo.snippet.channelTitle }}</span></p>
+        <p class="video-item-title">{{ feedVideo.title }}</p>
+        <p class="video-item-autor">by <span>{{ feedVideo.channelTitle }}</span></p>
         <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-            <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.statistics.viewCount | number:'1.0' }}</p>
-            <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.statistics.likeCount | number:'1.0' }}</p>
-            <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.statistics.dislikeCount | number:'1.0' }}</p>
+            <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.stats.views | number:'1.0' }}</p>
+            <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.stats.likes | number:'1.0' }}</p>
+            <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.stats.dislikes | number:'1.0' }}</p>
         </div>
       </div>
     </div>

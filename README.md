@@ -53,7 +53,8 @@ This player is compatible only with Chrome/webkit browsers.
 ## Changelog
 Angular YouTube Player 2.3
 - Updating to LTS angular
-- Fixed player issues
+- Refactoring entire app services and components
+- Improved speed performance and fixed major bugs
 - Implemented login with google account
 - Keep your playlist and settings in cloud
 - New way to loading the app

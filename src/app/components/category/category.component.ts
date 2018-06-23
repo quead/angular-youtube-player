@@ -13,29 +13,6 @@ export class CategoryComponent implements OnInit {
 
   loading = true;
 
-  trendingFirst = {
-      bannerURL: '',
-      video: {
-        id: '',
-        title: '',
-        img: '',
-        channelTitle: '',
-        stats: {
-          views: '',
-          likes: '',
-          dislikes: ''
-        }
-      },
-      stats: {
-        subscribers: '',
-        views: '',
-        videoCount: ''
-      }
-  };
-
-  _shared: any;
-  _app: any;
-
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
@@ -44,8 +21,6 @@ export class CategoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this._shared = shared;
-    this._app = app;
   }
 
   ngOnInit() {
@@ -74,18 +49,17 @@ export class CategoryComponent implements OnInit {
 
   async getCategoriesVideos(val: string) {
     const res2 = await this.youtube.videoCategories(val);
-    this.globals.feedVideos = res2['items'];
+    this.shared.convertVideoObject(res2['items'], 'feedVideos');
 
-    await this._shared.initChannel();
-    this.getChannelTrending();
+    await this.shared.initChannel();
   }
 
   async initCategories() {
-    this._shared.setApiSettings();
+    this.shared.setApiSettings();
     if (this.globals.settings) {
       this.getCategories();
     } else {
-      await this._shared.initSettings().then(
+      await this.shared.initSettings().then(
         (done) => {
           this.getCategories();
         }
@@ -94,55 +68,34 @@ export class CategoryComponent implements OnInit {
   }
 
   async getFeedVideos() {
-    this.loading = true;
     if (!this.globals.feedVideos) {
-      await this._shared.initFeed();
+      await this.shared.initFeed();
     }
     if (!this.globals.channel) {
-      await this._shared.initChannel();
+      await this.shared.initChannel();
     }
-    this.getChannelTrending();
-  }
-
-  getChannelTrending() {
-    this.trendingFirst.video.id = this.globals.feedVideos[0].id;
-    this.trendingFirst.video.title = this.globals.feedVideos[0].snippet.title;
-    this.trendingFirst.video.img = this.globals.feedVideos[0].snippet.thumbnails.medium.url;
-    this.trendingFirst.video.stats.likes = this.globals.feedVideos[0].statistics.likeCount;
-    this.trendingFirst.video.stats.dislikes = this.globals.feedVideos[0].statistics.dislikeCount;
-    this.trendingFirst.video.stats.views = this.globals.feedVideos[0].statistics.viewCount;
-    this.trendingFirst.bannerURL = this.globals.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl;
-    this.trendingFirst.video.channelTitle = this.globals.channel.items[0].snippet.title;
-    if (!this.globals.channel.items[0].statistics.hiddenSubscriberCount) {
-      this.trendingFirst.stats.subscribers = this.globals.channel.items[0].statistics.subscriberCount;
-    } else {
-      this.trendingFirst.stats.subscribers = '0';
-    }
-    this.trendingFirst.stats.videoCount = this.globals.channel.items[0].statistics.videoCount;
-    this.trendingFirst.stats.views = this.globals.channel.items[0].statistics.viewCount;
     this.loading = false;
   }
 
   async resetCategories() {
     this.globals.currentCategory = 'all';
     this.router.navigate(['category/all']);
-    await this._shared.initFeed();
-    await this._shared.initChannel();
-    this.getChannelTrending();
+    await this.shared.initFeed();
+    await this.shared.initChannel();
   }
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 3) {
-      this._app.getVideo(this.globals.feedVideos[i]);
+      this.app.getVideo(this.globals.feedVideos[i]);
     }
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-    this._app.onCopyVideoItemLink(i, list);
+    this.app.onCopyVideoItemLink(i, list);
   }
 
   addPlaylistItem(i: number, list: number) {
-    this._app.addPlaylistItem(i, list);
+    this.app.addPlaylistItem(i, list);
   }
 
 }

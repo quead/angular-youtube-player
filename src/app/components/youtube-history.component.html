@@ -8,10 +8,10 @@
         </div>
         <div *ngFor="let historyVideo of globals.historyVideos; let i = index" [attr.data-index]="i" class="video-item">
             <div class="video-item-info">
-                <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + historyVideo.snippet.thumbnails.default.url +')'}"></div>
+                <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + historyVideo.thumbnails.default +')'}"></div>
                 <div class="video-item-content">
-                <p class="video-item-title">{{ historyVideo.snippet.title }}</p>
-                <p class="video-item-autor">by <span>{{ historyVideo.snippet.channelTitle }}</span></p>                      
+                <p class="video-item-title">{{ historyVideo.title }}</p>
+                <p class="video-item-autor">by <span>{{ historyVideo.channelTitle }}</span></p>                      
                 </div>
             </div>
             <div class="video-item-settings">

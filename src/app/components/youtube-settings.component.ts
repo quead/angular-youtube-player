@@ -83,8 +83,8 @@ export class SettingsComponent implements OnInit {
             });
             this.globals.settings.form_settings = this.globals.internal_settings;
             this._shared.updateSettings();
+            this._shared.setSettings();
 
-            this._app.setSettings();
             this._app.checkVolumeRange();
 
             this._shared.triggerNotify('Changed');
@@ -109,6 +109,7 @@ export class SettingsComponent implements OnInit {
 
     externalSave() {
         if (this.externalSettings.valid) {
+            this._shared.triggerNotify('Saved');
             this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
@@ -118,10 +119,10 @@ export class SettingsComponent implements OnInit {
 
             this._shared.updateSettings();
             this._shared.setApiSettings();
-            this._app.setSettings();
+            this._shared.setSettings();
+
             this._app.getFeedVideos();
 
-            this._shared.triggerNotify('Saved');
         } else {
             this._shared.triggerNotify('Please check external settings');
         }

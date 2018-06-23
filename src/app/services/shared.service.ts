@@ -42,6 +42,14 @@ export class SharedService {
         }
     }
 
+    setSettings() {
+        this.globals.regionCode = this.globals.settings.api_settings[1].value;
+        this.globals.thumbnails = this.globals.settings.form_settings[0].value;
+        this.globals.displayVideoPlayer = this.globals.settings.form_settings[2].value;
+        this.globals.repeatMode = this.globals.settings.form_settings[3].value;
+        this.globals.darkMode = this.globals.settings.form_settings[4].value;
+    }
+
     async initSettings() {
         const res = await this.http.get('assets/settings.json')
         .map(response => response).toPromise();
@@ -51,11 +59,11 @@ export class SharedService {
     async initFeed() {
         await this.setApiSettings();
         const res = await this.youtube.feedVideos();
-        this.globals.feedVideos = res['items'];
+        this.convertVideoObject(res['items'], 'feedVideos');
     }
 
     async initChannel() {
-        const res = await this.youtube.getChannel(this.globals.feedVideos[0].snippet.channelId);
+        const res = await this.youtube.getChannel(this.globals.feedVideos[0].channelId);
         this.globals.channel = res;
     }
 
@@ -78,17 +86,17 @@ export class SharedService {
     }
 
     getPlaylist() {
-        this.globals.playlist = JSON.parse(localStorage.getItem('playlist'));
+        this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
     }
 
     updatePlaylist() {
-        localStorage.setItem('playlist', JSON.stringify(this.globals.playlist));
+        localStorage.setItem('playlist', JSON.stringify(this.globals.playlistVideos));
         this.setLocalVersion();
     }
 
     setLocalVersion() {
         if (localStorage.getItem('version') === null) {
-            localStorage.setItem('version', '1');
+            localStorage.setItem('version', '2');
         }
     }
 
@@ -109,5 +117,113 @@ export class SharedService {
             }
         }
         this.globals.historyVideos.unshift(data);
+    }
+
+    convertVideoObject(object: any, list: string) {
+        let tempVideos = [];
+        let tempObject = {
+            id: '',
+            title: '',
+            channelTitle: '',
+            channelId: '',
+            categoryId: '',
+            stats: {
+              likes: '',
+              dislikes: '',
+              views: ''
+            },
+            thumbnails: {
+                default: '',
+                high: '',
+                medium: '',
+            }
+        }
+
+        // Populate temp object
+        for (let i in object) {
+            if (typeof object[i].id == 'string') {
+                tempObject.id = object[i].id
+            } else {
+                tempObject.id = object[i].id.videoId
+            }
+            tempObject.title = object[i].snippet.title;
+            tempObject.channelTitle = object[i].snippet.channelTitle;
+            if (object[i].snippet.channelId) {
+                tempObject.channelId = object[i].snippet.channelId;
+            }
+            if (object[i].snippet.categoryId) {
+                tempObject.categoryId = object[i].snippet.categoryId;
+            }
+            if (object[i].snippet.thumbnails.default) {
+                tempObject.thumbnails.default = object[i].snippet.thumbnails.default.url;
+            }
+            if (object[i].snippet.thumbnails.high) {
+                tempObject.thumbnails.high = object[i].snippet.thumbnails.high.url;
+            }
+            if (object[i].snippet.thumbnails.medium) {
+                tempObject.thumbnails.medium = object[i].snippet.thumbnails.medium.url;
+            }
+            if (object[i].statistics) {
+                tempObject.stats.dislikes = object[i].statistics.dislikeCount;
+            }
+            if (object[i].statistics) {
+                tempObject.stats.likes = object[i].statistics.likeCount;
+            }
+            if (object[i].statistics) {
+                tempObject.stats.views = object[i].statistics.viewCount;
+            }
+            tempVideos.push(tempObject);
+
+            // Clear tempObject after populated the object and pushed
+            tempObject = {
+                id: '',
+                title: '',
+                channelTitle: '',
+                channelId: '',
+                categoryId: '',
+                stats: {
+                    likes: '',
+                    dislikes: '',
+                    views: ''
+                },
+                thumbnails: {
+                    default: '',
+                    high: '',
+                    medium: '',
+                }
+            }
+        }
+
+        // Push tempObject into globals
+        switch (list) {
+            case 'playlistVideos': {
+                this.globals.playlistVideos = tempVideos;
+                break;
+            }
+            case 'feedVideos': {
+                this.globals.feedVideos = tempVideos;
+                break;
+            }
+            case 'relatedVideos': {
+                this.globals.relatedVideos = tempVideos;
+                break;
+            }
+            case 'lastSearchedVideos': {
+                this.globals.lastSearchedVideos = tempVideos;
+                break;
+            }
+            case 'searchedVideos': {
+                this.globals.searchedVideos = tempVideos;
+                break;
+            }
+            case 'currentVideo': {
+                this.globals.currentVideo = tempObject;
+                break;
+            }
+            default: {
+                console.log('ERROR CONVERTING VIDEOS');
+                break;
+            }
+        }
     }
 }

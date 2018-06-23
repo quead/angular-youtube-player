@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { IFeedVideo } from '../models/feed-video.model';
-import { ISearchVideo } from '../models/search-video.model';
-import { IRelatedVideo } from '../models/related-video.model';
+import { VideoModel } from '../models/video.model';
 
 @Injectable()
 export class GlobalsService {
 
-  relatedVideos: Array<IRelatedVideo>;
-  feedVideos: Array<IFeedVideo>;
-  playlist: Array<any> = [];
-  lastSearchedVideos: Array<any>;
-  historyVideos: Array<any> = [];
-  searchedVideos: Array<ISearchVideo>;
+  relatedVideos: Array<VideoModel> = [];
+  feedVideos: Array<VideoModel>;
+  playlistVideos: Array<VideoModel> = [];
+  lastSearchedVideos: Array<VideoModel>;
+  historyVideos: Array<VideoModel> = [];
+  searchedVideos: Array<VideoModel>;
+
+  currentVideo: VideoModel;
 
   categories: any;
   currentCategory: string;
@@ -24,7 +24,12 @@ export class GlobalsService {
   isLogged = false;
   thumbnails = true;
   listGrid = false;
-
+  displayVideoPlayer = true;
+  repeatMode = true;
+  darkMode = true;
+  
+  regionCode = '';
+  
   settings: any;
 
   constructor() { }

@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
 import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
+import { SharedService } from '../services/shared.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { IFeedVideo } from '../models/feed-video.model';
-import { ISearchVideo } from '../models/search-video.model';
-import { IChannelList } from '../models/channel.model';
 
 @Component({
   selector: 'app-search',
@@ -23,6 +20,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private youtube: YoutubeGetVideo,
     private globals: GlobalsService,
+    private shared: SharedService,
     private app: AppComponent,
   ) {
     this._app = app;
@@ -35,13 +33,13 @@ export class SearchComponent implements OnInit {
 
   async searchVideo(query: any) {
     const res = await this.youtube.searchVideo(query);
-    this.globals.searchedVideos = res['items'];
+    this.shared.convertVideoObject(res['items'], 'searchedVideos');
     if (res['items'].length === 0) {
       this.noResults = true;
     } else {
       this.noResults = false;
     }
-    this.globals.lastSearchedVideos = res['items'];
+    this.shared.convertVideoObject(res['items'], 'lastSearchedVideos');
   }
 
   searchFunction() {

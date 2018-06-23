@@ -93,7 +93,7 @@ export class AuthService {
     const defaultSession = {
         currentState: -1,
         currentSeek: 0,
-        playlist: this.globals.playlist,
+        playlist: this.globals.playlistVideos,
         details: currentDetails,
     };
     afList.set(localStorage.getItem('session_key'), defaultSession);
