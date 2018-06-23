@@ -57,6 +57,7 @@ Angular YouTube Player 2.3
 - Improved speed performance and fixed major bugs
 - Implemented login with google account
 - Keep your playlist and settings in cloud
+*- Implemented session key to keep playlist in cloud (without account) - WIP*
 - New way to loading the app
 
 Angular YouTube Player 2.2
@@ -159,8 +160,8 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Integrating Google accounts **(in v2.4)**
-- Integrating firebase **(in v2.5)**
+- Integrating ngrx store **(in v2.4)**
+- Integrating YouTube subscriptions/playlist **(in v2.9)**
 
 - **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
