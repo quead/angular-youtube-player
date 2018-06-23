@@ -57,8 +57,6 @@ Angular YouTube Player 2.3
 - Improved speed performance and fixed major bugs
 - Implemented login with google account
 - New way to loading the app
-- *Keep your playlist and settings in cloud - WIP*
-- *Implemented session key to keep playlist in cloud (without account) - WIP*
 
 Angular YouTube Player 2.2
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
@@ -138,7 +136,7 @@ Angular YouTube Player 1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
 - Adding settings functionality, the settings will get from ***assets/settings.json***
-- **Settings**
+**Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 
@@ -160,7 +158,9 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Integrating ngrx store **(in v2.4)**
+- Keep your playlist and settings in cloud **(in v2.4)**
+- Implemented session key to keep playlist in cloud (without account) **(in v2.4)**
+- Integrating ngrx store **(in v2.5)**
 - Integrating YouTube subscriptions/playlist **(in v2.9)**
 
 **Rooms**

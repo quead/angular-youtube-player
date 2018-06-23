@@ -86,11 +86,13 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this.globals.internal_settings = this.globals.settings.form_settings;
-        this.globals.external_settings = this.globals.settings.api_settings;
-        this.initExternalForm();
-        this.loading = true;
-        this.setForm();
+        this.shared.getSettings().then(() => {
+            this.globals.internal_settings = this.globals.settings.form_settings;
+            this.globals.external_settings = this.globals.settings.api_settings;
+            this.initExternalForm();
+            this.loading = true;
+            this.setForm();
+        })
     }
 
     externalSave() {
