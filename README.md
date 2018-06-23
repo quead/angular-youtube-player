@@ -57,7 +57,7 @@ Angular YouTube Player 2.3
 - Improved speed performance and fixed major bugs
 - Implemented login with google account
 - Keep your playlist and settings in cloud
-*- Implemented session key to keep playlist in cloud (without account) - WIP*
+- *Implemented session key to keep playlist in cloud (without account) - WIP*
 - New way to loading the app
 
 Angular YouTube Player 2.2
