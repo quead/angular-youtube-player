@@ -54,7 +54,7 @@
                     <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
                 </div>
                 <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='globals.playlistVideos' #playlistContainer>
-                  <ng-container *ngIf="globals.playlistVideos.length === 0">
+                  <ng-container *ngIf="loading">
                     <div *ngFor="let i of [1,2,3,4,5]" class="video-item">
                       <div class="video-item-info">
                         <div class="video-item-image loading-featured"></div>
@@ -62,35 +62,37 @@
                       </div>
                     </div>
                   </ng-container>
-                  <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
-                    <div class="video-item-info">
-                      <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
-                      <div class="video-item-content">
-                        <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
-                          <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
-                        </ng-container>
-                        <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
-                          <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
-                        </ng-container>                       
-                        <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
-                          <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
-                        </ng-container>                       
-                        <p class="video-item-title">{{ playlistVideo.title }}</p>
-                        <p class="video-item-autor">by <span>{{ playlistVideo.channelTitle }}</span></p>
+                  <ng-container *ngIf="!loading">
+                    <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+                      <div class="video-item-info">
+                        <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
+                        <div class="video-item-content">
+                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
+                            <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
+                          </ng-container>
+                          <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
+                            <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
+                          </ng-container>                       
+                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
+                            <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
+                          </ng-container>                       
+                          <p class="video-item-title">{{ playlistVideo.title }}</p>
+                          <p class="video-item-autor">by <span>{{ playlistVideo.channelTitle }}</span></p>
+                        </div>
+                      </div>
+                      <div class="video-item-settings">
+                        <button class="video-item-play" (click)="onClickPlaylist($event, i)">
+                          <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+                        </button>
+                        <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
+                          <span class="fa fa-share-alt"></span>
+                        </button>
+                        <button class="video-item-remove" (click)="showPlaylistModal(i)">
+                          <span class="fa fa-times"></span>
+                        </button>
                       </div>
                     </div>
-                    <div class="video-item-settings">
-                      <button class="video-item-play" (click)="onClickPlaylist($event, i)">
-                        <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-                      </button>
-                      <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
-                        <span class="fa fa-share-alt"></span>
-                      </button>
-                      <button class="video-item-remove" (click)="showPlaylistModal(i)">
-                        <span class="fa fa-times"></span>
-                      </button>
-                    </div>
-                  </div>
+                  </ng-container>
                 </div>
               </div>
             </div>
@@ -104,11 +106,11 @@
                     <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
                 </div>
             </div>
-            <div *ngIf="!globals.currentVideo" class="app-content">
+            <div *ngIf="loading" class="app-content">
               <div class="youtube-player active loading-featured"></div>
             </div>
             <div class="app-content">
-              <div class="youtube-player" *ngIf="globals.currentVideo" [ngClass]="{'active': globals.displayVideoPlayer }">
+              <div class="youtube-player" *ngIf="!loading" [ngClass]="{'active': globals.displayVideoPlayer }">
                 <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
               </div>
               <div class="current-video-all" *ngIf="globals.currentVideo">
@@ -152,7 +154,7 @@
                     Similar videos
                 </div>
                 <div class="related-video-content">
-                  <ng-container *ngIf="globals.relatedVideos.length === 0">
+                  <ng-container *ngIf="loading">
                     <div *ngFor="let i of [1,2,3,4]" class="video-item">
                       <div class="video-item-info">
                         <div class="video-item-image loading-featured"></div>
@@ -160,7 +162,7 @@
                       </div>
                     </div>
                   </ng-container>
-                  <ng-container *ngIf="globals.relatedVideos">
+                  <ng-container *ngIf="!loading">
                     <div *ngFor="let relatedVideo of globals.relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
                       <div class="video-item-info">
                         <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.default +')'}"></div>

@@ -95,7 +95,7 @@ export class SharedService {
 
     setLocalVersion() {
         if (localStorage.getItem('version') === null) {
-            localStorage.setItem('version', '1');
+            localStorage.setItem('version', '2');
         }
     }
 

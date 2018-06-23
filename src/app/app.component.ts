@@ -364,7 +364,7 @@ export class AppComponent implements OnInit {
   }
 
   preventOldSettings() {
-    if (localStorage.length === 1 || !localStorage.getItem('version')) {
+    if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') == '1') {
       console.log('Updating localstorage...');
       localStorage.clear();
       this.globals.settings = null;
@@ -427,6 +427,7 @@ export class AppComponent implements OnInit {
       this.playlistInit();
       this.playlistPrefill = false;
     }
+    this.loading = false;
   }
 
   // ---------------- Player controls ----------------
