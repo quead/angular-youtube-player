@@ -54,7 +54,6 @@ export class YoutubeGetVideo {
     }
 
     async categories() {
-        console.log('intra aici');
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}videoCategories?part=snippet&regionCode=${this.globals.regionCode}&key=${this.globals.apiKey}`)
             .map(response => response).toPromise();

@@ -69,11 +69,11 @@ export class SettingsComponent implements OnInit {
                 this.globals.internal_settings[i].value = data.settings[i];
             });
             this.globals.settings.form_settings = this.globals.internal_settings;
-            this.shared.updateSettings();
-            this.shared.setSettings();
+
+            this.shared.updateLocalStorageSettings();
+            this.shared.getSettings();
 
             this.app.checkVolumeRange();
-
             this.shared.triggerNotify('Changed');
         });
     }
@@ -86,7 +86,6 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this.shared.getSettings();
         this.globals.internal_settings = this.globals.settings.form_settings;
         this.globals.external_settings = this.globals.settings.api_settings;
         this.initExternalForm();
@@ -104,9 +103,8 @@ export class SettingsComponent implements OnInit {
             this.globals.settings.api_settings = this.globals.external_settings;
             this.globals.feedVideos = null;
 
-            this.shared.updateSettings();
+            this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
-            this.shared.setSettings();
 
             this.category.getFeedVideos();
 

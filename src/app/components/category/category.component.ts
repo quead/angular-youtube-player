@@ -23,7 +23,6 @@ export class CategoryComponent implements OnInit {
   ) {
     // INIT SETTINGS
     this.shared.getSettings();
-    this.shared.setSettings();
   }
 
   ngOnInit() {

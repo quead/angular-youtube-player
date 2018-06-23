@@ -121,8 +121,8 @@ export class AppComponent implements OnInit {
         // this.getRelatedVideos();
       } else {
         this.setDefaultPlayer();
+        this.shared.getSettings();
       }
-      this.shared.getSettings();
     });
   }
 

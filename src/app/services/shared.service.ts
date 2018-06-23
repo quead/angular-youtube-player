@@ -46,6 +46,7 @@ export class SharedService {
         } else {
             this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }
+        this.setSettings();
     }
 
     setSettings() {
@@ -62,6 +63,7 @@ export class SharedService {
     }
 
     async initFeed() {
+        await this.getSettings();
         const res = await this.youtube.feedVideos();
         this.convertVideoObject(res['items'], 'feedVideos');
     }
@@ -75,7 +77,7 @@ export class SharedService {
         console.log(state);
     }
 
-    updateSettings() {
+    updateLocalStorageSettings() {
         localStorage.setItem('settings', JSON.stringify(this.globals.settings));
         this.setLocalVersion();
     }
@@ -91,7 +93,7 @@ export class SharedService {
 
     setLocalVersion() {
         if (localStorage.getItem('version') === null) {
-            localStorage.setItem('version', '2');
+            localStorage.setItem('version', '1');
         }
     }
 
