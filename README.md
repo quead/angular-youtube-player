@@ -54,7 +54,6 @@ Angular YouTube Player 2.3
 - Updating to LTS angular
 - Refactoring entire app services and components
 - Improved speed performance and fixed major bugs
-- Implemented login with google account
 - New way to loading the app
 
 Angular YouTube Player 2.2
