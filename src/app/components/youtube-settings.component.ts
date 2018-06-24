@@ -92,7 +92,7 @@ export class SettingsComponent implements OnInit {
             this.initExternalForm();
             this.loading = true;
             this.setForm();
-        })
+        });
     }
 
     externalSave() {

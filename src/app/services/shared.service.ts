@@ -119,7 +119,7 @@ export class SharedService {
     }
 
     convertVideoObject(object: any, list: string) {
-        let tempVideos = [];
+        const tempVideos = [];
         let tempObject = {
             id: '',
             title: '',
@@ -136,14 +136,14 @@ export class SharedService {
                 high: '',
                 medium: '',
             }
-        }
+        };
 
         // Populate temp object
-        for (let i in object) {
-            if (typeof object[i].id == 'string') {
-                tempObject.id = object[i].id
+        for (const i in object) {
+            if (typeof object[i].id === 'string') {
+                tempObject.id = object[i].id;
             } else {
-                tempObject.id = object[i].id.videoId
+                tempObject.id = object[i].id.videoId;
             }
             tempObject.title = object[i].snippet.title;
             tempObject.channelTitle = object[i].snippet.channelTitle;
@@ -190,7 +190,7 @@ export class SharedService {
                     high: '',
                     medium: '',
                 }
-            }
+            };
         }
 
         // Push tempObject into globals

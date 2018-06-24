@@ -63,8 +63,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private youtube: YoutubeGetVideo,
-    private shared: SharedService,
-    private globals: GlobalsService,
+    public shared: SharedService,
+    public globals: GlobalsService,
     private dragula: DragulaService,
 
     private authService: AuthService,
@@ -236,7 +236,7 @@ export class AppComponent implements OnInit {
   }
 
   findPlaylistItem() {
-    const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);    
+    const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
     this.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
   }
 
@@ -364,7 +364,7 @@ export class AppComponent implements OnInit {
   }
 
   preventOldSettings() {
-    if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') == '1') {
+    if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '1') {
       console.log('Updating localstorage...');
       localStorage.clear();
       this.globals.settings = null;
@@ -406,7 +406,7 @@ export class AppComponent implements OnInit {
 
   playVideo(data: any) {
     if (data.id !== this.globals.currentVideo['id'] || this.currentState === -1) {
-      this.globals.currentVideo = data
+      this.globals.currentVideo = data;
       this.shared.addHistoryVideo(data);
       this.player.loadVideoById(this.globals.currentVideo['id']);
       this.getRelatedVideos();

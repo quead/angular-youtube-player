@@ -27,12 +27,12 @@ export class GlobalsService {
   displayVideoPlayer = true;
   repeatMode = true;
   darkMode = true;
-  
+
   regionCode = '';
   apiKey = '';
   numSearchRes = '';
   numRelatedRes = '';
-  
+
   settings: any;
 
   constructor() { }

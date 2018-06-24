@@ -16,7 +16,7 @@ export class CategoryComponent implements OnInit {
   constructor(
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private app: AppComponent,
     private activatedRoute: ActivatedRoute,
     private router: Router

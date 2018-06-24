@@ -1,17 +1,17 @@
 export interface VideoModel {
-    id: string,
-    title: string,
-    channelTitle: string,
-    channelId: string,
-    categoryId: string,
+    id: string;
+    title: string;
+    channelTitle: string;
+    channelId: string;
+    categoryId: string;
     stats: {
-      likes: string,
-      dislikes: string,
-      views: string
-    },
+      likes: string;
+      dislikes: string;
+      views: string;
+    };
     thumbnails: {
-        default: string,
-        high: string,
-        medium: string,
-    }
+        default: string;
+        high: string;
+        medium: string;
+    };
 }

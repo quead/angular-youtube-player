@@ -49,7 +49,7 @@ export class YoutubeGetVideo {
             return res;
         }
     }
-    
+
     async categories() {
         if (this.globals.apiKey) {
             const res = await this.http.get(`${this.url}videoCategories?part=snippet&regionCode=${this.globals.regionCode}&key=${this.globals.apiKey}`)

@@ -10,7 +10,7 @@ import { GlobalsService } from '../services/globals.service';
 export class HistoryComponent implements OnInit {
 
   constructor(
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private app: AppComponent
   ) {
   }
