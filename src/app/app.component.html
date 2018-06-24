@@ -41,6 +41,11 @@
                     <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
                 </div>
                 <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='globals.playlistVideos' #playlistContainer>
+                  <ng-container *ngIf="globals.playlistVideos.length === 0 && !loading">
+                    <div class="text-center-block">
+                        Playlist is empty.
+                    </div>
+                  </ng-container>
                   <ng-container *ngIf="loading">
                     <div *ngFor="let i of [1,2,3,4,5]" class="video-item">
                       <div class="video-item-info">
@@ -141,6 +146,11 @@
                     Similar videos
                 </div>
                 <div class="related-video-content">
+                  <ng-container *ngIf="globals.relatedVideos.length === 0 && !loading">
+                    <div class="text-center-block">
+                      Related videos list is empty.
+                    </div>
+                  </ng-container>
                   <ng-container *ngIf="loading">
                     <div *ngFor="let i of [1,2,3,4]" class="video-item">
                       <div class="video-item-info">
