@@ -134,6 +134,7 @@ Angular YouTube Player 1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
 - Adding settings functionality, the settings will get from ***assets/settings.json***
+
 **Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
@@ -152,6 +153,7 @@ Angular YouTube Player 1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
+
 **Rooms**
 - *Room chat **(unversioned)***
 
