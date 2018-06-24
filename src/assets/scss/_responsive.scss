@@ -40,11 +40,11 @@
     #app-container {
         height: calc(100% - 45px);
     }
-    #feed-video-list {
+    .feed-video-list {
         width: calc(100% - 20px);
     }
 
-    #youtube-player {
+    .youtube-player {
         padding: 0 10px;
     }
 }
@@ -68,7 +68,7 @@
         }
     }
 
-    #feed-video-list {
+    .feed-video-list {
         &::-webkit-scrollbar {
             width: 8px;
         }
@@ -164,7 +164,7 @@
         }
     }
 
-    #feed-video-list {
+    .feed-video-list {
         position: relative;
         width: 100%;
     }

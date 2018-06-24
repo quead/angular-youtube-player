@@ -239,7 +239,7 @@ iframe {
 }
 
 .gu-transit {
-    background-color: #c72020 !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
     .video-item-hint {
         color: var(--c-white);
         border-color: var(--c-white);
@@ -249,6 +249,9 @@ iframe {
 .ex-over {
     background-color: rgba(255, 255, 255, 0.01) !important;
     border: 2px dashed rgba(255, 255, 255, 0.2) !important;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
     .video-item:hover {
         .video-item-image {
             transform: scale(1);
@@ -410,7 +413,7 @@ iframe {
     }
 }
 
-#feed-video-list {
+.feed-video-list {
     top: inherit;
     bottom: 0;
     height: calc(100% - 270px);

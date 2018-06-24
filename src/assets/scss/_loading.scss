@@ -1,0 +1,48 @@
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -800px 0;
+    }
+    100% {
+        background-position: 800px 0;
+    }
+}
+
+.loading-featured {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: linear-gradient(to right,rgba(0,0,0,0.6) 8%,var(--c-base) 18%,rgba(0,0,0,0.6) 33%);
+    background-size: 800px 104px;
+    &-video-item {
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        background: linear-gradient(to right,rgba(0,0,0,0.6) 8%,var(--c-base) 18%,rgba(0,0,0,0.6) 33%);
+        background-size: 800px 104px;
+        height: 180px;
+        .video-item-image {
+            display: none;
+        }
+    }
+    &:before {
+        display: none;
+    }
+}
+
+.loading-list {
+    width: 100%;
+    height: 100%;
+}
+
+.video-item-content.loading-featured,
+.video-item-image.loading-featured {
+    height: 60px;
+}
+
+.youtube-player.loading-featured {
+    height: 375px;
+}

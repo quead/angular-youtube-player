@@ -7,14 +7,14 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.2-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 [![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.4, [NWjs 0.25.0](https://nwjs.io/ "NWJS Page"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 0.0.41 (used for youtube iFrame API), SCSS (CSS3), HTML5 and webkit functions.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.7.3, [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -23,8 +23,8 @@ This player is compatible only with Chrome/webkit browsers.
 ## Usage
 
 **For Angular and Typescript Development**
-1. Install [NodeJS 6.11.0+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install [angular-cli 1.1.3+](https://github.com/angular/angular-cli "Angular Cli")
+1. Install [NodeJS 8.11.3+](https://nodejs.org/en/download/ "Node JS Download")
+2. Install [angular-cli 1.7.3+](https://github.com/angular/angular-cli "Angular Cli")
 
 `npm install -g @angular/cli`
 
@@ -36,49 +36,28 @@ This player is compatible only with Chrome/webkit browsers.
 
 `npm start` in root folder
 
-5. Add your youtube api key
+5. Add your youtube api key in settings.json or in the app
 
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
 
-2. Start project by
+2. Do steps from above
+
+3. Start project by
 
 `npm start`
 
-3. Edit files from src/assets/scss
-
-------
-
-**For building app**
-
-1. Add to body classes application app-win / app-linux
-`<body class="application app-win">`
-2. Build the src folder with
-`ng build` in root folder
-*You need to have angular-cli installed on global (check above)*
-*This is compiling typescript into Javascript*
-
-3. Copy package.json from **/app** folder and paste it to **dist** folder
-4. Download [NWjs v0.25.0 +](https://nwjs.io/ "NWJS Download")
-5. Path your system enviroment to folder where you unarchived
-6. Run
-
-`gulp build` in root folder
-*This is compiling javascript into desktop app*
-
-7. In release folder (root) you have the compiled apps
-
-**For personal use**
-
-Just take files from ***dist*** folder
-
-Check 
-<a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
-or
-<a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
+4. Edit files from src/assets/scss
 
 ## Changelog
+Angular YouTube Player 2.3
+- Updating to LTS angular
+- Refactoring entire app services and components
+- Improved speed performance and fixed major bugs
+- Implemented login with google account
+- New way to loading the app
+
 Angular YouTube Player 2.2
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
 
@@ -157,7 +136,7 @@ Angular YouTube Player 1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
 - Adding settings functionality, the settings will get from ***assets/settings.json***
-- **Settings**
+**Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 
@@ -175,19 +154,27 @@ Angular YouTube Player 1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
-- macOS app release **(unversioned)**
-- **Rooms**
+**Rooms**
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Integrating Google accounts **(in v2.4)**
-- Integrating firebase **(in v2.5)**
+- Keep your playlist and settings in cloud **(in v2.4)**
+- Implemented session key to keep playlist in cloud (without account) **(in v2.4)**
+- Integrating ngrx store **(in v2.5)**
+- Integrating YouTube subscriptions/playlist **(in v2.9)**
 
-- **Rooms**
+**Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.8)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
+
+
+#### Removed features
+- Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
+- Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
+- Auto updating the app (desktop version)
+- Temporary removed theme function
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

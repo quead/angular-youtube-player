@@ -1,17 +1,3 @@
-.loading-app {
-    position: fixed;
-    color: var(--c-white);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-@keyframes loading-animation {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
 @keyframes loading-modal {
   0% { opacity: 0; top: 60% }
   100% { opacity: 1; top: 50%; }
@@ -22,33 +8,10 @@
     justify-content: center;
 }
 
-.loading-bar {
-    position: fixed;
-    margin: 0;
-    padding: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 99999;
-    &:before {
-        content: '';
-        display: block;
-        margin: 0;
-        padding: 0;
-        z-index: 99998;
-        background-color: var(--c-primary);
-        color: var(--c-primary);
-        box-shadow: 0 0 10px 0;
-        height: 2px;
-        opacity: 0;
-        width: 0%;
-        transition: all 0.5s ease-in-out;
-    }
-    &.active {
-        &:before {
-            animation: loading-animation 2s 1;
-        }
-    }
+.text-center-block {
+    text-align: center;
+    justify-content: center;
+    padding: 15px 0;
 }
 
 .hide {
@@ -132,9 +95,6 @@
         .app-content {
             padding: 0 20px;
             position: absolute;
-            .loading-app {
-                position: absolute;
-            }
         }
     }
     &-player {
@@ -144,17 +104,21 @@
     }
 }
 
-#youtube-player {
+.youtube-player {
     height: 0;
     opacity: 0;
-    visibility: hidden;
     transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
-    position: relative;
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
     width: 100%;
     &.active {
         height: 270px;        
         opacity: 1;
         visibility: visible;
+        position: relative;
+        top: 0;
+        left: 0;
         transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
     }
 }

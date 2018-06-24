@@ -56,6 +56,7 @@
         width: 100%;
         border: none;
         padding: 3px 20px;
+        font-size: 14px;        
         background: var(--c-gray);
         color: rgba(255, 255, 255, 0.3);
         margin: 0;
@@ -198,7 +199,7 @@
         &::-webkit-slider-thumb {
             position: relative;
             -webkit-appearance: none;
-            top: 0;
+            top: -3px;
             height: 15px;
             width: 15px;
             border-radius: 50px;

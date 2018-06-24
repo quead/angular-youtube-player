@@ -23,7 +23,7 @@
     {
       "name": "Toggle dark mode",
       "value": true,
-      "visible": true
+      "visible": false
     }
   ],
   "api_settings": [
