@@ -8,7 +8,6 @@
 
 # About Player
 [![Version](https://img.shields.io/badge/Current%20version-v2.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
-[![Build Status](https://semaphoreci.com/api/v1/quead/angular2-yt-player/branches/master/badge.svg)](https://semaphoreci.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -55,7 +54,6 @@ Angular YouTube Player 2.3
 - Updating to LTS angular
 - Refactoring entire app services and components
 - Improved speed performance and fixed major bugs
-- Implemented login with google account
 - New way to loading the app
 
 Angular YouTube Player 2.2
@@ -136,6 +134,7 @@ Angular YouTube Player 1.1
 - Adding mute/unmute functionality
 - Improved user interface and user experience
 - Adding settings functionality, the settings will get from ***assets/settings.json***
+
 **Settings**
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
@@ -154,6 +153,7 @@ Angular YouTube Player 1.0.0
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
 - Change and create theme **(unversioned)**
+
 **Rooms**
 - *Room chat **(unversioned)***
 
