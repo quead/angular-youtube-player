@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AppComponent } from '../app.component';
+import { PlayerComponent } from '../components/player/player.component';
 import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
@@ -15,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class SettingsComponent implements OnInit {
 
-    loading = false;
+    loading = true;
 
     internalSettings: FormGroup;
     externalSettings: FormGroup;
@@ -26,6 +27,7 @@ export class SettingsComponent implements OnInit {
         private shared: SharedService,
         private globals: GlobalsService,
         private app: AppComponent,
+        public playerComp: PlayerComponent,
         private category: CategoryComponent,
     ) {
     }
@@ -73,7 +75,7 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.app.checkVolumeRange();
+            this.playerComp.checkVolumeRange();
             this.shared.triggerNotify('Changed');
         });
     }
@@ -90,8 +92,8 @@ export class SettingsComponent implements OnInit {
             this.globals.internal_settings = this.globals.settings.form_settings;
             this.globals.external_settings = this.globals.settings.api_settings;
             this.initExternalForm();
-            this.loading = true;
             this.setForm();
+            this.loading = false;
         });
     }
 

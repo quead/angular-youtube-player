@@ -62,6 +62,15 @@ export class SharedService {
         this.globals.darkMode = this.globals.settings.form_settings[4].value;
     }
 
+    preventOldSettings() {
+        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '1') {
+            console.log('Updating localstorage...');
+            localStorage.clear();
+            this.globals.settings = null;
+            this.globals.playlistVideos = [];
+        }
+    }
+
     async initFeed() {
         if (!this.globals.feedVideos) {
             await this.getSettings();
@@ -91,6 +100,16 @@ export class SharedService {
     updatePlaylist() {
         localStorage.setItem('playlist', JSON.stringify(this.globals.playlistVideos));
         this.setLocalVersion();
+    }
+
+    checkPlaylist() {
+        this.findPlaylistItem();
+        this.updatePlaylist();
+    }
+
+    findPlaylistItem() {
+        const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
+        this.globals.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
     }
 
     setLocalVersion() {
@@ -140,36 +159,38 @@ export class SharedService {
 
         // Populate temp object
         for (const i in object) {
-            if (typeof object[i].id === 'string') {
-                tempObject.id = object[i].id;
+            let obj = object[i];
+
+            if (typeof obj.id === 'string') {
+                tempObject.id = obj.id;
             } else {
-                tempObject.id = object[i].id.videoId;
+                tempObject.id = obj.id.videoId;
             }
-            tempObject.title = object[i].snippet.title;
-            tempObject.channelTitle = object[i].snippet.channelTitle;
-            if (object[i].snippet.channelId) {
-                tempObject.channelId = object[i].snippet.channelId;
+            tempObject.title = obj.snippet.title;
+            tempObject.channelTitle = obj.snippet.channelTitle;
+            if (obj.snippet.channelId) {
+                tempObject.channelId = obj.snippet.channelId;
             }
-            if (object[i].snippet.categoryId) {
-                tempObject.categoryId = object[i].snippet.categoryId;
+            if (obj.snippet.categoryId) {
+                tempObject.categoryId = obj.snippet.categoryId;
             }
-            if (object[i].snippet.thumbnails.default) {
-                tempObject.thumbnails.default = object[i].snippet.thumbnails.default.url;
+            if (obj.snippet.thumbnails.default) {
+                tempObject.thumbnails.default = obj.snippet.thumbnails.default.url;
             }
-            if (object[i].snippet.thumbnails.high) {
-                tempObject.thumbnails.high = object[i].snippet.thumbnails.high.url;
+            if (obj.snippet.thumbnails.high) {
+                tempObject.thumbnails.high = obj.snippet.thumbnails.high.url;
             }
-            if (object[i].snippet.thumbnails.medium) {
-                tempObject.thumbnails.medium = object[i].snippet.thumbnails.medium.url;
+            if (obj.snippet.thumbnails.medium) {
+                tempObject.thumbnails.medium = obj.snippet.thumbnails.medium.url;
             }
-            if (object[i].statistics) {
-                tempObject.stats.dislikes = object[i].statistics.dislikeCount;
+            if (obj.statistics) {
+                tempObject.stats.dislikes = obj.statistics.dislikeCount;
             }
-            if (object[i].statistics) {
-                tempObject.stats.likes = object[i].statistics.likeCount;
+            if (obj.statistics) {
+                tempObject.stats.likes = obj.statistics.likeCount;
             }
-            if (object[i].statistics) {
-                tempObject.stats.views = object[i].statistics.viewCount;
+            if (obj.statistics) {
+                tempObject.stats.views = obj.statistics.viewCount;
             }
             tempVideos.push(tempObject);
 
@@ -191,6 +212,7 @@ export class SharedService {
                     medium: '',
                 }
             };
+            obj = null;
         }
 
         // Push tempObject into globals
@@ -217,6 +239,7 @@ export class SharedService {
             }
             case 'currentVideo': {
                 this.globals.currentVideo = tempObject;
+                this.globals.shareLink = 'https://youtu.be/' + tempObject.id;                
                 break;
             }
             default: {
@@ -225,4 +248,30 @@ export class SharedService {
             }
         }
     }
+
+    async getStatsVideos(query: string) {
+        const res = await this.youtube.statsVideos(query);
+        this.convertVideoObject(res['items'], 'currentVideo');
+    }
+
+    clearPlaylist() {
+        this.globals.currentPlaylistItem = -1;
+        this.globals.playlistVideos = [];
+        this.checkPlaylist();
+    }
+
+    clearSession() {
+        this.globals.currentPlaylistItem = -1;
+        this.globals.currentVideo = null;
+        this.globals.playlistVideos = [];
+        this.globals.relatedVideos = [];
+        localStorage.removeItem('playlist');
+        // localStorage.removeItem('settings');
+    }
+
+    copyShareLink() {
+        document.execCommand('Copy');
+        this.triggerNotify('Copied');
+    }  
+
 }

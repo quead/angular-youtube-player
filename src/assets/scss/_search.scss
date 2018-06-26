@@ -82,6 +82,7 @@
     transform: translateX(-50%);
     border-radius: 3px;
     opacity: 0;
+    visibility: hidden;
     bottom: 100%;
     transition: all 0.1s ease-out;
     &:before {
@@ -122,14 +123,14 @@
         text-decoration: none;
         &:hover {
             background-color: #40404c;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
+            .tooltip {
+                opacity: 1;
+                visibility: visible;
+                bottom: calc(100% + 10px);
+            }
         }
         &:active {
             background-color: #363642;
-            .tooltip {
-                opacity: 1;
-                bottom: calc(100% + 10px);
-            }
         }
         &.back {
             background-color: var(--c-primary);

@@ -187,8 +187,6 @@
         height: 100%;
         border-radius: 0;
         background-color: var(--c-primary);
-        box-shadow: 0 0 10px transparent;        
-        transition: box-shadow 0.2s ease-out;
     }
     .player-range {
         -webkit-appearance: none;
@@ -238,8 +236,6 @@
         left: 0;
         height: 100%;
         background-color: var(--c-primary);
-        box-shadow: 0 0 10px transparent;        
-        transition: box-shadow 0.2s ease-out;
         &.inactive {
             width: 0% !important;
         }

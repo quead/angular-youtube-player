@@ -12,6 +12,8 @@ export class GlobalsService {
   searchedVideos: Array<VideoModel>;
 
   currentVideo: VideoModel;
+  shareLink: string;
+  currentPlaylistItem: number;  
 
   categories: any;
   currentCategory: string;
@@ -22,6 +24,7 @@ export class GlobalsService {
   external_settings: Array<any>;
 
   isLogged = false;
+  isLoadingPlayer = true;
   thumbnails = true;
   listGrid = false;
   displayVideoPlayer = true;

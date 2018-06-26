@@ -15,6 +15,7 @@ import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
 import { HistoryComponent } from './components/youtube-history.component';
+import { PlayerComponent } from './components/player/player.component';
 
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
@@ -47,10 +48,11 @@ import { environment } from '../environments/environment';
     SearchComponent,
     AboutComponent,
     HistoryComponent,
-    CategoryComponent
+    CategoryComponent,
+    PlayerComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ YoutubeGetVideo, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase ]
+  providers:    [ PlayerComponent, YoutubeGetVideo, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase ]
 })
 
 export class AppModule { }

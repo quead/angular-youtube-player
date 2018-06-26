@@ -38,8 +38,6 @@ export class AppComponent implements OnInit {
   modalPlaylistItem: number;
 
   playlistPrefill = true;
-  currentPlaylistItem: number;
-  shareLink = '';
 
   player: YT.Player;
 
@@ -76,7 +74,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.preventOldSettings();
+    this.shared.preventOldSettings();
     this.updateUserDetails();
     this.initDragula();
   }
@@ -151,9 +149,9 @@ export class AppComponent implements OnInit {
 
   initPlayer() {
     this.globals.currentVideo = this.globals.feedVideos[0];
-    this.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
+    this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
     this.getRelatedVideos();
-    this.findPlaylistItem();
+    this.shared.findPlaylistItem();
   }
 
   onStateChange(event: any) {
@@ -173,11 +171,11 @@ export class AppComponent implements OnInit {
       this.stopRange();
       if (this.globals.repeatMode) {
         if (this.globals.playlistVideos.length) {
-          this.findPlaylistItem();
-          if (this.currentPlaylistItem < 0) {
-            this.playPlaylistItem('next', this.currentPlaylistItem);
+          this.shared.findPlaylistItem();
+          if (this.globals.currentPlaylistItem < 0) {
+            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
           } else {
-            this.playPlaylistItem('next', this.currentPlaylistItem);
+            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
           }
           if (this.globals.playlistVideos.length === 1) {
             this.player.playVideo();
@@ -206,11 +204,6 @@ export class AppComponent implements OnInit {
 
   // ---------------- Playlist settings ----------------
 
-  updatePlaylist() {
-    this.findPlaylistItem();
-    this.shared.updatePlaylist();
-  }
-
   uploadPlaylist(event: Event) {
     const files = event['target'].files[0];
     if (files.length <= 0) {
@@ -232,12 +225,7 @@ export class AppComponent implements OnInit {
     } else {
       this.shared.getPlaylist();
     }
-    this.findPlaylistItem();
-  }
-
-  findPlaylistItem() {
-    const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
-    this.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
+    this.shared.findPlaylistItem();
   }
 
   playPlaylistItem(direction: string, i: number) {
@@ -266,11 +254,11 @@ export class AppComponent implements OnInit {
   removePlaylistItem(i: number) {
       this.shared.triggerNotify('Video removed');
       setTimeout(() => {
-        if (i === this.currentPlaylistItem) {
-          this.currentPlaylistItem = -1;
+        if (i === this.globals.currentPlaylistItem) {
+          this.globals.currentPlaylistItem = -1;
         }
         this.globals.playlistVideos.splice(i, 1);
-        this.updatePlaylist();
+        this.shared.checkPlaylist();
       }, 200);
   }
 
@@ -296,7 +284,7 @@ export class AppComponent implements OnInit {
 
       if (typeof playlistItem === 'undefined') {
         this.globals.playlistVideos.push(listType);
-        this.updatePlaylist();
+        this.shared.checkPlaylist();
 
         this.shared.triggerNotify('Added to playlist');
         this.scrollToBottom();
@@ -306,13 +294,13 @@ export class AppComponent implements OnInit {
   }
 
   clearPlaylist() {
-    this.currentPlaylistItem = -1;
+    this.globals.currentPlaylistItem = -1;
     this.globals.playlistVideos = [];
     this.shared.updatePlaylist();
   }
 
   clearSession() {
-    this.currentPlaylistItem = -1;
+    this.globals.currentPlaylistItem = -1;
     this.globals.currentVideo = null;
     this.globals.playlistVideos = [];
     this.globals.relatedVideos = [];
@@ -354,22 +342,13 @@ export class AppComponent implements OnInit {
     this.dragula.out.subscribe((value) => {
       const [e, el, container] = value.slice(1);
       this.removeClass(el, 'ex-over');
-      this.updatePlaylist();
+      this.shared.checkPlaylist();
     });
     this.dragula.drop.subscribe((value) => {
       const [e, el, container] = value.slice(1);
       this.removeClass(el, 'ex-over');
-      this.updatePlaylist();
+      this.shared.checkPlaylist();
     });
-  }
-
-  preventOldSettings() {
-    if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '1') {
-      console.log('Updating localstorage...');
-      localStorage.clear();
-      this.globals.settings = null;
-      this.globals.playlistVideos = [];
-    }
   }
 
   toggleHeadSettings(int: number) {
@@ -392,7 +371,7 @@ export class AppComponent implements OnInit {
   }
 
   onClickPlaylist(event: Event, i: number) {
-    if (i === this.currentPlaylistItem) {
+    if (i === this.globals.currentPlaylistItem) {
       this.playPauseVideo();
     } else {
       this.getVideo(this.globals.playlistVideos[i]);
@@ -400,8 +379,9 @@ export class AppComponent implements OnInit {
   }
 
   getVideo(data: any) {
-    this.getStatsVideos(data.id);
-    this.playVideo(data);
+    this.getStatsVideos(data.id).then(() => {
+      this.playVideo(data);
+    });
   }
 
   playVideo(data: any) {
@@ -410,14 +390,14 @@ export class AppComponent implements OnInit {
       this.shared.addHistoryVideo(data);
       this.player.loadVideoById(this.globals.currentVideo['id']);
       this.getRelatedVideos();
-      this.findPlaylistItem();
+      this.shared.findPlaylistItem();
     }
   }
 
   async getStatsVideos(query: string) {
     const res = await this.youtube.statsVideos(query);
-    this.shared.convertVideoObject(res, 'currentVideo');
-    this.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
+    this.shared.convertVideoObject(res['items'], 'currentVideo');
+    this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
   }
 
   async getRelatedVideos() {
@@ -558,7 +538,7 @@ export class AppComponent implements OnInit {
     this.videoItemIDvalue.nativeElement.focus();
     document.execCommand('copy');
     this.videoItemIDvalue.nativeElement.blur();
-    this.copyShareLink();
+    this.shared.copyShareLink();
   }
 
   scrollToBottom() {
@@ -570,12 +550,6 @@ export class AppComponent implements OnInit {
         console.log(err);
         console.log('scroll issue');
       }
-  }
-
-
-  copyShareLink() {
-      document.execCommand('Copy');
-      this.shared.triggerNotify('Copied');
   }
 
   timeFormat(time: number) {

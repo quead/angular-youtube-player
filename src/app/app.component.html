@@ -55,17 +55,17 @@
                     </div>
                   </ng-container>
                   <ng-container *ngIf="!loading">
-                    <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+                    <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
                       <div class="video-item-info">
                         <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
                         <div class="video-item-content">
-                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
+                          <ng-container *ngIf="globals.currentPlaylistItem === i &&  currentState === 1">
                             <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
                           </ng-container>
-                          <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
+                          <ng-container *ngIf="globals.currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
                             <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
                           </ng-container>                       
-                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
+                          <ng-container *ngIf="globals.currentPlaylistItem === i &&  currentState === -1">                        
                             <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
                           </ng-container>                       
                           <p class="video-item-title">{{ playlistVideo.title }}</p>
@@ -74,7 +74,7 @@
                       </div>
                       <div class="video-item-settings">
                         <button class="video-item-play" (click)="onClickPlaylist($event, i)">
-                          <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+                          <span class="fa " [ngClass]="globals.currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
                         </button>
                         <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
                           <span class="fa fa-share-alt"></span>
@@ -111,9 +111,9 @@
                   </div>
                   <div *ngIf="!globals.displayVideoPlayer" id="player-controls">
                     <div class="player-buttons">
-                        <button id="previous-song" (click)="playPlaylistItem('prev', currentPlaylistItem)"><span class="fa fa-backward"></span></button>
+                        <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span class="fa fa-backward"></span></button>
                         <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
-                        <button id="next-song" (click)="playPlaylistItem('next', currentPlaylistItem)"><span class="fa fa-forward"></span></button>
+                        <button id="next-song" (click)="playPlaylistItem('next', globals.currentPlaylistItem)"><span class="fa fa-forward"></span></button>
                     </div>
                     <div class="current-video-range">
                       <div class="duration-range-container">
@@ -138,7 +138,7 @@
                   </div>
                   <div class="current-video-share">
                     <label for="shareInput">Share link</label>
-                    <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())" readonly>
+                    <input id="shareInput" type="text" name="current video share" #shareInput [value]="globals.shareLink" (click)="globals.copyShareLink(shareInput.select())" readonly>
                   </div>
               </div>
               <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': globals.displayVideoPlayer }">
