@@ -138,7 +138,7 @@ export class SharedService {
     }
 
     convertVideoObject(object: any, list: string) {
-        const tempVideos = [];
+        let tempVideos = [];
         let tempObject = {
             id: '',
             title: '',
@@ -238,8 +238,9 @@ export class SharedService {
                 break;
             }
             case 'currentVideo': {
-                this.globals.currentVideo = tempObject;
-                this.globals.shareLink = 'https://youtu.be/' + tempObject.id;                
+                this.globals.currentVideo = tempVideos[0];
+                this.globals.shareLink = 'https://youtu.be/' + tempVideos[0].id;
+                tempVideos = null;
                 break;
             }
             default: {

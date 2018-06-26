@@ -379,25 +379,16 @@ export class AppComponent implements OnInit {
   }
 
   getVideo(data: any) {
-    this.getStatsVideos(data.id).then(() => {
+    this.shared.getStatsVideos(data.id).then(() => {
       this.playVideo(data);
     });
   }
 
   playVideo(data: any) {
-    if (data.id !== this.globals.currentVideo['id'] || this.currentState === -1) {
-      this.globals.currentVideo = data;
-      this.shared.addHistoryVideo(data);
-      this.player.loadVideoById(this.globals.currentVideo['id']);
-      this.getRelatedVideos();
-      this.shared.findPlaylistItem();
-    }
-  }
-
-  async getStatsVideos(query: string) {
-    const res = await this.youtube.statsVideos(query);
-    this.shared.convertVideoObject(res['items'], 'currentVideo');
-    this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
+    this.shared.addHistoryVideo(data);
+    this.player.loadVideoById(data.id);
+    this.getRelatedVideos();
+    this.shared.findPlaylistItem();
   }
 
   async getRelatedVideos() {
