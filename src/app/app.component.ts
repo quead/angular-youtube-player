@@ -520,11 +520,8 @@ export class AppComponent implements OnInit {
       listType = this.globals.historyVideos[i];
     }
 
-    if (typeof listType.id.videoId !== 'undefined') {
-      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id.videoId;
-    } else {
-      this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
-    }
+    this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
+
     this.videoItemIDvalue.nativeElement.select();
     this.videoItemIDvalue.nativeElement.focus();
     document.execCommand('copy');
