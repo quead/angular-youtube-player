@@ -1,23 +1,22 @@
-{{loading}}
-<div *ngIf="globals.isLoadingPlayer" class="app-content">
+<div *ngIf="loading" class="app-content">
   <div class="youtube-player active loading-featured"></div>
 </div>
-<div class="youtube-player" *ngIf="!globals.isLoadingPlayer && globals.currentVideo" [ngClass]="{'active': globals.displayVideoPlayer }">
+<div class="youtube-player" *ngIf="!loading" [ngClass]="{'active': globals.displayVideoPlayer }">
   <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
 </div>
-<div class="current-video-all" *ngIf="!globals.isLoadingPlayer && globals.currentVideo">
+<div class="current-video-all" *ngIf="!loading && globals.currentVideo">
   <div class="current-video-details">
     <p class="current-video-name">{{ globals.currentVideo.title }}</p>
   </div>
   <div *ngIf="!globals.displayVideoPlayer" id="player-controls">
     <div class="player-buttons">
         <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span class="fa fa-backward"></span></button>
-        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
         <button id="next-song" (click)="playPlaylistItem('next', globals.currentPlaylistItem)"><span class="fa fa-forward"></span></button>
     </div>
     <div class="current-video-range">
       <div class="duration-range-container">
-        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
+        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="globals.currentState === -1">
         <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
       </div>
       <p class="current-video-range-value">{{videoCurFull}}</p>

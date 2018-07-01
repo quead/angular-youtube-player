@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular
 import { YoutubeGetVideo } from './services/youtube.service';
 import { SharedService } from './services/shared.service';
 import { GlobalsService } from './services/globals.service';
+import { PlaylistControlService } from './services/playlist-control.service';
+import { PlayerComponent } from './components/player/player.component';
 import { Event } from '@angular/router/src/events';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { VideoModel } from './models/video.model';
@@ -26,8 +28,6 @@ export class AppComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
   @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
 
-  videoRangePercent = 0;
-
   tempPlaylist: Array<VideoModel> = [];
 
   menuActive = false;
@@ -37,24 +37,6 @@ export class AppComponent implements OnInit {
   modalExportPlaylist = false;
   modalPlaylistItem: number;
 
-  playlistPrefill = true;
-
-  player: YT.Player;
-
-  currentState = -1;
-  currentMuteState = false;
-
-  videoRangeMouseActive = false;
-  volumeRangeMouseActive = false;
-  videoRangeTimer: any;
-  videoCurRange = 0;
-  videoMaxRange = 0;
-
-  videoCurFull = '00:00:00';
-  videoMaxFull = '00:00:00';
-
-  videoCurVolume = -1;
-
   loading = true;
 
   importPlaylistInput: any;
@@ -63,13 +45,15 @@ export class AppComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     public shared: SharedService,
     public globals: GlobalsService,
+    public playlistCTRL: PlaylistControlService,
     private dragula: DragulaService,
 
     private authService: AuthService,
     public afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private db2: AngularFireDatabase,
-    private dbcrud: DbCrudService
+    private dbcrud: DbCrudService,
+    public playerComp: PlayerComponent
   ) {
   }
 
@@ -115,91 +99,25 @@ export class AppComponent implements OnInit {
         // this.setDefaultPlayer();
       } else {
         this.shared.getSettings();
-        this.setDefaultPlayer();
+        this.setApp();
       }
     });
   }
 
   // ---------------- Init player ----------------
 
-  savePlayer(player) {
-      this.player = player;
-  }
-
-  playerVars() {
-    const playerVars = {
-      'enablejsapi': 1,
-      'controls': 1,
-      'disablekb': 0,
-      'showinfo': 0,
-      'playsinline': 1,
-      'autoplay': 0,
-      'loop': 0,
-      'origin': 'http://google.com',
-      'rel': 0
-    };
-    return playerVars;
-  }
-
-  setDefaultPlayer() {
+  setApp() {
     this.shared.initFeed().then(data => {
-      this.initPlayer();
+      this.initApp();
     });
   }
 
-  initPlayer() {
-    this.globals.currentVideo = this.globals.feedVideos[0];
-    this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
-    this.getRelatedVideos();
+  initApp() {
+    this.shared.getRelatedVideos().then(() => {
+      this.loading = false;      
+    });
+    this.playlistCTRL.fillPlaylist();
     this.shared.findPlaylistItem();
-  }
-
-  onStateChange(event: any) {
-    this.currentState = event.data;
-    this.videoMaxRange = this.player.getDuration();
-    this.videoCurVolume = this.player.getVolume();
-
-    if (this.currentState === 1) {
-      this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.currentMuteState = this.player.isMuted();
-      this.startRange();
-    } else {
-      this.stopRange();
-    }
-
-    if (this.currentState === 0) {
-      this.stopRange();
-      if (this.globals.repeatMode) {
-        if (this.globals.playlistVideos.length) {
-          this.shared.findPlaylistItem();
-          if (this.globals.currentPlaylistItem < 0) {
-            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-          } else {
-            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-          }
-          if (this.globals.playlistVideos.length === 1) {
-            this.player.playVideo();
-          }
-        } else {
-          this.player.playVideo();
-        }
-      }
-    }
-  }
-
-  startRange() {
-    this.stopRange();
-    if (this.currentState) {
-      this.videoRangeTimer = setInterval(() => {
-        this.videoCurRange = this.player.getCurrentTime();
-        this.videoCurFull = this.timeFormat(this.videoCurRange);
-        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-      }, 1000);
-    }
-  }
-
-  stopRange() {
-     clearInterval(this.videoRangeTimer);
   }
 
   // ---------------- Playlist settings ----------------
@@ -216,39 +134,6 @@ export class AppComponent implements OnInit {
     };
 
     fr.readAsText(files);
-  }
-
-  playlistInit() {
-    if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 2) {
-      this.globals.playlistVideos = this.globals.relatedVideos;
-      this.shared.updatePlaylist();
-    } else {
-      this.shared.getPlaylist();
-    }
-    this.shared.findPlaylistItem();
-  }
-
-  playPlaylistItem(direction: string, i: number) {
-    if (direction === 'next') {
-      if (i < this.globals.playlistVideos.length) {
-        i += 1;
-      }
-      if (i === this.globals.playlistVideos.length) {
-        i = 0;
-      }
-    }
-    if (direction === 'prev') {
-      if (i === 0 || i < 0) {
-        i = this.globals.playlistVideos.length - 1;
-      } else {
-        i -= 1;
-      }
-    }
-    if (this.globals.playlistVideos.length > 0) {
-      this.getVideo(this.globals.playlistVideos[i]);
-    } else {
-      this.shared.triggerNotify('Playlist is empty');
-    }
   }
 
   removePlaylistItem(i: number) {
@@ -291,12 +176,6 @@ export class AppComponent implements OnInit {
       } else {
         this.shared.triggerNotify('Video is already in playlist');
       }
-  }
-
-  clearPlaylist() {
-    this.globals.currentPlaylistItem = -1;
-    this.globals.playlistVideos = [];
-    this.shared.updatePlaylist();
   }
 
   clearSession() {
@@ -351,119 +230,17 @@ export class AppComponent implements OnInit {
     });
   }
 
-  toggleHeadSettings(int: number) {
-    if (int === 2) {
-      if (this.currentMuteState) {
-        this.player.unMute();
-        this.currentMuteState = false;
-      } else {
-        this.player.mute();
-        this.currentMuteState = true;
-      }
-    }
-  }
-
-
   // ---------------- Video fetching ----------------
 
   onClickRelated(event: Event, i: number) {
-    this.getVideo(this.globals.relatedVideos[i]);
+    this.playerComp.getVideo(this.globals.relatedVideos[i]);
   }
 
   onClickPlaylist(event: Event, i: number) {
     if (i === this.globals.currentPlaylistItem) {
-      this.playPauseVideo();
+      this.playerComp.playPauseVideo();
     } else {
-      this.getVideo(this.globals.playlistVideos[i]);
-    }
-  }
-
-  getVideo(data: any) {
-    this.shared.getStatsVideos(data.id).then(() => {
-      this.playVideo(data);
-    });
-  }
-
-  playVideo(data: any) {
-    this.shared.addHistoryVideo(data);
-    this.player.loadVideoById(data.id);
-    this.getRelatedVideos();
-    this.shared.findPlaylistItem();
-  }
-
-  async getRelatedVideos() {
-    const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
-    this.shared.convertVideoObject(res['items'], 'relatedVideos');
-    if (this.playlistPrefill) {
-      this.playlistInit();
-      this.playlistPrefill = false;
-    }
-    this.loading = false;
-  }
-
-  // ---------------- Player controls ----------------
-
-  playPauseVideo() {
-    if (this.currentState === 1) {
-      this.player.pauseVideo();
-    } else {
-      this.player.playVideo();
-    }
-  }
-
-  rangeNouseDown() {
-    this.videoRangeMouseActive = true;
-    this.stopRange();
-  }
-
-  rangeMouseMove(value: number) {
-      if (this.videoRangeMouseActive) {
-        this.videoCurRange = value;
-        this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-        this.videoCurFull = this.timeFormat(this.videoCurRange);
-      }
-  }
-
-  rangeMouseUp(value: number) {
-    if (this.currentState !== -1 && this.currentState !== 1) {
-      this.player.playVideo();
-    }
-    if (this.currentState === 1) {
-      this.startRange();
-    } else {
-      this.stopRange();
-    }
-
-    this.videoCurRange = value;
-    this.videoRangePercent = (this.videoCurRange / this.videoMaxRange) * 100;
-    this.videoCurFull = this.timeFormat(this.videoCurRange);
-
-    this.player.seekTo(this.videoCurRange, true);
-    this.videoRangeMouseActive = false;
-    // this.dbcrud.update('sessions', 'currentSeek', this.videoCurRange);
-  }
-
-  volumeRangeMouseMove(value: number) {
-    if (this.volumeRangeMouseActive) {
-      if (this.currentMuteState) {
-        this.player.unMute();
-        this.currentMuteState = false;
-      }
-    }
-  }
-
-  volumeRangeMouseUp(value: number) {
-    if (this.currentMuteState) {
-      this.player.unMute();
-      this.currentMuteState = false;
-    }
-    this.player.setVolume(value);
-  }
-
-  checkVolumeRange() {
-    if (this.currentState !== -1) {
-      this.currentMuteState = this.player.isMuted();
-      this.videoCurVolume = this.player.getVolume();
+      this.playerComp.getVideo(this.globals.playlistVideos[i]);
     }
   }
 
@@ -538,16 +315,6 @@ export class AppComponent implements OnInit {
         console.log(err);
         console.log('scroll issue');
       }
-  }
-
-  timeFormat(time: number) {
-    const hours: any = Math.floor(time / 3600);
-    const minutes: any = Math.floor(time % 3600 / 60);
-    const seconds: any = Math.floor(time % 3600 % 60);
-    const value = (parseInt(hours, 10) < 10 ? '0' : '' ) + parseInt(hours, 10) + ':'
-              + (parseInt(minutes, 10) < 10 ? '0' : '' ) + parseInt(minutes, 10) + ':'
-              + (parseInt(seconds, 10) < 10 ? '0' : '' ) + parseInt(seconds, 10);
-    return value;
   }
 
   // @HostListener('window:beforeunload')

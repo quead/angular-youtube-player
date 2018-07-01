@@ -28,7 +28,7 @@ export class HistoryComponent implements OnInit {
   }
 
   onClickHistory(event: Event, i: number) {
-    this.app.getVideo(this.globals.historyVideos[i]);
+    this.app.playerComp.getVideo(this.globals.historyVideos[i]);
   }
 
 }

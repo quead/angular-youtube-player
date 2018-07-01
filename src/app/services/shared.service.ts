@@ -31,6 +31,14 @@ export class SharedService {
         return rtn;
     }
 
+
+  async getRelatedVideos() {
+      if (this.globals.relatedVideos.length === 0) {
+          const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
+          this.convertVideoObject(res['items'], 'relatedVideos');
+      }
+    }
+
     async initSettings() {
         const res = await this.http.get('assets/settings.json')
         .map(response => response).toPromise();

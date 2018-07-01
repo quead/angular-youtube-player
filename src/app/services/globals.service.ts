@@ -11,6 +11,7 @@ export class GlobalsService {
   historyVideos: Array<VideoModel> = [];
   searchedVideos: Array<VideoModel>;
 
+  currentState = -1;
   currentVideo: VideoModel;
   shareLink: string;
   currentPlaylistItem: number;  
@@ -24,7 +25,6 @@ export class GlobalsService {
   external_settings: Array<any>;
 
   isLogged = false;
-  isLoadingPlayer = true;
   thumbnails = true;
   listGrid = false;
   displayVideoPlayer = true;
@@ -37,6 +37,7 @@ export class GlobalsService {
   numRelatedRes = '';
 
   settings: any;
+  player: YT.Player;
 
   constructor() { }
 

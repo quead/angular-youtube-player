@@ -75,7 +75,7 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.playerComp.checkVolumeRange();
+            // this.playerComp.checkVolumeRange();
             this.shared.triggerNotify('Changed');
         });
     }

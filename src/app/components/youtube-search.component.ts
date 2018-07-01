@@ -60,10 +60,10 @@ export class SearchComponent implements OnInit {
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 1) {
-      this.app.getVideo(this.globals.searchedVideos[i]);
+      this.app.playerComp.getVideo(this.globals.searchedVideos[i]);
       this.clearSearch();
     } else if (list === 3) {
-      this.app.getVideo(this.globals.feedVideos[i]);
+      this.app.playerComp.getVideo(this.globals.feedVideos[i]);
     }
     this.clearSearch();
   }

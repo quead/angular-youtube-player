@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
     public globals: GlobalsService,
     private app: AppComponent,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -79,7 +79,7 @@ export class CategoryComponent implements OnInit {
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 3) {
-      this.app.getVideo(this.globals.feedVideos[i]);
+      this.app.playerComp.getVideo(this.globals.feedVideos[i]);
     }
   }
 
