@@ -8,7 +8,7 @@
   <div class="current-video-details">
     <p class="current-video-name">{{ globals.currentVideo.title }}</p>
   </div>
-  <div *ngIf="!globals.displayVideoPlayer" id="player-controls">
+  <div id="player-controls">
     <div class="player-buttons">
         <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span class="fa fa-backward"></span></button>
         <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
