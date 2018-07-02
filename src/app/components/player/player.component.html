@@ -1,15 +1,16 @@
 <div *ngIf="loading" class="app-content">
   <div class="youtube-player active loading-featured"></div>
 </div>
-<div class="container video-details-container">
+<div class="container video-details-container" *ngIf="!loading && globals.currentVideo.id">
+  <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}"></span>
   <div class="col col-1">
-    <div class="youtube-player" *ngIf="!loading && globals.currentVideo.id" [ngClass]="{'active': globals.displayVideoPlayer }">
+    <div class="youtube-player" [ngClass]="{'active': globals.displayVideoPlayer }">
       <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
     </div>
-    <div *ngIf="!loading && globals.currentVideo.id" class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}"></div>
+    <div class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}"></div>
   </div>
   <div class="col col-3">
-      <div class="current-video-details" *ngIf="!loading && globals.currentVideo">
+      <div class="current-video-details">
         <div class="current-stats-container">
           <p class="current-video-name">{{ globals.currentVideo.title }}</p>
           <p class="current-video-channel">{{globals.currentVideo.channelTitle}}</p>
@@ -26,7 +27,7 @@
       </div> -->
   </div>
   <div class="col col-2">
-
+      <app-playlist></app-playlist>
   </div>
 </div>
 

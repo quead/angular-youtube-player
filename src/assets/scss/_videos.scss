@@ -5,9 +5,7 @@ iframe {
 }
 
 .video-list {
-    position: absolute;
     width: 100%;
-    top: 55px;
     overflow-y: auto;
     &-info {
         text-align: center;
@@ -305,7 +303,6 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 236px);
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .playlist-video-content {

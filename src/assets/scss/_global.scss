@@ -60,25 +60,24 @@ app {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 0, 0, 0.1) !important;
+            background: rgba(0, 0, 0, 0.2) !important;
             padding: 10px 0;
         }
         .container:not(.player-container) .col {
             background: transparent !important;
         }
-        &:before {
-            content: '';
-            background-image: url('https://www.gstatic.com/youtube/img/promos/growth/ytr_lp2_story4_redgirl_desktop_1440x810.jpg');
-            background-position: center 10%;
-            background-size: 100% auto;
-            filter: blur(20px);
-            opacity: 0.6;
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-        }
     }
+}
+
+.container-cover-bg {
+    background-position: center center;
+    background-size: 140% auto;
+    filter: blur(20px);
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
 }
