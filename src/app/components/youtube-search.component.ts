@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
 import { AppComponent } from '../app.component';
+import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { GlobalsService } from '../services/globals.service';
 import { SharedService } from '../services/shared.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,6 +21,7 @@ export class SearchComponent implements OnInit {
     private globals: GlobalsService,
     private shared: SharedService,
     private app: AppComponent,
+    private playlist: PlaylistComponent
   ) {
   }
 
@@ -74,7 +76,7 @@ export class SearchComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-    this.app.addPlaylistItem(i, list);
+    this.playlist.addPlaylistItem(i, list);
     this.clearSearch();
   }
 }

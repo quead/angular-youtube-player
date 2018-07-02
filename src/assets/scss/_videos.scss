@@ -1,6 +1,6 @@
 iframe {
-    width: 100%;
-    max-height: 350px;
+    width: 180px;
+    height: 180px;
     display: flex;
 }
 
@@ -267,7 +267,7 @@ iframe {
     top: inherit;
     bottom: 0;
     max-height: none;
-    height: calc(100% - 190px);
+    height: 100%;
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .related-video-content {
@@ -295,7 +295,6 @@ iframe {
         }
     }
     &.activePlayer {
-        height: calc(100% - 385px);
         transition: height 0.1s ease-out 0s;
     }
 }

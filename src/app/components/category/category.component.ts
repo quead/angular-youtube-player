@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../../services/youtube.service';
 import { AppComponent } from '../../app.component';
+import { PlaylistComponent } from '../../components/playlist/playlist.component';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -17,6 +18,7 @@ export class CategoryComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
     public globals: GlobalsService,
+    public playlist: PlaylistComponent,
     private app: AppComponent,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -88,7 +90,7 @@ export class CategoryComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-    this.app.addPlaylistItem(i, list);
+    this.playlist.addPlaylistItem(i, list);
   }
 
 }

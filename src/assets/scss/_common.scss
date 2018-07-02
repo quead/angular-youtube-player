@@ -63,47 +63,6 @@
     }
 }
 
-.app {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    &-content {
-        height: calc(100% - 100px);
-        width: 100%;
-        display: block;
-        position: absolute;
-        overflow: auto;
-        bottom: 0;
-    }
-    &-head {
-        color: var(--c-white);
-        h2 {
-            font-size: $f-28;
-            display: block;
-            margin: 0;
-            font-weight: 200;
-        }
-    }
-    &-services {        
-        .app-head {
-            position: relative;
-        }
-    }
-    &-feed {
-        z-index: 1;
-        overflow: hidden;
-        .app-content {
-            padding: 0 20px;
-            position: absolute;
-        }
-    }
-    &-player {
-        .app-head {
-            padding-left: 0;
-        }
-    }
-}
-
 .youtube-player {
     height: 0;
     opacity: 0;
@@ -112,19 +71,29 @@
     left: -9999px;
     top: -9999px;
     width: 100%;
-    &.active {
-        height: 270px;        
+    &-cover {
+        height: 140px;
+        width: 140px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin: 15px auto;
+    }
+    &.active {      
         opacity: 1;
         visibility: visible;
         position: relative;
         top: 0;
         left: 0;
+        height: auto;
+        margin: 0 auto;
+        width: 180px;
         transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
     }
 }
 
 .notif {
-    position: absolute;
+    position: fixed;
     bottom: -41px;
     background-color: var(--c-black);
     color: var(--c-white);

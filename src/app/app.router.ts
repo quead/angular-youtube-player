@@ -9,11 +9,7 @@ import { SettingsComponent } from './components/youtube-settings.component';
 import { CategoryComponent } from './components/category/category.component';
 
 export const router: Routes = [
-    { path: 'category', component: SearchComponent,
-        children: [
-            { path: ':id', component: CategoryComponent }
-        ]
-    },
+    { path: 'category/:id', component: CategoryComponent },
     { path: 'category', redirectTo: 'category/all' },
     { path: 'history', component: HistoryComponent },
     { path: 'about', component: AboutComponent },

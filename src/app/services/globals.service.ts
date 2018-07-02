@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { VideoModel } from '../models/video.model';
 
 @Injectable()
@@ -25,6 +25,7 @@ export class GlobalsService {
   external_settings: Array<any>;
 
   isLogged = false;
+  isLoading = true;
   thumbnails = true;
   listGrid = false;
   displayVideoPlayer = true;
@@ -38,6 +39,7 @@ export class GlobalsService {
 
   settings: any;
   player: YT.Player;
+  myScrollContainer: ElementRef
 
   constructor() { }
 

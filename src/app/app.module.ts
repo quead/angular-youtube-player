@@ -30,6 +30,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { environment } from '../environments/environment';
     AboutComponent,
     HistoryComponent,
     CategoryComponent,
-    PlayerComponent
+    PlayerComponent,
+    PlaylistComponent
   ],
   bootstrap:    [ AppComponent ],
   providers:    [ PlayerComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase ]

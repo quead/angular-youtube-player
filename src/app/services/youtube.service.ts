@@ -9,8 +9,8 @@ import { GlobalsService } from './globals.service';
 export class YoutubeGetVideo {
 
     private url = 'https://www.googleapis.com/youtube/v3/';
-    private videoDetails = 'part=snippet,contentDetails,statistics,status';
-    private channelDetails = 'part=brandingSettings,snippet,contentDetails,statistics';
+    private videoDetails = 'part=snippet,statistics';
+    private channelDetails = 'part=brandingSettings';
     private feedDetails = '&chart=mostPopular';
 
     constructor(

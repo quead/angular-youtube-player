@@ -31,7 +31,7 @@ export class PlaylistControlService {
     this.shared.findPlaylistItem();
   }
 
-  addPlaylistItem(i: number, list: number, div?: ElementRef) {
+  addPlaylistItem(i: number, list: number) {
     let listType;
     if (list === 0) {
       listType = this.globals.feedVideos[i];
@@ -56,16 +56,17 @@ export class PlaylistControlService {
       this.shared.checkPlaylist();
 
       this.shared.triggerNotify('Added to playlist');
-      this.scrollToBottom(div);
+      this.scrollToBottom();
     } else {
       this.shared.triggerNotify('Video is already in playlist');
     }
   }
 
-  scrollToBottom(div: ElementRef) {
+  scrollToBottom() {
     try {
       setTimeout( () => {
-        div.nativeElement.scrollTop = div.nativeElement.scrollHeight;
+        console.log(this.globals.myScrollContainer);
+        this.globals.myScrollContainer.nativeElement.scrollTop = this.globals.myScrollContainer.nativeElement.scrollHeight;
       }, 200);
     } catch (err) {
       console.log(err);

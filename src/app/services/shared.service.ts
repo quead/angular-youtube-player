@@ -185,10 +185,14 @@ export class SharedService {
             if (obj.snippet.thumbnails.default) {
                 tempObject.thumbnails.default = obj.snippet.thumbnails.default.url;
             }
-            if (obj.snippet.thumbnails.high) {
+            if (obj.snippet.thumbnails.maxres) {
+                tempObject.thumbnails.high = obj.snippet.thumbnails.maxres.url;
+            } else if (obj.snippet.thumbnails.high) {
                 tempObject.thumbnails.high = obj.snippet.thumbnails.high.url;
             }
-            if (obj.snippet.thumbnails.medium) {
+            if (obj.snippet.thumbnails.high) {
+                tempObject.thumbnails.medium = obj.snippet.thumbnails.high.url;
+            } else if (obj.snippet.thumbnails.medium) {
                 tempObject.thumbnails.medium = obj.snippet.thumbnails.medium.url;
             }
             if (obj.statistics) {
@@ -275,7 +279,7 @@ export class SharedService {
         this.globals.playlistVideos = [];
         this.globals.relatedVideos = [];
         localStorage.removeItem('playlist');
-        // localStorage.removeItem('settings');
+        localStorage.removeItem('settings');
     }
 
     copyShareLink() {

@@ -32,7 +32,8 @@ export class PlayerComponent implements OnInit {
     public shared: SharedService,
     public playlistCTRL: PlaylistControlService,
     private youtube: YoutubeGetVideo
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.shared.getSettings();
@@ -46,13 +47,13 @@ export class PlayerComponent implements OnInit {
   playerVars() {
     const playerVars = {
       'enablejsapi': 1,
-      'controls': 1,
+      'controls': 0,
       'disablekb': 0,
       'showinfo': 0,
       'playsinline': 1,
       'autoplay': 0,
       'loop': 0,
-      'origin': 'http://google.com',
+      'modestbranding': 1,
       'rel': 0
     };
     return playerVars;
@@ -104,7 +105,6 @@ export class PlayerComponent implements OnInit {
     this.globals.currentVideo = this.globals.feedVideos[0];
     this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
   }
-
 
   // ---------------- Player controls ----------------
 
