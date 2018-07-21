@@ -39,7 +39,8 @@ iframe {
 #search-video-list {
     z-index: 10;
     max-height: 430px;
-    background-color: var(--c-black);
+    background-color: #14151b;
+    position: absolute;
     .video-item {
         &-settings {
             background-color: rgba(27, 27, 34, 0.6);
@@ -47,7 +48,7 @@ iframe {
     }
     &::-webkit-scrollbar {
         width: 6px;
-        background-color: var(--c-black);
+        background-color: #08080a;
     }
     &::-webkit-scrollbar-thumb {
         background-color: rgba(#FFF, 0.3);

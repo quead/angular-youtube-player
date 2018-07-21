@@ -13,7 +13,7 @@
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right,rgba(0,0,0,0.6) 8%,var(--c-base) 18%,rgba(0,0,0,0.6) 33%);
+    background: linear-gradient(to right,rgba(0,0,0,0.3) 8%,var(--c-base) 18%,rgba(0,0,0,0.3) 33%);
     background-size: 800px 104px;
     &-video-item {
         animation-duration: 1s;
@@ -21,7 +21,7 @@
         animation-iteration-count: infinite;
         animation-name: placeHolderShimmer;
         animation-timing-function: linear;
-        background: linear-gradient(to right,rgba(0,0,0,0.6) 8%,var(--c-base) 18%,rgba(0,0,0,0.6) 33%);
+        background: linear-gradient(to right,rgba(0,0,0,0.3) 8%,var(--c-base) 18%,rgba(0,0,0,0.3) 33%);
         background-size: 800px 104px;
         height: 180px;
         .video-item-image {
@@ -44,5 +44,6 @@
 }
 
 .youtube-player.loading-featured {
-    height: 375px;
+    height: 205px;
+    width: 100%;
 }

@@ -13,7 +13,7 @@
   <app-search></app-search>
 </header>
 <app-component-player></app-component-player>
-<div id="app-container" [ngClass]="{'light-mode': !globals.darkMode, 'menu-active': menuActive }">
+<div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
   <input type="text" class="hide-input" #videoItemIDvalue />
   <div class="container">
     <div class="col col-1">
@@ -29,6 +29,7 @@
               </nav>
             </div>
         </div>
+        <app-playlist></app-playlist>
     </div>
     <div class="col col-3">
         <div class="app app-feed">

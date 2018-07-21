@@ -63,6 +63,23 @@
     }
 }
 
+.video-details-container {
+    min-height: 205px;
+    padding-bottom: 50px;
+    position: relative;
+    .player-container {
+        height: 50px;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6) !important;
+        padding: 10px 0;
+    }
+}
+
 .youtube-player {
     height: 0;
     opacity: 0;
@@ -77,7 +94,11 @@
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        margin: 15px auto;
+        margin: 0;
+        position: absolute;
+        right: 20px;
+        bottom: -40px;
+        z-index: 1;
     }
     &.active {      
         opacity: 1;
@@ -330,7 +351,7 @@
         }
     }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 768px) {
     #mobile-unavailable {
         background-color: var(--c-base);
         font-size: 24px;

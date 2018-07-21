@@ -56,16 +56,6 @@ app {
             position: relative;
             z-index: 2;
         }
-        .player-container .col {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.2) !important;
-            padding: 10px 0;
-        }
-        .container:not(.player-container) .col {
-            background: transparent !important;
-        }
     }
 }
 
