@@ -213,12 +213,6 @@
             color: var(--c-black);
         }
     }
-    &:hover {
-        transform: scale(1.1);
-    }
-    &:active {
-        transform: scale(1);
-    }
 }
 
 .modal-buttons {

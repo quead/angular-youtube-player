@@ -1,13 +1,20 @@
 <div id="related-video-list">
+  <h2>Related Videos</h2>
   <ngu-carousel
     [inputs]="carouselOne"
     (carouselLoad)="myfunc($event)">
     <ngu-item NguCarouselItem *ngFor="let relatedVideo of globals.relatedVideos; let i = index" >
       <div [attr.data-index]="i" class="video-item">
-        <p class="video-item-title">{{ relatedVideo.title }}</p>
+        <div class="video-item-info">
+          <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.high +')'}"></div>
+          <div class="video-item-content">
+            <p class="video-item-title">{{ relatedVideo.title }}</p>
+            <p class="video-item-autor">{{ relatedVideo.channelTitle }}</p>
+          </div>
+        </div>
       </div>
     </ngu-item>
-    <button NguCarouselPrev class='leftRs'>&lt;</button>
-    <button NguCarouselNext class='rightRs'>&gt;</button>
+    <button NguCarouselPrev class='leftRs'><i class="fa fa-angle-left"></i></button>
+    <button NguCarouselNext class='rightRs'><i class="fa fa-angle-right"></i></button>
   </ngu-carousel>
 </div>
