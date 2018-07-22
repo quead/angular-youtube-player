@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppComponent } from '../app.component';
+import { FormControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlayerComponent } from '../components/player/player.component';
 import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../services/shared.service';
+import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
 import { NumberVal } from '../services/validators.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-settings',
@@ -23,11 +22,10 @@ export class SettingsComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private http: HttpClient,
         private shared: SharedService,
         private globals: GlobalsService,
-        private app: AppComponent,
         public playerComp: PlayerComponent,
+        public appComp: AppComponent,
         private category: CategoryComponent,
     ) {
     }
@@ -110,7 +108,7 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.category.getFeedVideos();
+            this.appComp.setApp();
 
         } else {
             this.shared.triggerNotify('Please check external settings');

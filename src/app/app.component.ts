@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular/core';
-import { YoutubeGetVideo } from './services/youtube.service';
 import { SharedService } from './services/shared.service';
 import { GlobalsService } from './services/globals.service';
 import { PlaylistControlService } from './services/playlist-control.service';
 import { PlayerComponent } from './components/player/player.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
-import { VideoModel } from './models/video.model';
+import { CategoryComponent } from './components/category/category.component'
+import { RelatedComponent } from './components/related/related.component'
 
 // DB
 import { DbCrudService } from './services/db-crud.service';
@@ -13,41 +13,43 @@ import { AuthService } from './services/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
-import * as firebase from 'firebase/app';
 
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-yt',
   templateUrl: 'app.component.html',
-  providers: [ AuthService, DbCrudService, AngularFirestore, PlaylistComponent ]
+  providers: [ AuthService, DbCrudService, AngularFirestore, PlaylistComponent, CategoryComponent, RelatedComponent ]
 })
 
 export class AppComponent implements OnInit {
-  @ViewChild('videoItemIDvalue') private videoItemIDvalue: ElementRef;
+  @ViewChild('videoItemIDvalue') videoItemIDvalue: ElementRef;
 
   constructor(
-    private youtube: YoutubeGetVideo,
     public shared: SharedService,
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
-
     private authService: AuthService,
     public afAuth: AngularFireAuth,
-    private db: AngularFirestore,
     private db2: AngularFireDatabase,
-    private dbcrud: DbCrudService,
     public playerComp: PlayerComponent,
-    public playlist: PlaylistComponent
+    public playlistComp: PlaylistComponent,
+    public categoryComp: CategoryComponent,
+    public relatedComp: RelatedComponent
   ) {
   }
 
   ngOnInit() {
+    this.globals.videoItemIDvalue = this.videoItemIDvalue;
     this.shared.preventOldSettings();
     this.updateUserDetails();
   }
 
   // ---------------- User ------------------
+  myfunc(event: Event) {
+      // carouselLoad will trigger this funnction when your load value reaches
+      // it is helps to load the data by parts to increase the performance of the app
+      // must use feature to all carousel
+  }
 
   loginGoogle() {
     this.authService.login(this.globals.currentVideo);
@@ -75,52 +77,15 @@ export class AppComponent implements OnInit {
   // ---------------- Init player ----------------
 
   setApp() {
-    this.shared.initFeed().then(data => {
-      this.initApp();
-    });
-  }
-
-  initApp() {
-    this.shared.getRelatedVideos().then(() => {
-      this.globals.isLoading = false;      
-    });
-    this.playlistCTRL.fillPlaylist();
-    this.shared.findPlaylistItem();
+   this.shared.initFeed().then(() => {
+      this.playlistComp.initPlaylist();
+   })
   }
 
   // ---------------- Video fetching ----------------
 
   onClickRelated(event: Event, i: number) {
     this.playerComp.getVideo(this.globals.relatedVideos[i]);
-  }
-
-  // ---------------- Related functions ----------------
-  onCopyVideoItemLink(i: number, list: number) {
-    let listType;
-    const youtubeLink = 'https://youtu.be/';
-    if (list === 0) {
-      listType = this.globals.feedVideos[i];
-    }
-    if (list === 1) {
-      listType = this.globals.lastSearchedVideos[i];
-    }
-    if (list === 2) {
-      listType = this.globals.relatedVideos[i];
-    }
-    if (list === 3) {
-      listType = this.globals.playlistVideos[i];
-    }
-    if (list === 4) {
-      listType = this.globals.historyVideos[i];
-    }
-
-    this.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
-
-    this.videoItemIDvalue.nativeElement.select();
-    this.videoItemIDvalue.nativeElement.focus();
-    document.execCommand('copy');
-    this.videoItemIDvalue.nativeElement.blur();
-    this.shared.copyShareLink();
   }
 
   // @HostListener('window:beforeunload')

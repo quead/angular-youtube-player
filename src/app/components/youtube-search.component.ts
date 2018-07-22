@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
-import { AppComponent } from '../app.component';
+import { PlayerComponent } from '../components/player/player.component';
 import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { GlobalsService } from '../services/globals.service';
 import { SharedService } from '../services/shared.service';
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private globals: GlobalsService,
     private shared: SharedService,
-    private app: AppComponent,
+    private playerComp: PlayerComponent,
     private playlist: PlaylistComponent
   ) {
   }
@@ -62,16 +62,16 @@ export class SearchComponent implements OnInit {
 
   onClickVideo(event: Event, i: any, list: number) {
     if (list === 1) {
-      this.app.playerComp.getVideo(this.globals.searchedVideos[i]);
+      this.playerComp.getVideo(this.globals.searchedVideos[i]);
       this.clearSearch();
     } else if (list === 3) {
-      this.app.playerComp.getVideo(this.globals.feedVideos[i]);
+      this.playerComp.getVideo(this.globals.feedVideos[i]);
     }
     this.clearSearch();
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-    this.app.onCopyVideoItemLink(i, list);
+    this.shared.onCopyVideoItemLink(i, list);
     this.clearSearch();
   }
 

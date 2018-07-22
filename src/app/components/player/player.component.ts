@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from '../../services/youtube.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
@@ -31,7 +30,6 @@ export class PlayerComponent implements OnInit {
     public globals: GlobalsService,
     public shared: SharedService,
     public playlistCTRL: PlaylistControlService,
-    private youtube: YoutubeGetVideo
   ) {
   }
 
@@ -95,7 +93,7 @@ export class PlayerComponent implements OnInit {
   // Init player
 
   setDefaultPlayer() {
-    this.shared.initFeed().then(data => {
+    this.shared.initFeed().then(() => {
       this.initPlayer();
       this.loading = false;
     });

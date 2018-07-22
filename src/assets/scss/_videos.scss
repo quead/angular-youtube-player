@@ -261,41 +261,7 @@ iframe {
 }
 
 #related-video-list {
-    display: flex;
-    flex-wrap: wrap;
-    top: inherit;
-    bottom: 0;
-    max-height: none;
-    height: 100%;
-    width: 100%;
-    transition: height 0.1s ease-out 0.1s;
-    .related-video-content {
-        position: absolute;
-        bottom: 0;
-        height: calc(100% - 39px);
-        width: 100%;
-        overflow: auto;
-        z-index: 0;
-        &::-webkit-scrollbar-track {
-            border-radius: 2px;
-        }
-    
-        &::-webkit-scrollbar {
-            width: 8px;
-            background-color: var(--c-dark-gray);
-        }
-    
-        &::-webkit-scrollbar-thumb {
-            border-radius: 20px;
-            background-color: rgba(#FFF, 0.1);
-            &:hover {
-                background-color: rgba(#FFF, 0.4);
-            }
-        }
-    }
-    &.activePlayer {
-        transition: height 0.1s ease-out 0s;
-    }
+
 }
 
 #playlist-video-list {
@@ -343,71 +309,6 @@ iframe {
     }
 }
 
-.video-list-featured {
-    margin: 0;
-    height: 200px;
-    width: 100%;
-    background-position: center center;
-    background-size: cover;
-    position: relative;
-    .copy-link {
-        padding-left: 0;
-        padding-right: 0;
-        transform: scale(1);
-        opacity: 0.6;
-        background: transparent;
-        &:hover {
-            opacity: 1;
-        }
-        &:active {
-            transform: scale(0.9);
-        }
-    }
-    .video-item {
-        position: absolute;
-        display: block;
-        bottom: 20px;
-        left: 0;
-        width: auto;
-        padding: 10px 15px;
-        max-width: 90%;
-        color: var(--c-white);
-        background-color: inherit;
-        border: none;
-        &-info {
-            background-color: inherit;
-            > div {
-                display: inline-block;
-            }
-        }
-        &-settings-featured {
-            opacity: 1;
-            visibility: visible;
-            background-color: transparent;
-            position: relative;
-            top: auto;
-            left: auto;
-            height: auto;
-            width: auto;
-            margin-top: 15px;
-            justify-content: flex-start;
-            button + button {
-                margin-left: 10px;
-            }
-        }
-    }
-    &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.6);
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-}
-
 .feed-video-list {
     top: inherit;
     bottom: 0;
@@ -415,11 +316,6 @@ iframe {
     width: calc(100% - 40px);
     max-height: none;
     background-color: var(--c-gray);
-    .video-item {
-        &:first-child {
-            display: none !important;
-        }
-    }
     &.grid-list {
         display: flex;
         flex-wrap: wrap;

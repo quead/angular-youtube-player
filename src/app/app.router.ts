@@ -1,8 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { SearchComponent } from './components/youtube-search.component';
 import { HistoryComponent } from './components/youtube-history.component';
 import { AboutComponent } from './components/youtube-about.component';
 import { SettingsComponent } from './components/youtube-settings.component';

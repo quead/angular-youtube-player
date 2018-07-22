@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { GlobalsService } from './globals.service';
@@ -17,14 +16,6 @@ export class YoutubeGetVideo {
         private http: HttpClient,
         private globals: GlobalsService,
     ) {}
-
-    async getChannel(query: string) {
-        if (this.globals.apiKey) {
-            const res = await this.http.get(`${this.url}channels?${this.channelDetails}&id=${query}&key=${this.globals.apiKey}`)
-            .map(response => response).toPromise();
-            return res;
-        }
-    }
 
     async feedVideos() {
         if (this.globals.apiKey) {

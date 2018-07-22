@@ -24,6 +24,8 @@ export class GlobalsService {
   internal_settings: Array<any>;
   external_settings: Array<any>;
 
+  videoItemIDvalue: any;
+
   isLogged = false;
   isLoading = true;
   thumbnails = true;

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { routes } from './app.router';
 
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { NguCarouselModule, NguCarousel } from '@ngu/carousel';
 
 import { AppComponent } from './app.component';
 import { GlobalsService } from './services/globals.service';
@@ -22,7 +23,6 @@ import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 // Firebase
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 
@@ -31,6 +31,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
+import { RelatedComponent } from './components/related/related.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
     YoutubePlayerModule,
     FormsModule,
     DragulaModule,
+    NguCarouselModule,
     routes
   ],
   declarations: [
@@ -52,10 +54,11 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
     HistoryComponent,
     CategoryComponent,
     PlayerComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    RelatedComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PlayerComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase ]
+  providers:    [ PlayerComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, NguCarousel ]
 })
 
 export class AppModule { }

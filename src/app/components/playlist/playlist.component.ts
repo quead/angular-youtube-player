@@ -56,6 +56,10 @@ export class PlaylistComponent implements OnInit {
 
   // ---------------- Playlist settings ----------------
 
+  initPlaylist() {
+    this.playlistCTRL.fillPlaylist();
+  }
+
   uploadPlaylist(event: Event) {
     const files = event['target'].files[0];
     if (files.length <= 0) {
@@ -117,21 +121,21 @@ export class PlaylistComponent implements OnInit {
 
   initDragula() {
     this.dragula.setOptions('globals.playlist', {
-      moves: (el, container, handle) => {
+      moves: (handle) => {
         return handle.className === 'video-item-settings';
       }
     });
     this.dragula.over.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
+      const [el] = value.slice(1);
       this.addClass(el, 'ex-over');
     });
     this.dragula.out.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
+      const [el] = value.slice(1);
       this.removeClass(el, 'ex-over');
       this.shared.checkPlaylist();
     });
     this.dragula.drop.subscribe((value) => {
-      const [e, el, container] = value.slice(1);
+      const [el] = value.slice(1);
       this.removeClass(el, 'ex-over');
       this.shared.checkPlaylist();
     });

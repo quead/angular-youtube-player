@@ -2,13 +2,9 @@ import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
 // DB
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import { auth } from 'firebase';
-
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {

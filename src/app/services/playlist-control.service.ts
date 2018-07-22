@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
 
@@ -17,6 +17,7 @@ export class PlaylistControlService {
       this.shared.getRelatedVideos().then(() => {
         this.playlistInit();
         this.playlistPrefill = false;
+        this.globals.isLoading = false;
       });
     }
   }

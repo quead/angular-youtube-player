@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { GlobalsService } from './globals.service';
@@ -33,10 +32,10 @@ export class SharedService {
 
 
   async getRelatedVideos() {
-      if (this.globals.relatedVideos.length === 0) {
-          const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
-          this.convertVideoObject(res['items'], 'relatedVideos');
-      }
+        if (this.globals.relatedVideos.length === 0 && this.globals.currentVideo) {
+            const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
+            this.convertVideoObject(res['items'], 'relatedVideos');
+        }
     }
 
     async initSettings() {
@@ -87,11 +86,6 @@ export class SharedService {
         }
     }
 
-    async initChannel() {
-        const res = await this.youtube.getChannel(this.globals.feedVideos[0].channelId);
-        this.globals.channel = res;
-    }
-
     updateData(state: string) {
         console.log(state);
     }
@@ -116,8 +110,10 @@ export class SharedService {
     }
 
     findPlaylistItem() {
-        const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
-        this.globals.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
+        if (this.globals.currentVideo) {
+            const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
+            this.globals.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
+        }
     }
 
     setLocalVersion() {
@@ -260,6 +256,7 @@ export class SharedService {
                 break;
             }
         }
+        return true;
     }
 
     async getStatsVideos(query: string) {
@@ -285,6 +282,34 @@ export class SharedService {
     copyShareLink() {
         document.execCommand('Copy');
         this.triggerNotify('Copied');
-    }  
+    }
+
+    onCopyVideoItemLink(i: number, list: number) {
+        let listType;
+        const youtubeLink = 'https://youtu.be/';
+        if (list === 0) {
+          listType = this.globals.feedVideos[i];
+        }
+        if (list === 1) {
+          listType = this.globals.lastSearchedVideos[i];
+        }
+        if (list === 2) {
+          listType = this.globals.relatedVideos[i];
+        }
+        if (list === 3) {
+          listType = this.globals.playlistVideos[i];
+        }
+        if (list === 4) {
+          listType = this.globals.historyVideos[i];
+        }
+    
+        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
+    
+        this.globals.videoItemIDvalue.nativeElement.select();
+        this.globals.videoItemIDvalue.nativeElement.focus();
+        document.execCommand('copy');
+        this.globals.videoItemIDvalue.nativeElement.blur();
+        this.copyShareLink();
+      }
 
 }

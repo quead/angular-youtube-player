@@ -143,6 +143,7 @@
     background: transparent;
     -webkit-appearance: none;
     outline: 0;
+    margin: 0;
 }
 
 .current-video-range {
@@ -173,7 +174,7 @@
         &::-webkit-slider-thumb {
             position: relative;
             -webkit-appearance: none;
-            top: -3px;
+            top: 0;
             height: 15px;
             width: 15px;
             border-radius: 50px;

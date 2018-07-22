@@ -15,6 +15,9 @@
 <app-component-player></app-component-player>
 <div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
   <input type="text" class="hide-input" #videoItemIDvalue />
+  <div style="width: 100%">
+    <app-related></app-related>
+  </div>
   <div class="container">
     <div class="col col-1">
         <div class="app app-services">
@@ -67,7 +70,7 @@
                       </div>
                     </div>
                   </ng-container>
-                  <ng-container *ngIf="!globals.isLoading">
+                  <!-- <ng-container *ngIf="!globals.isLoading">
                     <div *ngFor="let relatedVideo of globals.relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
                       <div class="video-item-info">
                         <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.default +')'}"></div>
@@ -88,7 +91,7 @@
                         </button>
                       </div>
                     </div>
-                  </ng-container>
+                  </ng-container> -->
                 </div>
               </div>
             </div>

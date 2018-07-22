@@ -1,0 +1,13 @@
+<div id="related-video-list">
+  <ngu-carousel
+    [inputs]="carouselOne"
+    (carouselLoad)="myfunc($event)">
+    <ngu-item NguCarouselItem *ngFor="let relatedVideo of globals.relatedVideos; let i = index" >
+      <div [attr.data-index]="i" class="video-item">
+        <p class="video-item-title">{{ relatedVideo.title }}</p>
+      </div>
+    </ngu-item>
+    <button NguCarouselPrev class='leftRs'>&lt;</button>
+    <button NguCarouselNext class='rightRs'>&gt;</button>
+  </ngu-carousel>
+</div>
