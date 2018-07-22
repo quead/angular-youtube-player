@@ -1,11 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit, HostListener } from '@angular/core';
 import { SharedService } from './services/shared.service';
 import { GlobalsService } from './services/globals.service';
-import { PlaylistControlService } from './services/playlist-control.service';
-import { PlayerComponent } from './components/player/player.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
-import { CategoryComponent } from './components/category/category.component'
-import { RelatedComponent } from './components/related/related.component'
 
 // DB
 import { DbCrudService } from './services/db-crud.service';
@@ -18,7 +14,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Component({
   selector: 'app-yt',
   templateUrl: 'app.component.html',
-  providers: [ AuthService, DbCrudService, AngularFirestore, PlaylistComponent, CategoryComponent, RelatedComponent ]
+  providers: [ AuthService, DbCrudService, AngularFirestore, PlaylistComponent ]
 })
 
 export class AppComponent implements OnInit {
@@ -27,14 +23,10 @@ export class AppComponent implements OnInit {
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
-    public playlistCTRL: PlaylistControlService,
     private authService: AuthService,
     public afAuth: AngularFireAuth,
     private db2: AngularFireDatabase,
-    public playerComp: PlayerComponent,
     public playlistComp: PlaylistComponent,
-    public categoryComp: CategoryComponent,
-    public relatedComp: RelatedComponent
   ) {
   }
 

@@ -1,13 +1,16 @@
 <div *ngIf="loading" class="app-content">
-  <div class="youtube-player active loading-featured"></div>
+  <div class="loading-featured loading-anim"></div>
 </div>
 <div class="container video-details-container" *ngIf="!loading && globals.currentVideo.id">
-  <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}"></span>
+  <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}">
+  </span>
   <div class="col col-1">
     <div class="youtube-player" [ngClass]="{'active': globals.displayVideoPlayer }">
       <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
     </div>
-    <div class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}"></div>
+    <div class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
+        <button type="button" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
+    </div>
     <div class="player-container"></div>
   </div>
   <div class="col col-3">

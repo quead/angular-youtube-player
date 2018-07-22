@@ -100,6 +100,28 @@
         bottom: -40px;
         z-index: 1;
         box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+        button {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            -webkit-appearance: none;
+            background-color: var(--c-white);
+            color: var(--c-base);
+            border: none;
+            height: 25px;
+            width: 25px;
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 1;
+            transition: all 0.1s ease-out;
+            &:hover {
+                opacity: 0.8;
+            }
+            &:active {
+                opacity: 1;
+            }
+        }
     }
     &.active {      
         opacity: 1;

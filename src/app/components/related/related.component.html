@@ -1,5 +1,15 @@
 <div id="related-video-list">
   <h2>Related Videos</h2>
+  <div class="related-video-content">
+    <ng-container *ngIf="globals.isLoading">
+      <div class="loading-list">
+          <div *ngFor="let i of [1,2,3,4,5,6,7,8]" class="item loading-box">
+              <div class="loading-medium-box loading-anim"></div>
+              <div class="loading-small-box loading-anim"></div>
+          </div>
+      </div>
+    </ng-container>
+  </div>
   <ngu-carousel
     [inputs]="carouselOne"
     (carouselLoad)="myfunc($event)">

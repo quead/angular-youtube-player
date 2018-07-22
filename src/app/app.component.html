@@ -46,18 +46,12 @@
     </div>
     <div class="col col-2">
         <div class="app app-player">
-            <!-- <div class="app-head">
-                <h2>Player</h2>
-                <div class="settings">
-                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
-                </div>
-            </div> -->
             <div class="app-content">
               <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': globals.displayVideoPlayer }">
                 <div class="video-item-head">
                     Similar videos
                 </div>
-                <div class="related-video-content">
+                <!-- <div class="related-video-content">
                   <ng-container *ngIf="globals.relatedVideos.length === 0 && !globals.isLoading">
                     <div class="text-center-block">
                       Related videos list is empty.
@@ -71,7 +65,7 @@
                       </div>
                     </div>
                   </ng-container>
-                </div>
+                </div> -->
               </div>
             </div>
         </div>
