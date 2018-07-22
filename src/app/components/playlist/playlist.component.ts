@@ -86,6 +86,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
+    console.log(i, list);
     this.playlistCTRL.addPlaylistItem(i, list);
   }
 
@@ -126,23 +127,23 @@ export class PlaylistComponent implements OnInit {
       }
     });
     this.dragula.over.subscribe((value) => {
-      const [el] = value.slice(1);
-      this.addClass(el, 'ex-over');
+      const [el, container] = value.slice(1);
+      this.addClass(container, 'ex-over');
     });
     this.dragula.out.subscribe((value) => {
-      const [el] = value.slice(1);
-      this.removeClass(el, 'ex-over');
+      const [el, container] = value.slice(1);
+      this.removeClass(container, 'ex-over');
       this.shared.checkPlaylist();
     });
     this.dragula.drop.subscribe((value) => {
-      const [el] = value.slice(1);
-      this.removeClass(el, 'ex-over');
+      const [el, container] = value.slice(1);
+      this.removeClass(container, 'ex-over');
       this.shared.checkPlaylist();
     });
   }
 
 
-  onClickPlaylist(event: Event, i: number) {
+  onClickPlaylist(i: number) {
     if (i === this.globals.currentPlaylistItem) {
       this.playerComp.playPauseVideo();
     } else {
@@ -177,7 +178,7 @@ export class PlaylistComponent implements OnInit {
 
   // ---------------- Video fetching ----------------
 
-  onClickRelated(event: Event, i: number) {
+  onClickRelated(i: number) {
     this.playerComp.getVideo(this.globals.relatedVideos[i]);
   }
 

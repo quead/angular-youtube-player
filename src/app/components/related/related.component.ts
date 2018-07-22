@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
+import { PlayerComponent } from '../player/player.component';
+import { PlaylistComponent } from '../playlist/playlist.component';
 import { NguCarousel } from '@ngu/carousel';
 
 @Component({
@@ -12,6 +14,8 @@ export class RelatedComponent implements OnInit {
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
+    public playerComp: PlayerComponent,
+    public playlistComp: PlaylistComponent,
     public carouselOne: NguCarousel
   ) { }
 

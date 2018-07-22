@@ -72,18 +72,9 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  onClickVideo(event: Event, i: any, list: number) {
+  onClickVideo(i: any, list: number) {
     if (list === 3) {
       this.playerComp.getVideo(this.globals.feedVideos[i]);
     }
   }
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.shared.onCopyVideoItemLink(i, list);
-  }
-
-  addPlaylistItem(i: number, list: number) {
-    this.playlist.addPlaylistItem(i, list);
-  }
-
 }

@@ -19,6 +19,8 @@ export class PlaylistControlService {
         this.playlistPrefill = false;
         this.globals.isLoading = false;
       });
+    } else {
+      this.shared.getRelatedVideos();
     }
   }
 

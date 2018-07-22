@@ -84,10 +84,6 @@ export class AppComponent implements OnInit {
 
   // ---------------- Video fetching ----------------
 
-  onClickRelated(event: Event, i: number) {
-    this.playerComp.getVideo(this.globals.relatedVideos[i]);
-  }
-
   // @HostListener('window:beforeunload')
   // doSomething() {
   //   this.dbcrud.update('sessions', 'currentState', -1);

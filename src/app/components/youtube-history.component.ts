@@ -31,7 +31,7 @@ export class HistoryComponent implements OnInit {
     this.shared.onCopyVideoItemLink(i, list);
   }
 
-  onClickHistory(event: Event, i: number) {
+  onClickHistory(i: number) {
     this.playerComp.getVideo(this.globals.historyVideos[i]);
   }
 

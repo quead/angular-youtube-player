@@ -32,7 +32,7 @@ export class SharedService {
 
 
   async getRelatedVideos() {
-        if (this.globals.relatedVideos.length === 0 && this.globals.currentVideo) {
+        if (this.globals.currentVideo) {
             const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
             this.convertVideoObject(res['items'], 'relatedVideos');
         }

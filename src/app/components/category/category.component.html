@@ -17,35 +17,6 @@
       </div>
     </div>
   </ng-container>
-  <ng-container *ngIf="globals.feedVideos && globals.channel && !loading">
-    <div [ngStyle]="{'background-image': 'url(' + globals.channel.items[0].brandingSettings.image.bannerTabletHdImageUrl + ')'}" class="video-list-featured">
-        <div class="video-item" [attr.data-index]="0">
-          <div class="video-item-info">
-            <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + globals.feedVideos[0].thumbnails.medium +')'}"></div>
-            <div class="video-item-content">
-              <p class="video-item-title">{{ globals.feedVideos[0].title }}</p>
-              <p class="video-item-autor">by <span>{{ globals.feedVideos[0].channelTitle }}</span></p>
-              <div class="video-item-details">
-                  <p class="stats-views"><span class="fa fa-eye"></span> {{ globals.feedVideos[0].stats.views | number:'1.0' }}</p>
-                  <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ globals.feedVideos[0].stats.likes  | number:'1.0' }}</p>
-                  <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ globals.feedVideos[0].stats.dislikes | number:'1.0' }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="video-item-settings-featured">
-            <button class="btn btn-primary btn-round" (click)="onClickVideo($event, 0, 3)">
-              <span class="fa fa-play"></span>Play video
-            </button>
-            <button class="btn btn-default btn-outline btn-round" (click)="addPlaylistItem(0, 0)">
-              <span class="fa fa-plus"></span>Add to playlist
-            </button>
-            <button class="btn copy-link" (click)="onCopyVideoItemLink(0, 0)">
-              <span class="fa fa-share-alt"></span>Copy link
-            </button>
-          </div>
-        </div>
-    </div>
-  </ng-container>
   <div class="categories" *ngIf="globals.categories && !loading">
     <ng-container *ngFor="let category of globals.categories.items">
       <div *ngIf="category.id === globals.currentCategory">
@@ -106,13 +77,13 @@
         </div>
       </div>
       <div class="video-item-settings">
-          <button class="video-item-play" (click)="onClickVideo($event, i, 3)">
+          <button class="video-item-play" (click)="onClickVideo(i, 3)">
             <span class="fa fa-play"></span>
           </button>
-          <button class="video-item-play" (click)="onCopyVideoItemLink(i, 0)">
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
             <span class="fa fa-share-alt"></span>
           </button>
-          <button class="video-item-add" (click)="addPlaylistItem(i, 0)">
+          <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
             <span class="fa fa-plus"></span>
           </button>
         </div>

@@ -264,7 +264,7 @@ iframe {
         top: 60px;
         z-index: 1;
         -webkit-appearance: none;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
         height: 30px;
         width: 30px;
         border-radius: 50%;
@@ -277,6 +277,12 @@ iframe {
         opacity: 0;
         visibility: hidden;
         transition: all 0.1s ease-out;
+        &:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        &:active {
+            background: rgba(255, 255, 255, 0.6);
+        }
     }
     .leftRs {
         left: 0;
@@ -332,6 +338,15 @@ iframe {
         }
         &-autor {
             font-weight: bold;
+        }
+        &-settings {
+            height: 110px;
+            border-radius: 5px;
+        }
+        &:hover {
+            .video-item-image {
+                background-size: 135% auto;
+            }
         }
     }
 }

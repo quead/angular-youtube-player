@@ -223,6 +223,9 @@ export class PlayerComponent implements OnInit {
   }
 
   // Others
+  onClickRelated(i: number) {
+    this.getVideo(this.globals.relatedVideos[i]);
+  }
 
   timeFormat(time: number) {
     const hours: any = Math.floor(time / 3600);

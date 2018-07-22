@@ -10,6 +10,14 @@
     <a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
     <small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
   </div>
+  <nav>
+    <ul>
+      <li><a routerLink="/category/all" routerLinkActive="is-active" title="Homepage">Home</a></li>
+      <li><a routerLink="/history" routerLinkActive="is-active" title="History page">History</a></li>
+      <li><a routerLink="/about" routerLinkActive="is-active" title="About application page">About</a></li>
+      <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page">Settings</a></li>
+    </ul>
+  </nav>
   <app-search></app-search>
 </header>
 <app-component-player></app-component-player>
@@ -22,14 +30,7 @@
     <div class="col col-1">
         <div class="app app-services">
             <div class="app-content">
-              <nav>
-                <ul>
-                  <li><a routerLink="/category/all" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
-                  <li><a routerLink="/history" routerLinkActive="is-active" title="History page"><span class="fa fa-history"></span>History<span class="description">Recently played</span></a></li>
-                  <li><a routerLink="/about" routerLinkActive="is-active" title="About application page"><span class="fa fa-info-circle"></span>About<span class="description">All informations about the app</span></a></li>
-                  <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
-                </ul>
-              </nav>
+
             </div>
         </div>
         <app-playlist></app-playlist>
@@ -70,28 +71,6 @@
                       </div>
                     </div>
                   </ng-container>
-                  <!-- <ng-container *ngIf="!globals.isLoading">
-                    <div *ngFor="let relatedVideo of globals.relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
-                      <div class="video-item-info">
-                        <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.default +')'}"></div>
-                        <div class="video-item-content">
-                          <p class="video-item-title">{{ relatedVideo.title }}</p>
-                          <p class="video-item-autor">by <span>{{ relatedVideo.channelTitle }}</span></p>                      
-                        </div>
-                      </div>
-                      <div class="video-item-settings">
-                        <button class="video-item-play" (click)="onClickRelated($event, i)">
-                          <span class="fa fa-play"></span>
-                        </button>
-                        <button class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
-                          <span class="fa fa-share-alt"></span>
-                        </button>
-                        <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 2)">
-                          <span class="fa fa-plus"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </ng-container> -->
                 </div>
               </div>
             </div>
