@@ -86,7 +86,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-    console.log(i, list);
     this.playlistCTRL.addPlaylistItem(i, list);
   }
 

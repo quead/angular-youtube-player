@@ -14,29 +14,16 @@ nav {
     a {
         display: block;
         text-decoration: none;
-        color: var(--c-white);
+        color: #6a7586;
         font-size: $f-14;
         -webkit-user-drag: none;
         position: relative;
         transition: all 0.1s ease-out;
-        opacity: 0.3;
         font-size: 14px;
-        text-transform: uppercase;
-        font-weight: 400;
+        font-weight: 600;
         letter-spacing: 0.3px;
-        .fa {
-            color: var(--c-white);
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        &:hover {
-            opacity: 1;
-        }
         &.is-active,
         &:active {
-            opacity: 1;
             color: var(--c-white);
             .fa {
                 color: var(--c-white);

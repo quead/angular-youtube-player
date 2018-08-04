@@ -27,12 +27,7 @@
     <app-related></app-related>
   </div>
   <div class="container">
-    <div class="col col-1">
-        <div class="app app-services">
-            <div class="app-content">
-
-            </div>
-        </div>
+    <div class="col col-3">
         <app-playlist></app-playlist>
     </div>
     <div class="col col-3">
@@ -42,32 +37,6 @@
         <div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
           <span class="fa fa-cog fa-spin fa-fw"></span>
           <p>{{ shared.notify.message }}</p>
-        </div>
-    </div>
-    <div class="col col-2">
-        <div class="app app-player">
-            <div class="app-content">
-              <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': globals.displayVideoPlayer }">
-                <div class="video-item-head">
-                    Similar videos
-                </div>
-                <!-- <div class="related-video-content">
-                  <ng-container *ngIf="globals.relatedVideos.length === 0 && !globals.isLoading">
-                    <div class="text-center-block">
-                      Related videos list is empty.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="globals.isLoading">
-                    <div *ngFor="let i of [1,2,3,4]" class="video-item">
-                      <div class="video-item-info">
-                        <div class="video-item-image loading-featured"></div>
-                        <div class="video-item-content loading-featured"></div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div> -->
-              </div>
-            </div>
         </div>
     </div>
   </div>

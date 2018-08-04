@@ -43,6 +43,9 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  categoryChanged(event: Event, catID: number) {
+    console.log(event, catID);
+  }
 
   getCategories() {
     this.youtube.categories().then(catData => {
@@ -73,7 +76,7 @@ export class CategoryComponent implements OnInit {
   }
 
   onClickVideo(i: any, list: number) {
-    if (list === 3) {
+    if (list === 0) {
       this.playerComp.getVideo(this.globals.feedVideos[i]);
     }
   }

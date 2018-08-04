@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
+import { VideoModel } from '../models/video.model';
 import 'rxjs/add/operator/map';
 
 import { GlobalsService } from './globals.service';
@@ -128,17 +129,30 @@ export class SharedService {
         setTimeout(() => this.notify.enabled = false, 1000);
     }
 
-    addHistoryVideo(data: any) {
-        let key;
-        for (key in this.globals.historyVideos) {
-            if (this.globals.historyVideos[key].id === data.id) {
-                this.globals.historyVideos.splice(key, 1);
-                if (this.globals.historyVideos[this.globals.historyVideos.length - 1] === data) {
-                    this.globals.historyVideos.splice(-1, 1);
-                }
+    move(arr: Array<VideoModel>, old_index: number, new_index: number) {
+        while (old_index < 0) {
+            old_index += arr.length;
+        }
+        while (new_index < 0) {
+            new_index += arr.length;
+        }
+        if (new_index >= arr.length) {
+            let k = new_index - arr.length;
+            while ((k--) + 1) {
+                arr.push(undefined);
             }
         }
-        this.globals.historyVideos.unshift(data);
+         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);  
+       return arr;
+    }
+
+    addHistoryVideo(data: any) {
+        if (this.globals.historyVideos.indexOf(data) === -1) {
+            this.globals.historyVideos.unshift(data);
+        } else {
+            const indexVideo = this.globals.historyVideos.indexOf(data);
+            this.move(this.globals.historyVideos, indexVideo, 0);
+        }
     }
 
     convertVideoObject(object: any, list: string) {

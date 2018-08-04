@@ -1,6 +1,16 @@
 .container {
     display: flex;
     height: 100%;
+    margin: 0 auto;
+    @media (max-width: 575px) { width: auto; }
+
+    @media (min-width: 576px) and (max-width: 767px) { width: 540px; }
+
+    @media (min-width: 768px) and (max-width: 991px) { width: 720px; }
+
+    @media (min-width: 992px) and (max-width: 1199px) { width: 960px }
+
+    @media (min-width: 1140px) { width: 1140px; }
 }
 
 .col {

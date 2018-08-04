@@ -51,7 +51,6 @@ app {
     &-component-player {
         display: block;
         position: relative;
-        overflow: hidden;
         > div {
             position: relative;
             z-index: 2;
@@ -66,8 +65,10 @@ app {
     opacity: 0.6;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 20px;
+    height: 180px;
     right: 0;
     bottom: 0;
     z-index: 0;
+    transition: all 0.1s ease-out;
 }

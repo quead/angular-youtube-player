@@ -9,7 +9,7 @@
         left: 10px;
         font-size: 18px;
         transform: translateY(-50%);
-        color: #3d3d4a;
+        color: rgba(#6a7586,0.5);
         cursor: pointer;
         z-index: 2;
         transition: all 0.1s ease-out;
@@ -25,25 +25,25 @@
         border: none;
         display: block;
         width: 100%;
-        padding: 15px 40px 15px 35px;
+        padding: 10px 40px 10px 35px;
         margin: 0;
         outline: 0;
         position: relative;
         background-color: transparent;
-        border: 2px solid var(--c-gray);
-        color: var(--c-light-gray);
+        border: 2px solid rgba(#6a7586,0.5);
+        color: rgba(#6a7586,0.5);
         border-radius: 5px;
         font-size: 14px;
         z-index: 1;
         transition: all 0.2s ease-out;
         &::-webkit-input-placeholder {
-            color: var(--c-light-gray);
+            color: var(--c-gray);
         }
         &:focus {
-            border-color: var(--c-light-gray);
-            color: #b2b2c5;
+            border-color: var(--c-gray);
+            color: var(--c-gray);
             + .search-icon {
-                color: var(--c-light-gray);
+                color: var(--c-gray);
             }
         } 
     }
@@ -51,7 +51,7 @@
         border: none;
         font-size: 12px;
         background: transparent;
-        color: var(--c-light-gray);
+        color: var(--c-gray);
         padding: 0;
         margin: 0;
         cursor: pointer;

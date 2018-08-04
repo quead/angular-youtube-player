@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PlayerComponent } from '../components/player/player.component';
-import { CategoryComponent } from './category/category.component';
 import { SharedService } from '../services/shared.service';
 import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
@@ -10,7 +9,7 @@ import { NumberVal } from '../services/validators.service';
 @Component({
     selector: 'app-settings',
     templateUrl: 'youtube-settings.component.html',
-    providers: [ CategoryComponent, NumberVal ]
+    providers: [ NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {
@@ -26,7 +25,6 @@ export class SettingsComponent implements OnInit {
         private globals: GlobalsService,
         public playerComp: PlayerComponent,
         public appComp: AppComponent,
-        private category: CategoryComponent,
     ) {
     }
 

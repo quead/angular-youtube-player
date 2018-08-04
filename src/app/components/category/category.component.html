@@ -1,4 +1,7 @@
 <div class="app-content">
+  <div class="video-item-head">
+    <h2>Trending</h2>
+  </div>
   <ng-container *ngIf="loading">
     <div class="categories">
       <ng-container *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
@@ -18,7 +21,13 @@
     </div>
   </ng-container>
   <div class="categories" *ngIf="globals.categories && !loading">
-    <ng-container *ngFor="let category of globals.categories.items">
+    <select class="form-field" [ngModel]="selectedCategory" categoryValue (change)="categoryChanged($event, categoryValue)">
+        <option value="general" [selected]="true">General</option>
+        <ng-container *ngFor="let category of globals.categories.items">
+            <option *ngIf="category.snippet.assignable && globals.categoriesBlocked.indexOf(category.id) === -1" [ngValue]="category.id">{{category.snippet.title}}</option>
+        </ng-container> 
+    </select>
+    <!-- <ng-container *ngFor="let category of globals.categories.items">
       <div *ngIf="category.id === globals.currentCategory">
         <button type="button" (click)="resetCategories()" class="trigger back">
           <span class="tooltip">Go back</span>
@@ -60,7 +69,7 @@
           </ng-container>
         </a>
       </div>
-    </ng-container>
+    </ng-container> -->
   </div>
   <div *ngIf="!loading" class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
     <div *ngFor="let feedVideo of globals.feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
@@ -77,7 +86,7 @@
         </div>
       </div>
       <div class="video-item-settings">
-          <button class="video-item-play" (click)="onClickVideo(i, 3)">
+          <button class="video-item-play" (click)="onClickVideo(i, 0)">
             <span class="fa fa-play"></span>
           </button>
           <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">

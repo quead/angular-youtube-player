@@ -59,13 +59,19 @@ iframe {
 }
 
 .video-item-head {
-    background-color: rgba(255, 255, 255, 0.04);
-    color: var(--c-white);
-    width: 100%;
-    height: 39px;
-    padding: 8px;
     position: relative;
-    z-index: 1;
+    margin: 15px 0;
+    padding: 0 10px;
+    width: 100%;
+    display: flex;
+    h2 {
+        margin: 0;
+        padding: 0;
+        font-weight: 600;
+        font-size: 24px;
+        display: inline-block;
+        width: 100%;
+    }
     &-btn {
         float: right;
         background-color: var(--c-primary);
@@ -111,8 +117,8 @@ iframe {
     }
     &-image {
         display: block;
-        height: 60px;
-        width: 80px;
+        height: 40px;
+        width: 60px;
         background-position: center center;
         margin-right: 15px;
         transition: all 0.1s ease-out;
@@ -261,7 +267,7 @@ iframe {
     .leftRs,
     .rightRs {
         position: absolute;
-        top: 60px;
+        top: 45px;
         z-index: 1;
         -webkit-appearance: none;
         background: rgba(255, 255, 255, 0.1);
@@ -274,8 +280,7 @@ iframe {
         padding: 0;
         text-align: center;
         font-size: 18px;
-        opacity: 0;
-        visibility: hidden;
+        line-height: 18px;
         transition: all 0.1s ease-out;
         &:hover {
             background: rgba(255, 255, 255, 0.3);
@@ -297,22 +302,6 @@ iframe {
             margin: 0 -15px;
             padding: 0 10px;
         }
-        &:hover {
-            .leftRs,
-            .rightRs {
-                top: 45px;
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-    }
-    h2 {
-        margin: 15px 0;
-        padding: 0 10px;
-        font-weight: 300;
-        font-size: 24px;
-        display: inline-block;
-        width: 100%;
     }
     .item {
         width: 12.5%;
@@ -334,14 +323,14 @@ iframe {
             background-repeat: no-repeat;
             background-size: 150% auto;
             margin: 0 0 10px;
-            border-radius: 5px;
+            border-radius: 3px;
         }
         &-autor {
             font-weight: bold;
         }
         &-settings {
             height: 110px;
-            border-radius: 5px;
+            border-radius: 3px;
         }
         &:hover {
             .video-item-image {
@@ -360,9 +349,6 @@ iframe {
     width: 100%;
     transition: height 0.1s ease-out 0.1s;
     .playlist-video-content {
-        position: absolute;
-        bottom: 0;
-        height: calc(100% - 39px);
         width: 100%;
         overflow: auto;
         background-color: var(--c-dark-gray);
