@@ -61,9 +61,10 @@ iframe {
 .video-item-head {
     position: relative;
     margin: 15px 0;
-    padding: 0 10px;
+    padding: 0;
     width: 100%;
     display: flex;
+    align-items: center;
     h2 {
         margin: 0;
         padding: 0;
@@ -79,11 +80,11 @@ iframe {
         color: var(--c-wihte);
         border-radius: 20px;
         padding: 4px 8px;
-        margin-top: 2px;
+        margin-left: 5px;
         text-transform: uppercase;
         font-size: $f-10;
         border: none;
-        display: block;
+        display: flex;
         user-select: none;
         &:active {
             background-color: var(--c-primary-active);
@@ -104,8 +105,6 @@ iframe {
     color: var(--c-white);
     padding: 0;
     position: relative;
-    min-height: 60px;
-    padding: 10px;
     transition: all 0.1s ease-in-out;
     h2 {
         font-size: $f-14;
@@ -117,10 +116,10 @@ iframe {
     }
     &-image {
         display: block;
-        height: 40px;
-        width: 60px;
+        height: 70px;
+        width: 80px;
         background-position: center center;
-        margin-right: 15px;
+        margin-right: 10px;
         transition: all 0.1s ease-out;
     }
     .video-item-details {
@@ -343,15 +342,13 @@ iframe {
 #playlist-video-list {
     display: flex;
     flex-wrap: wrap;
-    top: inherit;
-    bottom: 0;
     max-height: none;
     width: 100%;
+    margin-right: 20px;
     transition: height 0.1s ease-out 0.1s;
     .playlist-video-content {
         width: 100%;
         overflow: auto;
-        background-color: var(--c-dark-gray);
         z-index: 0;
         border: 0 dashed transparent;
         transition: all 0.2s ease-out;
@@ -381,14 +378,10 @@ iframe {
         }
     }
 }
-
 .feed-video-list {
     top: inherit;
     bottom: 0;
-    height: calc(100% - 270px);
-    width: calc(100% - 40px);
-    max-height: none;
-    background-color: var(--c-gray);
+    width: 100%;
     &.grid-list {
         display: flex;
         flex-wrap: wrap;

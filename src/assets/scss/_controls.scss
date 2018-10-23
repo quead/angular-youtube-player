@@ -52,19 +52,16 @@
 
 .current-video-share {
     display: flex;
-    height: 100%;
     width: 100%;
-    margin-left: 20px;
     input[type=text] {
         width: 100%;
         border: none;
-        padding: 3px 20px;
+        padding: 0;
         font-size: 14px;        
         background-color: transparent;
         color: rgba(255, 255, 255, 0.3);
         margin: 0;
         outline: 0;
-        border-radius: 3px;
         cursor: pointer;
         &::-moz-selection {
             background-color: transparent;

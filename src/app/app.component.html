@@ -12,7 +12,7 @@
   </div>
   <nav>
     <ul>
-      <li><a routerLink="/category/all" routerLinkActive="is-active" title="Homepage">Home</a></li>
+      <li><a routerLink="/home" routerLinkActive="is-active" title="Homepage">Home</a></li>
       <li><a routerLink="/history" routerLinkActive="is-active" title="History page">History</a></li>
       <li><a routerLink="/about" routerLinkActive="is-active" title="About application page">About</a></li>
       <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page">Settings</a></li>
@@ -23,14 +23,14 @@
 <app-component-player></app-component-player>
 <div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
   <input type="text" class="hide-input" #videoItemIDvalue />
-  <div style="width: 100%">
-    <app-related></app-related>
-  </div>
   <div class="container">
+    <div class="col col-1">
+      <app-related></app-related>
+    </div>
     <div class="col col-3">
         <app-playlist></app-playlist>
     </div>
-    <div class="col col-3">
+    <div class="col col-5">
         <div class="app app-feed">
           <router-outlet></router-outlet>
         </div>

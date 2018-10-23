@@ -61,12 +61,12 @@ app {
 .container-cover-bg {
     background-position: center center;
     background-size: 140% auto;
-    filter: blur(20px);
-    opacity: 0.6;
+    filter: blur(40px);
+    opacity: 0.8;
     position: absolute;
-    left: 0;
+    left: -50px;
     top: 20px;
-    height: 180px;
+    height: 250px;
     right: 0;
     bottom: 0;
     z-index: 0;

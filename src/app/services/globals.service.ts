@@ -17,7 +17,7 @@ export class GlobalsService {
   currentPlaylistItem: number;  
 
   categories: any;
-  currentCategory: string;
+  currentCategory = 'all';
   categoriesBlocked = ['19', '22', '25', '27', '29'];
   channel: any;
 

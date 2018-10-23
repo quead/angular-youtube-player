@@ -78,10 +78,9 @@
     width: 600px;
     display: flex;
     flex-wrap: wrap;
-    padding: 10px 15px;
+    padding: 0 15px;
     box-sizing: border-box;
     height: 140px;
-    margin-right: 50px;
 }
 
 .player-controls {
@@ -105,7 +104,6 @@
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        margin-left: 50px;
         z-index: 1;
         transition: all 0.1s ease-out;
         position: relative;
@@ -377,7 +375,12 @@
         }
     }
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
+    #mobile-unavailable {
+        display: none;
+    }
+}
+@media screen and (max-width: 767px) {
     #mobile-unavailable {
         background-color: var(--c-base);
         font-size: 24px;

@@ -9,7 +9,7 @@
       <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
     </div>
     <div class="player">
-      <div class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
+      <div *ngIf="globals.thumbnails" class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
           <button type="button" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
       </div>
       <div class="player-container">
@@ -47,11 +47,11 @@
               </div>
             </div>
           </div>
+          <div class="current-video-share">
+            <input id="shareInput" type="text" name="current video share" #shareInput [value]="globals.shareLink" (click)="shared.copyShareLink(shareInput.select())" readonly>
+          </div>
       </div>
 
     </div>
   </div>
 </ng-container>
-<div class="current-video-share">
-  <input id="shareInput" type="text" name="current video share" #shareInput [value]="globals.shareLink" (click)="shared.copyShareLink(shareInput.select())" readonly>
-</div>

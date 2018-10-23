@@ -7,12 +7,11 @@ import { SettingsComponent } from './components/youtube-settings.component';
 import { CategoryComponent } from './components/category/category.component';
 
 export const router: Routes = [
-    { path: 'category/:id', component: CategoryComponent },
-    { path: 'category', redirectTo: 'category/all' },
+    { path: 'home', component: CategoryComponent },
     { path: 'history', component: HistoryComponent },
     { path: 'about', component: AboutComponent },
     { path: 'settings', component: SettingsComponent },
-    { path: '**', redirectTo: 'category/all' }
+    { path: '**', redirectTo: 'home' }
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

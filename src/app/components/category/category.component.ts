@@ -4,7 +4,6 @@ import { PlayerComponent } from '../../components/player/player.component';
 import { PlaylistComponent } from '../../components/playlist/playlist.component';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -20,8 +19,6 @@ export class CategoryComponent implements OnInit {
     public globals: GlobalsService,
     public playlist: PlaylistComponent,
     private playerComp: PlayerComponent,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
   ) {
   }
 
@@ -30,32 +27,41 @@ export class CategoryComponent implements OnInit {
   }
 
   initTrending() {
-    this.activatedRoute.paramMap.subscribe(data => {
-      if (data['params'].id !== 'all') {
-        this.globals.currentCategory = data['params'].id;
-        this.getCategories();
-      } else {
-        this.youtube.categories().then(catData => {
-          this.globals.categories = catData;
-          this.loading = false;
-        });
-      }
+    this.youtube.categories().then(catData => {
+      this.globals.categories = catData;
+      this.loading = false;
     });
+    // this.activatedRoute.paramMap.subscribe(data => {
+    //   if (data['params'].id !== 'all') {
+    //     this.globals.currentCategory = data['params'].id;
+    //     this.getCategories();
+    //   } else {
+    //     this.youtube.categories().then(catData => {
+    //       this.globals.categories = catData;
+    //       this.loading = false;
+    //     });
+    //   }
+    // });
   }
 
-  categoryChanged(event: Event, catID: number) {
-    console.log(event, catID);
+  categoryChanged(event: Event) {
+    const category = event.target['value'];
+    if (category !== 'all') {
+      this.globals.currentCategory = category;
+      this.getCategories();
+    } else {
+      this.youtube.categories().then(catData => {
+        this.globals.categories = catData;
+        this.loading = false;
+      });
+    }
   }
 
   getCategories() {
     this.youtube.categories().then(catData => {
       this.globals.categories = catData;
-      if (this.globals.categories['items'].find(x => x.id === this.globals.currentCategory)) {
         this.loading = true;
         this.getCategoriesVideos(this.globals.currentCategory);
-      } else {
-        this.router.navigate(['']);
-      }
     });
   }
 
@@ -68,7 +74,6 @@ export class CategoryComponent implements OnInit {
   resetCategories() {
     this.loading = true;
     this.globals.currentCategory = 'all';
-    this.router.navigate(['category/all']);
     this.globals.feedVideos = null;
     this.shared.initFeed().then(() => {
       this.loading = false;
