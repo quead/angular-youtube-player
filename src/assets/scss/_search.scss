@@ -31,7 +31,7 @@
         position: relative;
         background-color: transparent;
         border: 2px solid rgba(#6a7586,0.5);
-        color: rgba(#6a7586,0.5);
+        color: var(--c-white);
         border-radius: 5px;
         font-size: 14px;
         z-index: 1;
@@ -41,7 +41,6 @@
         }
         &:focus {
             border-color: var(--c-gray);
-            color: var(--c-gray);
             + .search-icon {
                 color: var(--c-gray);
             }

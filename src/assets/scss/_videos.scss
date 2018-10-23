@@ -267,7 +267,8 @@ iframe {
     .leftRs,
     .rightRs {
         position: absolute;
-        top: 45px;
+        top: 50%;
+        transform: translateY(-50%);
         z-index: 1;
         -webkit-appearance: none;
         background: rgba(255, 255, 255, 0.1);
@@ -329,8 +330,8 @@ iframe {
             font-weight: bold;
         }
         &-settings {
-            height: 110px;
             border-radius: 3px;
+            background: transparent !important;
         }
         &:hover {
             .video-item-image {
@@ -378,6 +379,9 @@ iframe {
                 background-color: rgba(#FFF, 0.4);
             }
         }
+    }
+    .video-item {
+        padding: 5px 0;
     }
 }
 .feed-video-list {
