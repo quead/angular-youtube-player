@@ -121,6 +121,7 @@ iframe {
         background-position: center center;
         margin-right: 10px;
         transition: all 0.1s ease-out;
+        border-radius: 3px;
     }
     .video-item-details {
         display: flex;
@@ -153,7 +154,7 @@ iframe {
         width: 100%;
     }
     &-settings {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.2);
         color: var(--c-white);
         position: absolute;
         right: 0;
@@ -352,6 +353,7 @@ iframe {
         z-index: 0;
         border: 0 dashed transparent;
         transition: all 0.2s ease-out;
+        height: 1260px;
         .video-item-settings {
             cursor: grab;
             cursor: -moz-grab;
@@ -393,6 +395,7 @@ iframe {
             padding: 0;
             position: relative;
             overflow: hidden;
+            border-radius: 3px;
             &-details {
                 text-align: center;
                 margin-top: 8px;
@@ -407,7 +410,7 @@ iframe {
                 margin: 0;
                 position: relative;
                 width: 100%;
-                height: 180px;
+                height: 130px;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;

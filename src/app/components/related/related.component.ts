@@ -22,15 +22,11 @@ export class RelatedComponent implements OnInit {
   ngOnInit() {
     this.carouselOne = {
       grid: {xs: 2, sm: 4, md: 8, lg: 8, all: 0},
-      slide: 2,
+      slide: 4,
       speed: 2000,
-      interval: 4000,
       easing: 'ease',
-      point: {
-        visible: true
-      },
       touch: true,
-      loop: true,
+      loop: false,
     }
   }
 

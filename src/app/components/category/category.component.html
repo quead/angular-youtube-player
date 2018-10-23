@@ -8,49 +8,6 @@
             <option *ngIf="category.snippet.assignable && globals.categoriesBlocked.indexOf(category.id) === -1" [value]="category.id">{{category.snippet.title}}</option>
         </ng-container> 
       </select>
-      <!-- <ng-container *ngFor="let category of globals.categories.items">
-        <div *ngIf="category.id === globals.currentCategory">
-          <button type="button" (click)="resetCategories()" class="trigger back">
-            <span class="tooltip">Go back</span>
-            <i class="material-icons">close</i>
-          </button>
-        </div>
-        <div *ngIf="category.snippet.assignable && globals.categoriesBlocked.indexOf(category.id) === -1 && category.id !== globals.currentCategory" id="category-{{category.id}}">
-          <a routerLink="/category/{{category.id}}" class="trigger">
-            <span class="tooltip">{{category.snippet.title}}</span>
-            <ng-container *ngIf="category.snippet.title === 'Film & Animation'">
-              <i class="material-icons">movie</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Autos & Vehicles'">
-              <i class="material-icons">directions_car</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Music'">
-              <i class="material-icons">library_music</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Pets & Animals'">
-              <i class="material-icons">pets</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Sports'">
-              <i class="material-icons">pool</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Gaming'">
-              <i class="material-icons">videogame_asset</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Comedy'">
-              <i class="material-icons">insert_emoticon</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Entertainment'">
-              <i class="material-icons">local_movies</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Howto & Style'">
-              <i class="material-icons">directions_bike</i>
-            </ng-container>
-            <ng-container *ngIf="category.snippet.title === 'Science & Technology'">
-              <i class="material-icons">wifi</i>
-            </ng-container>
-          </a>
-        </div>
-      </ng-container> -->
     </div>
   </div>
   <div *ngIf="!loading" class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">

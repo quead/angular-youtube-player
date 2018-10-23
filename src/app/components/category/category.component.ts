@@ -28,38 +28,28 @@ export class CategoryComponent implements OnInit {
 
   initTrending() {
     this.youtube.categories().then(catData => {
-      this.globals.categories = catData;
-      this.loading = false;
+        this.globals.categories = catData;
+        this.loading = false;
     });
-    // this.activatedRoute.paramMap.subscribe(data => {
-    //   if (data['params'].id !== 'all') {
-    //     this.globals.currentCategory = data['params'].id;
-    //     this.getCategories();
-    //   } else {
-    //     this.youtube.categories().then(catData => {
-    //       this.globals.categories = catData;
-    //       this.loading = false;
-    //     });
-    //   }
-    // });
   }
 
   categoryChanged(event: Event) {
     const category = event.target['value'];
     if (category !== 'all') {
-      this.globals.currentCategory = category;
-      this.getCategories();
+        this.globals.currentCategory = category;
+        this.getCategories();
     } else {
-      this.youtube.categories().then(catData => {
-        this.globals.categories = catData;
-        this.loading = false;
-      });
+        this.globals.currentCategory = 'all';
+        this.globals.feedVideos = null;
+        this.shared.initFeed().then(() => {
+            this.loading = false;
+        });
     }
   }
 
   getCategories() {
     this.youtube.categories().then(catData => {
-      this.globals.categories = catData;
+        this.globals.categories = catData;
         this.loading = true;
         this.getCategoriesVideos(this.globals.currentCategory);
     });
@@ -76,13 +66,13 @@ export class CategoryComponent implements OnInit {
     this.globals.currentCategory = 'all';
     this.globals.feedVideos = null;
     this.shared.initFeed().then(() => {
-      this.loading = false;
+        this.loading = false;
     });
   }
 
   onClickVideo(i: any, list: number) {
     if (list === 0) {
-      this.playerComp.getVideo(this.globals.feedVideos[i]);
+        this.playerComp.getVideo(this.globals.feedVideos[i]);
     }
   }
 }
