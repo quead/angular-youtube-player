@@ -95,6 +95,7 @@ export class PlayerComponent implements OnInit {
   setDefaultPlayer() {
     this.shared.initFeed().then(() => {
       this.initPlayer();
+      this.playlistCTRL.fillPlaylist();
       this.loading = false;
     });
   }

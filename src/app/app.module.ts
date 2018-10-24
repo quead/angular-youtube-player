@@ -58,7 +58,7 @@ import { RelatedComponent } from './components/related/related.component';
     RelatedComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PlayerComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, NguCarousel ]
+  providers:    [ PlayerComponent, PlaylistComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, NguCarousel ]
 })
 
 export class AppModule { }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from './services/shared.service';
 import { GlobalsService } from './services/globals.service';
-import { PlaylistComponent } from './components/playlist/playlist.component';
+import { PlaylistControlService } from './services/playlist-control.service';
 
 // DB
 import { DbCrudService } from './services/db-crud.service';
@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 @Component({
     selector: 'app-yt',
     templateUrl: 'app.component.html',
-    providers: [ AuthService, DbCrudService, PlaylistComponent ]
+    providers: [ AuthService, DbCrudService, PlaylistControlService ]
 })
 
 export class AppComponent implements OnInit {
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
         public shared: SharedService,
         public globals: GlobalsService,
         private authService: AuthService,
-        public playlistComp: PlaylistComponent,
+        public playlistCTRL: PlaylistControlService,
     ) {
     }
 
@@ -44,10 +44,10 @@ export class AppComponent implements OnInit {
 
     updateUserDetails() {
         // To fix update in realtime
-        this.authService.checkLogged();
-        this.shared.getSettings();
-        this.setApp();
-        this.sessionValue = localStorage.getItem('session_key');
+        // this.authService.checkLogged();
+        this.shared.getSettings().then(() => {
+            this.sessionValue = localStorage.getItem('session_key');
+        });
     }
 
     // ---------------- Session ----------------
@@ -67,9 +67,4 @@ export class AppComponent implements OnInit {
         this.authService.updateSession();
     }
     // ---------------- Init player ----------------
-    setApp() {
-        this.shared.initFeed().then(() => {
-            this.playlistComp.initPlaylist();
-        })
-    }
 }

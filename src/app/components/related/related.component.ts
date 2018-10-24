@@ -27,6 +27,10 @@ export class RelatedComponent implements OnInit {
       easing: 'ease',
       touch: true,
       loop: false,
+      point: {
+        visible: true,
+        hideOnSingleSlide: true
+      }
     }
   }
 
