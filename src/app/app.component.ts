@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         this.authService.logout();
     }
 
-    // ---------------- Init player ----------------
+    // ---------------- Update app ----------------
     setApp() {
         this.shared.initFeed().then(() => {
             this.playlistCTRL.fillPlaylist();

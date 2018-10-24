@@ -353,7 +353,7 @@ iframe {
         z-index: 0;
         border: 0 dashed transparent;
         transition: all 0.2s ease-out;
-        height: 1260px;
+        max-height: 1260px;
         .video-item-settings {
             cursor: grab;
             cursor: -moz-grab;
