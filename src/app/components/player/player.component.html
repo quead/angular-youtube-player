@@ -6,9 +6,9 @@
   </span>
   <div class="container video-details-container">
     <div class="player">
-      <button type="button" (click)="toggleFullscreen()"><span class="fa fa-plus"></span></button>  
       <div *ngIf="globals.thumbnails" class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
-          <button type="button" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
+          <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
+          <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
       </div>
       <div class="player-container">
           <div class="current-video-details">
@@ -51,15 +51,15 @@
       </div>
     </div>
   </div>
+    <div class="player-background" [ngClass]="{'active': isFullscreen }" >
+        <div class="player-background-container">
+            <div class="youtube-player">
+                <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+            </div>
+            <div *ngIf="isFullscreen" class="background-playlist">
+                <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>
+                <app-playlist></app-playlist>
+            </div>
+        </div>
+    </div>
 </ng-container>
-<div class="player-background" [ngClass]="{'active': isFullscreen }" >
-  <div class="player-background-container">
-      <div class="youtube-player">
-        <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
-      </div>
-      <div class="background-playlist">
-          <button type="button" (click)="toggleFullscreen()">Close fullscreen</button>
-          <app-playlist></app-playlist>
-      </div>
-  </div>
-</div>

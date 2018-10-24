@@ -68,7 +68,6 @@
     </div>
   </div>
   <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-    <h2>Manage playlist</h2>
     <div class="modal-content">
       <h3>Import Playlist</h3>
       <div class="form-group file-upload">
@@ -81,6 +80,12 @@
       </div>
       <h3>Export Playlist</h3>
       <p>Number of videos to export: {{globals.playlistVideos.length}}</p>
+      <h3>Session</h3>
+      <div class="session-section">
+        <input type="text" [ngModel]="sessionValue" (keyup)="updateKey($event.target.value)" />
+        <button type="button" class="download" (click)="getSession()"><span class="fa fa-cloud-download"></span></button>
+        <button type="button" class="upload" (click)="updateSession()"><span class="fa fa-cloud-upload"></span></button>
+      </div>
     </div>
     <button class="modal-close" (click)="closeModal()">
       <span class="fa fa-times"></span>

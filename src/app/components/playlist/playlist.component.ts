@@ -3,6 +3,7 @@ import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { PlaylistControlService } from '../../services/playlist-control.service';
+import { AuthService } from '../../services/auth.service';
 import { PlayerComponent } from '../../components/player/player.component';
 import { VideoModel } from '../../models/video.model';
 import { Event } from '@angular/router/src/events';
@@ -10,6 +11,7 @@ import { Event } from '@angular/router/src/events';
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
+  providers: [ AuthService ]
 })
 export class PlaylistComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;  
@@ -25,17 +27,22 @@ export class PlaylistComponent implements OnInit {
 
   importPlaylistInput: any;
 
+  sessionValue: any;
+  sessionInput: any;
+
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
+    private authService: AuthService,    
     private dragula: DragulaService,    
   ) { }
 
   ngOnInit() {
     this.globals.myScrollContainer = this.myScrollContainer;    
     this.initDragula();
+    this.initSession();
   }
 
   private hasClass(el: any, name: string) {
@@ -179,6 +186,29 @@ export class PlaylistComponent implements OnInit {
 
   onClickRelated(i: number) {
     this.playerComp.getVideo(this.globals.relatedVideos[i]);
+  }
+
+  // ---------------- Session ----------------
+  initSession() {
+    // To fix update in realtime
+    this.shared.getSettings().then(() => {
+        this.sessionValue = localStorage.getItem('session_key');
+    });
+  }
+
+  getSession() {
+      this.authService.getSession(this.sessionValue);
+      this.shared.triggerNotify('Downloaded playlist');
+  }
+    
+  updateKey(value: string) {
+      this.sessionValue = value;
+      localStorage.setItem('session_key', this.sessionValue);
+  }
+  
+  updateSession() {
+      this.authService.updateSession();
+      this.shared.triggerNotify('Uploaded playlist');
   }
 
 }

@@ -16,8 +16,6 @@ import { AuthService } from './services/auth.service';
 
 export class AppComponent implements OnInit {
     @ViewChild('videoItemIDvalue') videoItemIDvalue: ElementRef;
-    sessionValue: any;
-    sessionInput: any;
 
     constructor(
         public shared: SharedService,
@@ -30,7 +28,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
         this.shared.preventOldSettings();
-        this.updateUserDetails();
     }
 
     // ---------------- User ------------------
@@ -42,25 +39,10 @@ export class AppComponent implements OnInit {
         this.authService.logout();
     }
 
-    updateUserDetails() {
-        // To fix update in realtime
-        // this.authService.checkLogged();
-        this.shared.getSettings().then(() => {
-            this.sessionValue = localStorage.getItem('session_key');
-        });
-    }
-
-    // ---------------- Session ----------------
-    getSession() {
-        this.authService.getSession(this.sessionValue);
-    }
-
-    updateKey(value: string) {
-        this.sessionValue = value;
-        localStorage.setItem('session_key', this.sessionValue);
-    }
-    updateSession() {
-        this.authService.updateSession();
-    }
     // ---------------- Init player ----------------
+    setApp() {
+        this.shared.initFeed().then(() => {
+            this.playlistCTRL.fillPlaylist();
+        })
+    }
 }

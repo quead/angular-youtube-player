@@ -2,7 +2,8 @@
   <div class="video-item-head">
     <h2>Trending</h2>
     <div class="categories" *ngIf="globals.categories">
-      <select [ngModel]="globals.currentCategory" (change)="categoryChanged($event)">
+      <label for="select-category"><span class="fa fa-angle-down"></span></label>
+      <select id="select-category" [ngModel]="globals.currentCategory" (change)="categoryChanged($event)">
         <option value="all">General</option>
         <ng-container *ngFor="let category of globals.categories.items">
             <option *ngIf="category.snippet.assignable && globals.categoriesBlocked.indexOf(category.id) === -1" [value]="category.id">{{category.snippet.title}}</option>

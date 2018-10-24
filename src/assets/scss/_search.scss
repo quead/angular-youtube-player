@@ -105,12 +105,19 @@
 .categories {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
     select {
         -webkit-appearance: none;
         border: none;
-        background: #0e1115;
+        background: #191f27;
         color: #ffffff;
         border-radius: 3px;
         padding: 8px;
+    }
+    label {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }

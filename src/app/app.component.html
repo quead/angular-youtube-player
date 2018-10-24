@@ -7,9 +7,6 @@
 	<button type="button" (click)="logout()">Logout</button>
   </ng-container>
   <button type="button" (click)="refresh()">Reinit</button> -->
-  	<input type="text" [ngModel]="sessionValue" (keyup)="updateKey($event.target.value)" />
-	<button type="button" (click)="getSession()">Get Session</button>
-	<button type="button" (click)="updateSession()">Update Session</button>
 
 	<div id="logo">
 		<a routerLink="/category/all" class="logo-svg" title="Homepage"></a>

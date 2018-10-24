@@ -123,8 +123,10 @@ export class AuthService {
 
     getSession(sessionKey: string) {
         this.db2.list('sessions/' + sessionKey).valueChanges().subscribe((sessionData) => {
-            this.globals.playlistVideos = sessionData['3'];
-            this.shared.updatePlaylist();
+            if(sessionData.length > 0) {
+                this.globals.playlistVideos = sessionData['3'];
+                this.shared.updatePlaylist();
+            }
         });
     }
 }

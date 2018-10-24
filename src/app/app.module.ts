@@ -13,6 +13,7 @@ import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { PlaylistControlService } from './services/playlist-control.service';
+import { AuthService } from './services/auth.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
@@ -58,7 +59,7 @@ import { RelatedComponent } from './components/related/related.component';
     RelatedComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PlayerComponent, PlaylistComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, NguCarousel ]
+  providers:    [ PlayerComponent, PlaylistComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, AuthService, NguCarousel ]
 })
 
 export class AppModule { }
