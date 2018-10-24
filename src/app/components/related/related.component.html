@@ -2,19 +2,18 @@
   <div class="video-item-head">
     <h2>Related Videos</h2>
   </div>
-  <div class="related-video-content">
-    <ng-container *ngIf="globals.isLoading">
+  <ng-container *ngIf="globals.isLoading">
+    <div class="related-video-content">
       <div class="loading-list">
           <div *ngFor="let i of [1,2,3,4,5,6,7,8]" class="item loading-box">
               <div class="loading-medium-box loading-anim"></div>
               <div class="loading-small-box loading-anim"></div>
           </div>
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
   <ngu-carousel
-    [inputs]="carouselOne"
-    (carouselLoad)="myfunc($event)">
+    [inputs]="carouselOne">
     <ngu-item NguCarouselItem *ngFor="let relatedVideo of globals.relatedVideos; let i = index" >
       <div [attr.data-index]="i" class="video-item">
         <div class="video-item-info">

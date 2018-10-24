@@ -1,6 +1,5 @@
 .container {
     display: flex;
-    height: 100%;
     margin: 0 auto;
     flex-wrap: wrap;
     @media (max-width: 575px) { width: auto; }
