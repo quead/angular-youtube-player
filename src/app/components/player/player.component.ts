@@ -18,6 +18,7 @@ export class PlayerComponent implements OnInit {
   videoRangeTimer: any;
 
   currentMuteState = false;
+  isFullscreen = false;
 
   videoCurVolume = -1;
 
@@ -45,9 +46,6 @@ export class PlayerComponent implements OnInit {
   playerVars() {
     const playerVars = {
       'enablejsapi': 1,
-      'controls': 0,
-      'disablekb': 0,
-      'showinfo': 0,
       'playsinline': 1,
       'autoplay': 0,
       'loop': 0,
@@ -175,6 +173,7 @@ export class PlayerComponent implements OnInit {
   getVideo(data: any) {
     this.shared.getStatsVideos(data.id).then(() => {
       this.playVideo(data);
+      this.shared.getRelatedVideos();
     });
   }
 
@@ -249,5 +248,9 @@ export class PlayerComponent implements OnInit {
         this.currentMuteState = true;
       }
     }
+  }
+  
+  toggleFullscreen() {
+    this.isFullscreen = !this.isFullscreen;
   }
 }

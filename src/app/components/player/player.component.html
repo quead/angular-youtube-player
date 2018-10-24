@@ -5,10 +5,8 @@
   <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}">
   </span>
   <div class="container video-details-container">
-    <div class="youtube-player" [ngClass]="{'active': globals.displayVideoPlayer }">
-      <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
-    </div>
     <div class="player">
+      <button type="button" (click)="toggleFullscreen()"><span class="fa fa-plus"></span></button>  
       <div *ngIf="globals.thumbnails" class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
           <button type="button" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
       </div>
@@ -51,7 +49,17 @@
             <input id="shareInput" type="text" name="current video share" #shareInput [value]="globals.shareLink" (click)="shared.copyShareLink(shareInput.select())" readonly>
           </div>
       </div>
-
     </div>
   </div>
 </ng-container>
+<div class="player-background" [ngClass]="{'active': isFullscreen }" >
+  <div class="player-background-container">
+      <div class="youtube-player">
+        <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+      </div>
+      <div class="background-playlist">
+          <button type="button" (click)="toggleFullscreen()">Close fullscreen</button>
+          <app-playlist></app-playlist>
+      </div>
+  </div>
+</div>

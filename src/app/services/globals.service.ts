@@ -30,7 +30,6 @@ export class GlobalsService {
   isLoading = true;
   thumbnails = true;
   listGrid = false;
-  displayVideoPlayer = true;
   repeatMode = true;
   darkMode = true;
 

@@ -52,14 +52,10 @@ export class AppComponent implements OnInit {
 
     // ---------------- Session ----------------
     getSession() {
-        console.log('get session');
-        // this.authService.getSession(this.sessionValue);
+        this.authService.getSession(this.sessionValue);
     }
-    // showSession() {
-    //     console.log('show session');
-    // }
+
     updateKey(value: string) {
-        // this.sessionValue = value;
         this.sessionValue = value;
         localStorage.setItem('session_key', this.sessionValue);
     }

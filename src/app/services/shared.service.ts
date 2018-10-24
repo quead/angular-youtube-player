@@ -65,9 +65,8 @@ export class SharedService {
 
         this.globals.thumbnails = this.globals.settings.form_settings[0].value;
         this.globals.listGrid = this.globals.settings.form_settings[1].value;
-        this.globals.displayVideoPlayer = this.globals.settings.form_settings[2].value;
-        this.globals.repeatMode = this.globals.settings.form_settings[3].value;
-        this.globals.darkMode = this.globals.settings.form_settings[4].value;
+        this.globals.repeatMode = this.globals.settings.form_settings[2].value;
+        this.globals.darkMode = this.globals.settings.form_settings[3].value;
     }
     
     updateSettings(newSettings: any) {
@@ -79,7 +78,7 @@ export class SharedService {
     }
 
     preventOldSettings() {
-        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '1') {
+        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '2') {
             console.log('Updating localstorage...');
             localStorage.clear();
             this.globals.settings = null;
@@ -126,8 +125,8 @@ export class SharedService {
     }
 
     setLocalVersion() {
-        if (localStorage.getItem('version') === null) {
-            localStorage.setItem('version', '2');
+        if (localStorage.getItem('version') === null || localStorage.getItem('version') === '2') {
+            localStorage.setItem('version', '3');
         }
     }
 

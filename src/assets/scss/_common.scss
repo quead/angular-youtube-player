@@ -89,13 +89,6 @@
 }
 
 .youtube-player {
-    height: 0;
-    opacity: 0;
-    transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 100%;
     &-cover {
         height: 140px;
         width: 140px;
@@ -129,17 +122,6 @@
                 opacity: 1;
             }
         }
-    }
-    &.active {      
-        opacity: 1;
-        visibility: visible;
-        position: relative;
-        top: 0;
-        left: 0;
-        height: auto;
-        margin: 0 auto;
-        width: 180px;
-        transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
     }
 }
 
