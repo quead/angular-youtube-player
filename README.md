@@ -7,7 +7,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.3.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
@@ -37,6 +37,8 @@ This player is compatible only with Chrome/webkit browsers.
 
 5. Add your youtube api key in settings.json or in the app
 
+6. To make available firebase (for session feature upload/download) update environments.prod.ts and environments.ts
+
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
@@ -50,6 +52,11 @@ This player is compatible only with Chrome/webkit browsers.
 4. Edit files from src/assets/scss
 
 ## Changelog
+Angular YouTube Player 2.3.3
+- Fixed bugs after refactoring
+- Added session key available in firebase
+- Layout update
+
 Angular YouTube Player 2.3
 - Updating to LTS angular
 - Refactoring entire app services and components
