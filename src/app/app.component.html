@@ -1,46 +1,51 @@
 <header>
+  
   <!-- <ng-container *ngIf="!globals.isLogged">
-    <button type="button" (click)="loginGoogle()">Login</button>
+	<button type="button" (click)="loginGoogle()">Login</button>
   </ng-container>
   <ng-container *ngIf="globals.isLogged">
-    <button type="button" (click)="logout()">Logout</button>
+	<button type="button" (click)="logout()">Logout</button>
   </ng-container>
   <button type="button" (click)="refresh()">Reinit</button> -->
-  <div id="logo">
-    <a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
-    <small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
-  </div>
-  <nav>
-    <ul>
-      <li><a routerLink="/home" routerLinkActive="is-active" title="Homepage">Home</a></li>
-      <li><a routerLink="/history" routerLinkActive="is-active" title="History page">History</a></li>
-      <li><a routerLink="/about" routerLinkActive="is-active" title="About application page">About</a></li>
-      <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page">Settings</a></li>
-    </ul>
-  </nav>
-  <app-search></app-search>
+  	<input type="text" [ngModel]="sessionValue" (keyup)="updateKey($event.target.value)" />
+	<button type="button" (click)="getSession()">Get Session</button>
+	<button type="button" (click)="updateSession()">Update Session</button>
+
+	<div id="logo">
+		<a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
+		<small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
+	</div>
+	<nav>
+	<ul>
+		<li><a routerLink="/home" routerLinkActive="is-active" title="Homepage">Home</a></li>
+		<li><a routerLink="/history" routerLinkActive="is-active" title="History page">History</a></li>
+		<li><a routerLink="/about" routerLinkActive="is-active" title="About application page">About</a></li>
+		<li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page">Settings</a></li>
+	</ul>
+	</nav>
+	<app-search></app-search>
 </header>
 <app-component-player></app-component-player>
 <div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
-  <input type="text" class="hide-input" #videoItemIDvalue />
-  <div class="container">
-    <div class="col col-1">
-      <app-related></app-related>
-    </div>
-    <div class="col col-3">
-        <app-playlist></app-playlist>
-    </div>
-    <div class="col col-5">
-        <div class="app app-feed">
-          <router-outlet></router-outlet>
-        </div>
-        <div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
-          <span class="fa fa-cog fa-spin fa-fw"></span>
-          <p>{{ shared.notify.message }}</p>
-        </div>
-    </div>
-  </div>
-  <div id="mobile-unavailable">
-    The app is not ready for mobile/tablet, soon...
-  </div>
+	<input type="text" class="hide-input" #videoItemIDvalue />
+	<div class="container">
+		<div class="col col-1">
+			<app-related></app-related>
+		</div>
+		<div class="col col-3">
+			<app-playlist></app-playlist>
+		</div>
+		<div class="col col-5">
+			<div class="app app-feed">
+				<router-outlet></router-outlet>
+			</div>
+			<div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
+				<span class="fa fa-cog fa-spin fa-fw"></span>
+				<p>{{ shared.notify.message }}</p>
+			</div>
+		</div>
+	</div>
+	<div id="mobile-unavailable">
+	The app is not ready for mobile/tablet, soon...
+	</div>
 </div>

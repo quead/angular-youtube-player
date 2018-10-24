@@ -68,7 +68,6 @@ export class PlaylistControlService {
   scrollToBottom() {
     try {
       setTimeout( () => {
-        console.log(this.globals.myScrollContainer);
         this.globals.myScrollContainer.nativeElement.scrollTop = this.globals.myScrollContainer.nativeElement.scrollHeight;
       }, 200);
     } catch (err) {

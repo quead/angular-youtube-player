@@ -69,6 +69,14 @@ export class SharedService {
         this.globals.repeatMode = this.globals.settings.form_settings[3].value;
         this.globals.darkMode = this.globals.settings.form_settings[4].value;
     }
+    
+    updateSettings(newSettings: any) {
+        this.globals.settings = newSettings;
+        this.globals.external_settings = newSettings['api_settings'];
+        this.globals.internal_settings = newSettings['form_settings'];
+        this.updateLocalStorageSettings();
+        this.setSettings();
+    }
 
     preventOldSettings() {
         if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '1') {
