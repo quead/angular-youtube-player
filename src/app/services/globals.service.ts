@@ -32,6 +32,7 @@ export class GlobalsService {
   listGrid = false;
   repeatMode = true;
   darkMode = true;
+  sessionValue: string;
 
   regionCode = '';
   apiKey = '';

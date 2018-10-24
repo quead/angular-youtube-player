@@ -126,6 +126,7 @@ export class AuthService {
             if(sessionData.length > 0) {
                 this.globals.playlistVideos = sessionData['3'];
                 this.shared.updatePlaylist();
+                this.shared.checkPlaylist();
             }
         });
     }

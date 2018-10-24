@@ -7,6 +7,7 @@
     opacity: 0;
     background: rgba(0,0,0,0.9);
     z-index: -10;
+    transition: opacity 0.1s ease;
     &-container {
         display: flex;
         padding: 20px;

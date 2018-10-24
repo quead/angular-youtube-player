@@ -27,9 +27,6 @@ export class PlaylistComponent implements OnInit {
 
   importPlaylistInput: any;
 
-  sessionValue: any;
-  sessionInput: any;
-
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
@@ -127,6 +124,8 @@ export class PlaylistComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   initDragula() {
+    const bag: any = this.dragula.find('globals.playlist');
+    if (bag !== undefined ) this.dragula.destroy('globals.playlist');
     this.dragula.setOptions('globals.playlist', {
       moves: (handle) => {
         return handle.className === 'video-item-settings';
@@ -190,20 +189,19 @@ export class PlaylistComponent implements OnInit {
 
   // ---------------- Session ----------------
   initSession() {
-    // To fix update in realtime
     this.shared.getSettings().then(() => {
-        this.sessionValue = localStorage.getItem('session_key');
+        this.globals.sessionValue = localStorage.getItem('session_key');
     });
   }
 
   getSession() {
-      this.authService.getSession(this.sessionValue);
+      this.authService.getSession(this.globals.sessionValue);
       this.shared.triggerNotify('Downloaded playlist');
   }
     
   updateKey(value: string) {
-      this.sessionValue = value;
-      localStorage.setItem('session_key', this.sessionValue);
+      this.globals.sessionValue = value;
+      localStorage.setItem('session_key', this.globals.sessionValue);
   }
   
   updateSession() {

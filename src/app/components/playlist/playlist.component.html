@@ -82,7 +82,7 @@
       <p>Number of videos to export: {{globals.playlistVideos.length}}</p>
       <h3>Session</h3>
       <div class="session-section">
-        <input type="text" [ngModel]="sessionValue" (keyup)="updateKey($event.target.value)" />
+        <input type="text" [ngModel]="globals.sessionValue" (keyup)="updateKey($event.target.value)" />
         <button type="button" class="download" (click)="getSession()"><span class="fa fa-cloud-download"></span></button>
         <button type="button" class="upload" (click)="updateSession()"><span class="fa fa-cloud-upload"></span></button>
       </div>
