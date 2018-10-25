@@ -154,7 +154,7 @@ export class SharedService {
     }
 
     addHistoryVideo(data: any) {
-        if (this.globals.historyVideos.indexOf(data) === -1) {
+        if (typeof (this.globals.historyVideos.find(video => video.id === data.id)) === 'undefined') {
             this.globals.historyVideos.unshift(data);
         } else {
             const indexVideo = this.globals.historyVideos.indexOf(data);

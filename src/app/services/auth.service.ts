@@ -22,23 +22,23 @@ export class AuthService {
     checkLogged() {
         this.afAuth.user.subscribe(authData => {
             if (authData) {
-            this.globals.isLogged = true;
-            // this.db2.list('users/' + authData.uid).valueChanges().subscribe(data => {
-            //     console.log(data);
-            //     this.shared.updateSettings(data['3']);
-            //     // Get session key and check in db for it and update the playlist
-            //     if (localStorage.getItem('session_key') !== data['2']) {
-            //         localStorage.setItem('session_key', data['2']);
-            //     }
-            //     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
-            //         this.shared.convertVideoObject(data['3'], 'playlistVideos');
-            //         this.globals.currentVideo = data['2'];
-            //         this.shared.updatePlaylist();
-            //         this.playlistControl.fillPlaylist();
-            //     });
-            // });
-        } else {
-            this.globals.isLogged = false;
+                this.globals.isLogged = true;
+                // this.db2.list('users/' + authData.uid).valueChanges().subscribe(data => {
+                //     console.log(data);
+                //     this.shared.updateSettings(data['3']);
+                //     // Get session key and check in db for it and update the playlist
+                //     if (localStorage.getItem('session_key') !== data['2']) {
+                //         localStorage.setItem('session_key', data['2']);
+                //     }
+                //     this.db2.list('sessions/' + localStorage.getItem('session_key')).valueChanges().subscribe((data) => {
+                //         this.shared.convertVideoObject(data['3'], 'playlistVideos');
+                //         this.globals.currentVideo = data['2'];
+                //         this.shared.updatePlaylist();
+                //         this.playlistControl.fillPlaylist();
+                //     });
+                // });
+            } else {
+                this.globals.isLogged = false;
             }
         });
     }

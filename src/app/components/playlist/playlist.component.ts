@@ -156,6 +156,11 @@ export class PlaylistComponent implements OnInit {
     }
   }
 
+
+  onCopyVideoItemLink(i: number, list: number) {
+    this.shared.onCopyVideoItemLink(i, list);
+  }
+
   // ---------------- Modal functions ----------------
 
   closeModal() {
@@ -196,7 +201,7 @@ export class PlaylistComponent implements OnInit {
 
   getSession() {
       this.authService.getSession(this.globals.sessionValue);
-      this.shared.triggerNotify('Downloaded playlist');
+      this.shared.triggerNotify('Downloading playlist from cloud...');
   }
     
   updateKey(value: string) {
@@ -205,8 +210,8 @@ export class PlaylistComponent implements OnInit {
   }
   
   updateSession() {
-      this.authService.updateSession();
-      this.shared.triggerNotify('Uploaded playlist');
+        this.authService.updateSession();
+        this.shared.triggerNotify('Uploading playlist to cloud...');
   }
 
 }
