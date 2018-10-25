@@ -105,7 +105,12 @@ export class SharedService {
     }
 
     getPlaylist() {
-        this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
+        if (localStorage.getItem('playlist') !== 'undefined') {
+            this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
+        } else {
+            this.globals.playlistVideos = this.globals.relatedVideos;
+            this.updatePlaylist();
+        }
     }
 
     updatePlaylist() {

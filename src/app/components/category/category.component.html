@@ -11,31 +11,36 @@
       </select>
     </div>
   </div>
-  <div *ngIf="!loading" class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
-    <div *ngFor="let feedVideo of globals.feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
-      <div class="video-item-info">
-        <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
-        <div class="video-item-content">
-          <p class="video-item-title">{{ feedVideo.title }}</p>
-          <p class="video-item-autor"><span>{{ feedVideo.channelTitle }}</span></p>
-          <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-              <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.stats.views | number:'1.0' }}</p>
-              <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.stats.likes | number:'1.0' }}</p>
-              <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.stats.dislikes | number:'1.0' }}</p>
+  <div class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
+    <ng-container *ngIf="loading">
+        <div *ngFor="let i of [1,2,3,4,5,6,8,9,10]" class="loading-feed-list loading-anim"></div>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+      <div *ngFor="let feedVideo of globals.feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
+        <div class="video-item-info">
+          <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
+          <div class="video-item-content">
+            <p class="video-item-title">{{ feedVideo.title }}</p>
+            <p class="video-item-autor"><span>{{ feedVideo.channelTitle }}</span></p>
+            <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
+                <p class="stats-views"><span class="fa fa-eye"></span> {{ feedVideo.stats.views | number:'1.0' }}</p>
+                <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ feedVideo.stats.likes | number:'1.0' }}</p>
+                <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ feedVideo.stats.dislikes | number:'1.0' }}</p>
+            </div>
           </div>
         </div>
+        <div class="video-item-settings">
+            <button class="video-item-play" (click)="onClickVideo(i, 0)">
+              <span class="fa fa-play"></span>
+            </button>
+            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
+              <span class="fa fa-share-alt"></span>
+            </button>
+            <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
+              <span class="fa fa-plus"></span>
+            </button>
+          </div>
       </div>
-      <div class="video-item-settings">
-          <button class="video-item-play" (click)="onClickVideo(i, 0)">
-            <span class="fa fa-play"></span>
-          </button>
-          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
-            <span class="fa fa-share-alt"></span>
-          </button>
-          <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
-            <span class="fa fa-plus"></span>
-          </button>
-        </div>
-    </div>
+    </ng-container>
   </div>
 </div>

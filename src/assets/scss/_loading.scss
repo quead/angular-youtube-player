@@ -13,7 +13,7 @@
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right,rgba(0,0,0,0.3) 8%,var(--c-base) 18%,rgba(0,0,0,0.3) 33%);
+    background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,var(--c-base) 18%,rgba(#6a7586,0.1) 33%);
     background-size: 800px 104px;
     border-radius: 3px;
     &-video-item {
@@ -22,7 +22,7 @@
         animation-iteration-count: infinite;
         animation-name: placeHolderShimmer;
         animation-timing-function: linear;
-        background: linear-gradient(to right,rgba(0,0,0,0.3) 8%,var(--c-base) 18%,rgba(0,0,0,0.3) 33%);
+        background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,var(--c-base) 18%,rgba(#6a7586,0.1) 33%);
         background-size: 800px 104px;
         height: 180px;
         .video-item-image {
@@ -40,25 +40,48 @@
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
-    padding: 0 10px;
+    padding: 0 25px;
     .loading-small-box {
         margin-top: 10px;
     }
 }
 
+.loading-video-item {
+    display: flex;
+    margin-bottom: 5px;
+    .loading-featured {
+        height: 70px;
+        width: 80px;
+        margin-right: 0;
+    }
+    .loading-medium-box {
+        height: 70px;
+        margin-left: 10px;
+    }
+}
+
+.loading-feed-list {
+    height: 130px;
+    width: calc(33.333% - 10px);
+    display: block;
+    margin: 0 5px 10px;
+}
+
 .loading-box {
     height: 156px;
+    width: 135px;
+    margin-right: 4px;
 }
 
 .loading-medium-box {
     height: 110px;
-    width: 160px;
+    width: 100%;
     margin: 0 auto;
 }
 
 .loading-small-box {
     height: 30px;
-    width: 160px;
+    width: 100%;
     margin: 0 auto;
 }
 
