@@ -4,7 +4,7 @@
       <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
       <button type="button" class="video-item-head-btn" (click)="shared.clearPlaylist()"><span class="fa fa-close"></span>clear</button>
   </div>
-  <div class="playlist-video-content" dragula='"playlistDrag"' [(dragulaModel)]='globals.playlistVideos' #playlistContainer>
+  <div class="playlist-video-content" dragula="playlistDrag" [(dragulaModel)]="globals.playlistVideos" #playlistContainer>
     <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
       <div class="text-center-block">
           Playlist is empty.

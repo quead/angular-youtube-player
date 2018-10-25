@@ -23,13 +23,10 @@ export class RelatedComponent implements OnInit {
     this.carouselOne = {
       grid: {xs: 2, sm: 4, md: 8, lg: 8, all: 0},
       slide: 4,
-      speed: 2000,
-      easing: 'ease',
-      loop: false,
-      point: {
-        visible: true,
-        hideOnSingleSlide: true
-      }
+      speed: 250,
+      loop: true,
+      velocity: 0,
+      touch: false,
     }
   }
 

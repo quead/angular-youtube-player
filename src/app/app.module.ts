@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { routes } from './app.router';
+import { AppRoutingModule } from './app.router';
 
 import { DragulaModule } from 'ng2-dragula';
-import { NguCarouselModule, NguCarousel } from '@ngu/carousel';
+import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 
 import { AppComponent } from './app.component';
 import { GlobalsService } from './services/globals.service';
@@ -45,7 +45,7 @@ import { RelatedComponent } from './components/related/related.component';
     FormsModule,
     DragulaModule.forRoot(),
     NguCarouselModule,
-    routes
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
@@ -59,7 +59,7 @@ import { RelatedComponent } from './components/related/related.component';
     RelatedComponent
   ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PlayerComponent, PlaylistComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, AuthService, NguCarousel ]
+  providers:    [ PlayerComponent, PlaylistComponent, YoutubeGetVideo, PlaylistControlService, SharedService, GlobalsService, AngularFireAuth, AngularFireDatabase, AuthService, NguCarouselConfig, NguCarousel ]
 })
 
 export class AppModule { }

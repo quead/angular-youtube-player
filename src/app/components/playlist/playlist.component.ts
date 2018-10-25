@@ -27,6 +27,8 @@ export class PlaylistComponent implements OnInit {
   modalPlaylistItem: number;
 
   importPlaylistInput: any;
+  BAG = "playlistDrag";
+  subs = new Subscription();
 
   constructor(
     public shared: SharedService,
@@ -34,7 +36,7 @@ export class PlaylistComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
     private authService: AuthService,    
-    private dragula: DragulaService,    
+    private dragulaService: DragulaService,    
   ) { }
 
   ngOnInit() {
@@ -125,31 +127,26 @@ export class PlaylistComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   initDragula() {
-    const bag: any = this.dragula.find('globals.playlist');
-    if (bag !== undefined ) this.dragula.destroy('globals.playlist');
-    const BAG = "DRAGULA_EVENTS";
-    const subs = new Subscription();
-
-    this.dragula.createGroup('globals.playlist', {
-      moves: (handle) => {
-        return handle.className === 'video-item-settings';
-      }
-    });
-
-    subs.add(this.dragula.drop(BAG)
+    this.dragulaService.createGroup(this.BAG, {});
+    this.subs.add(this.dragulaService.drag(this.BAG)
         .subscribe(({ el }) => {
-            this.removeClass(el, 'ex-over');
+            this.removeClass(el, 'ex-moved');
             this.shared.checkPlaylist();
         })
     );
-    subs.add(this.dragula.over(BAG)
-        .subscribe(({ el, container }) => {
+    this.subs.add(this.dragulaService.drop(this.BAG)
+        .subscribe(({ el }) => {
+            this.addClass(el, 'ex-moved');
+            this.shared.checkPlaylist();
+        })
+    );
+    this.subs.add(this.dragulaService.over(this.BAG)
+        .subscribe(({ container }) => {
             this.addClass(container, 'ex-over');
         })
     );
-    subs.add(this.dragula.out(BAG)
-        .subscribe(({ el, container }) => {
-            console.log('out', container);
+    this.subs.add(this.dragulaService.out(this.BAG)
+        .subscribe(({ container }) => {
             this.removeClass(container, 'ex-over');
             this.shared.checkPlaylist();
         })
