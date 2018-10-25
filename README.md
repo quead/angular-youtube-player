@@ -56,6 +56,7 @@ Angular YouTube Player 2.3.3
 - Fixed bugs after refactoring
 - Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
 - Layout update
+- Updated from angular 5.2.0 to 7.0.1
 
 Angular YouTube Player 2.3
 - Updating to LTS angular
