@@ -54,7 +54,7 @@ This player is compatible only with Chrome/webkit browsers.
 ## Changelog
 Angular YouTube Player 2.3.3
 - Fixed bugs after refactoring
-- Added session key available in firebase
+- Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
 - Layout update
 
 Angular YouTube Player 2.3
