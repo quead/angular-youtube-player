@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   providers: [ AuthService ]
 })
 export class PlaylistComponent implements OnInit {
-  @ViewChild('playlistContainer') private myScrollContainer: ElementRef;  
+  @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
 
   tempPlaylist: Array<VideoModel> = [];
 
@@ -27,7 +27,7 @@ export class PlaylistComponent implements OnInit {
   modalPlaylistItem: number;
 
   importPlaylistInput: any;
-  BAG = "playlistDrag";
+  BAG = 'playlistDrag';
   subs = new Subscription();
 
   constructor(
@@ -35,12 +35,12 @@ export class PlaylistComponent implements OnInit {
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
-    private authService: AuthService,    
-    private dragulaService: DragulaService,    
+    private authService: AuthService,
+    private dragulaService: DragulaService,
   ) { }
 
   ngOnInit() {
-    this.globals.myScrollContainer = this.myScrollContainer;    
+    this.globals.myScrollContainer = this.myScrollContainer;
     this.initDragula();
     this.initSession();
   }
@@ -191,13 +191,6 @@ export class PlaylistComponent implements OnInit {
     this.modal = false;
   }
 
-
-  // ---------------- Video fetching ----------------
-
-  onClickRelated(i: number) {
-    this.playerComp.getVideo(this.globals.relatedVideos[i]);
-  }
-
   // ---------------- Session ----------------
   initSession() {
     this.shared.getSettings().then(() => {
@@ -209,12 +202,12 @@ export class PlaylistComponent implements OnInit {
       this.authService.getSession(this.globals.sessionValue);
       this.shared.triggerNotify('Downloading playlist from cloud...');
   }
-    
+
   updateKey(value: string) {
       this.globals.sessionValue = value;
       localStorage.setItem('session_key', this.globals.sessionValue);
   }
-  
+
   updateSession() {
         this.authService.updateSession();
         this.shared.triggerNotify('Uploading playlist to cloud...');

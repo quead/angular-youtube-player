@@ -14,7 +14,7 @@ export class GlobalsService {
   currentState = -1;
   currentVideo: VideoModel;
   shareLink: string;
-  currentPlaylistItem: number;  
+  currentPlaylistItem: number;
 
   categories: any;
   currentCategory = 'all';
@@ -41,7 +41,7 @@ export class GlobalsService {
 
   settings: any;
   player: YT.Player;
-  myScrollContainer: ElementRef
+  myScrollContainer: ElementRef;
 
   constructor() { }
 

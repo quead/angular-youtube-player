@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
         this.shared.preventOldSettings();
     }
@@ -45,6 +44,6 @@ export class AppComponent implements OnInit {
     setApp() {
         this.shared.initFeed().then(() => {
             this.playlistCTRL.fillPlaylist();
-        })
+        });
     }
 }

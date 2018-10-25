@@ -67,7 +67,7 @@ export class SharedService {
         this.globals.repeatMode = this.globals.settings.form_settings[2].value;
         this.globals.darkMode = this.globals.settings.form_settings[3].value;
     }
-    
+
     updateSettings(newSettings: any) {
         this.globals.settings = newSettings;
         this.globals.external_settings = newSettings['api_settings'];
@@ -148,7 +148,7 @@ export class SharedService {
                 arr.push(undefined);
             }
         }
-         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);  
+         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
        return arr;
     }
 
@@ -322,9 +322,9 @@ export class SharedService {
         if (list === 4) {
           listType = this.globals.historyVideos[i];
         }
-    
+
         this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
-    
+
         this.globals.videoItemIDvalue.nativeElement.select();
         this.globals.videoItemIDvalue.nativeElement.focus();
         document.execCommand('copy');

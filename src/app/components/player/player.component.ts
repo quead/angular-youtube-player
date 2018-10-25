@@ -54,7 +54,7 @@ export class PlayerComponent implements OnInit {
     };
     return playerVars;
   }
-  
+
   onStateChange(event: any) {
     this.globals.currentState = event.data;
     this.videoMaxRange = this.globals.player.getDuration();
@@ -249,7 +249,7 @@ export class PlayerComponent implements OnInit {
       }
     }
   }
-  
+
   toggleFullscreen() {
     this.isFullscreen = !this.isFullscreen;
   }

@@ -15,7 +15,7 @@
   <ng-container *ngIf="globals.relatedVideos.length > 0">
     <ngu-carousel
       [inputs]="carouselOne" [dataSource]="globals.relatedVideos">
-      <ngu-item *nguCarouselDef="let relatedVideo;">
+      <ngu-item *nguCarouselDef="let relatedVideo; let i = index;">
         <div [attr.data-index]="i" class="video-item">
           <div class="video-item-info">
             <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.high +')'}"></div>

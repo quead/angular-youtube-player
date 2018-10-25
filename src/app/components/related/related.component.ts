@@ -27,7 +27,7 @@ export class RelatedComponent implements OnInit {
       loop: true,
       velocity: 0,
       touch: false,
-    }
+    };
   }
 
 }
