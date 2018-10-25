@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.router';
 
-import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 import { NguCarouselModule, NguCarousel } from '@ngu/carousel';
 
 import { AppComponent } from './app.component';
@@ -24,11 +24,11 @@ import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 // Firebase
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
@@ -43,7 +43,7 @@ import { RelatedComponent } from './components/related/related.component';
     ReactiveFormsModule,
     YoutubePlayerModule,
     FormsModule,
-    DragulaModule,
+    DragulaModule.forRoot(),
     NguCarouselModule,
     routes
   ],

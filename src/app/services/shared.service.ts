@@ -1,9 +1,8 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
-import 'rxjs/add/operator/map';
-
 import { GlobalsService } from './globals.service';
 
 @Injectable()
@@ -40,8 +39,8 @@ export class SharedService {
     }
 
     async initSettings() {
-        const res = await this.http.get('assets/settings.json')
-        .map(response => response).toPromise();
+        const res = await this.http.get('assets/settings.json').pipe(
+        map(response => response)).toPromise();
         return res;
     }
 

@@ -1,12 +1,13 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { AuthService } from '../../services/auth.service';
 import { PlayerComponent } from '../../components/player/player.component';
 import { VideoModel } from '../../models/video.model';
 import { Event } from '@angular/router/src/events';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-playlist',
@@ -114,7 +115,7 @@ export class PlaylistComponent implements OnInit {
       a.click();
   }
 
-  importPlaylist(input: any) {
+  importPlaylist() {
     this.globals.playlistVideos = this.tempPlaylist;
     this.tempPlaylist = null;
     this.shared.updatePlaylist();
@@ -126,25 +127,33 @@ export class PlaylistComponent implements OnInit {
   initDragula() {
     const bag: any = this.dragula.find('globals.playlist');
     if (bag !== undefined ) this.dragula.destroy('globals.playlist');
-    this.dragula.setOptions('globals.playlist', {
+    const BAG = "DRAGULA_EVENTS";
+    const subs = new Subscription();
+
+    this.dragula.createGroup('globals.playlist', {
       moves: (handle) => {
         return handle.className === 'video-item-settings';
       }
     });
-    this.dragula.over.subscribe((value) => {
-      const [el, container] = value.slice(1);
-      this.addClass(container, 'ex-over');
-    });
-    this.dragula.out.subscribe((value) => {
-      const [el, container] = value.slice(1);
-      this.removeClass(container, 'ex-over');
-      this.shared.checkPlaylist();
-    });
-    this.dragula.drop.subscribe((value) => {
-      const [el, container] = value.slice(1);
-      this.removeClass(container, 'ex-over');
-      this.shared.checkPlaylist();
-    });
+
+    subs.add(this.dragula.drop(BAG)
+        .subscribe(({ el }) => {
+            this.removeClass(el, 'ex-over');
+            this.shared.checkPlaylist();
+        })
+    );
+    subs.add(this.dragula.over(BAG)
+        .subscribe(({ el, container }) => {
+            this.addClass(container, 'ex-over');
+        })
+    );
+    subs.add(this.dragula.out(BAG)
+        .subscribe(({ el, container }) => {
+            console.log('out', container);
+            this.removeClass(container, 'ex-over');
+            this.shared.checkPlaylist();
+        })
+    );
   }
 
 

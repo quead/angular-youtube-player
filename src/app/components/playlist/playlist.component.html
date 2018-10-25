@@ -4,7 +4,7 @@
       <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
       <button type="button" class="video-item-head-btn" (click)="shared.clearPlaylist()"><span class="fa fa-close"></span>clear</button>
   </div>
-  <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='globals.playlistVideos' #playlistContainer>
+  <div class="playlist-video-content" dragula='"playlistDrag"' [(dragulaModel)]='globals.playlistVideos' #playlistContainer>
     <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
       <div class="text-center-block">
           Playlist is empty.
@@ -21,7 +21,7 @@
     <ng-container *ngIf="!globals.isLoading">
       <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
         <div class="video-item-info">
-          <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
+          <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
           <div class="video-item-content">
             <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === 1">
               <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
@@ -56,7 +56,9 @@
   <div *ngIf="modalPlaylist" class="modal-container">
     <h2>Do you want to remove this item from playlist?</h2>
     <div class="modal-content">
-      <img *ngIf="globals.thumbnails" src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}" alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
+      <ng-container *ngIf="globals.thumbnails && globals.playlistVideos[modalPlaylistItem].thumbnails.medium">
+        <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}" alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
+      </ng-container>
       <p>{{ globals.playlistVideos[modalPlaylistItem].title }}</p>
     </div>
     <button class="modal-close" (click)="closeModal()">

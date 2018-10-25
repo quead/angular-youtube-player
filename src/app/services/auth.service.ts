@@ -3,8 +3,8 @@ import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
 import { PlaylistControlService } from '../services/playlist-control.service';
 // DB
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
 
 @Injectable()
