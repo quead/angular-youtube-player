@@ -4,6 +4,7 @@ import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
+import { DragulaService } from 'ng2-dragula';
 
 @Injectable()
 export class SharedService {
@@ -16,7 +17,8 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
-        private globals: GlobalsService
+        private globals: GlobalsService,
+        public dragulaService: DragulaService
     ) {}
 
 

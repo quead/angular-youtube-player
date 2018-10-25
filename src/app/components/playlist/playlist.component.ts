@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
-import { DragulaService } from 'ng2-dragula';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { AuthService } from '../../services/auth.service';
 import { PlayerComponent } from '../../components/player/player.component';
@@ -36,12 +35,14 @@ export class PlaylistComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
     private authService: AuthService,
-    private dragulaService: DragulaService,
-  ) { }
+  ) {
+    if (!this.shared.dragulaService['groups'].playlistDrag) {
+      this.initDragula();
+    }
+  }
 
   ngOnInit() {
     this.globals.myScrollContainer = this.myScrollContainer;
-    this.initDragula();
     this.initSession();
   }
 
@@ -127,25 +128,25 @@ export class PlaylistComponent implements OnInit {
   // ---------------- Init settings ----------------
 
   initDragula() {
-    this.dragulaService.createGroup(this.BAG, {});
-    this.subs.add(this.dragulaService.drag(this.BAG)
+    this.shared.dragulaService.createGroup('playlistDrag', {});
+    this.subs.add(this.shared.dragulaService.drag(this.BAG)
         .subscribe(({ el }) => {
             this.removeClass(el, 'ex-moved');
             this.shared.checkPlaylist();
         })
     );
-    this.subs.add(this.dragulaService.drop(this.BAG)
+    this.subs.add(this.shared.dragulaService.drop(this.BAG)
         .subscribe(({ el }) => {
             this.addClass(el, 'ex-moved');
             this.shared.checkPlaylist();
         })
     );
-    this.subs.add(this.dragulaService.over(this.BAG)
+    this.subs.add(this.shared.dragulaService.over(this.BAG)
         .subscribe(({ container }) => {
             this.addClass(container, 'ex-over');
         })
     );
-    this.subs.add(this.dragulaService.out(this.BAG)
+    this.subs.add(this.shared.dragulaService.out(this.BAG)
         .subscribe(({ container }) => {
             this.removeClass(container, 'ex-over');
             this.shared.checkPlaylist();
