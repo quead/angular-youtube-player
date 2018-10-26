@@ -209,9 +209,10 @@ export class PlaylistComponent implements OnInit {
 
   uploadSession() {
     const confirmBtn = confirm('Are you sure? It will overwrite the cloud session.');
-    (confirmBtn) &&
+    if (confirmBtn) {
         this.dbcrud.uploadSession();
         this.shared.triggerNotify('Uploading playlist to cloud...');
+    }
   }
 
   updateSession() {

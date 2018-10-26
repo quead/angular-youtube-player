@@ -22,7 +22,7 @@ export class DbCrudService {
             this.shared.triggerNotify('Cloud playlist cannot be updated.');
         });
     }
-      
+
     uploadSession() {
         const afList = this.db2.list('sessions/');
         const defaultSession = {
