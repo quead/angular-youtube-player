@@ -402,6 +402,18 @@
             }
         }
         &.upload {
+            background-color: darken(#df2040, 10%);
+            .fa {
+                background-color: #df2040;
+            }
+            &:hover {
+                background-color: darken(#be1733, 13%);
+            }
+            &:focus {
+                background-color: darken(#be1733, 17%);
+            }
+        }
+        &.update {
             background-color: darken(#1a85fd, 10%);
             .fa {
                 background-color: #1a85fd;

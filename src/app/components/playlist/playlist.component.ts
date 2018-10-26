@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
-import { AuthService } from '../../services/auth.service';
+import { DbCrudService } from '../../services/db-crud.service';
 import { PlayerComponent } from '../../components/player/player.component';
 import { VideoModel } from '../../models/video.model';
 import { Event } from '@angular/router/src/events';
@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
-  providers: [ AuthService ]
 })
 export class PlaylistComponent implements OnInit {
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
@@ -34,7 +33,7 @@ export class PlaylistComponent implements OnInit {
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
-    private authService: AuthService,
+    private dbcrud: DbCrudService,
   ) {
     if (!this.shared.dragulaService['groups'].playlistDrag) {
       this.initDragula();
@@ -103,7 +102,6 @@ export class PlaylistComponent implements OnInit {
     this.globals.playlistVideos = [];
     this.globals.relatedVideos = [];
     localStorage.removeItem('playlist');
-    // localStorage.removeItem('settings');
   }
 
   exportPlaylist() {
@@ -199,19 +197,26 @@ export class PlaylistComponent implements OnInit {
     });
   }
 
-  getSession() {
-      this.authService.getSession(this.globals.sessionValue);
-      this.shared.triggerNotify('Downloading playlist from cloud...');
-  }
-
   updateKey(value: string) {
       this.globals.sessionValue = value;
       localStorage.setItem('session_key', this.globals.sessionValue);
   }
 
-  updateSession() {
-        this.authService.updateSession();
+  getSession() {
+      this.dbcrud.getSession(this.globals.sessionValue);
+      this.shared.triggerNotify('Downloading playlist from cloud...');
+  }
+
+  uploadSession() {
+    const confirmBtn = confirm('Are you sure? It will overwrite the cloud session.');
+    (confirmBtn) &&
+        this.dbcrud.uploadSession();
         this.shared.triggerNotify('Uploading playlist to cloud...');
+  }
+
+  updateSession() {
+        this.dbcrud.updateSession();
+        this.shared.triggerNotify('Updating playlist to cloud...');
   }
 
 }

@@ -139,7 +139,7 @@ export class SharedService {
     triggerNotify(message: string) {
         this.notify.enabled = true;
         this.notify.message = message;
-        setTimeout(() => this.notify.enabled = false, 1000);
+        setTimeout(() => this.notify.enabled = false, 3000);
     }
 
     move(arr: Array<VideoModel>, old_index: number, new_index: number) {
@@ -190,64 +190,66 @@ export class SharedService {
 
         // Populate temp object
         for (const i in object) {
-            let obj = object[i];
+            if (object.hasOwnProperty(i)) {
+                let obj = object[i];
 
-            if (typeof obj.id === 'string') {
-                tempObject.id = obj.id;
-            } else {
-                tempObject.id = obj.id.videoId;
-            }
-            tempObject.title = obj.snippet.title;
-            tempObject.channelTitle = obj.snippet.channelTitle;
-            if (obj.snippet.channelId) {
-                tempObject.channelId = obj.snippet.channelId;
-            }
-            if (obj.snippet.categoryId) {
-                tempObject.categoryId = obj.snippet.categoryId;
-            }
-            if (obj.snippet.thumbnails.default) {
-                tempObject.thumbnails.default = obj.snippet.thumbnails.default.url;
-            }
-            if (obj.snippet.thumbnails.maxres) {
-                tempObject.thumbnails.high = obj.snippet.thumbnails.maxres.url;
-            } else if (obj.snippet.thumbnails.high) {
-                tempObject.thumbnails.high = obj.snippet.thumbnails.high.url;
-            }
-            if (obj.snippet.thumbnails.high) {
-                tempObject.thumbnails.medium = obj.snippet.thumbnails.high.url;
-            } else if (obj.snippet.thumbnails.medium) {
-                tempObject.thumbnails.medium = obj.snippet.thumbnails.medium.url;
-            }
-            if (obj.statistics) {
-                tempObject.stats.dislikes = obj.statistics.dislikeCount;
-            }
-            if (obj.statistics) {
-                tempObject.stats.likes = obj.statistics.likeCount;
-            }
-            if (obj.statistics) {
-                tempObject.stats.views = obj.statistics.viewCount;
-            }
-            tempVideos.push(tempObject);
-
-            // Clear tempObject after populated the object and pushed
-            tempObject = {
-                id: '',
-                title: '',
-                channelTitle: '',
-                channelId: '',
-                categoryId: '',
-                stats: {
-                    likes: '',
-                    dislikes: '',
-                    views: ''
-                },
-                thumbnails: {
-                    default: '',
-                    high: '',
-                    medium: '',
+                if (typeof obj.id === 'string') {
+                    tempObject.id = obj.id;
+                } else {
+                    tempObject.id = obj.id.videoId;
                 }
-            };
-            obj = null;
+                tempObject.title = obj.snippet.title;
+                tempObject.channelTitle = obj.snippet.channelTitle;
+                if (obj.snippet.channelId) {
+                    tempObject.channelId = obj.snippet.channelId;
+                }
+                if (obj.snippet.categoryId) {
+                    tempObject.categoryId = obj.snippet.categoryId;
+                }
+                if (obj.snippet.thumbnails.default) {
+                    tempObject.thumbnails.default = obj.snippet.thumbnails.default.url;
+                }
+                if (obj.snippet.thumbnails.maxres) {
+                    tempObject.thumbnails.high = obj.snippet.thumbnails.maxres.url;
+                } else if (obj.snippet.thumbnails.high) {
+                    tempObject.thumbnails.high = obj.snippet.thumbnails.high.url;
+                }
+                if (obj.snippet.thumbnails.high) {
+                    tempObject.thumbnails.medium = obj.snippet.thumbnails.high.url;
+                } else if (obj.snippet.thumbnails.medium) {
+                    tempObject.thumbnails.medium = obj.snippet.thumbnails.medium.url;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.dislikes = obj.statistics.dislikeCount;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.likes = obj.statistics.likeCount;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.views = obj.statistics.viewCount;
+                }
+                tempVideos.push(tempObject);
+
+                // Clear tempObject after populated the object and pushed
+                tempObject = {
+                    id: '',
+                    title: '',
+                    channelTitle: '',
+                    channelId: '',
+                    categoryId: '',
+                    stats: {
+                        likes: '',
+                        dislikes: '',
+                        views: ''
+                    },
+                    thumbnails: {
+                        default: '',
+                        high: '',
+                        medium: '',
+                    }
+                };
+                obj = null;
+            }
         }
 
         // Push tempObject into globals

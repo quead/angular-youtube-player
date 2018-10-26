@@ -9,11 +9,11 @@ import { DragulaModule } from 'ng2-dragula';
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 
 import { AppComponent } from './app.component';
+import { DbCrudService } from './services/db-crud.service';
 import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { PlaylistControlService } from './services/playlist-control.service';
-import { AuthService } from './services/auth.service';
 import { SettingsComponent } from './components/youtube-settings.component';
 import { SearchComponent } from './components/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
@@ -24,11 +24,8 @@ import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 // Firebase
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
-
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
@@ -36,7 +33,6 @@ import { RelatedComponent } from './components/related/related.component';
 
 @NgModule({
   imports: [
-    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-yt-player-quead'),
     BrowserModule,
     HttpClientModule,
@@ -60,15 +56,14 @@ import { RelatedComponent } from './components/related/related.component';
   ],
   bootstrap: [ AppComponent ],
   providers: [
+    DbCrudService,
     PlayerComponent,
     PlaylistComponent,
     YoutubeGetVideo,
     PlaylistControlService,
     SharedService,
     GlobalsService,
-    AngularFireAuth,
     AngularFireDatabase,
-    AuthService,
     NguCarouselConfig,
     NguCarousel
   ]

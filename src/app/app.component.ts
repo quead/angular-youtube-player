@@ -3,15 +3,10 @@ import { SharedService } from './services/shared.service';
 import { GlobalsService } from './services/globals.service';
 import { PlaylistControlService } from './services/playlist-control.service';
 
-// DB
-import { DbCrudService } from './services/db-crud.service';
-import { AuthService } from './services/auth.service';
-
-
 @Component({
     selector: 'app-yt',
     templateUrl: 'app.component.html',
-    providers: [ AuthService, DbCrudService, PlaylistControlService ]
+    providers: [ PlaylistControlService ]
 })
 
 export class AppComponent implements OnInit {
@@ -20,7 +15,6 @@ export class AppComponent implements OnInit {
     constructor(
         public shared: SharedService,
         public globals: GlobalsService,
-        private authService: AuthService,
         public playlistCTRL: PlaylistControlService,
     ) {
         localStorage.removeItem('firebase:previous_websocket_failure');
@@ -29,15 +23,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
         this.shared.preventOldSettings();
-    }
-
-    // ---------------- User ------------------
-    loginGoogle() {
-        this.authService.login();
-    }
-
-    logout() {
-        this.authService.logout();
     }
 
     // ---------------- Update app ----------------
