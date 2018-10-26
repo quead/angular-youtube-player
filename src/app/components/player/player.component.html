@@ -48,6 +48,10 @@
           <div class="current-video-share">
             <input id="shareInput" type="text" name="current video share" #shareInput [value]="globals.shareLink" (click)="shared.copyShareLink(shareInput.select())" readonly>
           </div>
+          <div class="current-video-actions" *ngIf="!globals.thumbnails">
+              <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>  
+              <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Show Video</button>  
+          </div>
       </div>
     </div>
   </div>

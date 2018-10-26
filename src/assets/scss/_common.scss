@@ -40,47 +40,24 @@
     color: var(--c-secondary);
 }
 
-.alert {
-    padding: .75rem 1.25rem;
-    margin: 1rem 0;
-    border-radius: 5px;
-    .fa {
-        margin-right: 10px;
-    }
-    &.alert-danger {
-        background-color: var(--c-danger);
-        color: var(--c-white);
-        a {
-            color: inherit;
-        }
-    }
-    &.alert-info {
-        background-color: var(--c-secondary);
-        color: var(--c-white);
-        a {
-            color: inherit;
-        }
-    }
-}
-
 .video-details-container {
-    height: 205px;
+    margin-top: 80px;
     position: relative;
 }
 
 .player {
     display: flex;
     width: auto;
-    margin: auto auto 0;
+    margin: 0 auto;
 }
 
 .player-container {
     width: 600px;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     padding: 0 15px;
     box-sizing: border-box;
-    height: 140px;
 }
 
 .player-controls {
@@ -112,7 +89,6 @@
             width: 25px;
             padding: 0;
             border-radius: 50%;
-            cursor: pointer;
             opacity: 1;
             transition: all 0.1s ease-out;
             &:hover {
@@ -134,7 +110,6 @@
             height: 25px;
             padding: 0 10px;
             border-radius: 15px;
-            cursor: pointer;
             opacity: 1;
             transition: all 0.1s ease-out;
             display: flex;
@@ -246,7 +221,6 @@
     position: absolute;
     top: 13px;
     right: 15px;
-    cursor: pointer;
     background: transparent;
     padding: 0;
     border: none;
@@ -281,78 +255,6 @@
     }
 }
 
-.update-bar {
-    position: fixed;
-    z-index: 999;
-    background-color: #0097ef;
-    color: white;
-    bottom: 0;
-    font-size: 14px;
-    height: 32px;
-    padding: 0 15px;
-    width: 100%;
-    align-items: center;
-    display: none;
-    #output {
-        display: inline-block;
-    }
-    .update-loading {
-        margin-left: 10px;
-        .fa {
-            font-size: 10px;
-        }
-    }
-    &.active {
-        display: flex;
-    }
-    &.update-av .fa {
-        display: none;
-    }
-    #update-buttons {
-        margin-left: auto;
-        height: 100%;
-    }
-    button {
-        float: right;        
-        border: none;
-        margin: 0;
-        font-size: 12px;
-        padding: 0 10px;
-        height: 100%;
-        text-transform: uppercase;
-        cursor: pointer;
-        line-height: 1;
-        + button {
-            margin-right: 5px;
-        }
-    }
-}
-
-#update-app {
-    background-color: #007bc3;
-    color: #ffffff;
-    &:hover {
-        background-color: #006eaf;
-    }
-    &:active {
-        background-color: #0066a2;
-    }
-}
-
-.export-playlist {
-    height: 190px;
-    max-width: 100%;
-    width: 100%;
-    border: 1px solid #e2e2e2;
-    border-radius: 0;
-}
-
-#update-app-later {
-    background-color: transparent;
-    color: var(--c-white);
-    text-transform: capitalize;
-}
-
 .session-section {
     margin-bottom: 20px;
     input[type="text"] {
@@ -360,7 +262,7 @@
         border: 1px solid #e4e4e4;
         border-radius: 3px;
         padding: 8px 10px;
-        font-size: 14px;
+        font-size: $f-14;
     }
     .session-key-block {
         display: block;
@@ -377,7 +279,6 @@
         text-align: center;
         margin-left: 8px;
         border-radius: 25px;
-        cursor: pointer;
         span {
             padding: 0 10px 0 7px;
         }
@@ -385,7 +286,7 @@
             height: 25px;
             width: 25px;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: $f-14;
             line-height: 25px;
             padding: 0;
         }
@@ -474,7 +375,7 @@
 @media screen and (max-width: 767px) {
     #mobile-unavailable {
         background-color: var(--c-base);
-        font-size: 24px;
+        font-size: $f-24;
         padding: 0 10px;
         z-index: 3;
         position: fixed;

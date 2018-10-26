@@ -18,15 +18,14 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    cursor: default;
     -webkit-app-region: no-drag;
-    // overflow: hidden;
 }
 
 a,
 button {
   -webkit-app-region: no-drag;
   outline: 0;
+  cursor: pointer;
 }
 
 a {
@@ -35,11 +34,6 @@ a {
     &:active {
         color: var(--c-primary-active);
     }
-}
-
-#app-container {
-    position: relative;
-    background: transparent;
 }
 
 app {

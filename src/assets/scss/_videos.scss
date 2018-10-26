@@ -70,14 +70,13 @@ iframe {
         margin: 0;
         padding: 0;
         font-weight: 600;
-        font-size: 24px;
+        font-size: $f-24;
         display: inline-block;
         width: 100%;
     }
     &-btn {
         float: right;
         background-color: var(--c-primary);
-        cursor: pointer;
         color: var(--c-wihte);
         border-radius: 20px;
         padding: 4px 8px;
@@ -178,7 +177,6 @@ iframe {
             border: none;
             margin: 0 5px;
             padding: 0;
-            cursor: pointer;        
             transition: all 0.1s ease-in-out;
             &:hover {
                 color: var(--c-black);
@@ -280,7 +278,7 @@ iframe {
         cursor: pointer;
         padding: 0;
         text-align: center;
-        font-size: 18px;
+        font-size: $f18;
         line-height: 18px;
         transition: all 0.1s ease-out;
         &:hover {

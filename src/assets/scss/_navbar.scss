@@ -19,7 +19,7 @@ nav {
         -webkit-user-drag: none;
         position: relative;
         transition: all 0.1s ease-out;
-        font-size: 14px;
+        font-size: $f-14;
         font-weight: 600;
         letter-spacing: 0.3px;
         &.is-active,

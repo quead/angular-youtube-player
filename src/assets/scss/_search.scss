@@ -7,7 +7,7 @@
         position: absolute;
         top: 50%;
         left: 10px;
-        font-size: 18px;
+        font-size: $f-18;
         transform: translateY(-50%);
         color: rgba(#6a7586,0.5);
         cursor: pointer;
@@ -33,7 +33,7 @@
         border: 2px solid rgba(#6a7586,0.5);
         color: var(--c-white);
         border-radius: 5px;
-        font-size: 14px;
+        font-size: $f-14;
         z-index: 1;
         transition: all 0.2s ease-out;
         &::-webkit-input-placeholder {
@@ -48,7 +48,7 @@
     }
     .clear-button {
         border: none;
-        font-size: 12px;
+        font-size: $f-12;
         background: transparent;
         color: var(--c-gray);
         padding: 0;
@@ -79,7 +79,7 @@
     padding: 5px 10px;
     line-height: 18px;
     width: 111px;
-    font-size: 12px;
+    font-size: $f-12;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

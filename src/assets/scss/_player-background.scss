@@ -47,9 +47,8 @@
         background-color: var(--c-white);
         border-radius: 15px;
         line-height: 35px;
-        font-size: 14px;
+        font-size: $f-14;
         margin-bottom: 10px;
-        cursor: pointer;
         transition: all 0.1s ease-out;
         .fa {
             margin-right: 5px;
