@@ -70,7 +70,7 @@ iframe {
         margin: 0;
         padding: 0;
         font-weight: 600;
-        font-size: $f-24;
+        font-size: $f-18;
         display: inline-block;
         width: 100%;
     }
@@ -480,5 +480,16 @@ iframe {
     &::-webkit-scrollbar {
         width: 6px;
         background-color: transparent;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .feed-video-list {
+        &.grid-list .video-item-image {
+            height: 200px;
+        }
+    }
+    #playlist-video-list .playlist-video-content {
+        max-height: 5200px;
     }
 }

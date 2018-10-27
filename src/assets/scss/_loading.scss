@@ -89,3 +89,27 @@
     height: 205px;
     width: 100%;
 }
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    .loading-feed-list {
+        width: calc(50% - 10px);
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .loading-feed-list {
+        width: calc(100% - 10px);
+        height: 190px;
+    }
+    .loading-list {
+        height: 155px;
+        flex-wrap: wrap;
+        .loading-box {
+            width: 154px;
+            margin-right: 18px;
+        }
+        .loading-box:nth-child(4) {
+            margin-right: 0;
+        }
+    }
+}

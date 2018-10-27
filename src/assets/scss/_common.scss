@@ -367,6 +367,17 @@
         }
     }
 }
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .player-container {
+        width: 580px;
+    }
+    .video-details-container {
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+}
+
 @media screen and (min-width: 768px) {
     #mobile-unavailable {
         display: none;

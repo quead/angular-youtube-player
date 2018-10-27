@@ -8,11 +8,11 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.3.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.4-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
-[![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
+[![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
 This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 7.0.3, [@angular/fire](https://github.com/angular/angularfire2), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
 
@@ -53,6 +53,9 @@ This player is compatible only with Chrome/webkit browsers.
 4. Edit files from src/assets/scss
 
 ## Changelog
+Angular YouTube Player 2.3.3
+
+
 Angular YouTube Player 2.3.3
 - Fixed bugs after refactoring
 - Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
@@ -168,7 +171,7 @@ Angular YouTube Player 1.0.0
 
 #### Roadmap to 3.0
 - Responsive layout **(in v2.4)**
-- Sync player between session **(in v2.4)**
+- Sync player in session **(in v2.4)**
 - Keep your settings in cloud **(in v2.8)**
 - Integrating YouTube subscriptions/playlist **(in v2.9)**
 
