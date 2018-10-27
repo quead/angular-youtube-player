@@ -79,7 +79,7 @@ export class SharedService {
     }
 
     preventOldSettings() {
-        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '2') {
+        if (localStorage.length === 1 || !localStorage.getItem('version') || parseInt(localStorage.getItem('version')) < this.globals.localStorageVersion) {
             console.log('Updating localstorage...');
             localStorage.clear();
             this.globals.settings = null;
@@ -131,8 +131,8 @@ export class SharedService {
     }
 
     setLocalVersion() {
-        if (localStorage.getItem('version') === null || localStorage.getItem('version') === '2') {
-            localStorage.setItem('version', '3');
+        if (localStorage.getItem('version') === null || parseInt(localStorage.getItem('version')) < this.globals.localStorageVersion) {
+            localStorage.setItem('version', this.globals.localStorageVersion.toString());
         }
     }
 

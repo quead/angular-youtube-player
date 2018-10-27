@@ -33,6 +33,7 @@ export class GlobalsService {
   repeatMode = true;
   darkMode = true;
   sessionValue: string;
+  localStorageVersion = 3;
 
   regionCode = '';
   apiKey = '';
