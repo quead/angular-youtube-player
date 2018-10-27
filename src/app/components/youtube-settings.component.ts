@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppComponent } from '../app.component';
-import { CategoryComponent } from './category/category.component';
+import { FormControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PlayerComponent } from '../components/player/player.component';
 import { SharedService } from '../services/shared.service';
+import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
 import { NumberVal } from '../services/validators.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-settings',
     templateUrl: 'youtube-settings.component.html',
-    providers: [ CategoryComponent, NumberVal ]
+    providers: [ NumberVal ]
 })
 
 export class SettingsComponent implements OnInit {
 
-    loading = false;
+    loading = true;
 
     internalSettings: FormGroup;
     externalSettings: FormGroup;
 
     constructor(
         private fb: FormBuilder,
-        private http: HttpClient,
         private shared: SharedService,
         private globals: GlobalsService,
-        private app: AppComponent,
-        private category: CategoryComponent,
+        public playerComp: PlayerComponent,
+        public appComp: AppComponent,
     ) {
     }
 
@@ -73,7 +71,7 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.app.checkVolumeRange();
+            // this.playerComp.checkVolumeRange();
             this.shared.triggerNotify('Changed');
         });
     }
@@ -90,8 +88,8 @@ export class SettingsComponent implements OnInit {
             this.globals.internal_settings = this.globals.settings.form_settings;
             this.globals.external_settings = this.globals.settings.api_settings;
             this.initExternalForm();
-            this.loading = true;
             this.setForm();
+            this.loading = false;
         });
     }
 
@@ -108,7 +106,7 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.category.getFeedVideos();
+            this.appComp.setApp();
 
         } else {
             this.shared.triggerNotify('Please check external settings');

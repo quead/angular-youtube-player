@@ -1,0 +1,104 @@
+<div id="playlist-video-list" class="video-list">
+  <div class="video-item-head">
+      <h2>Current playlist</h2>
+      <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
+      <button type="button" class="video-item-head-btn" (click)="shared.clearPlaylist()"><span class="fa fa-close"></span>clear</button>
+  </div>
+  <div class="playlist-video-content" dragula="playlistDrag" [(dragulaModel)]="globals.playlistVideos" #playlistContainer>
+    <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
+      <div class="text-center-block">
+          Playlist is empty.
+      </div>
+    </ng-container>
+    <ng-container *ngIf="globals.isLoading">
+      <div *ngFor="let i of [1,2,3,4,5,6]" class="video-item">
+        <div class="video-item-info loading-video-item">
+          <div class="video-item-image loading-featured loading-anim"></div>
+          <div class="video-item-content loading-medium-box loading-anim"></div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!globals.isLoading">
+      <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
+        <div class="video-item-info">
+          <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
+          <div class="video-item-content">
+            <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === 1">
+              <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
+            </ng-container>
+            <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState !== 1 && globals.currentState !== -1">                        
+              <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
+            </ng-container>                       
+            <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === -1">                        
+              <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
+            </ng-container>                       
+            <p class="video-item-title">{{ playlistVideo.title }}</p>
+            <p class="video-item-autor"><span>{{ playlistVideo.channelTitle }}</span></p>
+          </div>
+        </div>
+        <div class="video-item-settings">
+          <button class="video-item-play" (click)="onClickPlaylist(i)">
+            <span class="fa " [ngClass]="globals.currentPlaylistItem === i && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+          </button>
+          <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
+            <span class="fa fa-share-alt"></span>
+          </button>
+          <button class="video-item-remove" (click)="showPlaylistModal(i)">
+            <span class="fa fa-times"></span>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="modal" class="modal-overlay">
+  <div class="modal-background-overlay" (click)="closeModal()"></div>
+  <div *ngIf="modalPlaylist && globals.playlistVideos[modalPlaylistItem]" class="modal-container">
+    <h2>Do you want to remove this item from playlist?</h2>
+    <div class="modal-content">
+      <ng-container *ngIf="globals.thumbnails">
+        <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}" alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
+      </ng-container>
+      <p>{{ globals.playlistVideos[modalPlaylistItem].title }}</p>
+    </div>
+    <button class="modal-close" (click)="closeModal()">
+      <span class="fa fa-times"></span>
+    </button>
+    <div class="modal-buttons">
+      <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
+      <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+    </div>
+  </div>
+  <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
+    <div class="modal-content">
+      <h3>Import Playlist</h3>
+      <div class="form-group file-upload">
+        <input type="file" id="importPlaylist" (change)="uploadPlaylist($event)" [(ngModel)]="importPlaylistInput" [ngModelOptions]="{standalone: true}" value="Import" />
+        <label for="importPlaylist">Choose file</label>
+      </div>
+      <div *ngIf="tempPlaylist.length">
+        <p>Number of videos to import: {{tempPlaylist.length}}</p>
+        <button type="button" class="btn btn-round btn-primary" (click)="importPlaylist(importPlaylistInput)">Replace</button>        
+      </div>
+      <h3>Export Playlist</h3>
+      <p>Number of videos to export: {{globals.playlistVideos.length}}</p>
+      <h3>Cloud Playlist</h3>
+      <div class="session-section">
+        <div class="session-key-block">
+          <label for="session-key-input">Session Key</label>
+          <input type="text" id="session-key-input" [ngModel]="globals.sessionValue" (keyup)="updateKey($event.target.value)" />
+        </div>
+        <button type="button" class="upload" (click)="uploadSession()"><span class="fa fa-cloud-upload"></span><span>Upload</span></button>
+        <button type="button" class="update" (click)="updateSession()"><span class="fa fa-cloud-upload"></span><span>Update</span></button>
+        <button type="button" class="download" (click)="getSession()"><span class="fa fa-cloud-download"></span><span>Download</span></button>
+      </div>
+    </div>
+    <button class="modal-close" (click)="closeModal()">
+      <span class="fa fa-times"></span>
+    </button>
+    <div class="modal-buttons">
+      <button type="button" class="btn btn-primary" (click)="exportFilePlaylist()">Export playlist</button>        
+      <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+    </div>
+  </div>
+</div>

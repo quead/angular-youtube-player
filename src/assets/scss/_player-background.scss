@@ -1,0 +1,61 @@
+.player-background {
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: -10;
+    transition: opacity 0.1s ease;
+    &-container {
+        display: flex;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .youtube-player {
+        width: 70%;
+        height: calc(100vh - 40px);
+        padding-right: 15px;
+    }
+    .background-playlist {
+        width: 30%;
+    }
+    #playlist-video-list {
+        .playlist-video-content {
+            height: calc(100vh - 151px);
+        }
+    }
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+    &.active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        z-index: 10;
+    }
+    .toggle-fullscreen {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 35px;
+        border: none;
+        background-color: var(--c-white);
+        border-radius: 15px;
+        line-height: 35px;
+        font-size: $f-14;
+        margin-bottom: 10px;
+        transition: all 0.1s ease-out;
+        .fa {
+            margin-right: 5px;
+        }
+        &:hover,
+        &:focus {
+            background-color: darken(#fff, 5%);
+        }
+    }
+}

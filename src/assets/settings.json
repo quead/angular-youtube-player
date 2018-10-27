@@ -11,11 +11,6 @@
       "visible": true
     },
     {
-      "name": "Toggle video",
-      "value": true,
-      "visible": true
-    },
-    {
       "name": "Toggle repeat mode",
       "value": true,
       "visible": true
@@ -35,10 +30,10 @@
       "value": "US"
     }, {
       "name": "Number of search results",
-      "value": 15
+      "value": 16
     }, {
       "name": "Number of related results",
-      "value": 15
+      "value": 32
     }
   ]
 }

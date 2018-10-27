@@ -1,27 +1,17 @@
-.header-bar {
-    -webkit-app-region: drag;
-    text-align: center;
-    position: relative;
-    height: 26px;
-    width: 100%;
-    z-index: 2;    
-    &:before {
-        content: '';
-        background-color: var(--c-black);
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-    h1 {
-        margin: 0;
-        font-size: $f-12;
-        position: relative;
-        z-index: 1;
-        padding: 4px 0;
-        color: rgba(255, 255, 255, 0.7);
-    }
+header {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    padding: 10px 0;
+    @media (max-width: 575px) { width: auto; }
+
+    @media (min-width: 576px) and (max-width: 767px) { width: 540px; }
+
+    @media (min-width: 768px) and (max-width: 991px) { width: 720px; }
+
+    @media (min-width: 992px) and (max-width: 1199px) { width: 960px }
+
+    @media (min-width: 1200px) { width: 1140px; }
 }
 
 #logo {
@@ -33,23 +23,10 @@
         position: absolute;
         left: calc(100% + 5px);
         top: 0;
-        color: var(--c-primary);
     }
     a {
         -webkit-user-drag: none;        
     }
-}
-
-.header-bar h1 {
-    display: flex;
-    align-items: center;
-    width: 130px;
-    margin: 0 auto;
-}
-
-.favicon-app {
-    display: inline-block;
-    @include icon-svg(logoNew, 20px, 15px, red, white, white);
 }
 
 .logo-svg {
@@ -58,85 +35,5 @@
     transition: all 0.1s ease-out;
     &:hover {
         @include icon-svg(logo, 111px, 25px, white, white, #17171d);
-    }
-}
-
-.app {
-    &-head {
-        height: 100px;
-        display: flex;
-        align-items: center;
-        padding: 0 20px 0 20px;
-        .settings {
-            margin-left: auto;
-            margin-top: 7px;
-        }
-    }
-}
-
-.settings {
-    .fa {
-        margin-right: 3px;
-    }
-    p {
-        margin: 0;
-        opacity: 0.3;
-        cursor: pointer;
-        display: inline-block;
-        transition: all 0.1s ease-out;
-        + p {
-            margin-left: 10px;
-        }
-        &:hover {
-            opacity: 1;
-        }
-        &.active {
-            opacity: 1;
-            color: var(--c-primary);
-        }
-    }
-}
-
-.header-bar {
-    display: none;
-}
-
-.device-bar {
-    height: 45px;
-    width: 100%;
-    background-color: var(--c-gray);
-    position: fixed;
-    top: 0;
-    z-index: 2;
-    .trigger-nav {
-        padding: 0;
-        border: none;
-        margin: 14px 0 0 10px;
-        background-color: transparent;
-        color: var(--c-white);
-        text-transform: uppercase;
-        cursor: pointer;
-        opacity: 0.4;
-        transition: all 0.1s ease-out;
-        .fa {
-            margin-right: 5px;
-        }
-        &:hover {
-            opacity: 0.7;
-        }
-        &:active {
-            opacity: 1;
-        }
-    }
-    .logo-svg-small {
-        display: block;
-        @include icon-svg(logo, 70px, 16px, white, white, #17171d);
-        transition: all 0.1s ease-out;
-        &:hover {
-            @include icon-svg(logo, 70px, 16px, red, white, white);
-        }
-    }
-    small {
-        font-size: 7px;
     }
 }

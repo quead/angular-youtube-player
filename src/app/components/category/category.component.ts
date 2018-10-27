@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../../services/youtube.service';
-import { AppComponent } from '../../app.component';
+import { PlayerComponent } from '../../components/player/player.component';
+import { PlaylistComponent } from '../../components/playlist/playlist.component';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -17,78 +17,62 @@ export class CategoryComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
     public globals: GlobalsService,
-    private app: AppComponent,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    public playlist: PlaylistComponent,
+    private playerComp: PlayerComponent,
   ) {
   }
 
   ngOnInit() {
-    this.initComponent();
+    this.initTrending();
   }
 
-  async initComponent() {
-    this.activatedRoute.paramMap.subscribe(data => {
-      if (data['params'].id === 'all') {
-        this.getFeedVideos();
-      } else {
-        this.globals.currentCategory = data['params'].id;
-      }
-      this.getCategories();
+  initTrending() {
+    this.youtube.categories().then(catData => {
+        this.globals.categories = catData;
+        this.loading = false;
     });
   }
 
+  categoryChanged(event: Event) {
+    const category = event.target['value'];
+    if (category !== 'all') {
+        this.globals.currentCategory = category;
+        this.getCategories();
+    } else {
+        this.globals.currentCategory = 'all';
+        this.globals.feedVideos = null;
+        this.shared.initFeed().then(() => {
+            this.loading = false;
+        });
+    }
+  }
 
-  async getCategories() {
-    this.shared.getSettings().then(() => {
-      this.youtube.categories().then(catData => {
+  getCategories() {
+    this.youtube.categories().then(catData => {
         this.globals.categories = catData;
-        if (this.globals.categories['items'].find(x => x.id === this.globals.currentCategory)) {
-          this.loading = true;
-          this.getCategoriesVideos(this.globals.currentCategory);
-        } else {
-          this.router.navigate(['']);
-        }
-      });
+        this.loading = true;
+        this.getCategoriesVideos(this.globals.currentCategory);
     });
   }
 
   async getCategoriesVideos(val: string) {
     const res2 = await this.youtube.videoCategories(val);
     this.shared.convertVideoObject(res2['items'], 'feedVideos');
-    await this.shared.initChannel();
     this.loading = false;
   }
 
-  async getFeedVideos() {
-    await this.shared.initFeed();
-    await this.shared.initChannel();
-    this.loading = false;
-  }
-
-  async resetCategories() {
+  resetCategories() {
     this.loading = true;
     this.globals.currentCategory = 'all';
-    this.router.navigate(['category/all']);
     this.globals.feedVideos = null;
-    await this.shared.initFeed().then(() => {
-      this.shared.initChannel();
-      this.loading = false;
+    this.shared.initFeed().then(() => {
+        this.loading = false;
     });
   }
 
-  onClickVideo(event: Event, i: any, list: number) {
-    if (list === 3) {
-      this.app.getVideo(this.globals.feedVideos[i]);
+  onClickVideo(i: any, list: number) {
+    if (list === 0) {
+        this.playerComp.getVideo(this.globals.feedVideos[i]);
     }
   }
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.app.onCopyVideoItemLink(i, list);
-  }
-
-  addPlaylistItem(i: number, list: number) {
-    this.app.addPlaylistItem(i, list);
-  }
-
 }

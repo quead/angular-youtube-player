@@ -1,242 +1,39 @@
 <header>
-  <!-- <ng-container *ngIf="!globals.isLogged">
-    <button type="button" (click)="loginGoogle()">Login</button>
-  </ng-container>
-  <ng-container *ngIf="globals.isLogged">
-    <button type="button" (click)="logout()">Logout</button>
-  </ng-container>
-  <button type="button" (click)="refresh()">Reinit</button> -->
-  <div class="device-bar">
-    <button type="button" class="trigger-nav" (click)="openMobileMenu()"><span class="fa fa-navicon"></span>Menu</button>
-    <div id="logo">
-        <a routerLink="" class="logo-svg-small" title="Homepage"></a>
-        <small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
-      </div>
-  </div>
+	<div id="logo">
+		<a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
+		<small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
+	</div>
+	<nav>
+		<ul>
+			<li><a routerLink="/home" routerLinkActive="is-active" title="Homepage">Home</a></li>
+			<li><a routerLink="/history" routerLinkActive="is-active" title="History page">History</a></li>
+			<li><a routerLink="/about" routerLinkActive="is-active" title="About application page">About</a></li>
+			<li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page">Settings</a></li>
+		</ul>
+	</nav>
+	<app-search></app-search>
 </header>
-<div id="app-container" [ngClass]="{'light-mode': !globals.darkMode, 'menu-active': menuActive }">
-  <input type="text" class="hide-input" #videoItemIDvalue />
-  <div class="container">
-    <div class="col col-1">
-        <div class="app app-services">
-            <div class="app-head">
-                <div id="logo">
-                  <a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
-                  <small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
-                </div>
-            </div>
-            <div class="app-content">
-              <nav>
-                <ul>
-                  <li><a routerLink="/category/all" routerLinkActive="is-active" title="Homepage"><span class="fa fa-home"></span>Home<span class="description">Trending videos and search</span></a></li>
-                  <li><a routerLink="/history" routerLinkActive="is-active" title="History page"><span class="fa fa-history"></span>History<span class="description">Recently played</span></a></li>
-                  <li><a routerLink="/about" routerLinkActive="is-active" title="About application page"><span class="fa fa-info-circle"></span>About<span class="description">All informations about the app</span></a></li>
-                  <li><a routerLink="/settings" routerLinkActive="is-active" title="Settings page"><span class="fa fa-gear"></span>Settings<span class="description">Change app settings</span></a></li>
-                </ul>
-              </nav>
-              <div id="playlist-video-list" class="video-list">
-                <div class="video-item-head">
-                    Current playlist
-                    <button type="button" class="video-item-head-btn" (click)="clearPlaylist()"><span class="fa fa-close"></span>clear</button>
-                    <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
-                </div>
-                <div class="playlist-video-content" [dragula]='"playlistDrag"' [dragulaModel]='globals.playlistVideos' #playlistContainer>
-                  <ng-container *ngIf="globals.playlistVideos.length === 0 && !loading">
-                    <div class="text-center-block">
-                        Playlist is empty.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="loading">
-                    <div *ngFor="let i of [1,2,3,4,5]" class="video-item">
-                      <div class="video-item-info">
-                        <div class="video-item-image loading-featured"></div>
-                        <div class="video-item-content loading-featured"></div>
-                      </div>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="!loading">
-                    <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
-                      <div class="video-item-info">
-                        <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
-                        <div class="video-item-content">
-                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === 1">
-                            <p class="video-item-hint"><span class="fa fa-play"></span>Playing</p>
-                          </ng-container>
-                          <ng-container *ngIf="currentPlaylistItem === i && currentState !== 1 && currentState !== -1">                        
-                            <p class="video-item-hint"><span class="fa fa-pause"></span>Paused</p> 
-                          </ng-container>                       
-                          <ng-container *ngIf="currentPlaylistItem === i &&  currentState === -1">                        
-                            <p class="video-item-hint"><span class="fa fa-stop"></span>Not started</p> 
-                          </ng-container>                       
-                          <p class="video-item-title">{{ playlistVideo.title }}</p>
-                          <p class="video-item-autor">by <span>{{ playlistVideo.channelTitle }}</span></p>
-                        </div>
-                      </div>
-                      <div class="video-item-settings">
-                        <button class="video-item-play" (click)="onClickPlaylist($event, i)">
-                          <span class="fa " [ngClass]="currentPlaylistItem === i &&  currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-                        </button>
-                        <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
-                          <span class="fa fa-share-alt"></span>
-                        </button>
-                        <button class="video-item-remove" (click)="showPlaylistModal(i)">
-                          <span class="fa fa-times"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-        </div>
-    </div>
-    <div class="col col-2">
-        <div class="app app-player">
-            <div class="app-head">
-                <h2>Player</h2>
-                <div class="settings">
-                    <p (click)="addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</p>
-                </div>
-            </div>
-            <div *ngIf="loading" class="app-content">
-              <div class="youtube-player active loading-featured"></div>
-            </div>
-            <div class="app-content">
-              <div class="youtube-player" *ngIf="!loading" [ngClass]="{'active': globals.displayVideoPlayer }">
-                <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
-              </div>
-              <div class="current-video-all" *ngIf="globals.currentVideo">
-                  <div class="current-video-details">
-                    <p class="current-video-name">{{ globals.currentVideo.title }}</p>
-                  </div>
-                  <div *ngIf="!globals.displayVideoPlayer" id="player-controls">
-                    <div class="player-buttons">
-                        <button id="previous-song" (click)="playPlaylistItem('prev', currentPlaylistItem)"><span class="fa fa-backward"></span></button>
-                        <button id="play-song" (click)="playPauseVideo()" ><span class="fa" [ngClass]="currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
-                        <button id="next-song" (click)="playPlaylistItem('next', currentPlaylistItem)"><span class="fa fa-forward"></span></button>
-                    </div>
-                    <div class="current-video-range">
-                      <div class="duration-range-container">
-                        <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="currentState === -1">
-                        <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
-                      </div>
-                      <p class="current-video-range-value">{{videoCurFull}}</p>
-                      <p class="current-video-range-max-value">{{videoMaxFull}}</p>
-                    </div>
-                    <div class="volume-range-value" [ngClass]="videoCurVolume <= 0 ? 'inactive' : 'active'">
-                      <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState ? 'fa-volume-off' : 'fa-volume-up'"></span>
-                      <div class="volume-input-container">
-                        <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove(volumeRange.value)" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
-                        <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="current-video-stats">
-                      <p class="stats-views">{{ globals.currentVideo.stats.views | number:'1.0' }} Views</p>
-                      <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{ globals.currentVideo.stats.likes | number:'1.0' }}</p>
-                      <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span> {{ globals.currentVideo.stats.dislikes | number:'1.0' }}</p>
-                  </div>
-                  <div class="current-video-share">
-                    <label for="shareInput">Share link</label>
-                    <input id="shareInput" type="text" name="current video share" #shareInput [value]="shareLink" (click)="copyShareLink(shareInput.select())" readonly>
-                  </div>
-              </div>
-              <div id="related-video-list" class="video-list" [ngClass]="{'activePlayer': globals.displayVideoPlayer }">
-                <div class="video-item-head">
-                    Similar videos
-                </div>
-                <div class="related-video-content">
-                  <ng-container *ngIf="globals.relatedVideos.length === 0 && !loading">
-                    <div class="text-center-block">
-                      Related videos list is empty.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="loading">
-                    <div *ngFor="let i of [1,2,3,4]" class="video-item">
-                      <div class="video-item-info">
-                        <div class="video-item-image loading-featured"></div>
-                        <div class="video-item-content loading-featured"></div>
-                      </div>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="!loading">
-                    <div *ngFor="let relatedVideo of globals.relatedVideos; let i = index" [attr.data-index]="i" class="video-item">
-                      <div class="video-item-info">
-                        <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + relatedVideo.thumbnails.default +')'}"></div>
-                        <div class="video-item-content">
-                          <p class="video-item-title">{{ relatedVideo.title }}</p>
-                          <p class="video-item-autor">by <span>{{ relatedVideo.channelTitle }}</span></p>                      
-                        </div>
-                      </div>
-                      <div class="video-item-settings">
-                        <button class="video-item-play" (click)="onClickRelated($event, i)">
-                          <span class="fa fa-play"></span>
-                        </button>
-                        <button class="video-item-share" (click)="onCopyVideoItemLink(i, 2)">
-                          <span class="fa fa-share-alt"></span>
-                        </button>
-                        <button class="video-item-add" (click)="addPlaylistItem(i, 2)">
-                          <span class="fa fa-plus"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-        </div>
-    </div>
-    <div class="col col-3">
-        <div class="app app-feed">
-          <router-outlet></router-outlet>
-        </div>
-        <div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
-          <span class="fa fa-cog fa-spin fa-fw"></span>
-          <p>{{ shared.notify.message }}</p>
-        </div>
-    </div>
-  </div>
-  <div *ngIf="modal" class="modal-overlay">
-    <div class="modal-background-overlay" (click)="closeModal()"></div>
-    <div *ngIf="modalPlaylist" class="modal-container">
-      <h2>Do you want to remove this item from playlist?</h2>
-      <div class="modal-content">
-        <img *ngIf="globals.thumbnails" src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}" alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
-        <p>{{ globals.playlistVideos[modalPlaylistItem].title }}</p>
-      </div>
-      <button class="modal-close" (click)="closeModal()">
-        <span class="fa fa-times"></span>
-      </button>
-      <div class="modal-buttons">
-        <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
-        <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
-      </div>
-    </div>
-    <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-      <h2>Manage playlist</h2>
-      <div class="modal-content">
-        <h3>Import Playlist</h3>
-        <div class="form-group file-upload">
-          <input type="file" id="importPlaylist" (change)="uploadPlaylist($event)" [(ngModel)]="importPlaylistInput" [ngModelOptions]="{standalone: true}" value="Import" />
-          <label for="importPlaylist">Choose file</label>
-        </div>
-        <div *ngIf="tempPlaylist.length">
-          <p>Number of videos to import: {{tempPlaylist.length}}</p>
-          <button type="button" class="btn btn-round btn-primary" (click)="importPlaylist(importPlaylistInput)">Replace</button>        
-        </div>
-        <h3>Export Playlist</h3>
-        <p>Number of videos to export: {{globals.playlistVideos.length}}</p>
-      </div>
-      <button class="modal-close" (click)="closeModal()">
-        <span class="fa fa-times"></span>
-      </button>
-      <div class="modal-buttons">
-        <button type="button" class="btn btn-primary" (click)="exportFilePlaylist()">Export playlist</button>        
-        <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
-      </div>
-    </div>
-  </div>
-  <div id="mobile-unavailable">
-    The app is not ready for mobile/tablet, soon...
-  </div>
+<app-component-player></app-component-player>
+<div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
+	<input type="text" class="hide-input" #videoItemIDvalue />
+	<div class="container">
+		<div class="col col-1">
+			<app-related></app-related>
+		</div>
+		<div class="col col-3">
+			<app-playlist></app-playlist>
+		</div>
+		<div class="col col-5">
+			<div class="app app-feed">
+				<router-outlet></router-outlet>
+			</div>
+			<div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
+				<span class="fa fa-cog fa-spin fa-fw"></span>
+				<p>{{ shared.notify.message }}</p>
+			</div>
+		</div>
+	</div>
+	<div id="mobile-unavailable">
+	The app is not ready for mobile/tablet, soon...
+	</div>
 </div>

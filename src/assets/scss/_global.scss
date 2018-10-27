@@ -18,15 +18,14 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    cursor: default;
     -webkit-app-region: no-drag;
-    overflow: hidden;
 }
 
 a,
 button {
   -webkit-app-region: no-drag;
   outline: 0;
+  cursor: pointer;
 }
 
 a {
@@ -37,8 +36,32 @@ a {
     }
 }
 
-#app-container {
-    position: relative;
-    height: 100%;
-    background: linear-gradient(120deg, rgba(255, 0, 0, 0.1) 0%, var(--c-base) 30%);
+app {
+    &-search {
+        width: 100%;
+        margin-left: 40px;
+    }
+    &-component-player {
+        display: block;
+        position: relative;
+        > div {
+            position: relative;
+            z-index: 2;
+        }
+    }
+}
+
+.container-cover-bg {
+    background-position: center center;
+    background-size: 140% auto;
+    filter: blur(40px);
+    opacity: 0.8;
+    position: absolute;
+    left: -50px;
+    top: 20px;
+    height: 250px;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    transition: all 0.1s ease-out;
 }

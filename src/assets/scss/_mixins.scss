@@ -13,15 +13,6 @@
     }
 }
 
-.fontawesome {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
 @function str-replace($string, $search, $replace: '') {
     $index: str-index($string, $search);
     @return if($index,

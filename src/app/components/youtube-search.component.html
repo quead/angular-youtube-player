@@ -1,42 +1,37 @@
-<div class="app-head">
-  <form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
-      <div class="form-group">
-        <div class="input-group">
-          <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput" autocomplete="off">
-          <label for="input-search" class="search-icon"><span class="fa fa-search"></span></label>
-          <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
+<form id="main-search" role="search" [formGroup]="searchForm" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-group">
+      <div class="input-group">
+        <input type="text" id="input-search" class="form-control" placeholder="Search for Songs, Videos, Artists, Albums..." formControlName="searchInput" autocomplete="off">
+        <label for="input-search" class="search-icon"><span class="fa fa-search"></span></label>
+        <button class="clear-button" (click)="clearSearch()"><span class="fa fa-times"></span></button>
+      </div>
+    </div>
+    <ng-container *ngIf="searchForm.valid">
+      <span class="search-list arrow-up"></span>
+      <div id="search-video-list" class="video-list">
+        <div *ngIf="noResults" class="video-item text-center">
+          There are no results
+        </div>
+        <div *ngFor="let video of globals.searchedVideos; let i = index" [attr.data-index]="i" class="video-item">
+          <div class="video-item-info">
+            <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.thumbnails.default +')'}"></div>
+            <div class="video-item-content">
+                <p class="video-item-title">{{ video.title }}</p>
+                <p class="video-item-autor">by <span>{{ video.channelTitle }}</span></p>
+            </div>
+          </div>
+          <div class="video-item-settings">
+            <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
+              <span class="fa fa-play"></span>
+            </button>
+            <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
+              <span class="fa fa-share-alt"></span>
+            </button>
+            <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
+              <span class="fa fa-plus"></span>
+            </button>
+          </div>
         </div>
       </div>
-      <ng-container *ngIf="searchForm.valid">
-        <span class="search-list arrow-up"></span>
-        <div id="search-video-list" class="video-list">
-          <div *ngIf="noResults" class="video-item text-center">
-            There are no results
-          </div>
-          <div *ngFor="let video of globals.searchedVideos; let i = index" [attr.data-index]="i" class="video-item">
-            <div class="video-item-info">
-              <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.thumbnails.default +')'}"></div>
-              <div class="video-item-content">
-                  <p class="video-item-title">{{ video.title }}</p>
-                  <p class="video-item-autor">by <span>{{ video.channelTitle }}</span></p>
-              </div>
-            </div>
-            <div class="video-item-settings">
-              <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
-                <span class="fa fa-play"></span>
-              </button>
-              <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
-                <span class="fa fa-share-alt"></span>
-              </button>
-              <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
-                <span class="fa fa-plus"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-  </form>
-</div>
-<div class="app-content">
-  <router-outlet></router-outlet>
-</div>
+    </ng-container>
+</form>

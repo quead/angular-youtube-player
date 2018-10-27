@@ -9,15 +9,11 @@
 @import 'controls';
 @import 'forms';
 
+@import 'player-background';
 @import 'header';
 
 @import 'navbar';
 @import 'search';
 @import 'videos';
 
-#app-container.light-mode {
-    @import 'theme/light';
-}
-
-@import 'responsive';
 @import 'loading';

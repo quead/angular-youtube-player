@@ -1,8 +1,8 @@
 <div class="app-head">
     <h2>Settings</h2>
 </div>
-<div class="app-content">
-    <form *ngIf="loading" [formGroup]="internalSettings" id="internalSettings" class="settingsForm" novalidate>
+<div class="app-content" *ngIf="!loading">
+    <form [formGroup]="internalSettings" id="internalSettings" class="settingsForm" novalidate>
         <h3>Internal Settings</h3>
         <div *ngFor="let setting of initInternalForm.controls; let i=index" [ngClass]="{'hide': !globals.internal_settings[i].visible}" class="form-group">
             <input type="checkbox" [attr.id]="'setting-' + i" [formControl]="setting"/>

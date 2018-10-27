@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl,  ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl,  ValidatorFn } from '@angular/forms';
 
 @Injectable()
 export class NumberVal {

@@ -40,91 +40,99 @@
     color: var(--c-secondary);
 }
 
-.alert {
-    padding: .75rem 1.25rem;
-    margin: 1rem 0;
-    border-radius: 5px;
-    .fa {
-        margin-right: 10px;
-    }
-    &.alert-danger {
-        background-color: var(--c-danger);
-        color: var(--c-white);
-        a {
-            color: inherit;
-        }
-    }
-    &.alert-info {
-        background-color: var(--c-secondary);
-        color: var(--c-white);
-        a {
-            color: inherit;
-        }
-    }
+.video-details-container {
+    margin-top: 80px;
+    position: relative;
 }
 
-.app {
-    position: absolute;
+.player {
+    display: flex;
+    width: auto;
+    margin: 0 auto;
+}
+
+.player-container {
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.player-controls {
     width: 100%;
-    height: 100%;
-    &-content {
-        height: calc(100% - 100px);
-        width: 100%;
-        display: block;
-        position: absolute;
-        overflow: auto;
-        bottom: 0;
-    }
-    &-head {
-        color: var(--c-white);
-        h2 {
-            font-size: $f-28;
-            display: block;
-            margin: 0;
-            font-weight: 200;
-        }
-    }
-    &-services {        
-        .app-head {
-            position: relative;
-        }
-    }
-    &-feed {
-        z-index: 1;
-        overflow: hidden;
-        .app-content {
-            padding: 0 20px;
-            position: absolute;
-        }
-    }
-    &-player {
-        .app-head {
-            padding-left: 0;
-        }
-    }
+    display: flex;
 }
 
 .youtube-player {
-    height: 0;
-    opacity: 0;
-    transition: opacity 0.1s ease-out, visibility 0.1s ease-out, height 0.1s ease-out 0.1s;
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 100%;
-    &.active {
-        height: 270px;        
-        opacity: 1;
-        visibility: visible;
+    &-cover {
+        height: 140px;
+        width: 140px;
+        flex: 0 0 140px;
+        border-radius: 3px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: 1;
+        transition: all 0.1s ease-out;
         position: relative;
-        top: 0;
-        left: 0;
-        transition: opacity 0.1s ease-out 0.3s, visibility 0.1s ease-out 0.1s, height 0.1s ease-out;
+        .add-playlist {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            -webkit-appearance: none;
+            background-color: var(--c-white);
+            color: var(--c-base);
+            border: none;
+            height: 25px;
+            width: 25px;
+            padding: 0;
+            border-radius: 50%;
+            opacity: 1;
+            transition: all 0.1s ease-out;
+            &:hover {
+                opacity: 0.8;
+            }
+            &:active {
+                opacity: 1;
+            }
+        }
+        .toggle-fullscreen {
+            position: absolute;
+            right: 50%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            -webkit-appearance: none;
+            background-color: var(--c-white);
+            color: var(--c-base);
+            border: none;
+            height: 25px;
+            padding: 0 10px;
+            border-radius: 15px;
+            opacity: 1;
+            transition: all 0.1s ease-out;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            .fa {
+                margin-right: 5px;
+            }
+            &:hover,
+            &:focus {
+                background-color: darken(#fff, 5%);
+            }
+        }
+        &:hover {
+            .toggle-fullscreen {
+                opacity: 1;
+            }
+        }
     }
 }
 
 .notif {
-    position: absolute;
+    position: fixed;
     bottom: -41px;
     background-color: var(--c-black);
     color: var(--c-white);
@@ -136,7 +144,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.1s ease-in-out;
-    z-index: 1;
+    z-index: 9999;
     p {
         margin: 0;
         display: inline-block;
@@ -171,13 +179,12 @@
 .modal-container {
     position: absolute;
     background-color: var(--c-white);
-    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     color: var(--c-black);
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
     width: 400px;
-    height: 400px;
+    border-radius: 10px;
     text-align: center;
     padding-top: 30px;
     padding-bottom: 90px;
@@ -198,6 +205,9 @@
 
 .modal-content {
     padding: 0 20px;
+    h3 {
+        margin-bottom: 5px;
+    }
     img {
         width: 200px;
         height: auto;
@@ -211,7 +221,6 @@
     position: absolute;
     top: 13px;
     right: 15px;
-    cursor: pointer;
     background: transparent;
     padding: 0;
     border: none;
@@ -222,12 +231,6 @@
         &:active {
             color: var(--c-black);
         }
-    }
-    &:hover {
-        transform: scale(1.1);
-    }
-    &:active {
-        transform: scale(1);
     }
 }
 
@@ -252,76 +255,78 @@
     }
 }
 
-.update-bar {
-    position: fixed;
-    z-index: 999;
-    background-color: #0097ef;
-    color: white;
-    bottom: 0;
-    font-size: 14px;
-    height: 32px;
-    padding: 0 15px;
-    width: 100%;
-    align-items: center;
-    display: none;
-    #output {
-        display: inline-block;
+.session-section {
+    margin-bottom: 20px;
+    input[type="text"] {
+        background: transparent;
+        border: 1px solid #e4e4e4;
+        border-radius: 3px;
+        padding: 8px 10px;
+        font-size: $f-14;
     }
-    .update-loading {
-        margin-left: 10px;
-        .fa {
-            font-size: 10px;
-        }
-    }
-    &.active {
-        display: flex;
-    }
-    &.update-av .fa {
-        display: none;
-    }
-    #update-buttons {
-        margin-left: auto;
-        height: 100%;
-    }
-    button {
-        float: right;        
-        border: none;
-        margin: 0;
-        font-size: 12px;
-        padding: 0 10px;
-        height: 100%;
-        text-transform: uppercase;
-        cursor: pointer;
-        line-height: 1;
-        + button {
+    .session-key-block {
+        display: block;
+        margin: 0 auto 10px;
+        label {
             margin-right: 5px;
         }
     }
-}
-
-#update-app {
-    background-color: #007bc3;
-    color: #ffffff;
-    &:hover {
-        background-color: #006eaf;
+    button {
+        -webkit-appearance: none;
+        border: none;
+        color: var(--c-white);
+        padding: 0; 
+        text-align: center;
+        margin-left: 8px;
+        border-radius: 25px;
+        span {
+            padding: 0 10px 0 7px;
+        }
+        .fa {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            font-size: $f-14;
+            line-height: 25px;
+            padding: 0;
+        }
+        &.download {
+            background-color: darken(#4BD663, 10%);
+            .fa {
+                background-color: #4BD663;
+            }
+            &:hover {
+                background-color: darken(#4BD663, 13%);
+            }
+            &:focus {
+                background-color: darken(#4BD663, 17%);
+            }
+        }
+        &.upload {
+            background-color: darken(#df2040, 10%);
+            .fa {
+                background-color: #df2040;
+            }
+            &:hover {
+                background-color: darken(#be1733, 13%);
+            }
+            &:focus {
+                background-color: darken(#be1733, 17%);
+            }
+        }
+        &.update {
+            background-color: darken(#1a85fd, 10%);
+            .fa {
+                background-color: #1a85fd;
+            }
+            &:hover {
+                background-color: darken(#1a85fd, 13%);
+            }
+            &:focus {
+                background-color: darken(#1a85fd, 17%);
+            }
+        }
     }
-    &:active {
-        background-color: #0066a2;
-    }
-}
-
-.export-playlist {
-    height: 190px;
-    max-width: 100%;
-    width: 100%;
-    border: 1px solid #e2e2e2;
-    border-radius: 0;
-}
-
-#update-app-later {
-    background-color: transparent;
-    color: var(--c-white);
-    text-transform: capitalize;
 }
 
 .file-upload {
@@ -362,10 +367,15 @@
         }
     }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (min-width: 768px) {
+    #mobile-unavailable {
+        display: none;
+    }
+}
+@media screen and (max-width: 767px) {
     #mobile-unavailable {
         background-color: var(--c-base);
-        font-size: 24px;
+        font-size: $f-24;
         padding: 0 10px;
         z-index: 3;
         position: fixed;

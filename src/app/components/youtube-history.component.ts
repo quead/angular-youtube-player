@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component';
+import { PlayerComponent } from '../components/player/player.component';
+import { SharedService } from '../services/shared.service';
+import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { GlobalsService } from '../services/globals.service';
 
 @Component({
@@ -11,7 +13,9 @@ export class HistoryComponent implements OnInit {
 
   constructor(
     public globals: GlobalsService,
-    private app: AppComponent
+    private playerComp: PlayerComponent,
+    public shared: SharedService,
+    private playlist: PlaylistComponent
   ) {
   }
 
@@ -20,15 +24,15 @@ export class HistoryComponent implements OnInit {
   }
 
   addPlaylistItem(i: number, list: number) {
-      this.app.addPlaylistItem(i, list);
+      this.playlist.addPlaylistItem(i, list);
   }
 
   onCopyVideoItemLink(i: number, list: number) {
-    this.app.onCopyVideoItemLink(i, list);
+    this.shared.onCopyVideoItemLink(i, list);
   }
 
-  onClickHistory(event: Event, i: number) {
-    this.app.getVideo(this.globals.historyVideos[i]);
+  onClickHistory(i: number) {
+    this.playerComp.getVideo(this.globals.historyVideos[i]);
   }
 
 }

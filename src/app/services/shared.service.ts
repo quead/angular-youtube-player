@@ -1,10 +1,10 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-
+import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
+import { DragulaService } from 'ng2-dragula';
 
 @Injectable()
 export class SharedService {
@@ -17,7 +17,8 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
-        private globals: GlobalsService
+        private globals: GlobalsService,
+        public dragulaService: DragulaService
     ) {}
 
 
@@ -31,9 +32,17 @@ export class SharedService {
         return rtn;
     }
 
+
+  async getRelatedVideos() {
+        if (this.globals.currentVideo) {
+            const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
+            this.convertVideoObject(res['items'], 'relatedVideos');
+        }
+    }
+
     async initSettings() {
-        const res = await this.http.get('assets/settings.json')
-        .map(response => response).toPromise();
+        const res = await this.http.get('assets/settings.json').pipe(
+        map(response => response)).toPromise();
         return res;
     }
 
@@ -57,9 +66,25 @@ export class SharedService {
 
         this.globals.thumbnails = this.globals.settings.form_settings[0].value;
         this.globals.listGrid = this.globals.settings.form_settings[1].value;
-        this.globals.displayVideoPlayer = this.globals.settings.form_settings[2].value;
-        this.globals.repeatMode = this.globals.settings.form_settings[3].value;
-        this.globals.darkMode = this.globals.settings.form_settings[4].value;
+        this.globals.repeatMode = this.globals.settings.form_settings[2].value;
+        this.globals.darkMode = this.globals.settings.form_settings[3].value;
+    }
+
+    updateSettings(newSettings: any) {
+        this.globals.settings = newSettings;
+        this.globals.external_settings = newSettings['api_settings'];
+        this.globals.internal_settings = newSettings['form_settings'];
+        this.updateLocalStorageSettings();
+        this.setSettings();
+    }
+
+    preventOldSettings() {
+        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '2') {
+            console.log('Updating localstorage...');
+            localStorage.clear();
+            this.globals.settings = null;
+            this.globals.playlistVideos = [];
+        }
     }
 
     async initFeed() {
@@ -68,11 +93,6 @@ export class SharedService {
             const res = await this.youtube.feedVideos();
             this.convertVideoObject(res['items'], 'feedVideos');
         }
-    }
-
-    async initChannel() {
-        const res = await this.youtube.getChannel(this.globals.feedVideos[0].channelId);
-        this.globals.channel = res;
     }
 
     updateData(state: string) {
@@ -85,7 +105,12 @@ export class SharedService {
     }
 
     getPlaylist() {
-        this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
+        if (localStorage.getItem('playlist') !== 'undefined') {
+            this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
+        } else {
+            this.globals.playlistVideos = this.globals.relatedVideos;
+            this.updatePlaylist();
+        }
     }
 
     updatePlaylist() {
@@ -93,33 +118,58 @@ export class SharedService {
         this.setLocalVersion();
     }
 
+    checkPlaylist() {
+        this.findPlaylistItem();
+        this.updatePlaylist();
+    }
+
+    findPlaylistItem() {
+        if (this.globals.currentVideo) {
+            const playlistItem = this.globals.playlistVideos.find(item => item.id === this.globals.currentVideo['id']);
+            this.globals.currentPlaylistItem = this.globals.playlistVideos.indexOf(playlistItem);
+        }
+    }
+
     setLocalVersion() {
-        if (localStorage.getItem('version') === null) {
-            localStorage.setItem('version', '2');
+        if (localStorage.getItem('version') === null || localStorage.getItem('version') === '2') {
+            localStorage.setItem('version', '3');
         }
     }
 
     triggerNotify(message: string) {
         this.notify.enabled = true;
         this.notify.message = message;
-        setTimeout(() => this.notify.enabled = false, 1000);
+        setTimeout(() => this.notify.enabled = false, 3000);
+    }
+
+    move(arr: Array<VideoModel>, old_index: number, new_index: number) {
+        while (old_index < 0) {
+            old_index += arr.length;
+        }
+        while (new_index < 0) {
+            new_index += arr.length;
+        }
+        if (new_index >= arr.length) {
+            let k = new_index - arr.length;
+            while ((k--) + 1) {
+                arr.push(undefined);
+            }
+        }
+         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+       return arr;
     }
 
     addHistoryVideo(data: any) {
-        let key;
-        for (key in this.globals.historyVideos) {
-            if (this.globals.historyVideos[key].id === data.id) {
-                this.globals.historyVideos.splice(key, 1);
-                if (this.globals.historyVideos[this.globals.historyVideos.length - 1] === data) {
-                    this.globals.historyVideos.splice(-1, 1);
-                }
-            }
+        if (typeof (this.globals.historyVideos.find(video => video.id === data.id)) === 'undefined') {
+            this.globals.historyVideos.unshift(data);
+        } else {
+            const indexVideo = this.globals.historyVideos.indexOf(data);
+            this.move(this.globals.historyVideos, indexVideo, 0);
         }
-        this.globals.historyVideos.unshift(data);
     }
 
     convertVideoObject(object: any, list: string) {
-        const tempVideos = [];
+        let tempVideos = [];
         let tempObject = {
             id: '',
             title: '',
@@ -140,57 +190,66 @@ export class SharedService {
 
         // Populate temp object
         for (const i in object) {
-            if (typeof object[i].id === 'string') {
-                tempObject.id = object[i].id;
-            } else {
-                tempObject.id = object[i].id.videoId;
-            }
-            tempObject.title = object[i].snippet.title;
-            tempObject.channelTitle = object[i].snippet.channelTitle;
-            if (object[i].snippet.channelId) {
-                tempObject.channelId = object[i].snippet.channelId;
-            }
-            if (object[i].snippet.categoryId) {
-                tempObject.categoryId = object[i].snippet.categoryId;
-            }
-            if (object[i].snippet.thumbnails.default) {
-                tempObject.thumbnails.default = object[i].snippet.thumbnails.default.url;
-            }
-            if (object[i].snippet.thumbnails.high) {
-                tempObject.thumbnails.high = object[i].snippet.thumbnails.high.url;
-            }
-            if (object[i].snippet.thumbnails.medium) {
-                tempObject.thumbnails.medium = object[i].snippet.thumbnails.medium.url;
-            }
-            if (object[i].statistics) {
-                tempObject.stats.dislikes = object[i].statistics.dislikeCount;
-            }
-            if (object[i].statistics) {
-                tempObject.stats.likes = object[i].statistics.likeCount;
-            }
-            if (object[i].statistics) {
-                tempObject.stats.views = object[i].statistics.viewCount;
-            }
-            tempVideos.push(tempObject);
+            if (object.hasOwnProperty(i)) {
+                let obj = object[i];
 
-            // Clear tempObject after populated the object and pushed
-            tempObject = {
-                id: '',
-                title: '',
-                channelTitle: '',
-                channelId: '',
-                categoryId: '',
-                stats: {
-                    likes: '',
-                    dislikes: '',
-                    views: ''
-                },
-                thumbnails: {
-                    default: '',
-                    high: '',
-                    medium: '',
+                if (typeof obj.id === 'string') {
+                    tempObject.id = obj.id;
+                } else {
+                    tempObject.id = obj.id.videoId;
                 }
-            };
+                tempObject.title = obj.snippet.title;
+                tempObject.channelTitle = obj.snippet.channelTitle;
+                if (obj.snippet.channelId) {
+                    tempObject.channelId = obj.snippet.channelId;
+                }
+                if (obj.snippet.categoryId) {
+                    tempObject.categoryId = obj.snippet.categoryId;
+                }
+                if (obj.snippet.thumbnails.default) {
+                    tempObject.thumbnails.default = obj.snippet.thumbnails.default.url;
+                }
+                if (obj.snippet.thumbnails.maxres) {
+                    tempObject.thumbnails.high = obj.snippet.thumbnails.maxres.url;
+                } else if (obj.snippet.thumbnails.high) {
+                    tempObject.thumbnails.high = obj.snippet.thumbnails.high.url;
+                }
+                if (obj.snippet.thumbnails.high) {
+                    tempObject.thumbnails.medium = obj.snippet.thumbnails.high.url;
+                } else if (obj.snippet.thumbnails.medium) {
+                    tempObject.thumbnails.medium = obj.snippet.thumbnails.medium.url;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.dislikes = obj.statistics.dislikeCount;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.likes = obj.statistics.likeCount;
+                }
+                if (obj.statistics) {
+                    tempObject.stats.views = obj.statistics.viewCount;
+                }
+                tempVideos.push(tempObject);
+
+                // Clear tempObject after populated the object and pushed
+                tempObject = {
+                    id: '',
+                    title: '',
+                    channelTitle: '',
+                    channelId: '',
+                    categoryId: '',
+                    stats: {
+                        likes: '',
+                        dislikes: '',
+                        views: ''
+                    },
+                    thumbnails: {
+                        default: '',
+                        high: '',
+                        medium: '',
+                    }
+                };
+                obj = null;
+            }
         }
 
         // Push tempObject into globals
@@ -216,7 +275,9 @@ export class SharedService {
                 break;
             }
             case 'currentVideo': {
-                this.globals.currentVideo = tempObject;
+                this.globals.currentVideo = tempVideos[0];
+                this.globals.shareLink = 'https://youtu.be/' + tempVideos[0].id;
+                tempVideos = null;
                 break;
             }
             default: {
@@ -224,5 +285,60 @@ export class SharedService {
                 break;
             }
         }
+        return true;
     }
+
+    async getStatsVideos(query: string) {
+        const res = await this.youtube.statsVideos(query);
+        this.convertVideoObject(res['items'], 'currentVideo');
+    }
+
+    clearPlaylist() {
+        this.globals.currentPlaylistItem = -1;
+        this.globals.playlistVideos = [];
+        this.checkPlaylist();
+    }
+
+    clearSession() {
+        this.globals.currentPlaylistItem = -1;
+        this.globals.currentVideo = null;
+        this.globals.playlistVideos = [];
+        this.globals.relatedVideos = [];
+        localStorage.removeItem('playlist');
+        localStorage.removeItem('settings');
+    }
+
+    copyShareLink() {
+        document.execCommand('Copy');
+        this.triggerNotify('Copied');
+    }
+
+    onCopyVideoItemLink(i: number, list: number) {
+        let listType;
+        const youtubeLink = 'https://youtu.be/';
+        if (list === 0) {
+          listType = this.globals.feedVideos[i];
+        }
+        if (list === 1) {
+          listType = this.globals.lastSearchedVideos[i];
+        }
+        if (list === 2) {
+          listType = this.globals.relatedVideos[i];
+        }
+        if (list === 3) {
+          listType = this.globals.playlistVideos[i];
+        }
+        if (list === 4) {
+          listType = this.globals.historyVideos[i];
+        }
+
+        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
+
+        this.globals.videoItemIDvalue.nativeElement.select();
+        this.globals.videoItemIDvalue.nativeElement.focus();
+        document.execCommand('copy');
+        this.globals.videoItemIDvalue.nativeElement.blur();
+        this.copyShareLink();
+      }
+
 }
