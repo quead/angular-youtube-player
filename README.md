@@ -1,9 +1,10 @@
 <p align="center">
-  Check 
-  <a href="https://quead.github.io/demo/" title="YouTube Player Demo">Demo</a> 
-  or
-  <a href="https://youtu.be/KB803dWQM-o/" title="Video Presentation">Video Presentation</a>
-  <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/EKqK4ip.png" style="height: auto; max-width:100%;" />
+  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player Demo"> 
+    Demo
+  </a>
+  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player"> 
+    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/THnmBnz.png" style="height: auto; max-width:100%;" />
+  </a>
 </p>
 
 # About Player
@@ -13,7 +14,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 1.7.3, [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
+This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 7.0.3, [@angular/fire](https://github.com/angular/angularfire2), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -37,7 +38,7 @@ This player is compatible only with Chrome/webkit browsers.
 
 5. Add your youtube api key in settings.json or in the app
 
-6. To make available firebase (for session feature upload/download) update environments.prod.ts and environments.ts
+6. To make available firebase (for session feature upload/download) update `environments.prod.ts` and `environments.ts`
 
 **For SASS development**
 
@@ -57,6 +58,7 @@ Angular YouTube Player 2.3.3
 - Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
 - Layout update
 - Updated from angular 5.2.0 to 7.0.1
+- Carousel added for related videos (used [ngu-carousel](https://github.com/sheikalthaf/ngu-carousel))
 
 Angular YouTube Player 2.3
 - Updating to LTS angular
@@ -160,15 +162,14 @@ Angular YouTube Player 1.0.0
 ## Future features
 #### Backlog
 - iOS 8+ / android 5+ app **(unversioned)**
-- Change and create theme **(unversioned)**
 
 **Rooms**
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Keep your playlist and settings in cloud **(in v2.4)**
-- Implemented session key to keep playlist in cloud (without account) **(in v2.4)**
-- Integrating ngrx store **(in v2.5)**
+- Responsive layout **(in v2.4)**
+- Sync player between session **(in v2.4)**
+- Keep your settings in cloud **(in v2.8)**
 - Integrating YouTube subscriptions/playlist **(in v2.9)**
 
 **Rooms**
