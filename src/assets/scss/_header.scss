@@ -3,6 +3,8 @@ header {
     margin: 0 auto;
     align-items: center;
     padding: 10px 0;
+    position: relative;
+    z-index: 3;
     @media (max-width: 575px) { width: auto; }
 
     @media (min-width: 576px) and (max-width: 767px) { width: 540px; }
@@ -35,5 +37,19 @@ header {
     transition: all 0.1s ease-out;
     &:hover {
         @include icon-svg(logo, 111px, 25px, white, white, #17171d);
+    }
+}
+
+@media screen and (max-width: 767px) {
+    header {
+        flex-wrap: wrap;
+        padding: 20px 0;
+        #logo {
+            margin: 0 auto 0 0;
+        }
+    }
+    app-search {
+        margin-left: 0;
+        margin-top: 15px;
     }
 }

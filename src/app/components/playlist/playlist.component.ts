@@ -42,7 +42,6 @@ export class PlaylistComponent implements OnInit {
 
   ngOnInit() {
     this.globals.myScrollContainer = this.myScrollContainer;
-    this.initSession();
   }
 
   private hasClass(el: any, name: string) {
@@ -62,11 +61,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   // ---------------- Playlist settings ----------------
-
-  initPlaylist() {
-    this.playlistCTRL.fillPlaylist();
-  }
-
   uploadPlaylist(event: Event) {
     const files = event['target'].files[0];
     if (files.length <= 0) {
@@ -119,7 +113,7 @@ export class PlaylistComponent implements OnInit {
   importPlaylist() {
     this.globals.playlistVideos = this.tempPlaylist;
     this.tempPlaylist = null;
-    this.shared.updatePlaylist();
+    this.shared.uploadPlayist();
     this.closeModal();
   }
 
@@ -191,19 +185,12 @@ export class PlaylistComponent implements OnInit {
   }
 
   // ---------------- Session ----------------
-  initSession() {
-    this.shared.getSettings().then(() => {
-        this.globals.sessionValue = localStorage.getItem('session_key');
-    });
-  }
-
   updateKey(value: string) {
-      this.globals.sessionValue = value;
-      localStorage.setItem('session_key', this.globals.sessionValue);
+      // this.globals.sessionValue = value;
+      // localStorage.setItem('session_key', this.globals.sessionValue);
   }
 
   getSession() {
-      this.dbcrud.getSession(this.globals.sessionValue);
       this.shared.triggerNotify('Downloading playlist from cloud...');
   }
 
@@ -216,7 +203,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   updateSession() {
-        this.dbcrud.updateSession();
+        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
         this.shared.triggerNotify('Updating playlist to cloud...');
   }
 

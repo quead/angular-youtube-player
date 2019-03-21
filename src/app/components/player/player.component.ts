@@ -35,6 +35,8 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Where app is loaded
+    this.shared.preventOldSettings();
     this.shared.getSettings();
     this.setDefaultPlayer();
   }
@@ -180,7 +182,6 @@ export class PlayerComponent implements OnInit {
   playVideo(data: any) {
     this.shared.addHistoryVideo(data);
     this.globals.player.loadVideoById(data.id);
-    this.playlistCTRL.fillPlaylist();
     this.shared.findPlaylistItem();
   }
 

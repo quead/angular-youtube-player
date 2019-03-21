@@ -4,7 +4,10 @@ import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
+import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
+import * as io from 'socket.io-client';
+var socket = io('http://localhost:8888');
 
 @Injectable()
 export class SharedService {
@@ -18,20 +21,9 @@ export class SharedService {
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
         private globals: GlobalsService,
+        private dbcrud: DbCrudService,
         public dragulaService: DragulaService
     ) {}
-
-
-    generateKey() {
-        const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const length = 16;
-        let rtn = '';
-        for (let i = 0; i < length; i++) {
-            rtn += code.charAt(Math.floor(Math.random() * code.length));
-        }
-        return rtn;
-    }
-
 
   async getRelatedVideos() {
         if (this.globals.currentVideo) {
@@ -51,7 +43,6 @@ export class SharedService {
             const res = await this.initSettings();
             this.globals.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
-            localStorage.setItem('session_key', this.generateKey());
         } else {
             this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }
@@ -68,6 +59,7 @@ export class SharedService {
         this.globals.listGrid = this.globals.settings.form_settings[1].value;
         this.globals.repeatMode = this.globals.settings.form_settings[2].value;
         this.globals.darkMode = this.globals.settings.form_settings[3].value;
+        this.dbcrud.updateSession('settings', this.globals.settings);
     }
 
     updateSettings(newSettings: any) {
@@ -79,7 +71,7 @@ export class SharedService {
     }
 
     preventOldSettings() {
-        if (localStorage.length === 1 || !localStorage.getItem('version') || parseInt(localStorage.getItem('version')) < this.globals.localStorageVersion) {
+        if (localStorage.length === 1 || !localStorage.getItem('version') || parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion) {
             console.log('Updating localstorage...');
             localStorage.clear();
             this.globals.settings = null;
@@ -89,14 +81,9 @@ export class SharedService {
 
     async initFeed() {
         if (!this.globals.feedVideos) {
-            await this.getSettings();
             const res = await this.youtube.feedVideos();
             this.convertVideoObject(res['items'], 'feedVideos');
         }
-    }
-
-    updateData(state: string) {
-        console.log(state);
     }
 
     updateLocalStorageSettings() {
@@ -104,23 +91,18 @@ export class SharedService {
         this.setLocalVersion();
     }
 
-    getPlaylist() {
-        if (localStorage.getItem('playlist') !== 'undefined') {
-            this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
-        } else {
-            this.globals.playlistVideos = this.globals.relatedVideos;
-            this.updatePlaylist();
-        }
+    downloadPlaylist() {
+        this.dbcrud.downloadSession();
     }
 
-    updatePlaylist() {
-        localStorage.setItem('playlist', JSON.stringify(this.globals.playlistVideos));
+    uploadPlayist() {
+        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
         this.setLocalVersion();
     }
 
     checkPlaylist() {
         this.findPlaylistItem();
-        this.updatePlaylist();
+        this.uploadPlayist();
     }
 
     findPlaylistItem() {
@@ -131,7 +113,7 @@ export class SharedService {
     }
 
     setLocalVersion() {
-        if (localStorage.getItem('version') === null || parseInt(localStorage.getItem('version')) < this.globals.localStorageVersion) {
+        if (localStorage.getItem('version') === null || parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion) {
             localStorage.setItem('version', this.globals.localStorageVersion.toString());
         }
     }

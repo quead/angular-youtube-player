@@ -13,16 +13,16 @@
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,var(--c-base) 18%,rgba(#6a7586,0.1) 33%);
+    background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,rgba(#6a7586,0.2) 18%,rgba(#6a7586,0.1) 33%);
     background-size: 800px 104px;
-    border-radius: 3px;
+    border-radius: 6px;
     &-video-item {
         animation-duration: 1s;
         animation-fill-mode: forwards;
         animation-iteration-count: infinite;
         animation-name: placeHolderShimmer;
         animation-timing-function: linear;
-        background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,var(--c-base) 18%,rgba(#6a7586,0.1) 33%);
+        background: linear-gradient(to right,rgba(#6a7586,0.1) 8%,rgba(#6a7586,0.2) 18%,rgba(#6a7586,0.1) 33%);
         background-size: 800px 104px;
         height: 180px;
         .video-item-image {
@@ -43,6 +43,9 @@
     padding: 0 25px;
     .loading-small-box {
         margin-top: 10px;
+    }
+    .loading-box:last-child {
+        margin-right: 0;
     }
 }
 
@@ -70,7 +73,7 @@
 .loading-box {
     height: 156px;
     width: 135px;
-    margin-right: 4px;
+    margin-right: 10px;
 }
 
 .loading-medium-box {
@@ -105,8 +108,8 @@
         height: 155px;
         flex-wrap: wrap;
         .loading-box {
-            width: 154px;
-            margin-right: 18px;
+            width: 147px;
+            margin-right: 10px;
         }
         .loading-box:nth-child(4) {
             margin-right: 0;

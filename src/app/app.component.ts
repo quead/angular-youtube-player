@@ -17,12 +17,10 @@ export class AppComponent implements OnInit {
         public globals: GlobalsService,
         public playlistCTRL: PlaylistControlService,
     ) {
-        localStorage.removeItem('firebase:previous_websocket_failure');
     }
 
     ngOnInit() {
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
-        this.shared.preventOldSettings();
     }
 
     // ---------------- Update app ----------------

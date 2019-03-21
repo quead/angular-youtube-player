@@ -89,7 +89,6 @@
           <input type="text" id="session-key-input" [ngModel]="globals.sessionValue" (keyup)="updateKey($event.target.value)" />
         </div>
         <button type="button" class="upload" (click)="uploadSession()"><span class="fa fa-cloud-upload"></span><span>Upload</span></button>
-        <button type="button" class="update" (click)="updateSession()"><span class="fa fa-cloud-upload"></span><span>Update</span></button>
         <button type="button" class="download" (click)="getSession()"><span class="fa fa-cloud-download"></span><span>Download</span></button>
       </div>
     </div>

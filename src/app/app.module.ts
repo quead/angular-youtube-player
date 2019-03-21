@@ -23,17 +23,12 @@ import { PlayerComponent } from './components/player/player.component';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
-// Firebase
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabase } from '@angular/fire/database';
-
 import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 
 @NgModule({
   imports: [
-    AngularFireModule.initializeApp(environment.firebase, 'angular-yt-player-quead'),
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -63,7 +58,6 @@ import { RelatedComponent } from './components/related/related.component';
     PlaylistControlService,
     SharedService,
     GlobalsService,
-    AngularFireDatabase,
     NguCarouselConfig,
     NguCarousel
   ]
