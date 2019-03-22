@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalsService } from '../services/globals.service';
+import { NotifyService } from '../services/notify.service';
 // DB
 import { VideoModel } from '../models/video.model';
 import * as io from 'socket.io-client';
@@ -10,12 +11,13 @@ export class DbCrudService {
 
     constructor(
         public globals: GlobalsService,
+        private notify: NotifyService
     ) {
     }
 
     checkSession() {
         return new Promise(resolve => {
-                socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
+            socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
                 if (dataGet.status === 'SESSION_NOT_FOUND') {
                     socket.emit('get_session', '', (dataSet) => {
                         localStorage.setItem('session_key', dataSet.session);
@@ -37,14 +39,22 @@ export class DbCrudService {
                 row: row,
                 data: data
             }, (updatedData) => {
-                console.log(updatedData.status);
+                switch (updatedData.status) {
+                    case 'SESSION_UPDATED':
+                        this.notify.triggerNotify(5);
+                    break;
+                    case 'SESSION_NOT_UPDATED':
+                        this.notify.triggerNotify(6);
+                    break;
+                    default:
+                }
             });
         });
         // socket.emit('update_session')
         // this.db2.object(`sessions/${localStorage.getItem('session_key')}`).update({playlist: this.globals.playlistVideos}).then(() => {
-        //     this.shared.triggerNotify('Cloud playlist was updated.');
+        //     this.shared.triggerNotify(5);
         // }).catch(() => {
-        //     this.shared.triggerNotify('Cloud playlist cannot be updated.');
+        //     this.shared.triggerNotify(6);
         // });
     }
 
@@ -58,9 +68,9 @@ export class DbCrudService {
         //   details: this.globals.currentVideo,
         // };
         // afList.set(localStorage.getItem('session_key'), defaultSession).then(() => {
-        //     this.shared.triggerNotify('Cloud playlist was updated');
+        //     this.shared.triggerNotify(5);
         // }).catch(() => {
-        //     this.shared.triggerNotify('Uploading playlist error');
+        //     this.shared.triggerNotify(6);
         // });
     }
 

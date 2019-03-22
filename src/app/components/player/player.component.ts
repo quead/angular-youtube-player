@@ -220,7 +220,7 @@ export class PlayerComponent implements OnInit {
     if (this.globals.playlistVideos.length > 0) {
       this.getVideo(this.globals.playlistVideos[i]);
     } else {
-      this.notify.triggerNotify('Playlist is empty');
+      this.notify.triggerNotify(0);
     }
   }
 

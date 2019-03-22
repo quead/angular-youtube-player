@@ -43,10 +43,10 @@ export class PlaylistControlService {
       this.globals.playlistVideos.push(listType);
       this.shared.checkPlaylist();
 
-      this.notify.triggerNotify('Added to playlist');
+      this.notify.triggerNotify(3);
       this.scrollToBottom();
     } else {
-      this.notify.triggerNotify('Video is already in playlist');
+      this.notify.triggerNotify(4);
     }
   }
 

@@ -74,7 +74,7 @@ export class SettingsComponent implements OnInit {
             this.shared.getSettings();
 
             // this.playerComp.checkVolumeRange();
-            this.notify.triggerNotify('Changed');
+            this.notify.triggerNotify(22);
         });
     }
 
@@ -97,7 +97,7 @@ export class SettingsComponent implements OnInit {
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this.notify.triggerNotify('Saved');
+            this.notify.triggerNotify(22);
             this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
@@ -111,7 +111,7 @@ export class SettingsComponent implements OnInit {
             this.playerComp.setDefaultPlayer();
 
         } else {
-            this.notify.triggerNotify('Please check external settings');
+            this.notify.triggerNotify(10);
         }
     }
 }

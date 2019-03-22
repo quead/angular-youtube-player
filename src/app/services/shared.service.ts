@@ -283,7 +283,7 @@ export class SharedService {
 
     copyShareLink() {
         document.execCommand('Copy');
-        this.notify.triggerNotify('Copied');
+        this.notify.triggerNotify(20);
     }
 
     onCopyVideoItemLink(i: number, list: number) {

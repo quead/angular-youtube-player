@@ -78,7 +78,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   removePlaylistItem(i: number) {
-      this.notify.triggerNotify('Video removed');
+      this.notify.triggerNotify(23);
       setTimeout(() => {
         if (i === this.globals.currentPlaylistItem) {
           this.globals.currentPlaylistItem = -1;
@@ -193,20 +193,20 @@ export class PlaylistComponent implements OnInit {
   }
 
   getSession() {
-      this.notify.triggerNotify('Downloading playlist from cloud...');
+      this.notify.triggerNotify(1);
   }
 
   uploadSession() {
     const confirmBtn = confirm('Are you sure? It will overwrite the cloud session.');
     if (confirmBtn) {
         this.dbcrud.uploadSession();
-        this.notify.triggerNotify('Uploading playlist to cloud...');
+        this.notify.triggerNotify(2);
     }
   }
 
   updateSession() {
         this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
-        this.notify.triggerNotify('Updating playlist to cloud...');
+        this.notify.triggerNotify(2);
   }
 
 }
