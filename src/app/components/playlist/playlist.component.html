@@ -54,7 +54,7 @@
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
   <div *ngIf="modalPlaylist && globals.playlistVideos[modalPlaylistItem]" class="modal-container">
-    <h2>Do you want to remove this item from playlist?</h2>
+    <h2>Do you want to remove this item from the playlist?</h2>
     <div class="modal-content">
       <ng-container *ngIf="globals.thumbnails">
         <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}" alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
@@ -70,34 +70,25 @@
     </div>
   </div>
   <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-    <div class="modal-content">
-      <h3>Import Playlist</h3>
-      <div class="form-group file-upload">
-        <input type="file" id="importPlaylist" (change)="uploadPlaylist($event)" [(ngModel)]="importPlaylistInput" [ngModelOptions]="{standalone: true}" value="Import" />
-        <label for="importPlaylist">Choose file</label>
-      </div>
-      <div *ngIf="tempPlaylist.length">
-        <p>Number of videos to import: {{tempPlaylist.length}}</p>
-        <button type="button" class="btn btn-round btn-primary" (click)="importPlaylist(importPlaylistInput)">Replace</button>        
-      </div>
-      <h3>Export Playlist</h3>
-      <p>Number of videos to export: {{globals.playlistVideos.length}}</p>
-      <h3>Cloud Playlist</h3>
-      <div class="session-section">
-        <div class="session-key-block">
-          <label for="session-key-input">Session Key</label>
-          <input type="text" id="session-key-input" [ngModel]="globals.sessionValue" (keyup)="updateKey($event.target.value)" />
+    <h2>Manage session</h2>
+    <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
+        <div class="modal-content">
+          <p>Playlist videos: {{globals.playlistVideos.length}}</p>
+          <p>Your session key: {{globals.getCurrentSession().session}}</p>
+          <div class="session-section">
+            <div class="session-key-block">
+              <label for="session-key-input">Temporary session key:</label>
+              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSession().tempSession}}" />
+            </div>
+          </div>
         </div>
-        <button type="button" class="upload" (click)="uploadSession()"><span class="fa fa-cloud-upload"></span><span>Upload</span></button>
-        <button type="button" class="download" (click)="getSession()"><span class="fa fa-cloud-download"></span><span>Download</span></button>
-      </div>
-    </div>
-    <button class="modal-close" (click)="closeModal()">
-      <span class="fa fa-times"></span>
-    </button>
-    <div class="modal-buttons">
-      <button type="button" class="btn btn-primary" (click)="exportFilePlaylist()">Export playlist</button>        
-      <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
-    </div>
+        <button class="modal-close" (click)="closeModal()">
+          <span class="fa fa-times"></span>
+        </button>
+        <div class="modal-buttons">
+          <button type="submti" class="btn btn-secondary">Change session</button>        
+          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+        </div>
+    </form>
   </div>
 </div>

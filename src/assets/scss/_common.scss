@@ -195,7 +195,7 @@
     h2 {
         margin-top: 10px;
         font-size: $f-18;
-        font-weight: 400;
+        font-weight: 800;
         padding: 0 40px;
         margin-bottom: 30px;
     }
@@ -206,6 +206,7 @@
 
 .modal-content {
     padding: 0 20px;
+    text-align: left;
     h3 {
         margin-bottom: 5px;
     }
@@ -214,7 +215,7 @@
         height: auto;
     }
     p {
-        margin-top: 5px;
+        margin: 5px 0;
     }
 }
 
@@ -249,10 +250,8 @@
         font-weight: 600;
         padding: 13px 10px;
         font-size: $f-12;
-        &-primary {
-            width: 70%;
-            border-radius: 30px;
-        }
+        width: 70%;
+        border-radius: 30px;
     }
 }
 
@@ -271,100 +270,8 @@
         label {
             margin-right: 5px;
         }
-    }
-    button {
-        -webkit-appearance: none;
-        border: none;
-        color: var(--c-white);
-        padding: 0; 
-        text-align: center;
-        margin-left: 8px;
-        border-radius: 25px;
-        span {
-            padding: 0 10px 0 7px;
-        }
-        .fa {
-            height: 25px;
-            width: 25px;
-            border-radius: 50%;
-            font-size: $f-14;
-            line-height: 25px;
-            padding: 0;
-        }
-        &.download {
-            background-color: darken(#4BD663, 10%);
-            .fa {
-                background-color: #4BD663;
-            }
-            &:hover {
-                background-color: darken(#4BD663, 13%);
-            }
-            &:focus {
-                background-color: darken(#4BD663, 17%);
-            }
-        }
-        &.upload {
-            background-color: darken(#df2040, 10%);
-            .fa {
-                background-color: #df2040;
-            }
-            &:hover {
-                background-color: darken(#be1733, 13%);
-            }
-            &:focus {
-                background-color: darken(#be1733, 17%);
-            }
-        }
-        &.update {
-            background-color: darken(#1a85fd, 10%);
-            .fa {
-                background-color: #1a85fd;
-            }
-            &:hover {
-                background-color: darken(#1a85fd, 13%);
-            }
-            &:focus {
-                background-color: darken(#1a85fd, 17%);
-            }
-        }
-    }
-}
-
-.file-upload {
-    position: relative;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    label {
-        display: block;
-        padding: 20px;
-        width: 100%;
-        display: block;
-        padding: 20px;
-        width: 100%;
-        border: 2px dashed rgba(red, 0.3);
-        border-radius: 5px;
-        text-transform: uppercase;
-        color: var(--c-primary);
-        text-indent: -9999px;
-        &:hover {
-            border: 2px dashed rgba(red, 0.5);
-        }
-    }
-    input {
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-indent: -9999px;
-        color: var(--c-primary);
-        outline: 0;
-        &:hover + label {
-            border: 2px dashed rgba(red, 0.5);
-        }
-        &:active + label {
-            border: 2px dashed var(--c-primary);
+        input {
+            width: 100%;
         }
     }
 }

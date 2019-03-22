@@ -57,7 +57,7 @@ input[type="radio"]:checked {
         min-width: 250px;
         font-weight: 300;        
         background-color: #191f27;
-        border-radius: 6px;
+        border-radius: 0;
         outline: 0;
         &:disabled {
             background-color: var(--c-base);

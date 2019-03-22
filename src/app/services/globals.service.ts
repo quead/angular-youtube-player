@@ -32,6 +32,7 @@ export class GlobalsService {
   listGrid = false;
   repeatMode = true;
   darkMode = true;
+  isTempSessionActive = false;
   sessionValue: string;
   localStorageVersion = 3;
 
@@ -45,5 +46,12 @@ export class GlobalsService {
   myScrollContainer: ElementRef;
 
   constructor() { }
+
+  getCurrentSession() {
+    return {
+      session: localStorage.getItem('session_key'),
+      tempSession: this.sessionValue
+    }
+  }
 
 }

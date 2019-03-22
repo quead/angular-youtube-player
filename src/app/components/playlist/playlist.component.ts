@@ -24,8 +24,8 @@ export class PlaylistComponent implements OnInit {
   modalPlaylist = false;
   modalExportPlaylist = false;
   modalPlaylistItem: number;
+  sessionKeyInput: any;
 
-  importPlaylistInput: any;
   BAG = 'playlistDrag';
   subs = new Subscription();
 
@@ -104,21 +104,6 @@ export class PlaylistComponent implements OnInit {
       this.showExportPlaylistModal();
   }
 
-  exportFilePlaylist() {
-      const a = document.createElement('a');
-      const file = new Blob([JSON.stringify(this.globals.playlistVideos)], {type: 'data:text/json;charset=utf8'});
-      a.href = URL.createObjectURL(file);
-      a.download = 'playlist.json';
-      a.click();
-  }
-
-  importPlaylist() {
-    this.globals.playlistVideos = this.tempPlaylist;
-    this.tempPlaylist = null;
-    this.shared.uploadPlayist();
-    this.closeModal();
-  }
-
   // ---------------- Init settings ----------------
 
   initDragula() {
@@ -187,26 +172,28 @@ export class PlaylistComponent implements OnInit {
   }
 
   // ---------------- Session ----------------
-  updateKey(value: string) {
-      // this.globals.sessionValue = value;
-      // localStorage.setItem('session_key', this.globals.sessionValue);
+  updateKey() {
+    const confirmBtn = confirm('You won`t have write rights to the session and you are not gonna lose the main session.');
+    this.sessionKeyInput = this.sessionKeyInput.trim();
+    if (confirmBtn) {
+      if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput == '') {
+        this.globals.isTempSessionActive = false;
+      } else {
+        this.globals.isTempSessionActive = true;
+        this.globals.sessionValue = this.sessionKeyInput;
+      }
+      this.dbcrud.getSession();
+      this.closeModal();
+    }
   }
 
   getSession() {
       this.notify.triggerNotify(1);
   }
 
-  uploadSession() {
-    const confirmBtn = confirm('Are you sure? It will overwrite the cloud session.');
-    if (confirmBtn) {
-        this.dbcrud.uploadSession();
-        this.notify.triggerNotify(2);
-    }
-  }
-
   updateSession() {
-        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
-        this.notify.triggerNotify(2);
+    this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
+    this.notify.triggerNotify(2);
   }
 
 }

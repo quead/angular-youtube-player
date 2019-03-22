@@ -89,7 +89,7 @@ export class SharedService {
     }
 
     downloadPlaylist() {
-        this.dbcrud.downloadSession();
+        this.dbcrud.getSession();
     }
 
     uploadPlayist() {

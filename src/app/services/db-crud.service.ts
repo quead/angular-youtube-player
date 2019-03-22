@@ -33,6 +33,15 @@ export class DbCrudService {
     }
 
     updateSession(row: string, data: any) {
+        // If is temporary session to don't update the cloud
+        if (!this.globals.isTempSessionActive) {
+            this.checkSession().then(() => {
+                this.updateCurrentSession(row, data);
+            });
+        }
+    }
+
+    updateCurrentSession(row: string, data: any) {
         this.checkSession().then(() => {
             socket.emit('update_session', {
                 session: this.globals.sessionValue,
@@ -50,51 +59,33 @@ export class DbCrudService {
                 }
             });
         });
-        // socket.emit('update_session')
-        // this.db2.object(`sessions/${localStorage.getItem('session_key')}`).update({playlist: this.globals.playlistVideos}).then(() => {
-        //     this.shared.triggerNotify(5);
-        // }).catch(() => {
-        //     this.shared.triggerNotify(6);
-        // });
     }
 
-    uploadSession() {
-        console.log('upload session');
-        // const afList = this.db2.list('sessions/');
-        // const defaultSession = {
-        //   currentState: -1,
-        //   currentSeek: 0,
-        //   playlist: this.globals.playlistVideos,
-        //   details: this.globals.currentVideo,
-        // };
-        // afList.set(localStorage.getItem('session_key'), defaultSession).then(() => {
-        //     this.shared.triggerNotify(5);
-        // }).catch(() => {
-        //     this.shared.triggerNotify(6);
-        // });
-    }
 
-    downloadSession() {
-        this.checkSession().then(() => {
-            socket.emit('get_session', {
-                session: this.globals.sessionValue
-            }, (data) => {
-                const sessionData = data.session[this.globals.sessionValue];
-                if (typeof sessionData == 'object') {
-                    this.globals.playlistVideos = sessionData.playlist;
-                }
+    getSession() {
+        if (this.globals.isTempSessionActive) {
+            this.getCurrentSession();
+        } else {
+            this.checkSession().then(() => {
+                this.getCurrentSession();
             });
+        }
+    }
+    
+    getCurrentSession() {
+        socket.emit('get_session', {
+            session: this.globals.sessionValue
+        }, (data) => {
+            const sessionData = data.session[this.globals.sessionValue];
+            if (typeof sessionData == 'object') {
+                this.globals.playlistVideos = sessionData.playlist;
+            }
+            switch (data.status) {
+                case 'SESSION_NOT_FOUND':
+                    this.notify.triggerNotify(8);
+                break;
+                default:
+            }
         });
-
-        // this.db2.list(`sessions/${sessionKey}/playlist`).valueChanges().subscribe((sessionData: Array<VideoModel>) => {
-        //     if (sessionData.length > 0) {
-        //         this.globals.playlistVideos = sessionData;
-        //         this.shared.updatePlaylist();
-        //         this.shared.checkPlaylist();
-        //         this.shared.triggerNotify('We updated your playlist...');
-        //     } else {
-        //         this.shared.triggerNotify('Cloud playlist is empty, your local playlist won`t be affected...');
-        //     }
-        // });
     }
 }
