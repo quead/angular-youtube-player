@@ -6,23 +6,21 @@ import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
 import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
+import { NotifyService } from '../services/notify.service';
+
 import * as io from 'socket.io-client';
 const socket = io('http://localhost:8888');
 
 @Injectable()
 export class SharedService {
 
-    notify = {
-        enabled: false,
-        message: 'No message'
-    };
-
     constructor(
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
         private globals: GlobalsService,
         private dbcrud: DbCrudService,
-        public dragulaService: DragulaService
+        public dragulaService: DragulaService,
+        private notify: NotifyService
     ) {}
 
   async getRelatedVideos() {
@@ -59,7 +57,6 @@ export class SharedService {
         this.globals.listGrid = this.globals.settings.form_settings[1].value;
         this.globals.repeatMode = this.globals.settings.form_settings[2].value;
         this.globals.darkMode = this.globals.settings.form_settings[3].value;
-        this.dbcrud.updateSession('settings', this.globals.settings);
     }
 
     updateSettings(newSettings: any) {
@@ -116,12 +113,6 @@ export class SharedService {
         if (localStorage.getItem('version') === null || parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion) {
             localStorage.setItem('version', this.globals.localStorageVersion.toString());
         }
-    }
-
-    triggerNotify(message: string) {
-        this.notify.enabled = true;
-        this.notify.message = message;
-        setTimeout(() => this.notify.enabled = false, 3000);
     }
 
     move(arr: Array<VideoModel>, old_index: number, new_index: number) {
@@ -292,7 +283,7 @@ export class SharedService {
 
     copyShareLink() {
         document.execCommand('Copy');
-        this.triggerNotify('Copied');
+        this.notify.triggerNotify('Copied');
     }
 
     onCopyVideoItemLink(i: number, list: number) {

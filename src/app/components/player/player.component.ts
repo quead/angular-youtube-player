@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
+import { NotifyService } from '../../services/notify.service';
 
 @Component({
   selector: 'app-component-player',
@@ -31,6 +32,7 @@ export class PlayerComponent implements OnInit {
     public globals: GlobalsService,
     public shared: SharedService,
     public playlistCTRL: PlaylistControlService,
+    private notify: NotifyService
   ) {
   }
 
@@ -91,7 +93,6 @@ export class PlayerComponent implements OnInit {
   }
 
   // Init player
-
   setDefaultPlayer() {
     this.shared.initFeed().then(() => {
       this.initPlayer();
@@ -219,7 +220,7 @@ export class PlayerComponent implements OnInit {
     if (this.globals.playlistVideos.length > 0) {
       this.getVideo(this.globals.playlistVideos[i]);
     } else {
-      this.shared.triggerNotify('Playlist is empty');
+      this.notify.triggerNotify('Playlist is empty');
     }
   }
 

@@ -13,34 +13,27 @@ export class DbCrudService {
     ) {
     }
 
-    async checkSession() {
-        if (localStorage.getItem('session_key')) {
-            socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
+    checkSession() {
+        return new Promise(resolve => {
+                socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
                 if (dataGet.status === 'SESSION_NOT_FOUND') {
                     socket.emit('get_session', '', (dataSet) => {
                         localStorage.setItem('session_key', dataSet.session);
                         this.globals.sessionValue = dataSet.session;
-                        console.log(dataSet.status);
+                        resolve();
                     });
                 } else {
                     this.globals.sessionValue = localStorage.getItem('session_key');
-                    console.log(this.globals.sessionValue);
+                    resolve();
                 }
-                console.log(dataGet.status);
             });
-        } else {
-            socket.emit('get_session', '', (dataSet) => {
-                localStorage.setItem('session_key', dataSet.session);
-                this.globals.sessionValue = dataSet.session;
-                console.log(dataSet.status);
-            });
-        }
+        });
     }
 
     updateSession(row: string, data: any) {
         this.checkSession().then(() => {
             socket.emit('update_session', {
-                session: localStorage.getItem('session_key'),
+                session: this.globals.sessionValue,
                 row: row,
                 data: data
             }, (updatedData) => {
@@ -72,12 +65,15 @@ export class DbCrudService {
     }
 
     downloadSession() {
-        socket.emit('get_session', {
-            session: this.globals.sessionValue
-        }, (data) => {
-            const sessionData = data.session[this.globals.sessionValue];
-            this.globals.settings = sessionData.settings;
-            this.globals.playlistVideos = sessionData.playlist;
+        this.checkSession().then(() => {
+            socket.emit('get_session', {
+                session: this.globals.sessionValue
+            }, (data) => {
+                const sessionData = data.session[this.globals.sessionValue];
+                if (typeof sessionData == 'object') {
+                    this.globals.playlistVideos = sessionData.playlist;
+                }
+            });
         });
 
         // this.db2.list(`sessions/${sessionKey}/playlist`).valueChanges().subscribe((sessionData: Array<VideoModel>) => {

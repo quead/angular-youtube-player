@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
+import { NotifyService } from '../services/notify.service';
 
 @Injectable()
 export class PlaylistControlService {
@@ -8,6 +9,7 @@ export class PlaylistControlService {
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
+    private notify: NotifyService
   ) { }
 
   fillPlaylist() {
@@ -41,10 +43,10 @@ export class PlaylistControlService {
       this.globals.playlistVideos.push(listType);
       this.shared.checkPlaylist();
 
-      this.shared.triggerNotify('Added to playlist');
+      this.notify.triggerNotify('Added to playlist');
       this.scrollToBottom();
     } else {
-      this.shared.triggerNotify('Video is already in playlist');
+      this.notify.triggerNotify('Video is already in playlist');
     }
   }
 

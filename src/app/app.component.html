@@ -27,9 +27,9 @@
 			<div class="app app-feed">
 				<router-outlet></router-outlet>
 			</div>
-			<div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
+			<div [ngClass]="{'active': notify.defaults.enabled }" class="notif notif-primary">
 				<span class="fa fa-cog fa-spin fa-fw"></span>
-				<p>{{ shared.notify.message }}</p>
+				<p>{{ notify.defaults.message }}</p>
 			</div>
 		</div>
 	</div>

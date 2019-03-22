@@ -4,6 +4,7 @@ import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { DbCrudService } from '../../services/db-crud.service';
 import { PlayerComponent } from '../../components/player/player.component';
+import { NotifyService } from '../../services/notify.service';
 import { VideoModel } from '../../models/video.model';
 import { Event } from '@angular/router/src/events';
 import { Subscription } from 'rxjs';
@@ -34,6 +35,7 @@ export class PlaylistComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
     private dbcrud: DbCrudService,
+    private notify: NotifyService
   ) {
     if (!this.shared.dragulaService['groups'].playlistDrag) {
       this.initDragula();
@@ -76,7 +78,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   removePlaylistItem(i: number) {
-      this.shared.triggerNotify('Video removed');
+      this.notify.triggerNotify('Video removed');
       setTimeout(() => {
         if (i === this.globals.currentPlaylistItem) {
           this.globals.currentPlaylistItem = -1;
@@ -191,20 +193,20 @@ export class PlaylistComponent implements OnInit {
   }
 
   getSession() {
-      this.shared.triggerNotify('Downloading playlist from cloud...');
+      this.notify.triggerNotify('Downloading playlist from cloud...');
   }
 
   uploadSession() {
     const confirmBtn = confirm('Are you sure? It will overwrite the cloud session.');
     if (confirmBtn) {
         this.dbcrud.uploadSession();
-        this.shared.triggerNotify('Uploading playlist to cloud...');
+        this.notify.triggerNotify('Uploading playlist to cloud...');
     }
   }
 
   updateSession() {
         this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
-        this.shared.triggerNotify('Updating playlist to cloud...');
+        this.notify.triggerNotify('Updating playlist to cloud...');
   }
 
 }

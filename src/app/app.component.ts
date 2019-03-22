@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from './services/shared.service';
+import { NotifyService } from './services/notify.service';
 import { GlobalsService } from './services/globals.service';
 import { PlaylistControlService } from './services/playlist-control.service';
 
@@ -16,17 +17,11 @@ export class AppComponent implements OnInit {
         public shared: SharedService,
         public globals: GlobalsService,
         public playlistCTRL: PlaylistControlService,
+        private notify: NotifyService
     ) {
     }
 
     ngOnInit() {
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
-    }
-
-    // ---------------- Update app ----------------
-    setApp() {
-        this.shared.initFeed().then(() => {
-            this.playlistCTRL.fillPlaylist();
-        });
     }
 }
