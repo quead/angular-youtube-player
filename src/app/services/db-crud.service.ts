@@ -3,7 +3,7 @@ import { GlobalsService } from '../services/globals.service';
 // DB
 import { VideoModel } from '../models/video.model';
 import * as io from 'socket.io-client';
-var socket = io('http://localhost:8888');
+const socket = io('http://localhost:8888');
 
 @Injectable()
 export class DbCrudService {
@@ -16,7 +16,7 @@ export class DbCrudService {
     async checkSession() {
         if (localStorage.getItem('session_key')) {
             socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
-                if (dataGet.status == 'SESSION_NOT_FOUND') {
+                if (dataGet.status === 'SESSION_NOT_FOUND') {
                     socket.emit('get_session', '', (dataSet) => {
                         localStorage.setItem('session_key', dataSet.session);
                         this.globals.sessionValue = dataSet.session;
@@ -24,7 +24,7 @@ export class DbCrudService {
                     });
                 } else {
                     this.globals.sessionValue = localStorage.getItem('session_key');
-                    console.log(this.globals.sessionValue)
+                    console.log(this.globals.sessionValue);
                 }
                 console.log(dataGet.status);
             });
@@ -43,8 +43,8 @@ export class DbCrudService {
                 session: localStorage.getItem('session_key'),
                 row: row,
                 data: data
-            }, (data) => {
-                console.log(data.status);
+            }, (updatedData) => {
+                console.log(updatedData.status);
             });
         });
         // socket.emit('update_session')
@@ -75,11 +75,11 @@ export class DbCrudService {
         socket.emit('get_session', {
             session: this.globals.sessionValue
         }, (data) => {
-            let sessionData = data.session[this.globals.sessionValue];
+            const sessionData = data.session[this.globals.sessionValue];
             this.globals.settings = sessionData.settings;
             this.globals.playlistVideos = sessionData.playlist;
-        })
-        
+        });
+
         // this.db2.list(`sessions/${sessionKey}/playlist`).valueChanges().subscribe((sessionData: Array<VideoModel>) => {
         //     if (sessionData.length > 0) {
         //         this.globals.playlistVideos = sessionData;

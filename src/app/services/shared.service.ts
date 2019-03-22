@@ -7,7 +7,7 @@ import { GlobalsService } from './globals.service';
 import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
 import * as io from 'socket.io-client';
-var socket = io('http://localhost:8888');
+const socket = io('http://localhost:8888');
 
 @Injectable()
 export class SharedService {
