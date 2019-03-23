@@ -9,15 +9,8 @@ export class PlaylistControlService {
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
-    private notify: NotifyService
+    private notify: NotifyService,
   ) { }
-
-  fillPlaylist() {
-    this.shared.getRelatedVideos().then(() => {
-      this.shared.downloadPlaylist();
-      this.globals.isLoading = false;
-    });
-  }
 
   addPlaylistItem(i: number, list: number) {
     let listType;

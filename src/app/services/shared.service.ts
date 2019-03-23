@@ -8,9 +8,6 @@ import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
 import { NotifyService } from '../services/notify.service';
 
-import * as io from 'socket.io-client';
-const socket = io('http://localhost:8888');
-
 @Injectable()
 export class SharedService {
 
@@ -86,10 +83,6 @@ export class SharedService {
     updateLocalStorageSettings() {
         localStorage.setItem('settings', JSON.stringify(this.globals.settings));
         this.setLocalVersion();
-    }
-
-    downloadPlaylist() {
-        this.dbcrud.getSession();
     }
 
     uploadPlayist() {

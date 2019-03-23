@@ -18,13 +18,9 @@ export class PlaylistComponent implements OnInit {
 
   tempPlaylist: Array<VideoModel> = [];
 
-  menuActive = false;
-
   modal = false;
   modalPlaylist = false;
-  modalExportPlaylist = false;
   modalPlaylistItem: number;
-  sessionKeyInput: any;
 
   BAG = 'playlistDrag';
   subs = new Subscription();
@@ -63,20 +59,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   // ---------------- Playlist settings ----------------
-  uploadPlaylist(event: Event) {
-    const files = event['target'].files[0];
-    if (files.length <= 0) {
-      return false;
-    }
-
-    const fr = new FileReader();
-    fr.onload = (e) => {
-      this.tempPlaylist = JSON.parse(e.target['result']);
-    };
-
-    fr.readAsText(files);
-  }
-
   removePlaylistItem(i: number) {
       this.notify.triggerNotify(23);
       setTimeout(() => {
@@ -100,10 +82,6 @@ export class PlaylistComponent implements OnInit {
     localStorage.removeItem('playlist');
   }
 
-  exportPlaylist() {
-      this.showExportPlaylistModal();
-  }
-
   // ---------------- Init settings ----------------
 
   initDragula() {
@@ -111,7 +89,6 @@ export class PlaylistComponent implements OnInit {
     this.subs.add(this.shared.dragulaService.drag(this.BAG)
         .subscribe(({ el }) => {
             this.removeClass(el, 'ex-moved');
-            this.shared.checkPlaylist();
         })
     );
     this.subs.add(this.shared.dragulaService.drop(this.BAG)
@@ -128,7 +105,6 @@ export class PlaylistComponent implements OnInit {
     this.subs.add(this.shared.dragulaService.out(this.BAG)
         .subscribe(({ container }) => {
             this.removeClass(container, 'ex-over');
-            this.shared.checkPlaylist();
         })
     );
   }
@@ -152,7 +128,6 @@ export class PlaylistComponent implements OnInit {
   closeModal() {
     this.modal = false;
     this.modalPlaylist = false;
-    this.modalExportPlaylist = false;
   }
 
   showPlaylistModal(i: number) {
@@ -161,39 +136,9 @@ export class PlaylistComponent implements OnInit {
     this.modalPlaylistItem = i;
   }
 
-  showExportPlaylistModal() {
-    this.modal = true;
-    this.modalExportPlaylist = true;
-  }
-
   confirmModal() {
     this.removePlaylistItem(this.modalPlaylistItem);
     this.modal = false;
-  }
-
-  // ---------------- Session ----------------
-  updateKey() {
-    const confirmBtn = confirm('You won`t have write rights to the session and you are not gonna lose the main session.');
-    this.sessionKeyInput = this.sessionKeyInput.trim();
-    if (confirmBtn) {
-      if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput == '') {
-        this.globals.isTempSessionActive = false;
-      } else {
-        this.globals.isTempSessionActive = true;
-        this.globals.sessionValue = this.sessionKeyInput;
-      }
-      this.dbcrud.getSession();
-      this.closeModal();
-    }
-  }
-
-  getSession() {
-      this.notify.triggerNotify(1);
-  }
-
-  updateSession() {
-    this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
-    this.notify.triggerNotify(2);
   }
 
 }

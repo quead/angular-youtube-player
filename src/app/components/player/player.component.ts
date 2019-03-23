@@ -3,6 +3,8 @@ import { PlaylistControlService } from '../../services/playlist-control.service'
 import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
 import { NotifyService } from '../../services/notify.service';
+import { DbCrudService } from '../../services/db-crud.service';
+import { RoomService } from '../../services/room.service';
 
 @Component({
   selector: 'app-component-player',
@@ -32,7 +34,9 @@ export class PlayerComponent implements OnInit {
     public globals: GlobalsService,
     public shared: SharedService,
     public playlistCTRL: PlaylistControlService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private dbcrud: DbCrudService,
+    private room: RoomService
   ) {
   }
 
@@ -96,9 +100,12 @@ export class PlayerComponent implements OnInit {
   setDefaultPlayer() {
     this.shared.initFeed().then(() => {
       this.initPlayer();
-      this.playlistCTRL.fillPlaylist();
-      this.loading = false;
+      this.shared.getRelatedVideos().then(() => {
+        this.loading = false;
+        this.globals.isLoading = false;
+      });
     });
+    this.room.join();
   }
 
   initPlayer() {

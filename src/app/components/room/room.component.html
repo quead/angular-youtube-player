@@ -1,0 +1,31 @@
+<p>
+  Sessions {{globals.getCurrentSession() | json}}
+  <button type="button" (click)="j()">Join</button>
+  <button type="button" (click)="l()">Leave</button>
+  <button type="button" (click)="showModal()">Show</button>
+</p>
+
+<div *ngIf="modal" class="modal-overlay">
+  <div class="modal-background-overlay" (click)="closeModal()"></div>
+  <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
+    <h2>Manage session</h2>
+    <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
+        <div class="modal-content">
+          <p>Playlist videos: {{globals.playlistVideos.length}}</p>
+          <p>Your session key: {{globals.getCurrentSession().session}}</p>
+          <div class="session-section">
+            <div class="session-key-block">
+              <label for="session-key-input">Temporary session key:</label>
+              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSession().tempSession}}" />
+            </div>
+          </div>
+        </div>
+        <button class="modal-close" (click)="closeModal()">
+          <span class="fa fa-times"></span>
+        </button>
+        <div class="modal-buttons">
+          <button type="submit" class="btn btn-secondary">Change session</button>        
+          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+        </div>
+    </form>
+  </div>  

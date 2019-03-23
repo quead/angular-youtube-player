@@ -3,6 +3,8 @@ import { SharedService } from './services/shared.service';
 import { NotifyService } from './services/notify.service';
 import { GlobalsService } from './services/globals.service';
 import { PlaylistControlService } from './services/playlist-control.service';
+import * as io from 'socket.io-client';
+const socket = io('http://localhost:8888');
 
 @Component({
     selector: 'app-yt',
@@ -22,6 +24,9 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        socket.on('alert_msg', (msg) => {
+            console.log(msg);
+        });
         this.globals.videoItemIDvalue = this.videoItemIDvalue;
     }
 }

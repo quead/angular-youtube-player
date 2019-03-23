@@ -23,9 +23,9 @@ import { PlayerComponent } from './components/player/player.component';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
-import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
+import { RoomComponent } from './components/room/room.component';
 
 @NgModule({
   imports: [
@@ -47,7 +47,8 @@ import { RelatedComponent } from './components/related/related.component';
     CategoryComponent,
     PlayerComponent,
     PlaylistComponent,
-    RelatedComponent
+    RelatedComponent,
+    RoomComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [

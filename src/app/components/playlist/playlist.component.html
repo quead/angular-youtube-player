@@ -1,7 +1,6 @@
 <div id="playlist-video-list" class="video-list">
   <div class="video-item-head">
       <h2>Current playlist</h2>
-      <button type="button" class="video-item-head-btn" (click)="exportPlaylist()"><span class="fa fa-cog"></span>manage</button>
       <button type="button" class="video-item-head-btn" (click)="shared.clearPlaylist()"><span class="fa fa-close"></span>clear</button>
   </div>
   <div class="playlist-video-content" dragula="playlistDrag" [(dragulaModel)]="globals.playlistVideos" #playlistContainer>
@@ -68,27 +67,5 @@
       <button type="button" class="btn btn-primary" (click)="confirmModal()">Confirm</button>        
       <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
     </div>
-  </div>
-  <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-    <h2>Manage session</h2>
-    <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
-        <div class="modal-content">
-          <p>Playlist videos: {{globals.playlistVideos.length}}</p>
-          <p>Your session key: {{globals.getCurrentSession().session}}</p>
-          <div class="session-section">
-            <div class="session-key-block">
-              <label for="session-key-input">Temporary session key:</label>
-              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSession().tempSession}}" />
-            </div>
-          </div>
-        </div>
-        <button class="modal-close" (click)="closeModal()">
-          <span class="fa fa-times"></span>
-        </button>
-        <div class="modal-buttons">
-          <button type="submti" class="btn btn-secondary">Change session</button>        
-          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
-        </div>
-    </form>
   </div>
 </div>

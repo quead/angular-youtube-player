@@ -35,57 +35,71 @@ export class DbCrudService {
     updateSession(row: string, data: any) {
         // If is temporary session to don't update the cloud
         if (!this.globals.isTempSessionActive) {
-            this.checkSession().then(() => {
+            // this.checkSession().then(() => {
                 this.updateCurrentSession(row, data);
-            });
+            // });
         }
     }
 
     updateCurrentSession(row: string, data: any) {
-        this.checkSession().then(() => {
-            socket.emit('update_session', {
-                session: this.globals.sessionValue,
-                row: row,
-                data: data
-            }, (updatedData) => {
-                switch (updatedData.status) {
-                    case 'SESSION_UPDATED':
-                        this.notify.triggerNotify(5);
-                    break;
-                    case 'SESSION_NOT_UPDATED':
-                        this.notify.triggerNotify(6);
-                    break;
-                    default:
-                }
-            });
+        socket.emit('update_session', {
+            session: this.globals.sessionValue,
+            row: row,
+            data: data
+        }, (updatedData) => {
+            switch (updatedData.status) {
+                case 'SESSION_UPDATED':
+                    socket.emit('update_playlist', this.globals.getCurrentSession().tempSession);
+                    this.notify.triggerNotify(5);
+                break;
+                case 'SESSION_NOT_UPDATED':
+                    this.notify.triggerNotify(6);
+                break;
+                default:
+            }
         });
     }
 
 
     getSession() {
-        if (this.globals.isTempSessionActive) {
-            this.getCurrentSession();
-        } else {
-            this.checkSession().then(() => {
-                this.getCurrentSession();
-            });
-        }
+        return new Promise(resolve => {
+            if (this.globals.isTempSessionActive) {
+                this.getCurrentSession().then((res) => {
+                    resolve(res);                    
+                });
+            } else {
+                this.checkSession().then(() => {
+                    this.getCurrentSession().then((res) => {
+                        resolve(res);
+                    });
+                });
+            }
+        })
     }
     
     getCurrentSession() {
-        socket.emit('get_session', {
-            session: this.globals.sessionValue
-        }, (data) => {
-            const sessionData = data.session[this.globals.sessionValue];
-            if (typeof sessionData == 'object') {
-                this.globals.playlistVideos = sessionData.playlist;
-            }
-            switch (data.status) {
-                case 'SESSION_NOT_FOUND':
-                    this.notify.triggerNotify(8);
-                break;
-                default:
-            }
-        });
+        return new Promise(resolve => {
+            socket.emit('get_session', {
+                session: this.globals.sessionValue
+            }, (data) => {
+                const sessionData = data.session[this.globals.sessionValue];
+                if (typeof sessionData == 'object') {
+                    this.globals.playlistVideos = sessionData.playlist;
+                }
+                switch (data.status) {
+                    case 'SESSION_NOT_FOUND':
+                        this.notify.triggerNotify(8);
+                        resolve('ERROR');
+                    break;
+                    case 'SESSION_NEW':
+                        console.log('interesting case... let`s see what`s going on');
+                    break;
+                    case 'SESSION_OK':
+                        resolve('OK');
+                    break;
+                    default:
+                }
+            });
+        })
     }
 }
