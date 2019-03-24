@@ -5,6 +5,7 @@ import { SharedService } from '../../services/shared.service';
 import { NotifyService } from '../../services/notify.service';
 import { DbCrudService } from '../../services/db-crud.service';
 import { RoomService } from '../../services/room.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-component-player',
@@ -36,7 +37,8 @@ export class PlayerComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     private notify: NotifyService,
     private dbcrud: DbCrudService,
-    private room: RoomService
+    private room: RoomService,
+    private socket: Socket
   ) {
   }
 
@@ -116,6 +118,10 @@ export class PlayerComponent implements OnInit {
   // ---------------- Player controls ----------------
 
   playPauseVideo() {
+    this.socket.emit('update_player', {
+      roomName: this.globals.sessionValue,
+      playerData: this.globals.currentVideo
+    });
     if (this.globals.currentState === 1) {
       this.globals.player.pauseVideo();
     } else {

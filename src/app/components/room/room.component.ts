@@ -4,8 +4,7 @@ import { GlobalsService } from '../../services/globals.service';
 import { DbCrudService } from '../../services/db-crud.service';
 import { SharedService } from '../../services/shared.service';
 import { RoomService } from '../../services/room.service';
-import * as io from 'socket.io-client';
-const socket = io('http://localhost:8888');
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-room',
@@ -24,16 +23,31 @@ export class RoomComponent implements OnInit {
     private globals: GlobalsService,
     private dbcrud: DbCrudService,
     private shared: SharedService,
-    private room: RoomService
+    private room: RoomService,
+    private socket: Socket
   ) { }
 
   ngOnInit() {
-    // socket.on('download_playlist', (data) => {
-    //   console.log(data);
-    //   // Needs to be updated correctly
-    //   this.globals.playlistVideos = data[this.globals.getCurrentSession().tempSession].playlist;
-    //   this.shared.findPlaylistItem();
-    // })
+      this.socket.on('download_playlist', (data) => {
+        this.globals.playlistVideos = data[this.globals.getCurrentSession().tempSession].playlist;
+        this.shared.findPlaylistItem();
+      });
+
+      // this.socket.on('download_player', (playerData) => {
+        // console.log(playerData);
+        // console.log(this.globals.isTempSessionActive);
+        // console.log(this.globals.getCurrentSession());
+        // console.log(this.globals.currentVideo);
+        // console.log(this.globals.currentState);
+      // });
+
+      this.socket.on('download_player', (data) => {
+        console.log(data);
+      });
+
+      this.socket.on('alert_msg', (msg) => {
+        console.log(msg);
+      });
     }
 
   closeModal() {
@@ -58,7 +72,7 @@ export class RoomComponent implements OnInit {
     const confirmBtn = confirm('You won`t have write rights to the session and you are not gonna lose the main session.');
     if (confirmBtn && this.sessionKeyInput) {
       this.sessionKeyInput = this.sessionKeyInput.trim();
-      socket.emit('leave_session', this.globals.sessionValue);
+      this.socket.emit('leave_session', this.globals.sessionValue);
 
       // If the session is not the same as the host
       if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput == '') {

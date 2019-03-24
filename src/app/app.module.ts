@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.router';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { DragulaModule } from 'ng2-dragula';
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 
@@ -27,6 +27,8 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 
+const config: SocketIoConfig = { url: 'http://localhost:8888', options: {} };
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { RoomComponent } from './components/room/room.component';
     FormsModule,
     DragulaModule.forRoot(),
     NguCarouselModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocketIoModule.forRoot(config)
   ],
   declarations: [
     AppComponent,

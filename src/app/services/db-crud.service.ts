@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
 import { GlobalsService } from '../services/globals.service';
 import { NotifyService } from '../services/notify.service';
-// DB
+import { Socket } from 'ngx-socket-io';
 import { VideoModel } from '../models/video.model';
-import * as io from 'socket.io-client';
-const socket = io('http://localhost:8888');
 
 @Injectable()
 export class DbCrudService {
 
     constructor(
         public globals: GlobalsService,
-        private notify: NotifyService
+        private notify: NotifyService,
+        private socket: Socket
     ) {
     }
 
     checkSession() {
         return new Promise(resolve => {
-            socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
+            this.socket.emit('get_session', {session: localStorage.getItem('session_key')}, (dataGet) => {
                 if (dataGet.status === 'SESSION_NOT_FOUND') {
-                    socket.emit('get_session', '', (dataSet) => {
+                    this.socket.emit('get_session', '', (dataSet) => {
                         localStorage.setItem('session_key', dataSet.session);
                         this.globals.sessionValue = dataSet.session;
                         resolve();
@@ -35,21 +34,19 @@ export class DbCrudService {
     updateSession(row: string, data: any) {
         // If is temporary session to don't update the cloud
         if (!this.globals.isTempSessionActive) {
-            // this.checkSession().then(() => {
-                this.updateCurrentSession(row, data);
-            // });
+            this.updateCurrentSession(row, data);
         }
     }
 
     updateCurrentSession(row: string, data: any) {
-        socket.emit('update_session', {
+        this.socket.emit('update_session', {
             session: this.globals.sessionValue,
             row: row,
             data: data
         }, (updatedData) => {
             switch (updatedData.status) {
                 case 'SESSION_UPDATED':
-                    socket.emit('update_playlist', this.globals.getCurrentSession().tempSession);
+                    this.socket.emit('update_playlist', this.globals.getCurrentSession().tempSession);
                     this.notify.triggerNotify(5);
                 break;
                 case 'SESSION_NOT_UPDATED':
@@ -59,7 +56,6 @@ export class DbCrudService {
             }
         });
     }
-
 
     getSession() {
         return new Promise(resolve => {
@@ -79,7 +75,7 @@ export class DbCrudService {
     
     getCurrentSession() {
         return new Promise(resolve => {
-            socket.emit('get_session', {
+            this.socket.emit('get_session', {
                 session: this.globals.sessionValue
             }, (data) => {
                 const sessionData = data.session[this.globals.sessionValue];
