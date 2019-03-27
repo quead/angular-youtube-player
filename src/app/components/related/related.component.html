@@ -23,7 +23,7 @@
               <p class="video-item-title">{{ relatedVideo.title }}</p>
               <p class="video-item-autor">{{ relatedVideo.channelTitle }}</p>
             </div>
-            <div class="video-item-settings">
+            <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
               <button class="video-item-play" (click)="playerComp.onClickRelated(i)">
                 <span class="fa fa-play"></span>
               </button>
@@ -32,6 +32,11 @@
               </button>
               <button class="video-item-add" (click)="playlistComp.addPlaylistItem(i, 2)">
                 <span class="fa fa-plus"></span>
+              </button>
+            </div>
+            <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
+              <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 2)">
+                <span class="fa fa-share-alt"></span>
               </button>
             </div>
           </div>

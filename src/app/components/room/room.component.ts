@@ -33,18 +33,6 @@ export class RoomComponent implements OnInit {
         this.shared.findPlaylistItem();
       });
 
-      // this.socket.on('download_player', (playerData) => {
-        // console.log(playerData);
-        // console.log(this.globals.isTempSessionActive);
-        // console.log(this.globals.getCurrentSession());
-        // console.log(this.globals.currentVideo);
-        // console.log(this.globals.currentState);
-      // });
-
-      this.socket.on('download_player', (data) => {
-        console.log(data);
-      });
-
       this.socket.on('alert_msg', (msg) => {
         console.log(msg);
       });
@@ -59,13 +47,13 @@ export class RoomComponent implements OnInit {
     this.modal = true;
     this.modalExportPlaylist = true;
   }
-
-  j() {
-
-  }
-
-  l() {
-
+  
+  leave() {
+    this.socket.emit('leave_session', this.globals.getCurrentSession().tempSession);
+    this.globals.sessionValue = localStorage.getItem('session_key');
+    this.sessionKeyInput = '';
+    this.globals.isTempSessionActive = false;
+    this.room.join();
   }
 
   updateKey() {

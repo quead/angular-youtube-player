@@ -47,6 +47,30 @@ export class PlayerComponent implements OnInit {
     this.shared.preventOldSettings();
     this.shared.getSettings();
     this.setDefaultPlayer();
+
+    this.socket.on('event_trigger', (data) => {
+      switch (data.eventName) {
+        case 'playVideo':
+          this.triggerPlayPauseVideo();
+        break;
+        case 'updateState':
+          this.changeState({ data: data.playerData.currentState });
+        break;
+        case 'playNewVideo':
+          this.triggerGetVideo(data.playerData.currentVideo);
+        break;
+        case 'isBuffering':
+          console.log('is buffering ' + data.playerData.currentState);
+          let timeoutBuffering;
+          clearTimeout(timeoutBuffering);
+          this.globals.player.pauseVideo();
+          timeoutBuffering = setTimeout(() => {
+            this.globals.player.playVideo();
+          }, 500);
+        default:
+      }
+      // this.changeState(data.playerData.currentState);
+    });
   }
 
   savePlayer(player) {
@@ -65,36 +89,70 @@ export class PlayerComponent implements OnInit {
     return playerVars;
   }
 
-  onStateChange(event: any) {
-    this.globals.currentState = event.data;
+  changeState(event: any) {
+    if (event.data) {
+      this.globals.currentState = event.data;
+    }
     this.videoMaxRange = this.globals.player.getDuration();
     this.videoCurVolume = this.globals.player.getVolume();
 
-    if (this.globals.currentState === 1) {
-      this.videoMaxFull = this.timeFormat(this.videoMaxRange);
-      this.currentMuteState = this.globals.player.isMuted();
-      this.startRange();
-    } else {
-      this.stopRange();
-    }
-
-    if (this.globals.currentState === 0) {
-      this.stopRange();
-      if (this.globals.repeatMode) {
-        if (this.globals.playlistVideos.length) {
-          this.shared.findPlaylistItem();
-          if (this.globals.currentPlaylistItem < 0) {
-            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-          } else {
-            this.playPlaylistItem('next', this.globals.currentPlaylistItem);
+    // https://developers.google.com/youtube/iframe_api_reference#Events
+    switch (this.globals.currentState) {
+      // Playing
+      case 1:
+        this.videoMaxFull = this.timeFormat(this.videoMaxRange);
+        this.currentMuteState = this.globals.player.isMuted();
+        this.startRange();
+      break;
+      // Paused
+      case 2:
+        this.stopRange();
+      break;
+      case 3:
+        this.socket.emit('update_player', {
+          eventName: 'isBuffering',
+          roomName: this.globals.sessionValue,
+          playerData: {
+            currentVideo: this.globals.currentVideo,
+            currentState: this.globals.currentState
           }
-          if (this.globals.playlistVideos.length === 1) {
+        })
+      break;
+      // Ended
+      case 0:
+        this.stopRange();
+        if (this.globals.repeatMode) {
+          if (this.globals.playlistVideos.length) {
+            this.shared.findPlaylistItem();
+            if (this.globals.currentPlaylistItem < 0) {
+              this.playPlaylistItem('next', this.globals.currentPlaylistItem);
+            } else {
+              this.playPlaylistItem('next', this.globals.currentPlaylistItem);
+            }
+            if (this.globals.playlistVideos.length === 1) {
+              this.globals.player.playVideo();
+            }
+          } else {
             this.globals.player.playVideo();
           }
-        } else {
-          this.globals.player.playVideo();
         }
-      }
+      default:
+      break;
+    }
+  }
+
+  onStateChange(event: any) {
+    if (this.globals.isTempSessionActive) {
+      this.changeState(event.data);
+    } else {
+      this.socket.emit('update_player', {
+        eventName: 'updateState',
+        roomName: this.globals.sessionValue,
+        playerData: {
+          currentVideo: this.globals.currentVideo,
+          currentState: event.data
+        }
+      });
     }
   }
 
@@ -117,15 +175,26 @@ export class PlayerComponent implements OnInit {
 
   // ---------------- Player controls ----------------
 
-  playPauseVideo() {
-    this.socket.emit('update_player', {
-      roomName: this.globals.sessionValue,
-      playerData: this.globals.currentVideo
-    });
+  triggerPlayPauseVideo() {
     if (this.globals.currentState === 1) {
       this.globals.player.pauseVideo();
     } else {
       this.globals.player.playVideo();
+    }
+  }
+
+  playPauseVideo() {
+    if (this.globals.isTempSessionActive) {
+      this.triggerPlayPauseVideo();
+    } else {
+      this.socket.emit('update_player', {
+        eventName: 'playVideo',
+        roomName: this.globals.sessionValue,
+        playerData: {
+          currentVideo: this.globals.currentVideo,
+          currentState: this.globals.currentState
+        }
+      });
     }
   }
 
@@ -158,7 +227,6 @@ export class PlayerComponent implements OnInit {
 
     this.globals.player.seekTo(this.videoCurRange, true);
     this.videoRangeMouseActive = false;
-    // this.dbcrud.update('sessions', 'currentSeek', this.videoCurRange);
   }
 
   volumeRangeMouseMove(value: number) {
@@ -185,8 +253,22 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-
   getVideo(data: any) {
+    if (this.globals.isTempSessionActive) {
+      this.triggerGetVideo(data);
+    } else {
+      this.socket.emit('update_player', {
+        eventName: 'playNewVideo',
+        roomName: this.globals.sessionValue,
+        playerData: {
+          currentVideo: data,
+          currentState: this.globals.currentState
+        }
+      });
+    }
+  }
+
+  triggerGetVideo(data: any) {
     this.shared.getStatsVideos(data.id).then(() => {
       this.playVideo(data);
       this.shared.getRelatedVideos();

@@ -29,17 +29,22 @@
             </div>
           </div>
         </div>
-        <div class="video-item-settings">
-            <button class="video-item-play" (click)="onClickVideo(i, 0)">
-              <span class="fa fa-play"></span>
-            </button>
-            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
+        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
+          <button class="video-item-play" (click)="onClickVideo(i, 0)">
+            <span class="fa fa-play"></span>
+          </button>
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
+            <span class="fa fa-share-alt"></span>
+          </button>
+          <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
+            <span class="fa fa-plus"></span>
+          </button>
+        </div>
+        <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
               <span class="fa fa-share-alt"></span>
             </button>
-            <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
-              <span class="fa fa-plus"></span>
-            </button>
-          </div>
+        </div>
       </div>
     </ng-container>
   </div>

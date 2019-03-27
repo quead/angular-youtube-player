@@ -32,7 +32,7 @@ export class GlobalsService {
   listGrid = false;
   repeatMode = true;
   darkMode = true;
-  isTempSessionActive = false;
+  isTempSessionActive = true;
   sessionValue: string;
   localStorageVersion = 3;
 

@@ -14,7 +14,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 7.0.3, [@angular/fire](https://github.com/angular/angularfire2), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
+This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [ng2-dragula](https://github.com/valor-software/ng2-dragula "ng2 dragula").
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -171,15 +171,14 @@ Angular YouTube Player 1.0.0
 #### Roadmap to 3.0
 - Responsive layout **(in v2.4)**
 - Sync player in session **(in v2.4)**
-- Keep your settings in cloud **(in v2.8)**
-- Integrating YouTube subscriptions/playlist **(in v2.9)**
-
 **Rooms**
 - *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
 - *Set private/public room **(in v2.7)***
-- *List of public rooms **(in v2.8)***
+- *List of public rooms **(in v2.9)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
 
+#### Roadmap to 4.0
+- Integrating YouTube account subscriptions/playlist **(in v3.0)**
 
 #### Removed features
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)

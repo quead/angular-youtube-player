@@ -1,14 +1,18 @@
 <p>
-  Sessions {{globals.getCurrentSession() | json}}
-  <button type="button" (click)="j()">Join</button>
-  <button type="button" (click)="l()">Leave</button>
-  <button type="button" (click)="showModal()">Show</button>
+  Room {{globals.getCurrentSession() | json}}
+  
+  <ng-container *ngIf="!this.globals.isTempSessionActive">
+      <button type="button" (click)="showModal()">Show</button>
+  </ng-container>
+  <ng-container *ngIf="this.globals.isTempSessionActive">
+      <button type="button" (click)="leave()">Leave</button>
+  </ng-container>
 </p>
 
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
   <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-    <h2>Manage session</h2>
+    <h2>Manage room</h2>
     <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
         <div class="modal-content">
           <p>Playlist videos: {{globals.playlistVideos.length}}</p>
