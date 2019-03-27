@@ -7,7 +7,12 @@
   <div class="container video-details-container">
     <div class="player">
       <div *ngIf="globals.thumbnails" class="youtube-player-cover" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
-          <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>  
+          <ng-container *ngIf="this.globals.isTempSessionActive">
+              <button type="button" class="add-playlist disabled"><span class="fa fa-plus"></span></button>
+            </ng-container>
+            <ng-container *ngIf="!this.globals.isTempSessionActive">
+              <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>
+            </ng-container>
           <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
       </div>
       <div class="player-container">
@@ -60,7 +65,7 @@
           </div>
           <div class="current-video-actions" *ngIf="!globals.thumbnails">
             <ng-container *ngIf="this.globals.isTempSessionActive">
-              <button type="button" class="add-playlist disabled" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                
+              <button type="button" class="add-playlist disabled"><span class="fa fa-plus"></span>Add to playlist</button>                
             </ng-container>
             <ng-container *ngIf="!this.globals.isTempSessionActive">
               <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                

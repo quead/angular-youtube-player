@@ -92,11 +92,14 @@
             border-radius: 50%;
             opacity: 1;
             transition: all 0.1s ease-out;
-            &:hover {
+            &:not(.disabled):hover {
                 opacity: 0.8;
             }
-            &:active {
+            &:not(.disabled):active {
                 opacity: 1;
+            }
+            &.disabled {
+                opacity: 0.4;
             }
         }
         .toggle-fullscreen {

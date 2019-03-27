@@ -59,6 +59,9 @@ export class PlayerComponent implements OnInit {
         case 'playNewVideo':
           this.triggerGetVideo(data.playerData.currentVideo);
         break;
+        case 'seekTo':
+          this.triggerSeekTo(data.playerData.currentSeek);
+        break;
         case 'isBuffering':
           console.log('is buffering ' + data.playerData.currentState);
           let timeoutBuffering;
@@ -192,7 +195,7 @@ export class PlayerComponent implements OnInit {
         roomName: this.globals.sessionValue,
         playerData: {
           currentVideo: this.globals.currentVideo,
-          currentState: this.globals.currentState
+          currentState: this.globals.currentState,
         }
       });
     }
@@ -212,6 +215,22 @@ export class PlayerComponent implements OnInit {
   }
 
   rangeMouseUp(value: number) {
+    if (this.globals.isTempSessionActive) {
+      this.triggerSeekTo(value);
+    } else {
+      this.socket.emit('update_player', {
+        eventName: 'seekTo',
+        roomName: this.globals.sessionValue,
+        playerData: {
+          currentVideo: this.globals.currentVideo,
+          currentState: this.globals.currentState,
+          currentSeek: this.videoCurRange
+        }
+      });
+    }
+  }
+
+  triggerSeekTo(value: number) {
     if (this.globals.currentState !== -1 && this.globals.currentState !== 1) {
       this.globals.player.playVideo();
     }
