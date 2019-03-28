@@ -215,7 +215,7 @@ export class PlayerComponent implements OnInit {
         playerData: {
           currentVideo: this.globals.currentVideo,
           currentState: this.globals.currentState,
-          currentSeek: this.videoCurRange
+          currentSeek: value
         }
       });
     }
