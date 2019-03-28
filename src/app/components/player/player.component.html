@@ -55,7 +55,7 @@
             <div class="volume-range-value" [ngClass]="videoCurVolume < 1 ? 'inactive' : 'active'">
               <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState || videoCurVolume < 1 ? 'fa-volume-off' : 'fa-volume-up'"></span>
               <div class="volume-input-container">
-                <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove(volumeRange.value)" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
+                <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove()" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                 <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
               </div>
             </div>

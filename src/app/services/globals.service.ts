@@ -51,7 +51,7 @@ export class GlobalsService {
     return {
       session: localStorage.getItem('session_key'),
       tempSession: this.sessionValue
-    }
+    };
   }
 
 }

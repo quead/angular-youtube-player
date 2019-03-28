@@ -1,12 +1,16 @@
-<p>
-  Room {{globals.getCurrentSession() | json}}
-  
-  <ng-container *ngIf="!this.globals.isTempSessionActive">
-      <button type="button" (click)="showModal()">Show</button>
-  </ng-container>
-  <ng-container *ngIf="this.globals.isTempSessionActive">
-      <button type="button" (click)="leave()">Leave</button>
-  </ng-container>
+<div class="video-item-head">
+  <h2>Room</h2>
+  <button type="button" class="video-item-head-btn" (click)="showModal()"><span class="fa fa-cog"></span>Manage</button>
+</div>
+<p>Your room: {{globals.getCurrentSession().session}}</p>
+<p>Current room: {{globals.getCurrentSession().tempSession}}</p>
+<p>Access control: 
+    <ng-container *ngIf="globals.getCurrentSession().session === globals.getCurrentSession().tempSession">
+        <span class="fa fa-unlock"></span> Unlocked
+    </ng-container>
+    <ng-container *ngIf="globals.getCurrentSession().session !== globals.getCurrentSession().tempSession">
+        <span class="fa fa-lock"></span> Listen only
+    </ng-container>
 </p>
 
 <div *ngIf="modal" class="modal-overlay">
@@ -16,10 +20,19 @@
     <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
         <div class="modal-content">
           <p>Playlist videos: {{globals.playlistVideos.length}}</p>
-          <p>Your session key: {{globals.getCurrentSession().session}}</p>
-          <div class="session-section">
+          <p>Your room: {{globals.getCurrentSession().session}}</p>
+          <p>Current room: {{globals.getCurrentSession().tempSession}}</p>
+          <p>Access control: 
+            <ng-container *ngIf="globals.getCurrentSession().session === globals.getCurrentSession().tempSession">
+                <span class="fa fa-unlock"></span> Unlocked
+            </ng-container>
+            <ng-container *ngIf="globals.getCurrentSession().session !== globals.getCurrentSession().tempSession">
+                <span class="fa fa-lock"></span> Listen only
+            </ng-container>
+          </p>
+          <div class="session-section" *ngIf="!this.globals.isTempSessionActive">
             <div class="session-key-block">
-              <label for="session-key-input">Temporary session key:</label>
+              <label for="session-key-input">Change Room:</label>
               <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSession().tempSession}}" />
             </div>
           </div>
@@ -28,8 +41,14 @@
           <span class="fa fa-times"></span>
         </button>
         <div class="modal-buttons">
-          <button type="submit" class="btn btn-secondary">Change session</button>        
-          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>        
+          <ng-container *ngIf="!this.globals.isTempSessionActive">
+            <button type="submit" class="btn btn-secondary">Change session</button>
+          </ng-container>
+          <ng-container *ngIf="this.globals.isTempSessionActive">
+              <button type="button" class="btn btn-primary" (click)="leave()">Leave</button>
+          </ng-container>
+          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>
         </div>
     </form>
   </div>  
+</div>

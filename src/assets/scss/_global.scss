@@ -54,6 +54,7 @@ app {
 .container-cover-bg {
     background-position: center center;
     background-size: 140% auto;
+    background-attachment: fixed;
     filter: blur(40px);
     opacity: 0.8;
     position: absolute;

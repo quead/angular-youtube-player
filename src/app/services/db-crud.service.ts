@@ -61,7 +61,7 @@ export class DbCrudService {
         return new Promise(resolve => {
             if (this.globals.isTempSessionActive) {
                 this.getCurrentSession().then((res) => {
-                    resolve(res);                    
+                    resolve(res);
                 });
             } else {
                 this.checkSession().then(() => {
@@ -70,16 +70,16 @@ export class DbCrudService {
                     });
                 });
             }
-        })
+        });
     }
-    
+
     getCurrentSession() {
         return new Promise(resolve => {
             this.socket.emit('get_session', {
                 session: this.globals.sessionValue
             }, (data) => {
                 const sessionData = data.session[this.globals.sessionValue];
-                if (typeof sessionData == 'object') {
+                if (typeof sessionData === 'object') {
                     this.globals.playlistVideos = sessionData.playlist;
                 }
                 switch (data.status) {
@@ -96,6 +96,6 @@ export class DbCrudService {
                     default:
                 }
             });
-        })
+        });
     }
 }

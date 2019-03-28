@@ -65,7 +65,11 @@ export class SharedService {
     }
 
     preventOldSettings() {
-        if (localStorage.length === 1 || !localStorage.getItem('version') || parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion) {
+        if (
+            localStorage.length === 1 ||
+            !localStorage.getItem('version') ||
+            parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion
+        ) {
             console.log('Updating localstorage...');
             localStorage.clear();
             this.globals.settings = null;

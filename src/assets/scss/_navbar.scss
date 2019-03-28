@@ -1,5 +1,4 @@
 nav {
-    margin-left: 45px;
     ul {
         list-style: none;
         padding: 0;
@@ -14,7 +13,7 @@ nav {
     a {
         display: block;
         text-decoration: none;
-        color: #6a7586;
+        color: rgba(255,255,255,0.5);
         font-size: $f-14;
         -webkit-user-drag: none;
         position: relative;
@@ -31,6 +30,23 @@ nav {
             .description {
                 text-shadow: none;
             }
+        }
+    }
+    @media screen and (min-width: 768px) {
+        margin-left: 45px;
+    }
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-top: 15px;
+        ul {
+            justify-content: space-between;
+            flex-wrap: wrap;
+            li {
+                margin: 0 5px;
+            }
+        }
+        a {
+            font-size: 16px;
         }
     }
 }

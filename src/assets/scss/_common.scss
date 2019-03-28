@@ -145,6 +145,7 @@
     min-width: 300px;
     padding: 10px 15px;
     text-align: center;
+    border-radius: 6px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.1s ease-in-out;
@@ -154,7 +155,7 @@
         display: inline-block;
     }
     &.active {
-        bottom: 0;
+        bottom: 21px;
         opacity: 1;
         visibility: visible;
     }
@@ -276,6 +277,15 @@
         input {
             width: 100%;
         }
+    }
+}
+
+app-room {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+    p {
+        margin: 2px 0;
     }
 }
 

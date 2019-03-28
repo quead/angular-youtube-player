@@ -76,18 +76,22 @@ iframe {
     }
     &-btn {
         float: right;
-        background-color: var(--c-primary);
+        background-color: transparent;
         color: var(--c-wihte);
         border-radius: 20px;
         padding: 4px 8px;
         margin-left: 5px;
-        text-transform: uppercase;
-        font-size: $f-10;
-        border: none;
+        text-transform: capitalize;
+        font-size: $f-12;
+        font-weight: 600;
+        border: 1px solid var(--c-white);
         display: flex;
+        align-items: center;
         user-select: none;
+        transition: all 0.1s ease-out;
         &:active {
-            background-color: var(--c-primary-active);
+            color: var(--c-black);
+            background-color: var(--c-white);
         }
         + .video-item-head-btn {
             margin-right: 5px;

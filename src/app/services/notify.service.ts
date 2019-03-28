@@ -22,14 +22,17 @@ export class NotifyService {
         5: 'The playlist from the cloud was updated.',
         6: 'The playlist from the cloud cannot be updated.',
         7: 'Playlist from the cloud was downloaded.',
-        8: 'The session does not exist so you could not get any info.',
+        8: 'The room does not exist so you could not get any info.',
         10: 'Please check external settings.',
         20: 'Copied',
         21: 'Changed',
         22: 'Settings has been saved',
-        23: 'Video Removed from the playlist'
-        
-    }
+        23: 'Video Removed from the playlist',
+        30: 'Someone joined in your room.',
+        31: 'Someone leaved your room.',
+        32: 'You joined in the room.',
+        33: 'You left the room.'
+    };
 
     constructor() { }
 

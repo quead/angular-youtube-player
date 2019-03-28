@@ -3,7 +3,6 @@ import { PlaylistControlService } from '../../services/playlist-control.service'
 import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
 import { NotifyService } from '../../services/notify.service';
-import { DbCrudService } from '../../services/db-crud.service';
 import { RoomService } from '../../services/room.service';
 import { Socket } from 'ngx-socket-io';
 
@@ -36,7 +35,6 @@ export class PlayerComponent implements OnInit {
     public shared: SharedService,
     public playlistCTRL: PlaylistControlService,
     private notify: NotifyService,
-    private dbcrud: DbCrudService,
     private room: RoomService,
     private socket: Socket
   ) {
@@ -63,16 +61,10 @@ export class PlayerComponent implements OnInit {
           this.triggerSeekTo(data.playerData.currentSeek);
         break;
         case 'isBuffering':
-          console.log('is buffering ' + data.playerData.currentState);
-          let timeoutBuffering;
-          clearTimeout(timeoutBuffering);
-          this.globals.player.pauseVideo();
-          timeoutBuffering = setTimeout(() => {
-            this.globals.player.playVideo();
-          }, 500);
+          // Need a solution when is buffering for one to keep in sync
+        break;
         default:
       }
-      // this.changeState(data.playerData.currentState);
     });
   }
 
@@ -100,7 +92,7 @@ export class PlayerComponent implements OnInit {
     this.videoCurVolume = this.globals.player.getVolume();
 
     // https://developers.google.com/youtube/iframe_api_reference#Events
-    switch (this.globals.currentState) {
+    switch (event.data) {
       // Playing
       case 1:
         this.videoMaxFull = this.timeFormat(this.videoMaxRange);
@@ -111,6 +103,7 @@ export class PlayerComponent implements OnInit {
       case 2:
         this.stopRange();
       break;
+      // Buffering
       case 3:
         this.socket.emit('update_player', {
           eventName: 'isBuffering',
@@ -119,10 +112,11 @@ export class PlayerComponent implements OnInit {
             currentVideo: this.globals.currentVideo,
             currentState: this.globals.currentState
           }
-        })
+        });
       break;
       // Ended
       case 0:
+        console.log(this.globals.currentState);
         this.stopRange();
         if (this.globals.repeatMode) {
           if (this.globals.playlistVideos.length) {
@@ -139,8 +133,8 @@ export class PlayerComponent implements OnInit {
             this.globals.player.playVideo();
           }
         }
-      default:
       break;
+      default:
     }
   }
 
@@ -162,18 +156,14 @@ export class PlayerComponent implements OnInit {
   // Init player
   setDefaultPlayer() {
     this.shared.initFeed().then(() => {
-      this.initPlayer();
+      this.globals.currentVideo = this.globals.feedVideos[0];
+      this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
       this.shared.getRelatedVideos().then(() => {
         this.loading = false;
         this.globals.isLoading = false;
       });
     });
     this.room.join();
-  }
-
-  initPlayer() {
-    this.globals.currentVideo = this.globals.feedVideos[0];
-    this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
   }
 
   // ---------------- Player controls ----------------
@@ -248,7 +238,7 @@ export class PlayerComponent implements OnInit {
     this.videoRangeMouseActive = false;
   }
 
-  volumeRangeMouseMove(value: number) {
+  volumeRangeMouseMove() {
     if (this.volumeRangeMouseActive) {
       if (this.currentMuteState) {
         this.globals.player.unMute();

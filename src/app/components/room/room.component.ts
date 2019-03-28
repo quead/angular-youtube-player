@@ -33,8 +33,20 @@ export class RoomComponent implements OnInit {
         this.shared.findPlaylistItem();
       });
 
-      this.socket.on('alert_msg', (msg) => {
-        console.log(msg);
+      this.socket.on('alert_notify', (id) => {
+        // this.notify.triggerNotify(id);
+        console.log(this.globals.isTempSessionActive);
+        console.log(this.globals.getCurrentSession());
+        switch (id) {
+          case 30:
+            if (this.globals.isTempSessionActive || !this.globals.isTempSessionActive && this.globals.getCurrentSession().session && this.globals.getCurrentSession().tempSession) {
+              this.notify.triggerNotify(32);
+            } else {
+              this.notify.triggerNotify(30);
+            }
+          break;
+          default:
+        }
       });
     }
 
@@ -47,7 +59,7 @@ export class RoomComponent implements OnInit {
     this.modal = true;
     this.modalExportPlaylist = true;
   }
-  
+
   leave() {
     this.socket.emit('leave_session', this.globals.getCurrentSession().tempSession);
     this.globals.sessionValue = localStorage.getItem('session_key');
@@ -63,7 +75,7 @@ export class RoomComponent implements OnInit {
       this.socket.emit('leave_session', this.globals.sessionValue);
 
       // If the session is not the same as the host
-      if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput == '') {
+      if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput === '') {
         this.globals.isTempSessionActive = false;
       } else {
         this.globals.isTempSessionActive = true;
