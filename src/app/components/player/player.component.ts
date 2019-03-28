@@ -155,6 +155,7 @@ export class PlayerComponent implements OnInit {
 
   // Init player
   setDefaultPlayer() {
+    this.room.join();
     this.shared.initFeed().then(() => {
       this.globals.currentVideo = this.globals.feedVideos[0];
       this.globals.shareLink = 'https://youtu.be/' + this.globals.currentVideo['id'];
@@ -162,8 +163,8 @@ export class PlayerComponent implements OnInit {
         this.loading = false;
         this.globals.isLoading = false;
       });
+      this.shared.findPlaylistItem();
     });
-    this.room.join();
   }
 
   // ---------------- Player controls ----------------

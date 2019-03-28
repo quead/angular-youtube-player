@@ -29,24 +29,12 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
       this.socket.on('download_playlist', (data) => {
-        this.globals.playlistVideos = data[this.globals.getCurrentSession().tempSession].playlist;
+        this.globals.playlistVideos = data[this.globals.getCurrentSessionKeys().tempSession].playlist;
         this.shared.findPlaylistItem();
       });
 
       this.socket.on('alert_notify', (id) => {
-        // this.notify.triggerNotify(id);
-        console.log(this.globals.isTempSessionActive);
-        console.log(this.globals.getCurrentSession());
-        switch (id) {
-          case 30:
-            if (this.globals.isTempSessionActive || !this.globals.isTempSessionActive && this.globals.getCurrentSession().session && this.globals.getCurrentSession().tempSession) {
-              this.notify.triggerNotify(32);
-            } else {
-              this.notify.triggerNotify(30);
-            }
-          break;
-          default:
-        }
+        console.log('Join / leave notify not working atm');
       });
     }
 
@@ -61,7 +49,7 @@ export class RoomComponent implements OnInit {
   }
 
   leave() {
-    this.socket.emit('leave_session', this.globals.getCurrentSession().tempSession);
+    this.socket.emit('leave_session', this.globals.getCurrentSessionKeys().tempSession);
     this.globals.sessionValue = localStorage.getItem('session_key');
     this.sessionKeyInput = '';
     this.globals.isTempSessionActive = false;
@@ -69,10 +57,9 @@ export class RoomComponent implements OnInit {
   }
 
   updateKey() {
-    const confirmBtn = confirm('You won`t have write rights to the session and you are not gonna lose the main session.');
-    if (confirmBtn && this.sessionKeyInput) {
+    if (this.sessionKeyInput) {
       this.sessionKeyInput = this.sessionKeyInput.trim();
-      this.socket.emit('leave_session', this.globals.sessionValue);
+      this.room.leave();
 
       // If the session is not the same as the host
       if (this.sessionKeyInput === localStorage.getItem('session_key') || this.sessionKeyInput === '') {
@@ -84,6 +71,7 @@ export class RoomComponent implements OnInit {
 
       this.room.join();
       this.closeModal();
+      this.notify.triggerNotify(34);
     }
   }
 

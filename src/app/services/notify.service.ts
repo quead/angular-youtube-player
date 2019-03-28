@@ -31,7 +31,8 @@ export class NotifyService {
         30: 'Someone joined in your room.',
         31: 'Someone leaved your room.',
         32: 'You joined in the room.',
-        33: 'You left the room.'
+        33: 'You left the room.',
+        34: 'Room changed'
     };
 
     constructor() { }

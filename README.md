@@ -53,7 +53,11 @@ This player is compatible only with Chrome/webkit browsers.
 ## Changelog
 Angular YouTube Player 2.4
 - Switched from firebase to json through socket.io and private server
-
+- Responsive layout
+- Sync player in session
+- Rooms: join/leave room by unique id
+- Playlist is no more auto populated when is empty
+- You can't export/import anymore from .JSON file
 
 Angular YouTube Player 2.3.3
 - Fixed bugs after refactoring
@@ -151,7 +155,6 @@ Angular YouTube Player 1.1
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 
-
 Angular YouTube Player 1.0.2
 - Change volume on your video
 - Related videos
@@ -169,10 +172,6 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Responsive layout **(in v2.4)**
-- Sync player in session **(in v2.4)**
-**Rooms**
-- *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.9)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***

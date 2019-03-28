@@ -109,14 +109,15 @@
     select {
         -webkit-appearance: none;
         border: none;
-        background: #191f27;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.4);
         color: #ffffff;
-        border-radius: 6px;
-        padding: 8px;
+        border-radius: 15px;
+        padding: 8px 13px;
     }
     label {
         position: absolute;
-        right: 5px;
+        right: 9px;
         top: 50%;
         transform: translateY(-50%);
     }

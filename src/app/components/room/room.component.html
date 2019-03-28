@@ -2,13 +2,13 @@
   <h2>Room</h2>
   <button type="button" class="video-item-head-btn" (click)="showModal()"><span class="fa fa-cog"></span>Manage</button>
 </div>
-<p>Your room: {{globals.getCurrentSession().session}}</p>
-<p>Current room: {{globals.getCurrentSession().tempSession}}</p>
+<p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
+<p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
 <p>Access control: 
-    <ng-container *ngIf="globals.getCurrentSession().session === globals.getCurrentSession().tempSession">
+    <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
         <span class="fa fa-unlock"></span> Unlocked
     </ng-container>
-    <ng-container *ngIf="globals.getCurrentSession().session !== globals.getCurrentSession().tempSession">
+    <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
         <span class="fa fa-lock"></span> Listen only
     </ng-container>
 </p>
@@ -16,24 +16,24 @@
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
   <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
-    <h2>Manage room</h2>
+    <h2 class="text-center">Manage room</h2>
     <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
         <div class="modal-content">
           <p>Playlist videos: {{globals.playlistVideos.length}}</p>
-          <p>Your room: {{globals.getCurrentSession().session}}</p>
-          <p>Current room: {{globals.getCurrentSession().tempSession}}</p>
+          <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
+          <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
           <p>Access control: 
-            <ng-container *ngIf="globals.getCurrentSession().session === globals.getCurrentSession().tempSession">
+            <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
                 <span class="fa fa-unlock"></span> Unlocked
             </ng-container>
-            <ng-container *ngIf="globals.getCurrentSession().session !== globals.getCurrentSession().tempSession">
+            <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
                 <span class="fa fa-lock"></span> Listen only
             </ng-container>
           </p>
           <div class="session-section" *ngIf="!this.globals.isTempSessionActive">
             <div class="session-key-block">
               <label for="session-key-input">Change Room:</label>
-              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSession().tempSession}}" />
+              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@ export class DbCrudService {
         }, (updatedData) => {
             switch (updatedData.status) {
                 case 'SESSION_UPDATED':
-                    this.socket.emit('update_playlist', this.globals.getCurrentSession().tempSession);
+                    this.socket.emit('update_playlist', this.globals.getCurrentSessionKeys().tempSession);
                     this.notify.triggerNotify(5);
                 break;
                 case 'SESSION_NOT_UPDATED':
@@ -81,6 +81,7 @@ export class DbCrudService {
                 const sessionData = data.session[this.globals.sessionValue];
                 if (typeof sessionData === 'object') {
                     this.globals.playlistVideos = sessionData.playlist;
+                    this.notify.triggerNotify(7);
                 }
                 switch (data.status) {
                     case 'SESSION_NOT_FOUND':
