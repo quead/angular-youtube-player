@@ -27,7 +27,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:8888', options: {} };
+const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} };
 
 @NgModule({
   imports: [

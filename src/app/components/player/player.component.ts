@@ -43,8 +43,9 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     // Where app is loaded
     this.shared.preventOldSettings();
-    this.shared.getSettings();
-    this.setDefaultPlayer();
+    this.shared.getSettings().then(() => {
+      this.setDefaultPlayer();
+    });
 
     this.socket.on('event_trigger', (data) => {
       switch (data.eventName) {

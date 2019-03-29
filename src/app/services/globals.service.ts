@@ -34,7 +34,7 @@ export class GlobalsService {
   darkMode = true;
   isTempSessionActive = false;
   sessionValue: string;
-  localStorageVersion = 3;
+  localStorageVersion = 4;
 
   regionCode = '';
   apiKey = '';
