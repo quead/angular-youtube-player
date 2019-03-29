@@ -166,6 +166,7 @@ export class PlayerComponent implements OnInit {
       });
       this.shared.findPlaylistItem();
     });
+    this.shared.setLocalVersion();
   }
 
   // ---------------- Player controls ----------------
