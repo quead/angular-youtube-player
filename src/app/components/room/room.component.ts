@@ -20,7 +20,7 @@ export class RoomComponent implements OnInit {
 
   constructor(
     private notify: NotifyService,
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private dbcrud: DbCrudService,
     private shared: SharedService,
     public room: RoomService,
