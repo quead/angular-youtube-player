@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player Demo"> 
+  <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player Demo"> 
     Demo
   </a>
-  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player"> 
+  <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player"> 
     <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/THnmBnz.png" style="height: auto; max-width:100%;" />
   </a>
 </p>
