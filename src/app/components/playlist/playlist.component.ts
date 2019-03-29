@@ -7,7 +7,7 @@ import { PlayerComponent } from '../../components/player/player.component';
 import { NotifyService } from '../../services/notify.service';
 import { VideoModel } from '../../models/video.model';
 import { Event } from '@angular/router/src/events';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-playlist',
