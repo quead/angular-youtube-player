@@ -23,7 +23,7 @@ export class RoomComponent implements OnInit {
     private globals: GlobalsService,
     private dbcrud: DbCrudService,
     private shared: SharedService,
-    private room: RoomService,
+    public room: RoomService,
     private socket: Socket
   ) { }
 

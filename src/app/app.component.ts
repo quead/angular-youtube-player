@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         public shared: SharedService,
         public globals: GlobalsService,
         public playlistCTRL: PlaylistControlService,
-        private notify: NotifyService
+        public notify: NotifyService
     ) {
     }
 
