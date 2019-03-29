@@ -66,6 +66,16 @@
     display: flex;
 }
 
+h2 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-weight: 600;
+    font-size: $f-22;
+    line-height: $f-22;
+    display: inline-block;
+    width: 100%;
+}
+
 .youtube-player {
     &-cover {
         height: 140px;
@@ -195,13 +205,6 @@
     animation: loading-modal 0.2s 1;
     overflow-y: auto;
     max-height: 100%;
-    h2 {
-        margin-top: 10px;
-        font-size: $f-18;
-        font-weight: 800;
-        padding: 0 40px;
-        margin-bottom: 30px;
-    }
     &#manage-playlist {
         height: auto;
     }
@@ -284,6 +287,17 @@ app-room {
     margin-bottom: 15px;
     p {
         margin: 2px 0;
+    }
+}
+
+app-about {
+    .app-content {
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 10px 20px;
+        border-radius: 5px;
+        p {
+            margin: 5px 0;
+        }
     }
 }
 
