@@ -4,6 +4,7 @@ import { PlayerComponent } from '../components/player/player.component';
 import { SharedService } from '../services/shared.service';
 import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
+import { NotifyService } from '../services/notify.service';
 import { NumberVal } from '../services/validators.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class SettingsComponent implements OnInit {
         private globals: GlobalsService,
         public playerComp: PlayerComponent,
         public appComp: AppComponent,
+        private notify: NotifyService
     ) {
     }
 
@@ -72,7 +74,7 @@ export class SettingsComponent implements OnInit {
             this.shared.getSettings();
 
             // this.playerComp.checkVolumeRange();
-            this.shared.triggerNotify('Changed');
+            this.notify.triggerNotify(22);
         });
     }
 
@@ -95,7 +97,7 @@ export class SettingsComponent implements OnInit {
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this.shared.triggerNotify('Saved');
+            this.notify.triggerNotify(22);
             this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
             this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
             this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
@@ -106,10 +108,10 @@ export class SettingsComponent implements OnInit {
             this.shared.updateLocalStorageSettings();
             this.shared.getSettings();
 
-            this.appComp.setApp();
+            this.playerComp.setDefaultPlayer();
 
         } else {
-            this.shared.triggerNotify('Please check external settings');
+            this.notify.triggerNotify(10);
         }
     }
 }

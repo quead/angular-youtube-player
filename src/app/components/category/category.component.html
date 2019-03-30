@@ -13,7 +13,7 @@
   </div>
   <div class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
     <ng-container *ngIf="loading">
-        <div *ngFor="let i of [1,2,3,4,5,6,8,9,10]" class="loading-feed-list loading-anim"></div>
+        <div *ngFor="let i of [0,1,2,3,4,5,6,8,9,10]" class="loading-feed-list loading-anim"></div>
     </ng-container>
     <ng-container *ngIf="!loading">
       <div *ngFor="let feedVideo of globals.feedVideos; let i = index" [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
@@ -29,17 +29,22 @@
             </div>
           </div>
         </div>
-        <div class="video-item-settings">
-            <button class="video-item-play" (click)="onClickVideo(i, 0)">
-              <span class="fa fa-play"></span>
-            </button>
-            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
+        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
+          <button class="video-item-play" (click)="onClickVideo(i, 0)">
+            <span class="fa fa-play"></span>
+          </button>
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
+            <span class="fa fa-share-alt"></span>
+          </button>
+          <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
+            <span class="fa fa-plus"></span>
+          </button>
+        </div>
+        <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 0)">
               <span class="fa fa-share-alt"></span>
             </button>
-            <button class="video-item-add" (click)="playlist.addPlaylistItem(i, 0)">
-              <span class="fa fa-plus"></span>
-            </button>
-          </div>
+        </div>
       </div>
     </ng-container>
   </div>

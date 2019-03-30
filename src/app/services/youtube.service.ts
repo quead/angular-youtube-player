@@ -8,7 +8,6 @@ export class YoutubeGetVideo {
 
     private url = 'https://www.googleapis.com/youtube/v3/';
     private videoDetails = 'part=snippet,statistics';
-    private channelDetails = 'part=brandingSettings';
     private feedDetails = '&chart=mostPopular';
 
     constructor(

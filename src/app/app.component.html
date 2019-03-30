@@ -21,19 +21,17 @@
 			<app-related></app-related>
 		</div>
 		<div class="col col-3">
+			<app-room></app-room>
 			<app-playlist></app-playlist>
 		</div>
 		<div class="col col-5">
 			<div class="app app-feed">
 				<router-outlet></router-outlet>
 			</div>
-			<div [ngClass]="{'active': shared.notify.enabled }" class="notif notif-primary">
+			<div [ngClass]="{'active': notify.defaults.enabled }" class="notif notif-primary">
 				<span class="fa fa-cog fa-spin fa-fw"></span>
-				<p>{{ shared.notify.message }}</p>
+				<p>{{ notify.defaults.message }}</p>
 			</div>
 		</div>
-	</div>
-	<div id="mobile-unavailable">
-	The app is not ready for mobile/tablet, soon...
 	</div>
 </div>

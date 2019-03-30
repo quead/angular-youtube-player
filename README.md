@@ -1,26 +1,26 @@
 <p align="center">
-  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player Demo"> 
+  <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player Demo"> 
     Demo
   </a>
-  <a href="https://quead.github.io/demo/" target="_blank" title="YouTube Player"> 
-    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/THnmBnz.png" style="height: auto; max-width:100%;" />
+  <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player"> 
+    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/h4x3o5k.jpg" style="height: auto; max-width:100%;" />
   </a>
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.3.3-brightgreen.svg?style=flat)](https://github.com/quead/angular2-yt-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.4-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular2-yt-player/master/LICENSE)
-[![GitHub forks](https://img.shields.io/github/forks/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/network)
-[![GitHub stars](https://img.shields.io/github/stars/quead/angular2-yt-player.svg)](https://github.com/quead/angular2-yt-player/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
+[![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
-This is a simple youtube web player and desktop player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli") 7.0.3, [@angular/fire](https://github.com/angular/angularfire2), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player") 6.0.0 (used for youtube iFrame API), SCSS (CSS3), HTML5.
+This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [ng2-dragula](https://github.com/valor-software/ng2-dragula "ng2 dragula").
 
 This player is compatible only with Chrome/webkit browsers.
 
 *The project status is beta.*
 
-## Usage
+## How to use
 
 **For Angular and Typescript Development**
 1. Install [NodeJS 8.11.3+](https://nodejs.org/en/download/ "Node JS Download")
@@ -38,7 +38,9 @@ This player is compatible only with Chrome/webkit browsers.
 
 5. Add your youtube api key in settings.json or in the app
 
-6. To make available firebase (for session feature upload/download) update `environments.prod.ts` and `environments.ts`
+6. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+
+You must change inside **app.modules.ts** your path to your server.
 
 **For SASS development**
 
@@ -53,6 +55,14 @@ This player is compatible only with Chrome/webkit browsers.
 4. Edit files from src/assets/scss
 
 ## Changelog
+Angular YouTube Player 2.4
+- Switched from firebase to json through socket.io and private server
+- Responsive layout
+- Sync player in session
+- Rooms: join/leave room by unique id
+- Playlist is no more auto populated when is empty
+- You can't export/import anymore from .JSON file
+
 Angular YouTube Player 2.3.3
 - Fixed bugs after refactoring
 - Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
@@ -149,7 +159,6 @@ Angular YouTube Player 1.1
 - *Show/hide debugging features*
 - *Show/hide thumbnails in search*
 
-
 Angular YouTube Player 1.0.2
 - Change volume on your video
 - Related videos
@@ -167,17 +176,12 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- Responsive layout **(in v2.4)**
-- Sync player between session **(in v2.4)**
-- Keep your settings in cloud **(in v2.8)**
-- Integrating YouTube subscriptions/playlist **(in v2.9)**
-
-**Rooms**
-- *Create room where you can watch videos with others in sync by sharing the room link **(in v2.7)***
 - *Set private/public room **(in v2.7)***
-- *List of public rooms **(in v2.8)***
+- *List of public rooms **(in v2.9)***
 - *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
 
+#### Roadmap to 4.0
+- Integrating YouTube account subscriptions/playlist **(in v3.0)**
 
 #### Removed features
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)

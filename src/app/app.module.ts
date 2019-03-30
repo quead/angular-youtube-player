@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.router';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { DragulaModule } from 'ng2-dragula';
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 
@@ -23,17 +23,14 @@ import { PlayerComponent } from './components/player/player.component';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
-// Firebase
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabase } from '@angular/fire/database';
-
-import { environment } from '../environments/environment';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
+import { RoomComponent } from './components/room/room.component';
+
+const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} };
 
 @NgModule({
   imports: [
-    AngularFireModule.initializeApp(environment.firebase, 'angular-yt-player-quead'),
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -41,7 +38,8 @@ import { RelatedComponent } from './components/related/related.component';
     FormsModule,
     DragulaModule.forRoot(),
     NguCarouselModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SocketIoModule.forRoot(config)
   ],
   declarations: [
     AppComponent,
@@ -52,7 +50,8 @@ import { RelatedComponent } from './components/related/related.component';
     CategoryComponent,
     PlayerComponent,
     PlaylistComponent,
-    RelatedComponent
+    RelatedComponent,
+    RoomComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [
@@ -63,7 +62,6 @@ import { RelatedComponent } from './components/related/related.component';
     PlaylistControlService,
     SharedService,
     GlobalsService,
-    AngularFireDatabase,
     NguCarouselConfig,
     NguCarousel
   ]

@@ -4,34 +4,21 @@ import { YoutubeGetVideo } from './youtube.service';
 import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
+import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
+import { NotifyService } from '../services/notify.service';
 
 @Injectable()
 export class SharedService {
-
-    notify = {
-        enabled: false,
-        message: 'No message'
-    };
 
     constructor(
         private youtube: YoutubeGetVideo,
         private http: HttpClient,
         private globals: GlobalsService,
-        public dragulaService: DragulaService
+        private dbcrud: DbCrudService,
+        public dragulaService: DragulaService,
+        private notify: NotifyService
     ) {}
-
-
-    generateKey() {
-        const code = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const length = 16;
-        let rtn = '';
-        for (let i = 0; i < length; i++) {
-            rtn += code.charAt(Math.floor(Math.random() * code.length));
-        }
-        return rtn;
-    }
-
 
   async getRelatedVideos() {
         if (this.globals.currentVideo) {
@@ -51,7 +38,6 @@ export class SharedService {
             const res = await this.initSettings();
             this.globals.settings = res;
             localStorage.setItem('settings', JSON.stringify(res));
-            localStorage.setItem('session_key', this.generateKey());
         } else {
             this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }
@@ -79,7 +65,11 @@ export class SharedService {
     }
 
     preventOldSettings() {
-        if (localStorage.length === 1 || !localStorage.getItem('version') || localStorage.getItem('version') === '2') {
+        if (
+            localStorage.length === 1 ||
+            !localStorage.getItem('version') ||
+            parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion
+        ) {
             console.log('Updating localstorage...');
             localStorage.clear();
             this.globals.settings = null;
@@ -89,14 +79,9 @@ export class SharedService {
 
     async initFeed() {
         if (!this.globals.feedVideos) {
-            await this.getSettings();
             const res = await this.youtube.feedVideos();
             this.convertVideoObject(res['items'], 'feedVideos');
         }
-    }
-
-    updateData(state: string) {
-        console.log(state);
     }
 
     updateLocalStorageSettings() {
@@ -104,23 +89,14 @@ export class SharedService {
         this.setLocalVersion();
     }
 
-    getPlaylist() {
-        if (localStorage.getItem('playlist') !== 'undefined') {
-            this.globals.playlistVideos = JSON.parse(localStorage.getItem('playlist'));
-        } else {
-            this.globals.playlistVideos = this.globals.relatedVideos;
-            this.updatePlaylist();
-        }
-    }
-
-    updatePlaylist() {
-        localStorage.setItem('playlist', JSON.stringify(this.globals.playlistVideos));
+    uploadPlayist() {
+        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
         this.setLocalVersion();
     }
 
     checkPlaylist() {
         this.findPlaylistItem();
-        this.updatePlaylist();
+        this.uploadPlayist();
     }
 
     findPlaylistItem() {
@@ -131,15 +107,9 @@ export class SharedService {
     }
 
     setLocalVersion() {
-        if (localStorage.getItem('version') === null || localStorage.getItem('version') === '2') {
-            localStorage.setItem('version', '3');
+        if (localStorage.getItem('version') === null || parseInt(localStorage.getItem('version'), 10) < this.globals.localStorageVersion) {
+            localStorage.setItem('version', this.globals.localStorageVersion.toString());
         }
-    }
-
-    triggerNotify(message: string) {
-        this.notify.enabled = true;
-        this.notify.message = message;
-        setTimeout(() => this.notify.enabled = false, 3000);
     }
 
     move(arr: Array<VideoModel>, old_index: number, new_index: number) {
@@ -310,7 +280,7 @@ export class SharedService {
 
     copyShareLink() {
         document.execCommand('Copy');
-        this.triggerNotify('Copied');
+        this.notify.triggerNotify(20);
     }
 
     onCopyVideoItemLink(i: number, list: number) {

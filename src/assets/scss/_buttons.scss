@@ -42,4 +42,10 @@
             background-color: var(--c-primary-active);
         }
     }
+    &-secondary {
+        background-color: var(--c-secondary);
+        &:active {
+            background-color: darken(#1a85fd, 17%);
+        }
+    }
 }

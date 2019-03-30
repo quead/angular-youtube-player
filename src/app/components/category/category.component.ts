@@ -39,11 +39,7 @@ export class CategoryComponent implements OnInit {
         this.globals.currentCategory = category;
         this.getCategories();
     } else {
-        this.globals.currentCategory = 'all';
-        this.globals.feedVideos = null;
-        this.shared.initFeed().then(() => {
-            this.loading = false;
-        });
+        this.resetCategories();
     }
   }
 

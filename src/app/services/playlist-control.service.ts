@@ -1,38 +1,16 @@
 import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { GlobalsService } from '../services/globals.service';
+import { NotifyService } from '../services/notify.service';
 
 @Injectable()
 export class PlaylistControlService {
 
-  playlistPrefill = true;
-
   constructor(
     public shared: SharedService,
     public globals: GlobalsService,
+    private notify: NotifyService,
   ) { }
-
-  fillPlaylist() {
-    if (this.playlistPrefill) {
-      this.shared.getRelatedVideos().then(() => {
-        this.playlistInit();
-        this.playlistPrefill = false;
-        this.globals.isLoading = false;
-      });
-    } else {
-      this.shared.getRelatedVideos();
-    }
-  }
-
-  playlistInit() {
-    if (localStorage.getItem('playlist') === null || localStorage.getItem('playlist').length === 0 || localStorage.getItem('playlist').length === 2) {
-      this.globals.playlistVideos = this.globals.relatedVideos;
-      this.shared.updatePlaylist();
-    } else {
-      this.shared.getPlaylist();
-    }
-    this.shared.findPlaylistItem();
-  }
 
   addPlaylistItem(i: number, list: number) {
     let listType;
@@ -58,10 +36,10 @@ export class PlaylistControlService {
       this.globals.playlistVideos.push(listType);
       this.shared.checkPlaylist();
 
-      this.shared.triggerNotify('Added to playlist');
+      this.notify.triggerNotify(3);
       this.scrollToBottom();
     } else {
-      this.shared.triggerNotify('Video is already in playlist');
+      this.notify.triggerNotify(4);
     }
   }
 

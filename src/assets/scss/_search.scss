@@ -9,7 +9,7 @@
         left: 10px;
         font-size: $f-18;
         transform: translateY(-50%);
-        color: rgba(#6a7586,0.5);
+        color: rgba(255,255,255,0.2);
         cursor: pointer;
         z-index: 2;
         transition: all 0.1s ease-out;
@@ -30,19 +30,19 @@
         outline: 0;
         position: relative;
         background-color: transparent;
-        border: 2px solid rgba(#6a7586,0.5);
+        border: 2px solid rgba(255,255,255,0.2);
         color: var(--c-white);
         border-radius: 5px;
         font-size: $f-14;
         z-index: 1;
         transition: all 0.2s ease-out;
         &::-webkit-input-placeholder {
-            color: var(--c-gray);
+            color: rgba(255,255,255,0.6);
         }
         &:focus {
-            border-color: var(--c-gray);
+            border-color: rgba(255,255,255,0.6);
             + .search-icon {
-                color: var(--c-gray);
+                color: rgba(255,255,255,0.6);
             }
         } 
     }
@@ -50,7 +50,7 @@
         border: none;
         font-size: $f-12;
         background: transparent;
-        color: var(--c-gray);
+        color: rgba(255,255,255,0.6);
         padding: 0;
         margin: 0;
         cursor: pointer;
@@ -109,14 +109,18 @@
     select {
         -webkit-appearance: none;
         border: none;
-        background: #191f27;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.4);
         color: #ffffff;
-        border-radius: 3px;
-        padding: 8px;
+        border-radius: 15px;
+        padding: 8px 13px;
+        option {
+            color: #000000;
+        }
     }
     label {
         position: absolute;
-        right: 5px;
+        right: 9px;
         top: 50%;
         transform: translateY(-50%);
     }

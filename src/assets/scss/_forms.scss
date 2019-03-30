@@ -1,5 +1,8 @@
 select {
     -webkit-appearance: none;
+    option {
+        color: #000000;
+    }
 }
 
 .round-check {
@@ -52,12 +55,12 @@ input[type="radio"]:checked {
     .form-field {
         margin-left: auto;
         padding: 10px 15px;
-        border: 1px solid var(--c-black);
+        border: 1px solid rgba(#fff, 0.1);
         color: var(--c-white);
         min-width: 250px;
         font-weight: 300;        
-        background-color: #191f27;
-        border-radius: 0;
+        background-color: rgba(#fff, 0.01);
+        border-radius: 3px;
         outline: 0;
         &:disabled {
             background-color: var(--c-base);
@@ -74,8 +77,9 @@ input[type="radio"]:checked {
 .settingsForm {
     margin-top: 0;
     margin-bottom: 20px;
-    background-color: var(--c-dark-gray);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 15px;
+    border-radius: 5px;
     input[type="checkbox"],
     input[type="radio"] {
         display: none;

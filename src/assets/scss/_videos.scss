@@ -43,6 +43,7 @@ iframe {
     position: absolute;
     top: 47px;
     padding: 0 10px 10px;
+    border-radius: 5px;
     .video-item {
         background: transparent;
         margin-top: 10px;
@@ -61,33 +62,28 @@ iframe {
 
 .video-item-head {
     position: relative;
-    margin: 15px 0;
-    padding: 0;
+    margin: 0;
     width: 100%;
     display: flex;
-    align-items: center;
-    h2 {
-        margin: 0;
-        padding: 0;
-        font-weight: 600;
-        font-size: $f-24;
-        display: inline-block;
-        width: 100%;
-    }
+    align-items: flex-start;
     &-btn {
         float: right;
-        background-color: var(--c-primary);
+        background-color: transparent;
         color: var(--c-wihte);
         border-radius: 20px;
         padding: 4px 8px;
         margin-left: 5px;
-        text-transform: uppercase;
-        font-size: $f-10;
-        border: none;
+        text-transform: capitalize;
+        font-size: $f-12;
+        font-weight: 600;
+        border: 1px solid var(--c-white);
         display: flex;
+        align-items: center;
         user-select: none;
+        transition: all 0.1s ease-out;
         &:active {
-            background-color: var(--c-primary-active);
+            color: var(--c-black);
+            background-color: var(--c-white);
         }
         + .video-item-head-btn {
             margin-right: 5px;
@@ -121,7 +117,7 @@ iframe {
         background-position: center center;
         margin-right: 10px;
         transition: all 0.1s ease-out;
-        border-radius: 3px;
+        border-radius: 6px;
     }
     .video-item-details {
         display: flex;
@@ -168,7 +164,7 @@ iframe {
         justify-content: center;
         transition: all 0.1s ease-in-out;      
         > button {
-            background-color: var(--c-black);
+            background-color: #252729;
             color: inherit;
             height: 30px;
             width: 30px;
@@ -262,6 +258,10 @@ iframe {
 }
 
 #related-video-list {
+    border-radius: 8px;
+    color: var(--c-white);
+    padding: 0;
+    margin: 20px 0 40px;
     .leftRs,
     .rightRs {
         position: absolute;
@@ -269,7 +269,7 @@ iframe {
         transform: translateY(-50%);
         z-index: 1;
         -webkit-appearance: none;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.3);
         height: 30px;
         width: 30px;
         border-radius: 50%;
@@ -282,10 +282,10 @@ iframe {
         line-height: 18px;
         transition: all 0.1s ease-out;
         &:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
         }
         &:active {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.9);
         }
     }
     .leftRs {
@@ -296,7 +296,8 @@ iframe {
     }
     .ngucarousel {
         position: relative;
-        padding: 0 15px;
+        margin: 0 -10px;
+        padding: 0 30px;
         &-inner {
             margin: 0 -15px;
             padding: 0 10px;
@@ -309,9 +310,12 @@ iframe {
         display: none;
     }
     .video-item {
-        margin: 0 10px;
+        margin: 0 5px;
         padding: 0;
         background: transparent;
+        p {
+            color: var(--c-white);
+        }
         &-info {
             flex-wrap: wrap;
             width: 100%;
@@ -322,7 +326,6 @@ iframe {
             background-repeat: no-repeat;
             background-size: 150% auto;
             margin: 0 0 10px;
-            border-radius: 3px;
         }
         &-autor {
             font-weight: bold;
@@ -349,6 +352,18 @@ iframe {
     width: 100%;
     margin-right: 20px;
     transition: height 0.1s ease-out 0.1s;
+    .video-item {
+        margin: 0 0 10px;
+        border: 2px solid transparent;
+        border-radius: 5px;
+        &.gu-transit,
+        &:hover {
+            border-color: rgba(#FFF, 0.1);
+        }
+        &:last-child {
+            margin: 0;
+        }
+    }
     .playlist-video-content {
         width: 100%;
         overflow: auto;
@@ -380,9 +395,16 @@ iframe {
                 background-color: rgba(#FFF, 0.4);
             }
         }
-    }
-    .video-item {
-        padding: 5px 0;
+        &.ex-over {
+            .video-item {
+                &:hover {
+                    border-color: transparent;
+                }
+                &.gu-transit {
+                    border-color: rgba(#FFF, 0.1);
+                }
+            }
+        }
     }
 }
 .feed-video-list {
@@ -475,10 +497,22 @@ iframe {
         padding-bottom: 10px;
         .video-item {
             margin-top: 10px;
+            background-color: transparent;
         }
     }
     &::-webkit-scrollbar {
         width: 6px;
         background-color: transparent;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .feed-video-list {
+        &.grid-list .video-item-image {
+            height: 200px;
+        }
+    }
+    #playlist-video-list .playlist-video-content {
+        max-height: 5200px;
     }
 }
