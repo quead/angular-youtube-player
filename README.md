@@ -38,6 +38,10 @@ This player is compatible only with Chrome/webkit browsers.
 
 5. Add your youtube api key in settings.json or in the app
 
+6. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+
+You must change inside **app.modules.ts** your path to your server.
+
 **For SASS development**
 
 1. Install [Sass](http://sass-lang.com/install "Sass website")
