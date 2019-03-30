@@ -20,7 +20,7 @@ This player is compatible only with Chrome/webkit browsers.
 
 *The project status is beta.*
 
-## Usage
+## How to use
 
 **For Angular and Typescript Development**
 1. Install [NodeJS 8.11.3+](https://nodejs.org/en/download/ "Node JS Download")
