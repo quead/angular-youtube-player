@@ -117,7 +117,6 @@ export class PlayerComponent implements OnInit {
       break;
       // Ended
       case 0:
-        console.log(this.globals.currentState);
         this.stopRange();
         if (this.globals.repeatMode) {
           if (this.globals.playlistVideos.length) {

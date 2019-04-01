@@ -18,7 +18,7 @@ export class SharedService {
         private notify: NotifyService
     ) {}
 
-  async getRelatedVideos() {
+    async getRelatedVideos() {
         if (this.globals.currentVideo) {
             const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
             this.convertVideoObject(res['items'], 'relatedVideos');
@@ -36,23 +36,14 @@ export class SharedService {
     }
 
     setSettings() {
-        this.globals.apiKey = this.globals.settings.api_settings[0].value;
-        this.globals.regionCode = this.globals.settings.api_settings[1].value;
-        this.globals.numSearchRes = this.globals.settings.api_settings[2].value;
-        this.globals.numRelatedRes = this.globals.settings.api_settings[3].value;
+        this.globals.apiKey = this.globals.settings.api_settings.key.value;
+        this.globals.regionCode = this.globals.settings.api_settings.region.value;
+        this.globals.numSearchRes = this.globals.settings.api_settings.search_num.value;
+        this.globals.numRelatedRes = this.globals.settings.api_settings.related_num.value;
 
-        this.globals.thumbnails = this.globals.settings.form_settings[0].value;
-        this.globals.listGrid = this.globals.settings.form_settings[1].value;
-        this.globals.repeatMode = this.globals.settings.form_settings[2].value;
-        this.globals.darkMode = this.globals.settings.form_settings[3].value;
-    }
-
-    updateSettings(newSettings: any) {
-        this.globals.settings = newSettings;
-        this.globals.external_settings = newSettings['api_settings'];
-        this.globals.internal_settings = newSettings['form_settings'];
-        this.updateLocalStorageSettings();
-        this.setSettings();
+        this.globals.thumbnails = this.globals.settings.form_settings.thumbnails.value;
+        this.globals.listGrid = this.globals.settings.form_settings.listToggle.value;
+        this.globals.repeatMode = this.globals.settings.form_settings.repeat.value;
     }
 
     preventOldSettings() {

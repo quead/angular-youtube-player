@@ -1,39 +1,37 @@
 export const defaultSettings = {
-    form_settings: [
-        {
-            name: "Show Thumbnails",
+    form_settings: {
+        thumbnails: {
+            name: 'Show Thumbnails',
             value: true,
             visible: true
         },
-        {
-            name: "Set list for trending",
+        listToggle: {
+            name: 'Set list for trending',
             value: false,
             visible: true
         },
-        {
-            name: "Toggle repeat mode",
+        repeat: {
+            name: 'Toggle repeat mode',
             value: true,
             visible: true
+        }
+    },
+    api_settings: {
+        key: {
+            name: 'Api key',
+            value: 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc'
         },
-        {
-            name: "Toggle dark mode",
-            value: true,
-            visible: false
-        }
-        ],
-        api_settings: [
-        {
-            name: "Api key",
-            value: "AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc"
-        }, {
-            name: "Country trending",
-            value: "US"
-        }, {
-            name: "Number of search results",
+        region: {
+            name: 'Country trending',
+            value: 'US'
+        },
+        search_num: {
+            name: 'Number of search results',
             value: 15
-        }, {
-            name: "Number of related results",
+        },
+        related_num: {
+            name: 'Number of related results',
             value: 15
         }
-    ]
-}
+    }
+};

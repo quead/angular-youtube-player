@@ -22,37 +22,34 @@ This player is compatible only with Chrome/webkit browsers.
 
 ## How to use
 
-**For Angular and Typescript Development**
+**For development**
 1. Install [NodeJS 8.11.3+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install [angular-cli 1.7.3+](https://github.com/angular/angular-cli "Angular Cli")
 
-`npm install -g @angular/cli`
+2. Download/clone repository then install the player by
 
-3. Download/clone repository then install the player by
+`npm install` in root folder (not in /src)
 
-`npm install` in root folder
+3. Add your youtube api key in **src/app/environments/settings.ts** or inside the app on settings page (when is running)
 
-4. Run the player by
+4. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+
+You must change inside **src/app/environments/environment.ts** your path to your server.
+
+5. Run the player by
 
 `npm start` in root folder
 
-5. Add your youtube api key in settings.json or in the app
+**For building the app**
 
-6. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+1. Install [angular-cli 1.7.3+](https://github.com/angular/angular-cli "Angular Cli")
 
-You must change inside **app.modules.ts** your path to your server.
+`npm install -g @angular/cli`
 
-**For SASS development**
+2. Run inside the root folder (not in /src)
 
-1. Install [Sass](http://sass-lang.com/install "Sass website")
+Check [angular documentation](https://angular.io/cli/build 'angular cli') for other build options.
 
-2. Do steps from above
-
-3. Start project by
-
-`npm start`
-
-4. Edit files from src/assets/scss
+`ng build --prod=true`
 
 ## Changelog
 Angular YouTube Player 2.4
