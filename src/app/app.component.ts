@@ -10,7 +10,7 @@ import { PlaylistControlService } from './services/playlist-control.service';
     providers: [ PlaylistControlService ]
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit {  
     @ViewChild('videoItemIDvalue') videoItemIDvalue: ElementRef;
 
     constructor(

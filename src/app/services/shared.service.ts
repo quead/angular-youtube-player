@@ -1,19 +1,17 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
-import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
 import { DbCrudService } from './db-crud.service';
 import { DragulaService } from 'ng2-dragula';
 import { NotifyService } from '../services/notify.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SharedService {
 
     constructor(
         private youtube: YoutubeGetVideo,
-        private http: HttpClient,
         private globals: GlobalsService,
         private dbcrud: DbCrudService,
         public dragulaService: DragulaService,
@@ -27,17 +25,10 @@ export class SharedService {
         }
     }
 
-    async initSettings() {
-        const res = await this.http.get('assets/settings.json').pipe(
-        map(response => response)).toPromise();
-        return res;
-    }
-
     async getSettings() {
-        if (localStorage.length < 1) {
-            const res = await this.initSettings();
-            this.globals.settings = res;
-            localStorage.setItem('settings', JSON.stringify(res));
+        if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
+            this.globals.settings = environment.settings;
+            localStorage.setItem('settings', JSON.stringify(environment.settings));
         } else {
             this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }

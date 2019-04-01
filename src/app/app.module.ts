@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app.router';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { DragulaModule } from 'ng2-dragula';
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { DbCrudService } from './services/db-crud.service';
@@ -27,7 +28,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 
-const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} };
+const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
   imports: [
