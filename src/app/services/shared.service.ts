@@ -18,6 +18,12 @@ export class SharedService {
         private notify: NotifyService
     ) {}
 
+    guid() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+      }
+
     async getRelatedVideos() {
         if (this.globals.currentVideo) {
             const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);

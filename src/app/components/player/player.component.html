@@ -78,7 +78,7 @@
     <div class="player-background" [ngClass]="{'active': isFullscreen }">
         <div class="player-background-container">
             <div class="youtube-player">
-                <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+                <youtube-iframe></youtube-iframe>
             </div>
             <div *ngIf="isFullscreen" class="background-playlist">
                 <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>

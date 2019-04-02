@@ -69,22 +69,6 @@ export class PlayerComponent implements OnInit {
     });
   }
 
-  savePlayer(player) {
-    this.globals.player = player;
-  }
-
-  playerVars() {
-    const playerVars = {
-      'enablejsapi': 1,
-      'playsinline': 1,
-      'autoplay': 0,
-      'loop': 0,
-      'modestbranding': 1,
-      'rel': 0
-    };
-    return playerVars;
-  }
-
   changeState(event: any) {
     if (event.data) {
       this.globals.currentState = event.data;
@@ -153,7 +137,14 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  // Init player
+  // Load the video when region is changed
+  cueVideoWhenRegionChanged() {
+    if (this.globals.player) {
+      this.globals.player.cueVideoById(this.globals.currentVideo.id);
+    }
+  }
+
+  // Init app
   setDefaultPlayer() {
     this.room.join();
     this.shared.initFeed().then(() => {
@@ -164,6 +155,7 @@ export class PlayerComponent implements OnInit {
         this.globals.isLoading = false;
       });
       this.shared.findPlaylistItem();
+      this.cueVideoWhenRegionChanged();
     });
     this.shared.setLocalVersion();
   }

@@ -40,7 +40,7 @@ export class GlobalsService {
   numRelatedRes: number;
 
   settings: SettingsModel;
-  player: YT.Player;
+  player: any;
   myScrollContainer: ElementRef;
 
   constructor() { }

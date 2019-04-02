@@ -21,12 +21,12 @@ import { AboutComponent } from './components/youtube-about.component';
 import { HistoryComponent } from './components/youtube-history.component';
 import { PlayerComponent } from './components/player/player.component';
 
-import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
+import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -35,7 +35,6 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    YoutubePlayerModule,
     FormsModule,
     DragulaModule.forRoot(),
     NguCarouselModule,
@@ -52,7 +51,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     PlayerComponent,
     PlaylistComponent,
     RelatedComponent,
-    RoomComponent
+    RoomComponent,
+    YoutubeIframeComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [

@@ -2,11 +2,9 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
-import { DbCrudService } from '../../services/db-crud.service';
 import { PlayerComponent } from '../../components/player/player.component';
 import { NotifyService } from '../../services/notify.service';
 import { VideoModel } from '../../models/video.model';
-import { Event } from '@angular/router/src/events';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -30,7 +28,6 @@ export class PlaylistComponent implements OnInit {
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
-    private dbcrud: DbCrudService,
     private notify: NotifyService
   ) {
     if (!this.shared.dragulaService['groups'].playlistDrag) {
