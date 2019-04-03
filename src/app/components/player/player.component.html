@@ -36,7 +36,7 @@
             </div>
             <div class="player-buttons" *ngIf="!globals.isTempSessionActive">
                 <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span class="fa fa-backward"></span></button>
-                <button id="play-song" (click)="playPauseVideo()"><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+                <button id="play-song" (click)="playerCTA.playPauseVideo()"><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
                 <button id="next-song" (click)="playPlaylistItem('next', globals.currentPlaylistItem)"><span class="fa fa-forward"></span></button>
             </div>
             <div class="current-video-range">
