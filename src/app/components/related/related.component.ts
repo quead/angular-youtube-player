@@ -29,5 +29,4 @@ export class RelatedComponent implements OnInit {
       touch: false,
     };
   }
-
 }

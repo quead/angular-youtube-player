@@ -224,10 +224,6 @@ export class SharedService {
                 this.globals.relatedVideos = tempVideos;
                 break;
             }
-            case 'lastSearchedVideos': {
-                this.globals.lastSearchedVideos = tempVideos;
-                break;
-            }
             case 'searchedVideos': {
                 this.globals.searchedVideos = tempVideos;
                 break;
@@ -274,20 +270,23 @@ export class SharedService {
     onCopyVideoItemLink(i: number, list: number) {
         let listType;
         const youtubeLink = 'https://youtu.be/';
-        if (list === 0) {
-          listType = this.globals.feedVideos[i];
-        }
-        if (list === 1) {
-          listType = this.globals.lastSearchedVideos[i];
-        }
-        if (list === 2) {
-          listType = this.globals.relatedVideos[i];
-        }
-        if (list === 3) {
-          listType = this.globals.playlistVideos[i];
-        }
-        if (list === 4) {
-          listType = this.globals.historyVideos[i];
+        switch(list) {
+            case 0:
+                listType = this.globals.feedVideos[i];
+            break;
+            case 1:
+                listType = this.globals.searchedVideos[i];
+            break;
+            case 2:
+                listType = this.globals.relatedVideos[i];
+            break;
+            case 3:
+                listType = this.globals.playlistVideos[i];
+            break;
+            case 4:
+                listType = this.globals.historyVideos[i];
+            default:
+                console.log(`Cannot parse copyvideolink ${i} ${list}`)
         }
 
         this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
@@ -297,6 +296,5 @@ export class SharedService {
         document.execCommand('copy');
         this.globals.videoItemIDvalue.nativeElement.blur();
         this.copyShareLink();
-      }
-
+    }
 }

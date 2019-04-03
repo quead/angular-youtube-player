@@ -27,6 +27,7 @@ import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
+import { ButtonsComponent } from './components/player/buttons/buttons.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -52,7 +53,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     PlaylistComponent,
     RelatedComponent,
     RoomComponent,
-    YoutubeIframeComponent
+    YoutubeIframeComponent,
+    ButtonsComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [

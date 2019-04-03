@@ -107,19 +107,13 @@ export class PlaylistComponent implements OnInit {
   }
 
 
-  onClickPlaylist(i: number) {
+  onClickVideo(i: number) {
     if (i === this.globals.currentPlaylistItem) {
       this.playerComp.playPauseVideo();
     } else {
       this.playerComp.getVideo(this.globals.playlistVideos[i]);
     }
   }
-
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.shared.onCopyVideoItemLink(i, list);
-  }
-
   // ---------------- Modal functions ----------------
 
   closeModal() {

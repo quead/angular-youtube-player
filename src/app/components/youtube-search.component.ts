@@ -38,7 +38,6 @@ export class SearchComponent implements OnInit {
     } else {
       this.noResults = false;
     }
-    this.shared.convertVideoObject(res['items'], 'lastSearchedVideos');
   }
 
   searchFunction() {
@@ -60,13 +59,8 @@ export class SearchComponent implements OnInit {
     event.preventDefault();
   }
 
-  onClickVideo(event: Event, i: any, list: number) {
-    if (list === 1) {
-      this.playerComp.getVideo(this.globals.searchedVideos[i]);
-      this.clearSearch();
-    } else if (list === 3) {
-      this.playerComp.getVideo(this.globals.feedVideos[i]);
-    }
+  onClickVideo(i: any) {
+    this.playerComp.getVideo(this.globals.searchedVideos[i]);
     this.clearSearch();
   }
 

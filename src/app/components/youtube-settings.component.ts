@@ -61,8 +61,13 @@ export class SettingsComponent implements OnInit {
         this.globals.settings.form_settings.thumbnails.value = this.internalSettings.controls.fcThumbnails.value;
         this.globals.settings.form_settings.listToggle.value = this.internalSettings.controls.fcList.value;
         this.globals.settings.form_settings.repeat.value = this.internalSettings.controls.fcRepeat.value;
+        this.save();
+    }
+
+    save() {
         this.shared.updateLocalStorageSettings();
         this.shared.getSettings();
+        this.playerComp.setDefaultPlayer();
         this.notify.triggerNotify(22);
     }
 
@@ -76,17 +81,12 @@ export class SettingsComponent implements OnInit {
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this.notify.triggerNotify(22);
             this.globals.settings.api_settings.key.value = this.externalSettings.controls.fcApi.value;
             this.globals.settings.api_settings.region.value = this.externalSettings.controls.fcRegion.value;
             this.globals.settings.api_settings.search_num.value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
             this.globals.settings.api_settings.related_num.value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
             this.globals.feedVideos = null;
-
-            this.shared.updateLocalStorageSettings();
-            this.shared.getSettings();
-
-            this.playerComp.setDefaultPlayer();
+            this.save();
         } else {
             this.notify.triggerNotify(10);
         }

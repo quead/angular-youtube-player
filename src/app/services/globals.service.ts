@@ -9,7 +9,6 @@ export class GlobalsService {
   relatedVideos: Array<VideoModel> = [];
   feedVideos: Array<VideoModel>;
   playlistVideos: Array<VideoModel> = [];
-  lastSearchedVideos: Array<VideoModel>;
   historyVideos: Array<VideoModel> = [];
   searchedVideos: Array<VideoModel>;
 

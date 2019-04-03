@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { PlayerComponent } from '../components/player/player.component';
@@ -26,13 +25,12 @@ export class YoutubeIframeService {
   }
 
   loadPlayerApi() {
-    const doc = win.document;
     if (!this.apiLoaded) {
       this.apiLoaded = true;
-      const playerApiScript = doc.createElement('script');
+      const playerApiScript = win.document.createElement('script');
       playerApiScript.type = 'text/javascript';
       playerApiScript.src = `https://www.youtube.com/iframe_api`;
-      doc.body.appendChild(playerApiScript);
+      win.document.body.appendChild(playerApiScript);
     }
   }
 

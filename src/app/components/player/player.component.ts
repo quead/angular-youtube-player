@@ -141,6 +141,7 @@ export class PlayerComponent implements OnInit {
   cueVideoWhenRegionChanged() {
     if (this.globals.player) {
       this.globals.player.cueVideoById(this.globals.currentVideo.id);
+      this.videoRangePercent = 0;
     }
   }
 
@@ -162,6 +163,7 @@ export class PlayerComponent implements OnInit {
 
   // ---------------- Player controls ----------------
 
+  // ------- TO REMOVE
   triggerPlayPauseVideo() {
     if (this.globals.currentState === 1) {
       this.globals.player.pauseVideo();
@@ -184,6 +186,7 @@ export class PlayerComponent implements OnInit {
       });
     }
   }
+  // ------- TO REMOVE
 
   rangeNouseDown() {
     this.videoRangeMouseActive = true;
@@ -256,6 +259,32 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  // ------- TO REMOVE
+  onClickVideo(i: number, list: number) {
+      let videoSelected;
+      if (list === 0) {
+        videoSelected = this.globals.feedVideos[i];
+      }
+      if (list === 1) {
+        videoSelected = this.globals.searchedVideos[i];
+      }
+      if (list === 2) {
+        videoSelected = this.globals.relatedVideos[i];
+      }
+      if (list === 3) {
+        videoSelected = this.globals.playlistVideos[i];
+      }
+      if (list === 4) {
+        videoSelected = this.globals.historyVideos[i];
+      }
+
+      // if (videoSelected.id === this.globals.currentVideo) {
+      //   this.triggerPlayPauseVideo();
+      // } else {
+      // }
+      this.getVideo(videoSelected);
+  }
+
   getVideo(data: any) {
     if (this.globals.isTempSessionActive) {
       this.triggerGetVideo(data);
@@ -283,6 +312,7 @@ export class PlayerComponent implements OnInit {
     this.globals.player.loadVideoById(data.id);
     this.shared.findPlaylistItem();
   }
+  // ------- TO REMOVE
 
   startRange() {
     this.stopRange();
@@ -320,11 +350,6 @@ export class PlayerComponent implements OnInit {
     } else {
       this.notify.triggerNotify(0);
     }
-  }
-
-  // Others
-  onClickRelated(i: number) {
-    this.getVideo(this.globals.relatedVideos[i]);
   }
 
   timeFormat(time: number) {

@@ -20,22 +20,7 @@
                 <p class="video-item-autor">by <span>{{ video.channelTitle }}</span></p>
             </div>
           </div>
-          <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
-            <button class="video-item-play" (click)="onClickVideo($event, i, 1)">
-              <span class="fa fa-play"></span>
-            </button>
-            <button class="video-item-share" (click)="onCopyVideoItemLink(i, 1)">
-              <span class="fa fa-share-alt"></span>
-            </button>
-            <button class="video-item-add" (click)="addPlaylistItem(i, 1)">
-              <span class="fa fa-plus"></span>
-            </button>
-          </div>
-          <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
-            <button class="video-item-play" (click)="onCopyVideoItemLink(i, 1)">
-              <span class="fa fa-share-alt"></span>
-            </button>
-          </div>
+          <app-buttons [videoIndex]="i" [listID]="1"></app-buttons>
         </div>
       </div>
     </ng-container>

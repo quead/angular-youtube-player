@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../../services/youtube.service';
-import { PlayerComponent } from '../../components/player/player.component';
 import { PlaylistComponent } from '../../components/playlist/playlist.component';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
@@ -18,7 +17,6 @@ export class CategoryComponent implements OnInit {
     private shared: SharedService,
     public globals: GlobalsService,
     public playlist: PlaylistComponent,
-    private playerComp: PlayerComponent,
   ) {
   }
 
@@ -64,11 +62,5 @@ export class CategoryComponent implements OnInit {
     this.shared.initFeed().then(() => {
         this.loading = false;
     });
-  }
-
-  onClickVideo(i: any, list: number) {
-    if (list === 0) {
-        this.playerComp.getVideo(this.globals.feedVideos[i]);
-    }
   }
 }

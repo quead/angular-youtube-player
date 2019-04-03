@@ -35,22 +35,7 @@
             <p class="video-item-autor"><span>{{playlistVideo.channelTitle}}</span></p>
           </div>
         </div>
-        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
-          <button class="video-item-play" (click)="onClickPlaylist(i)">
-            <span class="fa " [ngClass]="globals.currentPlaylistItem === i && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-          </button>
-          <button class="video-item-share" (click)="onCopyVideoItemLink(i, 3)">
-            <span class="fa fa-share-alt"></span>
-          </button>
-          <button class="video-item-remove" (click)="showPlaylistModal(i)">
-            <span class="fa fa-times"></span>
-          </button>
-        </div>
-        <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
-          <button class="video-item-play" (click)="onCopyVideoItemLink(i, 3)">
-            <span class="fa fa-share-alt"></span>
-          </button>
-        </div>
+        <app-buttons [videoIndex]="i" [listID]="3"></app-buttons>
       </div>
     </ng-container>
   </div>

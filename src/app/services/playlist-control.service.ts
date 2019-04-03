@@ -18,7 +18,7 @@ export class PlaylistControlService {
       listType = this.globals.feedVideos[i];
     }
     if (list === 1) {
-      listType = this.globals.lastSearchedVideos[i];
+      listType = this.globals.searchedVideos[i];
     }
     if (list === 2) {
       listType = this.globals.relatedVideos[i];

@@ -22,17 +22,4 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     console.log('history');
   }
-
-  addPlaylistItem(i: number, list: number) {
-      this.playlist.addPlaylistItem(i, list);
-  }
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.shared.onCopyVideoItemLink(i, list);
-  }
-
-  onClickHistory(i: number) {
-    this.playerComp.getVideo(this.globals.historyVideos[i]);
-  }
-
 }
