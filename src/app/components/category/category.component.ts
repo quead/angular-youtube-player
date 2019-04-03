@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../../services/youtube.service';
-import { PlaylistComponent } from '../../components/playlist/playlist.component';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 
@@ -16,7 +15,6 @@ export class CategoryComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private shared: SharedService,
     public globals: GlobalsService,
-    public playlist: PlaylistComponent,
   ) {
   }
 

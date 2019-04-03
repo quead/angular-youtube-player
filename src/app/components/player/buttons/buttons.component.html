@@ -1,6 +1,6 @@
 <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
   <button class="video-item-play" (click)="onClickVideo(videoIndex, listID)">
-    <span class="fa " [ngClass]="globals.currentVideo.id === getVideoFromList(videoIndex, listID)['id'] && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+    <span class="fa " [ngClass]="globals.currentVideo.id === shared.getVideoFromList(videoIndex, listID)['id'] && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
   </button>
   <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
     <span class="fa fa-share-alt"></span>

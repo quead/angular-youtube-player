@@ -66,7 +66,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     SharedService,
     GlobalsService,
     NguCarouselConfig,
-    NguCarousel
+    NguCarousel,
+    ButtonsComponent
   ]
 })
 

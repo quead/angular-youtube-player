@@ -4,6 +4,7 @@ import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
 import { NotifyService } from '../../services/notify.service';
 import { RoomService } from '../../services/room.service';
+import { ButtonsComponent } from './buttons/buttons.component';
 import { Socket } from 'ngx-socket-io';
 
 @Component({
@@ -36,6 +37,7 @@ export class PlayerComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     private notify: NotifyService,
     private room: RoomService,
+    private playerCTA: ButtonsComponent,
     private socket: Socket
   ) {
   }
@@ -50,13 +52,13 @@ export class PlayerComponent implements OnInit {
     this.socket.on('event_trigger', (data) => {
       switch (data.eventName) {
         case 'playVideo':
-          this.triggerPlayPauseVideo();
+          this.playerCTA.triggerPlayPauseVideo();
         break;
         case 'updateState':
           this.changeState({ data: data.playerData.currentState });
         break;
         case 'playNewVideo':
-          this.triggerGetVideo(data.playerData.currentVideo);
+          this.playerCTA.triggerGetVideo(data.playerData.currentVideo);
         break;
         case 'seekTo':
           this.triggerSeekTo(data.playerData.currentSeek);
@@ -163,31 +165,6 @@ export class PlayerComponent implements OnInit {
 
   // ---------------- Player controls ----------------
 
-  // ------- TO REMOVE
-  triggerPlayPauseVideo() {
-    if (this.globals.currentState === 1) {
-      this.globals.player.pauseVideo();
-    } else {
-      this.globals.player.playVideo();
-    }
-  }
-
-  playPauseVideo() {
-    if (this.globals.isTempSessionActive) {
-      this.triggerPlayPauseVideo();
-    } else {
-      this.socket.emit('update_player', {
-        eventName: 'playVideo',
-        roomName: this.globals.sessionValue,
-        playerData: {
-          currentVideo: this.globals.currentVideo,
-          currentState: this.globals.currentState,
-        }
-      });
-    }
-  }
-  // ------- TO REMOVE
-
   rangeNouseDown() {
     this.videoRangeMouseActive = true;
     this.stopRange();
@@ -259,61 +236,6 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  // ------- TO REMOVE
-  onClickVideo(i: number, list: number) {
-      let videoSelected;
-      if (list === 0) {
-        videoSelected = this.globals.feedVideos[i];
-      }
-      if (list === 1) {
-        videoSelected = this.globals.searchedVideos[i];
-      }
-      if (list === 2) {
-        videoSelected = this.globals.relatedVideos[i];
-      }
-      if (list === 3) {
-        videoSelected = this.globals.playlistVideos[i];
-      }
-      if (list === 4) {
-        videoSelected = this.globals.historyVideos[i];
-      }
-
-      // if (videoSelected.id === this.globals.currentVideo) {
-      //   this.triggerPlayPauseVideo();
-      // } else {
-      // }
-      this.getVideo(videoSelected);
-  }
-
-  getVideo(data: any) {
-    if (this.globals.isTempSessionActive) {
-      this.triggerGetVideo(data);
-    } else {
-      this.socket.emit('update_player', {
-        eventName: 'playNewVideo',
-        roomName: this.globals.sessionValue,
-        playerData: {
-          currentVideo: data,
-          currentState: this.globals.currentState
-        }
-      });
-    }
-  }
-
-  triggerGetVideo(data: any) {
-    this.shared.getStatsVideos(data.id).then(() => {
-      this.playVideo(data);
-      this.shared.getRelatedVideos();
-    });
-  }
-
-  playVideo(data: any) {
-    this.shared.addHistoryVideo(data);
-    this.globals.player.loadVideoById(data.id);
-    this.shared.findPlaylistItem();
-  }
-  // ------- TO REMOVE
-
   startRange() {
     this.stopRange();
     if (this.globals.currentState) {
@@ -346,7 +268,7 @@ export class PlayerComponent implements OnInit {
       }
     }
     if (this.globals.playlistVideos.length > 0) {
-      this.getVideo(this.globals.playlistVideos[i]);
+      this.playerCTA.getVideo(this.globals.playlistVideos[i]);
     } else {
       this.notify.triggerNotify(0);
     }

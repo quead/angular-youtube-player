@@ -16,8 +16,8 @@
           <div class="video-item-info">
             <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + video.thumbnails.default +')'}"></div>
             <div class="video-item-content">
-                <p class="video-item-title">{{ video.title }}</p>
-                <p class="video-item-autor">by <span>{{ video.channelTitle }}</span></p>
+                <p class="video-item-title">{{video.title}}</p>
+                <p class="video-item-autor">{{video.channelTitle}}</p>
             </div>
           </div>
           <app-buttons [videoIndex]="i" [listID]="1"></app-buttons>

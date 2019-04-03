@@ -23,30 +23,6 @@ export class ButtonsComponent implements OnInit {
   ngOnInit() {
   }
 
-  getVideoFromList(i: number, listIndex: number) {
-    let videoSelected;
-
-    switch(listIndex) {
-      case 0:
-        videoSelected = this.globals.feedVideos[i];
-      break;
-      case 1:
-        videoSelected = this.globals.searchedVideos[i];
-      break;
-      case 2:
-        videoSelected = this.globals.relatedVideos[i];
-      break;
-      case 3:
-        videoSelected = this.globals.playlistVideos[i];
-      break;
-      case 4:
-        videoSelected = this.globals.historyVideos[i];
-      default:
-    }
-
-    return videoSelected;
-  }
-
   triggerPlayPauseVideo() {
     if (this.globals.currentState === 1) {
       this.globals.player.pauseVideo();
@@ -71,10 +47,10 @@ export class ButtonsComponent implements OnInit {
   }
 
   onClickVideo(i: number, list: number) {
-    if (this.globals.currentVideo.id === this.getVideoFromList(i, list).id) {
+    if (this.globals.currentVideo.id === this.shared.getVideoFromList(i, list).id) {
       this.playPauseVideo();
     } else {
-      this.getVideo(this.getVideoFromList(i, list));
+      this.getVideo(this.shared.getVideoFromList(i, list));
     }
 }
 

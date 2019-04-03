@@ -126,6 +126,30 @@ export class SharedService {
         }
     }
 
+    getVideoFromList(i: number, listIndex: number) {
+        let videoSelected;
+    
+        switch(listIndex) {
+          case 0:
+            videoSelected = this.globals.feedVideos[i];
+          break;
+          case 1:
+            videoSelected = this.globals.searchedVideos[i];
+          break;
+          case 2:
+            videoSelected = this.globals.relatedVideos[i];
+          break;
+          case 3:
+            videoSelected = this.globals.playlistVideos[i];
+          break;
+          case 4:
+            videoSelected = this.globals.historyVideos[i];
+          default:
+        }
+    
+        return videoSelected;
+      }
+
     convertVideoObject(object: any, list: string) {
         let tempVideos = [];
         let tempObject = {
@@ -268,28 +292,9 @@ export class SharedService {
     }
 
     onCopyVideoItemLink(i: number, list: number) {
-        let listType;
-        const youtubeLink = 'https://youtu.be/';
-        switch(list) {
-            case 0:
-                listType = this.globals.feedVideos[i];
-            break;
-            case 1:
-                listType = this.globals.searchedVideos[i];
-            break;
-            case 2:
-                listType = this.globals.relatedVideos[i];
-            break;
-            case 3:
-                listType = this.globals.playlistVideos[i];
-            break;
-            case 4:
-                listType = this.globals.historyVideos[i];
-            default:
-                console.log(`Cannot parse copyvideolink ${i} ${list}`)
-        }
+        const youtubeLink = 'https://youtu.be/';      
 
-        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
+        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + this.getVideoFromList(i, list).id;
 
         this.globals.videoItemIDvalue.nativeElement.select();
         this.globals.videoItemIDvalue.nativeElement.focus();

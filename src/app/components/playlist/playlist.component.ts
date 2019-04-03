@@ -106,14 +106,6 @@ export class PlaylistComponent implements OnInit {
     );
   }
 
-
-  onClickVideo(i: number) {
-    if (i === this.globals.currentPlaylistItem) {
-      this.playerComp.playPauseVideo();
-    } else {
-      this.playerComp.getVideo(this.globals.playlistVideos[i]);
-    }
-  }
   // ---------------- Modal functions ----------------
 
   closeModal() {

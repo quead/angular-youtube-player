@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
-import { PlayerComponent } from '../components/player/player.component';
-import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { GlobalsService } from '../services/globals.service';
 import { SharedService } from '../services/shared.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,8 +18,6 @@ export class SearchComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private globals: GlobalsService,
     private shared: SharedService,
-    private playerComp: PlayerComponent,
-    private playlist: PlaylistComponent
   ) {
   }
 
@@ -57,20 +53,5 @@ export class SearchComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-  }
-
-  onClickVideo(i: any) {
-    this.playerComp.getVideo(this.globals.searchedVideos[i]);
-    this.clearSearch();
-  }
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.shared.onCopyVideoItemLink(i, list);
-    this.clearSearch();
-  }
-
-  addPlaylistItem(i: number, list: number) {
-    this.playlist.addPlaylistItem(i, list);
-    this.clearSearch();
   }
 }
