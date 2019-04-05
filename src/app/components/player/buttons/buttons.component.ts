@@ -52,34 +52,34 @@ export class ButtonsComponent implements OnInit {
     } else {
       this.getVideo(this.shared.getVideoFromList(i, list));
     }
-}
+  }
 
-getVideo(data: any) {
-  if (this.globals.isTempSessionActive) {
-    this.triggerGetVideo(data);
-  } else {
-    this.socket.emit('update_player', {
-      eventName: 'playNewVideo',
-      roomName: this.globals.sessionValue,
-      playerData: {
-        currentVideo: data,
-        currentState: this.globals.currentState
-      }
+  getVideo(data: any) {
+    if (this.globals.isTempSessionActive) {
+      this.triggerGetVideo(data);
+    } else {
+      this.socket.emit('update_player', {
+        eventName: 'playNewVideo',
+        roomName: this.globals.sessionValue,
+        playerData: {
+          currentVideo: data,
+          currentState: this.globals.currentState
+        }
+      });
+    }
+  }
+
+  triggerGetVideo(data: any) {
+    this.shared.getStatsVideos(data.id).then(() => {
+      this.playVideo(data);
+      this.shared.getRelatedVideos();
     });
   }
-}
 
-triggerGetVideo(data: any) {
-  this.shared.getStatsVideos(data.id).then(() => {
-    this.playVideo(data);
-    this.shared.getRelatedVideos();
-  });
-}
-
-playVideo(data: any) {
-  this.shared.addHistoryVideo(data);
-  this.globals.player.loadVideoById(data.id);
-  this.shared.findPlaylistItem();
-}
+  playVideo(data: any) {
+    this.shared.addHistoryVideo(data);
+    this.globals.player.loadVideoById(data.id);
+    this.shared.findPlaylistItem();
+  }
 
 }

@@ -45,8 +45,9 @@
                   <input type="range" id="youtube-player-range" class="player-range disabled" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange [disabled]="globals.currentState === -1">                  
                 </ng-container>
                 <ng-container *ngIf="!globals.isTempSessionActive">
-                    <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="globals.currentState === -1">                  
-                  </ng-container>
+                  <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="globals.currentState === -1">                  
+                </ng-container>
+                <span class="time-input-shadow" [ngStyle]="{'left': videoRangePercent +'%'}">{{videoCurFull}}</span>
                 <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
               </div>
               <p class="current-video-range-value">{{videoCurFull}}</p>

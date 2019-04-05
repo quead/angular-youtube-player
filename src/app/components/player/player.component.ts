@@ -26,8 +26,8 @@ export class PlayerComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  videoCurFull = '00:00:00';
-  videoMaxFull = '00:00:00';
+  videoCurFull = '00:00';
+  videoMaxFull = '00:00';
 
   loading = true;
 
@@ -275,12 +275,10 @@ export class PlayerComponent implements OnInit {
   }
 
   timeFormat(time: number) {
-    const hours: any = Math.floor(time / 3600);
-    const minutes: any = Math.floor(time % 3600 / 60);
-    const seconds: any = Math.floor(time % 3600 % 60);
-    const value = (parseInt(hours, 10) < 10 ? '0' : '' ) + parseInt(hours, 10) + ':'
-              + (parseInt(minutes, 10) < 10 ? '0' : '' ) + parseInt(minutes, 10) + ':'
-              + (parseInt(seconds, 10) < 10 ? '0' : '' ) + parseInt(seconds, 10);
+    const hours: number = Math.floor(time / 3600);
+    const minutes: number = Math.round(time % 3600 / 60);
+    const seconds: number = Math.round(time % 3600 % 60);
+    const value = `${(hours > 0) ? (hours < 10 ? '0' : '' ) + hours + ':' : ''}${(minutes < 10 ? '0' : '' ) + minutes}:${(seconds < 10 ? '0' : '' ) + seconds}`;
     return value;
   }
 

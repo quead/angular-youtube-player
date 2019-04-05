@@ -150,6 +150,16 @@
     background-color: rgba(255, 255, 255, 0.1);
     width: 100%;
     border-radius: 20px;
+    .time-input-shadow {
+        position: absolute;
+        transform: translateX(-25px);
+        background-color: black;
+        padding: 2px 8px;
+        border-radius: 5px;
+        top: -30px;
+        opacity: 0;
+        visibility: hidden;
+    }
     .duration-input-shadow {
         position: absolute;
         top: 0;
@@ -183,6 +193,11 @@
                 border-radius: 20px 0 0 20px;
             }
             &::-webkit-slider-thumb {
+                opacity: 1;
+                visibility: visible;
+            }
+            + .time-input-shadow {
+                top: -35px;
                 opacity: 1;
                 visibility: visible;
             }
