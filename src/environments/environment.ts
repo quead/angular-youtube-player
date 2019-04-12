@@ -6,7 +6,7 @@ import { defaultSettings } from './settings';
 
 export const environment = {
   production: false,
-  serverURL: 'https://habarnam.io:8888',
+  serverURL: 'http://localhost:8888',
   storageVersion: 4,
   settings: defaultSettings,
 };
