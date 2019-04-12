@@ -6,7 +6,7 @@ import { GlobalsService } from './globals.service';
 const win = window;
 export const YTPlayer = () => {
     return win['YT'];
-}
+};
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ export class YoutubeIframeService {
       'loop': 0,
       'modestbranding': 1,
       'rel': 0
-    }
+    };
     const createPlayer = () => {
       if (YTPlayer().Player) {
         this.createPlayer(playerID, sizes, videoId, options);

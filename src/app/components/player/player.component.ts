@@ -283,15 +283,13 @@ export class PlayerComponent implements OnInit {
   }
 
 
-  toggleHeadSettings(int: number) {
-    if (int === 2) {
-      if (this.currentMuteState) {
-        this.globals.player.unMute();
-        this.currentMuteState = false;
-      } else {
-        this.globals.player.mute();
-        this.currentMuteState = true;
-      }
+  toggleMute() {
+    if (this.currentMuteState) {
+      this.globals.player.unMute();
+      this.currentMuteState = false;
+    } else {
+      this.globals.player.mute();
+      this.currentMuteState = true;
     }
   }
 

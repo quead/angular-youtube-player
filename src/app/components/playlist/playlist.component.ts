@@ -71,14 +71,6 @@ export class PlaylistComponent implements OnInit {
     this.playlistCTRL.addPlaylistItem(i, list);
   }
 
-  clearSession() {
-    this.globals.currentPlaylistItem = -1;
-    this.globals.currentVideo = null;
-    this.globals.playlistVideos = [];
-    this.globals.relatedVideos = [];
-    localStorage.removeItem('playlist');
-  }
-
   // ---------------- Init settings ----------------
 
   initDragula() {

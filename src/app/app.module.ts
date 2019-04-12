@@ -10,7 +10,7 @@ import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { DbCrudService } from './services/db-crud.service';
+import { SessionManagerService } from './services/session-manager.service';
 import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
@@ -58,7 +58,7 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
   ],
   bootstrap: [ AppComponent ],
   providers: [
-    DbCrudService,
+    SessionManagerService,
     PlayerComponent,
     PlaylistComponent,
     YoutubeGetVideo,

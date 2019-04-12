@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifyService } from '../../services/notify.service';
 import { GlobalsService } from '../../services/globals.service';
-import { DbCrudService } from '../../services/db-crud.service';
+import { SessionManagerService } from '../../services/session-manager.service';
 import { SharedService } from '../../services/shared.service';
 import { RoomService } from '../../services/room.service';
 import { Socket } from 'ngx-socket-io';
@@ -21,7 +21,7 @@ export class RoomComponent implements OnInit {
   constructor(
     private notify: NotifyService,
     public globals: GlobalsService,
-    private dbcrud: DbCrudService,
+    private session: SessionManagerService,
     private shared: SharedService,
     public room: RoomService,
     private socket: Socket
@@ -76,7 +76,7 @@ export class RoomComponent implements OnInit {
   }
 
   updateSession() {
-    this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
+    this.session.updateSession('playlist', this.globals.playlistVideos);
     this.notify.triggerNotify(2);
   }
 }

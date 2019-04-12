@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
-import { DbCrudService } from './db-crud.service';
+import { SessionManagerService } from './session-manager.service';
 import { DragulaService } from 'ng2-dragula';
 import { NotifyService } from '../services/notify.service';
 import { environment } from '../../environments/environment';
@@ -13,7 +13,7 @@ export class SharedService {
     constructor(
         private youtube: YoutubeGetVideo,
         private globals: GlobalsService,
-        private dbcrud: DbCrudService,
+        private session: SessionManagerService,
         public dragulaService: DragulaService,
         private notify: NotifyService
     ) {}
@@ -78,7 +78,7 @@ export class SharedService {
     }
 
     uploadPlayist() {
-        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
+        this.session.updateSession('playlist', this.globals.playlistVideos);
         this.setLocalVersion();
     }
 
@@ -128,8 +128,8 @@ export class SharedService {
 
     getVideoFromList(i: number, listIndex: number) {
         let videoSelected;
-    
-        switch(listIndex) {
+
+        switch (listIndex) {
           case 0:
             videoSelected = this.globals.feedVideos[i];
           break;
@@ -144,9 +144,10 @@ export class SharedService {
           break;
           case 4:
             videoSelected = this.globals.historyVideos[i];
+          break;
           default:
         }
-    
+
         return videoSelected;
       }
 
@@ -277,22 +278,13 @@ export class SharedService {
         this.checkPlaylist();
     }
 
-    clearSession() {
-        this.globals.currentPlaylistItem = -1;
-        this.globals.currentVideo = null;
-        this.globals.playlistVideos = [];
-        this.globals.relatedVideos = [];
-        localStorage.removeItem('playlist');
-        localStorage.removeItem('settings');
-    }
-
     copyShareLink() {
         document.execCommand('Copy');
         this.notify.triggerNotify(20);
     }
 
     onCopyVideoItemLink(i: number, list: number) {
-        const youtubeLink = 'https://youtu.be/';      
+        const youtubeLink = 'https://youtu.be/';
 
         this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + this.getVideoFromList(i, list).id;
 
