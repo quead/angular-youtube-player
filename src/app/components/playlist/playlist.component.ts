@@ -4,10 +4,11 @@ import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { PlayerComponent } from '../../components/player/player.component';
 import { NotifyService } from '../../services/notify.service';
+import { ButtonsComponent } from '../player/buttons/buttons.component';
 import { VideoModel } from '../../models/video.model';
 import { Subscription } from 'rxjs/Subscription';
 
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-playlist',
@@ -36,6 +37,7 @@ export class PlaylistComponent implements OnInit {
     public globals: GlobalsService,
     public playlistCTRL: PlaylistControlService,
     public playerComp: PlayerComponent,
+    public buttons: ButtonsComponent,
     private notify: NotifyService
   ) {
     if (!this.shared.dragulaService['groups'].playlistDrag) {
@@ -61,22 +63,6 @@ export class PlaylistComponent implements OnInit {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
-  }
-
-  // ---------------- Playlist settings ----------------
-  removePlaylistItem(i: number) {
-      this.notify.triggerNotify(23);
-      setTimeout(() => {
-        if (i === this.globals.currentPlaylistItem) {
-          this.globals.currentPlaylistItem = -1;
-        }
-        this.globals.playlistVideos.splice(i, 1);
-        this.shared.checkPlaylist();
-      }, 200);
-  }
-
-  addPlaylistItem(i: number, list: number) {
-    this.playlistCTRL.addPlaylistItem(i, list);
   }
 
   // ---------------- Init settings ----------------
@@ -120,7 +106,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   confirmModal() {
-    this.removePlaylistItem(this.modalPlaylistItem);
+    this.playlistCTRL.removePlaylistItem(this.modalPlaylistItem);
     this.modal = false;
   }
 

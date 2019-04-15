@@ -31,14 +31,15 @@ export class SharedService {
         }
     }
 
-    async getSettings() {
-        if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
-            this.globals.settings = environment.settings;
-            localStorage.setItem('settings', JSON.stringify(environment.settings));
-        } else {
-            this.globals.settings = JSON.parse(localStorage.getItem('settings'));
-        }
-        this.setSettings();
+    getSettings() {
+        console.log(environment);
+            if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
+                this.globals.settings = environment.settings;
+                localStorage.setItem('settings', JSON.stringify(environment.settings));
+            } else {
+                this.globals.settings = JSON.parse(localStorage.getItem('settings'));
+            }
+            this.setSettings();
     }
 
     setSettings() {

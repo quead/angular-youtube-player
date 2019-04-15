@@ -76,11 +76,10 @@ export class SettingsComponent implements OnInit {
     }
 
     getDefaultSettings() {
-        this.shared.getSettings().then(() => {
-            this.initExternalForm();
-            this.initInternalForm();
-            this.loading = false;
-        });
+        this.shared.getSettings();
+        this.initExternalForm();
+        this.initInternalForm();
+        this.loading = false;
     }
 
     externalSave() {

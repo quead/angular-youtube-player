@@ -43,6 +43,17 @@ export class PlaylistControlService {
     }
   }
 
+  removePlaylistItem(i: number) {
+    this.notify.triggerNotify(23);
+    setTimeout(() => {
+      if (i === this.globals.currentPlaylistItem) {
+        this.globals.currentPlaylistItem = -1;
+      }
+      this.globals.playlistVideos.splice(i, 1);
+      this.shared.checkPlaylist();
+    }, 200);
+  }
+
   scrollToBottom() {
     try {
       setTimeout( () => {

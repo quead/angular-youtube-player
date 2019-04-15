@@ -17,7 +17,7 @@
         </div>
       </div>
     </ng-container>
-    <ng-container *ngIf="!globals.isLoading">
+    <!-- <ng-container *ngIf="!globals.isLoading">
       <div *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" class="video-item">
         <div class="video-item-info">
           <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="video-item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
@@ -35,9 +35,24 @@
             <p class="video-item-autor">{{playlistVideo.channelTitle}}</p>
           </div>
         </div>
-        <app-buttons [videoIndex]="i" [listID]="3"></app-buttons>
+        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
+            <button class="video-item-play" (click)="buttons.onClickVideo(i, 3)">
+              <span class="fa " [ngClass]="globals.currentVideo.id === shared.getVideoFromList(i, 3)['id'] && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+            </button>
+            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
+              <span class="fa fa-share-alt"></span>
+            </button>
+            <button class="video-item-remove" (click)="showPlaylistModal(i)">
+              <span class="fa fa-remove"></span>
+            </button>
+          </div>
+          <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
+            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
+                <span class="fa fa-share-alt"></span>
+              </button>
+          </div>
       </div>
-    </ng-container>
+    </ng-container> -->
   </div>
 </div>
 <div *ngIf="modal" class="modal-overlay">
@@ -60,6 +75,40 @@
   </div>
 </div>
 
-<div *ngIf="!globals.isLoading" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDrag>{{playlistVideo.title}}</div>
+<div *ngIf="!globals.isLoading" cdkDropList class="playlist" (cdkDropListDropped)="drop($event)">
+    <div class="playlist_item" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" cdkDrag>
+      <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="playlist_item-image" [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
+      <div style="overflow: hidden;">
+        <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === 1">
+          <p class="playlist_item-hint"><span class="fa fa-play"></span>Playing</p>
+        </ng-container>
+        <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState !== 1 && globals.currentState !== -1">                        
+          <p class="playlist_item-hint"><span class="fa fa-pause"></span>Paused</p> 
+        </ng-container>                       
+        <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === -1">                        
+          <p class="playlist_item-hint"><span class="fa fa-stop"></span>Not started</p> 
+        </ng-container>
+        <p class="playlist_item-title">{{playlistVideo.title}}</p>
+        <p class="playlist_item-uploader">{{playlistVideo.channelTitle}}</p>
+        
+        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
+          <button class="video-item-play" (click)="buttons.onClickVideo(i, 3)">
+            <span class="fa " [ngClass]="globals.currentVideo.id === shared.getVideoFromList(i, 3)['id'] && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
+          </button>
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
+            <span class="fa fa-share-alt"></span>
+          </button>
+          <button class="video-item-remove" (click)="showPlaylistModal(i)">
+            <span class="fa fa-plus"></span>
+          </button>
+        </div>
+        <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
+          <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
+              <span class="fa fa-share-alt"></span>
+            </button>
+        </div>
+
+        
+      </div>
+    </div>
 </div>
