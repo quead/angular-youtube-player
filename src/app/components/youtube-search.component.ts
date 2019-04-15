@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     console.log('search');
-    this.searchFunction();
+    this.initSearchInput();
   }
 
   async searchVideo(query: any) {
@@ -36,9 +36,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  searchFunction() {
+  initSearchInput() {
     this.searchForm = new FormGroup({
-      searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
+      searchInput: new FormControl('', [Validators.required, Validators.minLength(1)])
     });
 
     this.searchForm.valueChanges.subscribe((form) => {

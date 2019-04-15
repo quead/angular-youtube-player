@@ -3,6 +3,7 @@ import { GlobalsService } from '../../../services/globals.service';
 import { SharedService } from '../../../services/shared.service';
 import { PlaylistControlService } from '../../../services/playlist-control.service';
 import { Socket } from 'ngx-socket-io';
+import { VideoModel } from '../../../models/video.model';
 
 @Component({
   selector: 'app-buttons',
@@ -54,7 +55,7 @@ export class ButtonsComponent implements OnInit {
     }
   }
 
-  getVideo(data: any) {
+  getVideo(data: VideoModel) {
     if (this.globals.isTempSessionActive) {
       this.triggerGetVideo(data);
     } else {
@@ -69,14 +70,14 @@ export class ButtonsComponent implements OnInit {
     }
   }
 
-  triggerGetVideo(data: any) {
+  triggerGetVideo(data: VideoModel) {
     this.shared.getStatsVideos(data.id).then(() => {
       this.playVideo(data);
       this.shared.getRelatedVideos();
     });
   }
 
-  playVideo(data: any) {
+  playVideo(data: VideoModel) {
     this.shared.addHistoryVideo(data);
     this.globals.player.loadVideoById(data.id);
     this.shared.findPlaylistItem();

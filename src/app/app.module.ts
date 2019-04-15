@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.router';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { DragulaModule } from 'ng2-dragula';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
 import { environment } from '../environments/environment';
 
@@ -40,6 +42,7 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     DragulaModule.forRoot(),
     NguCarouselModule,
     AppRoutingModule,
+    DragDropModule,
     SocketIoModule.forRoot(config)
   ],
   declarations: [

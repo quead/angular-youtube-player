@@ -7,11 +7,19 @@ import { NotifyService } from '../../services/notify.service';
 import { VideoModel } from '../../models/video.model';
 import { Subscription } from 'rxjs/Subscription';
 
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
+  styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event);
+  }
+
   @ViewChild('playlistContainer') private myScrollContainer: ElementRef;
 
   tempPlaylist: Array<VideoModel> = [];

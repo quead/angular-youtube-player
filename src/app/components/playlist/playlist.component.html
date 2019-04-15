@@ -59,3 +59,7 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="!globals.isLoading" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDrag>{{playlistVideo.title}}</div>
+</div>

@@ -55,7 +55,7 @@ export class PlayerComponent implements OnInit {
           this.playerCTA.triggerPlayPauseVideo();
         break;
         case 'updateState':
-          this.changeState({ data: data.playerData.currentState });
+          this.changeState({data: data.playerData.currentState});
         break;
         case 'playNewVideo':
           this.playerCTA.triggerGetVideo(data.playerData.currentVideo);

@@ -77,14 +77,11 @@ export class SharedService {
         this.setLocalVersion();
     }
 
-    uploadPlayist() {
-        this.session.updateSession('playlist', this.globals.playlistVideos);
-        this.setLocalVersion();
-    }
-
     checkPlaylist() {
         this.findPlaylistItem();
-        this.uploadPlayist();
+        this.session.updateSession('playlist', this.globals.playlistVideos);
+        this.setLocalVersion();
+
     }
 
     findPlaylistItem() {
@@ -117,7 +114,7 @@ export class SharedService {
        return arr;
     }
 
-    addHistoryVideo(data: any) {
+    addHistoryVideo(data: VideoModel) {
         if (typeof (this.globals.historyVideos.find(video => video.id === data.id)) === 'undefined') {
             this.globals.historyVideos.unshift(data);
         } else {

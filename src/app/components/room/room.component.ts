@@ -14,8 +14,7 @@ export class RoomComponent implements OnInit {
 
 
   modal = false;
-  modalPlaylist = false;
-  modalExportPlaylist = false;
+  modalRoom = false;
   sessionKeyInput: any;
 
   constructor(
@@ -40,12 +39,12 @@ export class RoomComponent implements OnInit {
 
   closeModal() {
     this.modal = false;
-    this.modalExportPlaylist = false;
+    this.modalRoom = false;
   }
 
   showModal() {
     this.modal = true;
-    this.modalExportPlaylist = true;
+    this.modalRoom = true;
   }
 
   leave() {
