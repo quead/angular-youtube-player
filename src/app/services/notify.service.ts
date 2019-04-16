@@ -38,8 +38,8 @@ export class NotifyService {
     constructor() { }
 
     triggerNotify(messageCode: number) {
-        // this.defaults.enabled = true;
-        // this.defaults.message = this.copies[messageCode];
-        // setTimeout(() => this.defaults.enabled = false, 3000);
+        this.defaults.enabled = true;
+        this.defaults.message = this.copies[messageCode];
+        setTimeout(() => this.defaults.enabled = false, 3000);
     }
 }
