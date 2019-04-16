@@ -3,7 +3,6 @@ import { YoutubeGetVideo } from './youtube.service';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
 import { SessionManagerService } from './session-manager.service';
-import { DragulaService } from 'ng2-dragula';
 import { NotifyService } from '../services/notify.service';
 import { environment } from '../../environments/environment';
 
@@ -14,7 +13,6 @@ export class SharedService {
         private youtube: YoutubeGetVideo,
         private globals: GlobalsService,
         private session: SessionManagerService,
-        public dragulaService: DragulaService,
         private notify: NotifyService
     ) {}
 
@@ -32,14 +30,13 @@ export class SharedService {
     }
 
     getSettings() {
-        console.log(environment);
-            if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
-                this.globals.settings = environment.settings;
-                localStorage.setItem('settings', JSON.stringify(environment.settings));
-            } else {
-                this.globals.settings = JSON.parse(localStorage.getItem('settings'));
-            }
-            this.setSettings();
+        if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
+            this.globals.settings = environment.settings;
+            localStorage.setItem('settings', JSON.stringify(environment.settings));
+        } else {
+            this.globals.settings = JSON.parse(localStorage.getItem('settings'));
+        }
+        this.setSettings();
     }
 
     setSettings() {

@@ -8,13 +8,13 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.4-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.5-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
-This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [ng2-dragula](https://github.com/valor-software/ng2-dragula "ng2 dragula").
+This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [@angular/material](https://material.angular.io/ "angular material").
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -55,6 +55,7 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 Angular YouTube Player 2.5
 - Cleaned the project to avoid using a lot of dependencies
 - Fix the issue when you change the region didn't updated the player
+- Improved UX for playlist
 
 Angular YouTube Player 2.4
 - Switched from firebase to json through socket.io and private server
