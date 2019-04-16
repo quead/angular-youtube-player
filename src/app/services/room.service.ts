@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GlobalsService } from './globals.service';
-import { DbCrudService } from './db-crud.service';
+import { SessionManagerService } from './session-manager.service';
 import { SharedService } from './shared.service';
 import { Socket } from 'ngx-socket-io';
 
@@ -11,13 +11,13 @@ export class RoomService {
 
   constructor(
     public globals: GlobalsService,
-    private dbcrud: DbCrudService,
+    private session: SessionManagerService,
     private shared: SharedService,
     private socket: Socket
   ) { }
 
   join() {
-    this.dbcrud.getSession().then((res) => {
+    this.session.getSession().then((res) => {
       if (res === 'OK') {
         // If session exist we can bring him in the session
         this.socket.emit('join_session', this.globals.sessionValue);

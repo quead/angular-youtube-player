@@ -18,7 +18,7 @@ export class PlaylistControlService {
       listType = this.globals.feedVideos[i];
     }
     if (list === 1) {
-      listType = this.globals.lastSearchedVideos[i];
+      listType = this.globals.searchedVideos[i];
     }
     if (list === 2) {
       listType = this.globals.relatedVideos[i];
@@ -41,6 +41,17 @@ export class PlaylistControlService {
     } else {
       this.notify.triggerNotify(4);
     }
+  }
+
+  removePlaylistItem(i: number) {
+    this.notify.triggerNotify(23);
+    setTimeout(() => {
+      if (i === this.globals.currentPlaylistItem) {
+        this.globals.currentPlaylistItem = -1;
+      }
+      this.globals.playlistVideos.splice(i, 1);
+      this.shared.checkPlaylist();
+    }, 200);
   }
 
   scrollToBottom() {

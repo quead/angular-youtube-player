@@ -1,7 +1,7 @@
 <header>
 	<div id="logo">
 		<a routerLink="/category/all" class="logo-svg" title="Homepage"></a>
-		<small *ngIf="globals.regionCode">{{ globals.regionCode }}</small>
+		<small>{{globals.regionCode}}</small>
 	</div>
 	<nav>
 		<ul>
@@ -14,7 +14,7 @@
 	<app-search></app-search>
 </header>
 <app-component-player></app-component-player>
-<div id="app-container" [ngClass]="{'light-mode': !globals.darkMode}">
+<div id="app-container">
 	<input type="text" class="hide-input" #videoItemIDvalue />
 	<div class="container">
 		<div class="col col-1">

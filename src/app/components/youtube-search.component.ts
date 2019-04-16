@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeGetVideo } from '../services/youtube.service';
-import { PlayerComponent } from '../components/player/player.component';
-import { PlaylistComponent } from '../components/playlist/playlist.component';
 import { GlobalsService } from '../services/globals.service';
 import { SharedService } from '../services/shared.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,14 +18,12 @@ export class SearchComponent implements OnInit {
     private youtube: YoutubeGetVideo,
     private globals: GlobalsService,
     private shared: SharedService,
-    private playerComp: PlayerComponent,
-    private playlist: PlaylistComponent
   ) {
   }
 
   ngOnInit() {
     console.log('search');
-    this.searchFunction();
+    this.initSearchInput();
   }
 
   async searchVideo(query: any) {
@@ -38,12 +34,11 @@ export class SearchComponent implements OnInit {
     } else {
       this.noResults = false;
     }
-    this.shared.convertVideoObject(res['items'], 'lastSearchedVideos');
   }
 
-  searchFunction() {
+  initSearchInput() {
     this.searchForm = new FormGroup({
-      searchInput: new FormControl('', [Validators.required, Validators.minLength(2)])
+      searchInput: new FormControl('', [Validators.required, Validators.minLength(1)])
     });
 
     this.searchForm.valueChanges.subscribe((form) => {
@@ -58,25 +53,5 @@ export class SearchComponent implements OnInit {
 
   onSubmit(event: Event) {
     event.preventDefault();
-  }
-
-  onClickVideo(event: Event, i: any, list: number) {
-    if (list === 1) {
-      this.playerComp.getVideo(this.globals.searchedVideos[i]);
-      this.clearSearch();
-    } else if (list === 3) {
-      this.playerComp.getVideo(this.globals.feedVideos[i]);
-    }
-    this.clearSearch();
-  }
-
-  onCopyVideoItemLink(i: number, list: number) {
-    this.shared.onCopyVideoItemLink(i, list);
-    this.clearSearch();
-  }
-
-  addPlaylistItem(i: number, list: number) {
-    this.playlist.addPlaylistItem(i, list);
-    this.clearSearch();
   }
 }

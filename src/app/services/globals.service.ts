@@ -1,5 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { VideoModel } from '../models/video.model';
+import { SettingsModel } from '../models/settings.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GlobalsService {
@@ -7,7 +9,6 @@ export class GlobalsService {
   relatedVideos: Array<VideoModel> = [];
   feedVideos: Array<VideoModel>;
   playlistVideos: Array<VideoModel> = [];
-  lastSearchedVideos: Array<VideoModel>;
   historyVideos: Array<VideoModel> = [];
   searchedVideos: Array<VideoModel>;
 
@@ -21,9 +22,6 @@ export class GlobalsService {
   categoriesBlocked = ['19', '22', '25', '27', '29'];
   channel: any;
 
-  internal_settings: Array<any>;
-  external_settings: Array<any>;
-
   videoItemIDvalue: any;
 
   isLogged = false;
@@ -31,18 +29,17 @@ export class GlobalsService {
   thumbnails = true;
   listGrid = false;
   repeatMode = true;
-  darkMode = true;
   isTempSessionActive = false;
   sessionValue: string;
-  localStorageVersion = 4;
+  localStorageVersion = environment.storageVersion;
 
-  regionCode = '';
-  apiKey = '';
-  numSearchRes = '';
-  numRelatedRes = '';
+  regionCode: string;
+  apiKey: string;
+  numSearchRes: number;
+  numRelatedRes: number;
 
-  settings: any;
-  player: YT.Player;
+  settings: SettingsModel;
+  player: any;
   myScrollContainer: ElementRef;
 
   constructor() { }

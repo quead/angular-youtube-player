@@ -15,7 +15,7 @@
 
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
-  <div *ngIf="modalExportPlaylist" id="manage-playlist" class="modal-container">
+  <div *ngIf="modalRoom" id="manage-playlist" class="modal-container">
     <h2 class="text-center">Manage room</h2>
     <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
         <div class="modal-content">

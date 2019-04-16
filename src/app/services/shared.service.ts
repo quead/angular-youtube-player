@@ -1,43 +1,38 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { YoutubeGetVideo } from './youtube.service';
-import { HttpClient } from '@angular/common/http';
 import { VideoModel } from '../models/video.model';
 import { GlobalsService } from './globals.service';
-import { DbCrudService } from './db-crud.service';
-import { DragulaService } from 'ng2-dragula';
+import { SessionManagerService } from './session-manager.service';
 import { NotifyService } from '../services/notify.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SharedService {
 
     constructor(
         private youtube: YoutubeGetVideo,
-        private http: HttpClient,
         private globals: GlobalsService,
-        private dbcrud: DbCrudService,
-        public dragulaService: DragulaService,
+        private session: SessionManagerService,
         private notify: NotifyService
     ) {}
 
-  async getRelatedVideos() {
+    guid() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+      }
+
+    async getRelatedVideos() {
         if (this.globals.currentVideo) {
             const res = await this.youtube.relatedVideos(this.globals.currentVideo['id']);
             this.convertVideoObject(res['items'], 'relatedVideos');
         }
     }
 
-    async initSettings() {
-        const res = await this.http.get('assets/settings.json').pipe(
-        map(response => response)).toPromise();
-        return res;
-    }
-
-    async getSettings() {
-        if (localStorage.length < 1) {
-            const res = await this.initSettings();
-            this.globals.settings = res;
-            localStorage.setItem('settings', JSON.stringify(res));
+    getSettings() {
+        if (localStorage.length < 1 || localStorage.getItem('settings') == null) {
+            this.globals.settings = environment.settings;
+            localStorage.setItem('settings', JSON.stringify(environment.settings));
         } else {
             this.globals.settings = JSON.parse(localStorage.getItem('settings'));
         }
@@ -45,23 +40,14 @@ export class SharedService {
     }
 
     setSettings() {
-        this.globals.apiKey = this.globals.settings.api_settings[0].value;
-        this.globals.regionCode = this.globals.settings.api_settings[1].value;
-        this.globals.numSearchRes = this.globals.settings.api_settings[2].value;
-        this.globals.numRelatedRes = this.globals.settings.api_settings[3].value;
+        this.globals.apiKey = this.globals.settings.api_settings.key.value;
+        this.globals.regionCode = this.globals.settings.api_settings.region.value;
+        this.globals.numSearchRes = this.globals.settings.api_settings.search_num.value;
+        this.globals.numRelatedRes = this.globals.settings.api_settings.related_num.value;
 
-        this.globals.thumbnails = this.globals.settings.form_settings[0].value;
-        this.globals.listGrid = this.globals.settings.form_settings[1].value;
-        this.globals.repeatMode = this.globals.settings.form_settings[2].value;
-        this.globals.darkMode = this.globals.settings.form_settings[3].value;
-    }
-
-    updateSettings(newSettings: any) {
-        this.globals.settings = newSettings;
-        this.globals.external_settings = newSettings['api_settings'];
-        this.globals.internal_settings = newSettings['form_settings'];
-        this.updateLocalStorageSettings();
-        this.setSettings();
+        this.globals.thumbnails = this.globals.settings.form_settings.thumbnails.value;
+        this.globals.listGrid = this.globals.settings.form_settings.listToggle.value;
+        this.globals.repeatMode = this.globals.settings.form_settings.repeat.value;
     }
 
     preventOldSettings() {
@@ -89,14 +75,11 @@ export class SharedService {
         this.setLocalVersion();
     }
 
-    uploadPlayist() {
-        this.dbcrud.updateSession('playlist', this.globals.playlistVideos);
-        this.setLocalVersion();
-    }
-
     checkPlaylist() {
         this.findPlaylistItem();
-        this.uploadPlayist();
+        this.session.updateSession('playlist', this.globals.playlistVideos);
+        this.setLocalVersion();
+
     }
 
     findPlaylistItem() {
@@ -129,7 +112,7 @@ export class SharedService {
        return arr;
     }
 
-    addHistoryVideo(data: any) {
+    addHistoryVideo(data: VideoModel) {
         if (typeof (this.globals.historyVideos.find(video => video.id === data.id)) === 'undefined') {
             this.globals.historyVideos.unshift(data);
         } else {
@@ -137,6 +120,31 @@ export class SharedService {
             this.move(this.globals.historyVideos, indexVideo, 0);
         }
     }
+
+    getVideoFromList(i: number, listIndex: number) {
+        let videoSelected;
+
+        switch (listIndex) {
+          case 0:
+            videoSelected = this.globals.feedVideos[i];
+          break;
+          case 1:
+            videoSelected = this.globals.searchedVideos[i];
+          break;
+          case 2:
+            videoSelected = this.globals.relatedVideos[i];
+          break;
+          case 3:
+            videoSelected = this.globals.playlistVideos[i];
+          break;
+          case 4:
+            videoSelected = this.globals.historyVideos[i];
+          break;
+          default:
+        }
+
+        return videoSelected;
+      }
 
     convertVideoObject(object: any, list: string) {
         let tempVideos = [];
@@ -236,10 +244,6 @@ export class SharedService {
                 this.globals.relatedVideos = tempVideos;
                 break;
             }
-            case 'lastSearchedVideos': {
-                this.globals.lastSearchedVideos = tempVideos;
-                break;
-            }
             case 'searchedVideos': {
                 this.globals.searchedVideos = tempVideos;
                 break;
@@ -269,46 +273,20 @@ export class SharedService {
         this.checkPlaylist();
     }
 
-    clearSession() {
-        this.globals.currentPlaylistItem = -1;
-        this.globals.currentVideo = null;
-        this.globals.playlistVideos = [];
-        this.globals.relatedVideos = [];
-        localStorage.removeItem('playlist');
-        localStorage.removeItem('settings');
-    }
-
     copyShareLink() {
         document.execCommand('Copy');
         this.notify.triggerNotify(20);
     }
 
     onCopyVideoItemLink(i: number, list: number) {
-        let listType;
         const youtubeLink = 'https://youtu.be/';
-        if (list === 0) {
-          listType = this.globals.feedVideos[i];
-        }
-        if (list === 1) {
-          listType = this.globals.lastSearchedVideos[i];
-        }
-        if (list === 2) {
-          listType = this.globals.relatedVideos[i];
-        }
-        if (list === 3) {
-          listType = this.globals.playlistVideos[i];
-        }
-        if (list === 4) {
-          listType = this.globals.historyVideos[i];
-        }
 
-        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + listType.id;
+        this.globals.videoItemIDvalue.nativeElement.value = youtubeLink + this.getVideoFromList(i, list).id;
 
         this.globals.videoItemIDvalue.nativeElement.select();
         this.globals.videoItemIDvalue.nativeElement.focus();
         document.execCommand('copy');
         this.globals.videoItemIDvalue.nativeElement.blur();
         this.copyShareLink();
-      }
-
+    }
 }

@@ -4,6 +4,7 @@ import { GlobalsService } from '../../services/globals.service';
 import { SharedService } from '../../services/shared.service';
 import { NotifyService } from '../../services/notify.service';
 import { RoomService } from '../../services/room.service';
+import { ButtonsComponent } from './buttons/buttons.component';
 import { Socket } from 'ngx-socket-io';
 
 @Component({
@@ -25,8 +26,8 @@ export class PlayerComponent implements OnInit {
 
   videoCurVolume = -1;
 
-  videoCurFull = '00:00:00';
-  videoMaxFull = '00:00:00';
+  videoCurFull = '00:00';
+  videoMaxFull = '00:00';
 
   loading = true;
 
@@ -36,6 +37,7 @@ export class PlayerComponent implements OnInit {
     public playlistCTRL: PlaylistControlService,
     private notify: NotifyService,
     private room: RoomService,
+    private playerCTA: ButtonsComponent,
     private socket: Socket
   ) {
   }
@@ -43,20 +45,19 @@ export class PlayerComponent implements OnInit {
   ngOnInit() {
     // Where app is loaded
     this.shared.preventOldSettings();
-    this.shared.getSettings().then(() => {
-      this.setDefaultPlayer();
-    });
+    this.shared.getSettings();
+    this.setDefaultPlayer();
 
     this.socket.on('event_trigger', (data) => {
       switch (data.eventName) {
         case 'playVideo':
-          this.triggerPlayPauseVideo();
+          this.playerCTA.triggerPlayPauseVideo();
         break;
         case 'updateState':
-          this.changeState({ data: data.playerData.currentState });
+          this.changeState({data: data.playerData.currentState});
         break;
         case 'playNewVideo':
-          this.triggerGetVideo(data.playerData.currentVideo);
+          this.playerCTA.triggerGetVideo(data.playerData.currentVideo);
         break;
         case 'seekTo':
           this.triggerSeekTo(data.playerData.currentSeek);
@@ -67,22 +68,6 @@ export class PlayerComponent implements OnInit {
         default:
       }
     });
-  }
-
-  savePlayer(player) {
-    this.globals.player = player;
-  }
-
-  playerVars() {
-    const playerVars = {
-      'enablejsapi': 1,
-      'playsinline': 1,
-      'autoplay': 0,
-      'loop': 0,
-      'modestbranding': 1,
-      'rel': 0
-    };
-    return playerVars;
   }
 
   changeState(event: any) {
@@ -117,7 +102,6 @@ export class PlayerComponent implements OnInit {
       break;
       // Ended
       case 0:
-        console.log(this.globals.currentState);
         this.stopRange();
         if (this.globals.repeatMode) {
           if (this.globals.playlistVideos.length) {
@@ -154,7 +138,15 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  // Init player
+  // Load the video when region is changed
+  cueVideoWhenRegionChanged() {
+    if (this.globals.player) {
+      this.globals.player.cueVideoById(this.globals.currentVideo.id);
+      this.videoRangePercent = 0;
+    }
+  }
+
+  // Init app
   setDefaultPlayer() {
     this.room.join();
     this.shared.initFeed().then(() => {
@@ -165,34 +157,12 @@ export class PlayerComponent implements OnInit {
         this.globals.isLoading = false;
       });
       this.shared.findPlaylistItem();
+      this.cueVideoWhenRegionChanged();
     });
     this.shared.setLocalVersion();
   }
 
   // ---------------- Player controls ----------------
-
-  triggerPlayPauseVideo() {
-    if (this.globals.currentState === 1) {
-      this.globals.player.pauseVideo();
-    } else {
-      this.globals.player.playVideo();
-    }
-  }
-
-  playPauseVideo() {
-    if (this.globals.isTempSessionActive) {
-      this.triggerPlayPauseVideo();
-    } else {
-      this.socket.emit('update_player', {
-        eventName: 'playVideo',
-        roomName: this.globals.sessionValue,
-        playerData: {
-          currentVideo: this.globals.currentVideo,
-          currentState: this.globals.currentState,
-        }
-      });
-    }
-  }
 
   rangeNouseDown() {
     this.videoRangeMouseActive = true;
@@ -265,34 +235,6 @@ export class PlayerComponent implements OnInit {
     }
   }
 
-  getVideo(data: any) {
-    if (this.globals.isTempSessionActive) {
-      this.triggerGetVideo(data);
-    } else {
-      this.socket.emit('update_player', {
-        eventName: 'playNewVideo',
-        roomName: this.globals.sessionValue,
-        playerData: {
-          currentVideo: data,
-          currentState: this.globals.currentState
-        }
-      });
-    }
-  }
-
-  triggerGetVideo(data: any) {
-    this.shared.getStatsVideos(data.id).then(() => {
-      this.playVideo(data);
-      this.shared.getRelatedVideos();
-    });
-  }
-
-  playVideo(data: any) {
-    this.shared.addHistoryVideo(data);
-    this.globals.player.loadVideoById(data.id);
-    this.shared.findPlaylistItem();
-  }
-
   startRange() {
     this.stopRange();
     if (this.globals.currentState) {
@@ -325,37 +267,28 @@ export class PlayerComponent implements OnInit {
       }
     }
     if (this.globals.playlistVideos.length > 0) {
-      this.getVideo(this.globals.playlistVideos[i]);
+      this.playerCTA.getVideo(this.globals.playlistVideos[i]);
     } else {
       this.notify.triggerNotify(0);
     }
   }
 
-  // Others
-  onClickRelated(i: number) {
-    this.getVideo(this.globals.relatedVideos[i]);
-  }
-
   timeFormat(time: number) {
-    const hours: any = Math.floor(time / 3600);
-    const minutes: any = Math.floor(time % 3600 / 60);
-    const seconds: any = Math.floor(time % 3600 % 60);
-    const value = (parseInt(hours, 10) < 10 ? '0' : '' ) + parseInt(hours, 10) + ':'
-              + (parseInt(minutes, 10) < 10 ? '0' : '' ) + parseInt(minutes, 10) + ':'
-              + (parseInt(seconds, 10) < 10 ? '0' : '' ) + parseInt(seconds, 10);
+    const hours: number = Math.floor(time / 3600);
+    const minutes: number = Math.round(time % 3600 / 60);
+    const seconds: number = Math.round(time % 3600 % 60);
+    const value = `${(hours > 0) ? (hours < 10 ? '0' : '' ) + hours + ':' : ''}${(minutes < 10 ? '0' : '' ) + minutes}:${(seconds < 10 ? '0' : '' ) + seconds}`;
     return value;
   }
 
 
-  toggleHeadSettings(int: number) {
-    if (int === 2) {
-      if (this.currentMuteState) {
-        this.globals.player.unMute();
-        this.currentMuteState = false;
-      } else {
-        this.globals.player.mute();
-        this.currentMuteState = true;
-      }
+  toggleMute() {
+    if (this.currentMuteState) {
+      this.globals.player.unMute();
+      this.currentMuteState = false;
+    } else {
+      this.globals.player.mute();
+      this.currentMuteState = true;
     }
   }
 

@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { GlobalsService } from '../services/globals.service';
 import { NotifyService } from '../services/notify.service';
 import { Socket } from 'ngx-socket-io';
-import { VideoModel } from '../models/video.model';
 
 @Injectable()
-export class DbCrudService {
+export class SessionManagerService {
 
     constructor(
         public globals: GlobalsService,

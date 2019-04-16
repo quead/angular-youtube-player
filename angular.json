@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "a2-youtube": {
+    "angular-youtube-player": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -48,18 +48,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "a2-youtube:build"
+            "browserTarget": "angular-youtube-player:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "a2-youtube:build:production"
+              "browserTarget": "angular-youtube-player:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "a2-youtube:build"
+            "browserTarget": "angular-youtube-player:build"
           }
         },
         "test": {
@@ -93,7 +93,7 @@
         }
       }
     },
-    "a2-youtube-e2e": {
+    "angular-youtube-player-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -102,7 +102,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "a2-youtube:serve"
+            "devServerTarget": "angular-youtube-player:serve"
           }
         },
         "lint": {

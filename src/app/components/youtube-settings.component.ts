@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PlayerComponent } from '../components/player/player.component';
 import { SharedService } from '../services/shared.service';
-import { AppComponent } from '../app.component';
 import { GlobalsService } from '../services/globals.service';
 import { NotifyService } from '../services/notify.service';
 import { NumberVal } from '../services/validators.service';
@@ -21,11 +20,9 @@ export class SettingsComponent implements OnInit {
     externalSettings: FormGroup;
 
     constructor(
-        private fb: FormBuilder,
         private shared: SharedService,
         private globals: GlobalsService,
         public playerComp: PlayerComponent,
-        public appComp: AppComponent,
         private notify: NotifyService
     ) {
     }
@@ -35,23 +32,16 @@ export class SettingsComponent implements OnInit {
         this.getDefaultSettings();
     }
 
-    setForm() {
-        this.internalSettings = this.fb.group({
-            settings: this.mapSettings()
-        });
-        this.checkInputs();
-    }
-
     initExternalForm() {
         this.externalSettings = new FormGroup({
-            fcApi: new FormControl(this.globals.external_settings[0].value),
-            fcRegion: new FormControl(this.globals.external_settings[1].value, Validators.required),
-            fcSearchresults: new FormControl(this.globals.external_settings[2].value,
+            fcApi: new FormControl(this.globals.settings.api_settings.key.value),
+            fcRegion: new FormControl(this.globals.settings.api_settings.region.value, Validators.required),
+            fcSearchresults: new FormControl(this.globals.settings.api_settings.search_num.value,
                             [Validators.required,
                             NumberVal.max(50),
                             NumberVal.min(1),
                             NumberVal.isNumber(true)]),
-            fcRelatedResults: new FormControl(this.globals.external_settings[3].value,
+            fcRelatedResults: new FormControl(this.globals.settings.api_settings.related_num.value,
                             [Validators.required,
                             NumberVal.max(50),
                             NumberVal.min(1),
@@ -59,57 +49,47 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    get initInternalForm(): FormArray {
-        return this.internalSettings.get('settings') as FormArray;
+    initInternalForm() {
+        this.internalSettings = new FormGroup({
+            fcThumbnails: new FormControl(this.globals.settings.form_settings.thumbnails.value),
+            fcList: new FormControl(this.globals.settings.form_settings.listToggle.value),
+            fcRepeat: new FormControl(this.globals.settings.form_settings.repeat.value),
+        });
     }
 
     checkInputs() {
-        this.internalSettings.valueChanges.subscribe((data) => {
-            Object.keys(data.settings).map(i => {
-                this.globals.internal_settings[i].value = data.settings[i];
-            });
-            this.globals.settings.form_settings = this.globals.internal_settings;
-
-            this.shared.updateLocalStorageSettings();
-            this.shared.getSettings();
-
-            // this.playerComp.checkVolumeRange();
-            this.notify.triggerNotify(22);
-        });
+        this.globals.settings.form_settings.thumbnails.value = this.internalSettings.controls.fcThumbnails.value;
+        this.globals.settings.form_settings.listToggle.value = this.internalSettings.controls.fcList.value;
+        this.globals.settings.form_settings.repeat.value = this.internalSettings.controls.fcRepeat.value;
+        this.save();
     }
 
-    mapSettings() {
-        const arr = this.globals.internal_settings.map(s => {
-            return this.fb.control(s.value);
-        });
-        return this.fb.array(arr);
+    save() {
+        this.shared.updateLocalStorageSettings();
+        this.shared.getSettings();
+        if (this.globals.currentState !== 1) {
+            this.playerComp.setDefaultPlayer();
+        } else {
+            this.shared.initFeed();
+        }
+        this.notify.triggerNotify(22);
     }
 
     getDefaultSettings() {
-        this.shared.getSettings().then(() => {
-            this.globals.internal_settings = this.globals.settings.form_settings;
-            this.globals.external_settings = this.globals.settings.api_settings;
-            this.initExternalForm();
-            this.setForm();
-            this.loading = false;
-        });
+        this.shared.getSettings();
+        this.initExternalForm();
+        this.initInternalForm();
+        this.loading = false;
     }
 
     externalSave() {
         if (this.externalSettings.valid) {
-            this.notify.triggerNotify(22);
-            this.globals.external_settings[0].value = this.externalSettings.controls.fcApi.value;
-            this.globals.external_settings[1].value = this.externalSettings.controls.fcRegion.value;
-            this.globals.external_settings[2].value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
-            this.globals.external_settings[3].value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
-            this.globals.settings.api_settings = this.globals.external_settings;
+            this.globals.settings.api_settings.key.value = this.externalSettings.controls.fcApi.value;
+            this.globals.settings.api_settings.region.value = this.externalSettings.controls.fcRegion.value;
+            this.globals.settings.api_settings.search_num.value = parseInt(this.externalSettings.controls.fcSearchresults.value, 10);
+            this.globals.settings.api_settings.related_num.value = parseInt(this.externalSettings.controls.fcRelatedResults.value, 10);
             this.globals.feedVideos = null;
-
-            this.shared.updateLocalStorageSettings();
-            this.shared.getSettings();
-
-            this.playerComp.setDefaultPlayer();
-
+            this.save();
         } else {
             this.notify.triggerNotify(10);
         }

@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.router';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { DragulaModule } from 'ng2-dragula';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { DbCrudService } from './services/db-crud.service';
+import { SessionManagerService } from './services/session-manager.service';
 import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
@@ -20,25 +22,25 @@ import { AboutComponent } from './components/youtube-about.component';
 import { HistoryComponent } from './components/youtube-history.component';
 import { PlayerComponent } from './components/player/player.component';
 
-import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
+import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
+import { ButtonsComponent } from './components/player/buttons/buttons.component';
 
-const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} };
+const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    YoutubePlayerModule,
     FormsModule,
-    DragulaModule.forRoot(),
     NguCarouselModule,
     AppRoutingModule,
+    DragDropModule,
     SocketIoModule.forRoot(config)
   ],
   declarations: [
@@ -51,11 +53,13 @@ const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} }
     PlayerComponent,
     PlaylistComponent,
     RelatedComponent,
-    RoomComponent
+    RoomComponent,
+    YoutubeIframeComponent,
+    ButtonsComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [
-    DbCrudService,
+    SessionManagerService,
     PlayerComponent,
     PlaylistComponent,
     YoutubeGetVideo,
@@ -63,7 +67,8 @@ const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} }
     SharedService,
     GlobalsService,
     NguCarouselConfig,
-    NguCarousel
+    NguCarousel,
+    ButtonsComponent
   ]
 })
 
