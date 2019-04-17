@@ -50,18 +50,3 @@ app {
         }
     }
 }
-
-.container-cover-bg {
-    background-position: center center;
-    background-size: 140% auto;
-    filter: blur(40px);
-    opacity: 0.8;
-    position: absolute;
-    left: -50px;
-    top: -40px;
-    height: 300px;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    transition: all 0.1s ease-out;
-}

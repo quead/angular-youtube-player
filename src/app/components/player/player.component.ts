@@ -10,6 +10,7 @@ import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-component-player',
   templateUrl: './player.component.html',
+  styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
 

@@ -17,7 +17,7 @@ import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { PlaylistControlService } from './services/playlist-control.service';
 import { SettingsComponent } from './components/youtube-settings.component';
-import { SearchComponent } from './components/youtube-search.component';
+import { SearchComponent } from './components/search/youtube-search.component';
 import { AboutComponent } from './components/youtube-about.component';
 import { HistoryComponent } from './components/youtube-history.component';
 import { PlayerComponent } from './components/player/player.component';

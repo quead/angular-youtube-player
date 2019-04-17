@@ -1,0 +1,107 @@
+#main-search {
+    width: 100%;
+    display: block;
+    position: relative;
+    color: var(--c-white);
+    .search-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        font-size: 18px;
+        transform: translateY(-50%);
+        color: rgba(255,255,255,0.2);
+        cursor: pointer;
+        z-index: 2;
+        transition: all 0.1s ease-out;
+    }
+    .form-group {
+        position: relative;
+        z-index: 10;
+    }
+    .input-group {
+        position: relative;
+    }
+    input[type="text"] {
+        border: none;
+        display: block;
+        width: 100%;
+        padding: 10px 40px 10px 35px;
+        margin: 0;
+        outline: 0;
+        position: relative;
+        background-color: transparent;
+        border: 2px solid rgba(255,255,255,0.2);
+        color: var(--c-white);
+        border-radius: 5px;
+        font-size: 14px;
+        z-index: 1;
+        transition: all 0.2s ease-out;
+        &::-webkit-input-placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        &:focus {
+            border-color: rgba(255,255,255,0.6);
+            + .search-icon {
+                color: rgba(255,255,255,0.6);
+            }
+        } 
+    }
+    .clear-button {
+        border: none;
+        font-size: 12px;
+        background: transparent;
+        color: rgba(255,255,255,0.6);
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        z-index: 2;
+        outline: 0;
+        transition: all 0.1s ease-out;
+    }
+    &.ng-invalid {
+        .clear-button {
+            transform: translateY(-50%) scale(0);
+        }
+    }
+    .settings {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+    }
+}
+
+
+.search-list.arrow-up {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#search-video-list {
+    z-index: 10;
+    max-height: 430px;
+    background-color: #14151b;
+    position: absolute;
+    top: 47px;
+    padding: 0 10px 10px;
+    border-radius: 5px;
+    .video-item {
+        background: transparent;
+        margin-top: 10px;
+    }
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: #08080a;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(#FFF, 0.3);
+        &:hover {
+            background-color: rgba(#FFF, 0.6);
+        }
+    }
+}

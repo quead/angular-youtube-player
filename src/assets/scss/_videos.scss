@@ -29,37 +29,6 @@ iframe {
     }
 }
 
-.search-list.arrow-up {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#search-video-list {
-    z-index: 10;
-    max-height: 430px;
-    background-color: #14151b;
-    position: absolute;
-    top: 47px;
-    padding: 0 10px 10px;
-    border-radius: 5px;
-    .video-item {
-        background: transparent;
-        margin-top: 10px;
-    }
-    &::-webkit-scrollbar {
-        width: 6px;
-        background-color: #08080a;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(#FFF, 0.3);
-        &:hover {
-            background-color: rgba(#FFF, 0.6);
-        }
-    }
-}
-
 .video-item-head {
     position: relative;
     margin: 0;

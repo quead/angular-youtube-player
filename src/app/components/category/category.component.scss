@@ -97,6 +97,30 @@
     }
 }
 
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    select {
+        -webkit-appearance: none;
+        border: none;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.4);
+        color: #ffffff;
+        border-radius: 15px;
+        padding: 8px 13px;
+        option {
+            color: #000000;
+        }
+    }
+    label {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
 @media screen and (min-width: 768px) and (max-width: 991px) {
     .feed-video-list {
         &.grid-list .video-item-image {
