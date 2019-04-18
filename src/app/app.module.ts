@@ -19,7 +19,7 @@ import { PlaylistControlService } from './services/playlist-control.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
 import { AboutComponent } from './components/about/about.component';
-import { HistoryComponent } from './components/youtube-history.component';
+import { HistoryComponent } from './components/history/history.component';
 import { PlayerComponent } from './components/player/player.component';
 
 import { CategoryComponent } from './components/category/category.component';
