@@ -7,14 +7,7 @@
             No history
         </div>
         <div *ngFor="let historyVideo of globals.historyVideos; let i = index" [attr.data-index]="i" class="video-item">
-            <div class="video-item-info">
-                <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + historyVideo.thumbnails.default +')'}"></div>
-                <div class="video-item-content">
-                <p class="video-item-title">{{historyVideo.title}}</p>
-                <p class="video-item-autor">{{historyVideo.channelTitle}}</p>                      
-                </div>
-            </div>
-            <app-buttons [videoIndex]="i" [listID]="4"></app-buttons>
+            <app-video-item [videoIndex]="i" [videoItem]="historyVideo" [listID]="4"></app-video-item>
         </div>
     </div>
 </div>
