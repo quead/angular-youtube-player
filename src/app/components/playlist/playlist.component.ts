@@ -35,8 +35,6 @@ export class PlaylistComponent implements OnInit {
     this.shared.checkPlaylist();
   }
 
-  // ---------------- Modal functions ----------------
-
   closeModal() {
     this.modal = false;
     this.modalPlaylist = false;

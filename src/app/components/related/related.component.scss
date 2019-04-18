@@ -33,7 +33,21 @@
     .rightRs {
         right: 0;
     }
-
+    .ngucarousel {
+        position: relative;
+        margin: 0 -10px;
+        padding: 0 30px;
+        &-inner {
+            margin: 0 -15px;
+            padding: 0 10px;
+        }
+    }
+    .ngu-touch-container {
+        overflow: hidden;
+    }
+    .ngucarouselPointDefault {
+        display: none;
+    }
     .video-item {
         margin: 0 5px;
         padding: 0;

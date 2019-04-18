@@ -1,3 +1,28 @@
+.video-list {
+    width: 100%;
+    overflow-y: auto;
+    &-info {
+        text-align: center;
+        margin: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: var(--c-dark-gray);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: rgba(#FFF, 0.1);
+        &:hover {
+            background-color: rgba(#FFF, 0.4);
+        }
+    }
+}
+
 #main-search {
     width: 100%;
     display: block;

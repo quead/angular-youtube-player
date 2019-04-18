@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { NguCarouselConfig } from '@ngu/carousel';
@@ -6,7 +6,8 @@ import { NguCarouselConfig } from '@ngu/carousel';
 @Component({
   selector: 'app-related',
   templateUrl: './related.component.html',
-  styleUrls: ['./related.component.scss']
+  styleUrls: ['./related.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RelatedComponent implements OnInit {
   constructor(

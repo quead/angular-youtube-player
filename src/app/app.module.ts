@@ -18,7 +18,7 @@ import { YoutubeGetVideo } from './services/youtube.service';
 import { PlaylistControlService } from './services/playlist-control.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SearchComponent } from './components/search/search.component';
-import { AboutComponent } from './components/youtube-about.component';
+import { AboutComponent } from './components/about/about.component';
 import { HistoryComponent } from './components/youtube-history.component';
 import { PlayerComponent } from './components/player/player.component';
 
@@ -29,6 +29,7 @@ import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
+import { VideoItemComponent } from './components/player/video-item/video-item.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -55,7 +56,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
     RelatedComponent,
     RoomComponent,
     YoutubeIframeComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    VideoItemComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [

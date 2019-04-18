@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NotifyService } from '../../services/notify.service';
 import { GlobalsService } from '../../services/globals.service';
 import { SessionManagerService } from '../../services/session-manager.service';
@@ -9,7 +9,8 @@ import { Socket } from 'ngx-socket-io';
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
-  styleUrls: ['./room.component.scss']
+  styleUrls: ['./room.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RoomComponent implements OnInit {
 
