@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Renderer2, ViewEncapsulation } from '@angular/core';
 import { YoutubeIframeService } from '../../services/youtube-iframe.service';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
@@ -6,7 +6,9 @@ import { GlobalsService } from '../../services/globals.service';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'youtube-iframe',
-  template: '<div id="yt-player-iframe"></div>'
+  template: '<div id="yt-player-iframe"></div>',
+  styleUrls: ['youtube-iframe.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class YoutubeIframeComponent implements AfterContentInit {
 

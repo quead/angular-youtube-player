@@ -38,7 +38,7 @@ input[type="checkbox"]:checked,
 input[type="radio"]:checked {
     + label .round-check {
         &:before {
-            background-color: #4BD663;
+            background-color: var(--c-success);
         }
         &:after {
             left: 22px;

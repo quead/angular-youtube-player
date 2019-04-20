@@ -105,12 +105,12 @@
         -webkit-appearance: none;
         border: none;
         background: transparent;
-        border: 1px solid rgba(255,255,255,0.4);
-        color: #ffffff;
+        border: 1px solid var(--c-light-gray);
+        color: var(--c-white);
         border-radius: 15px;
         padding: 8px 13px;
         option {
-            color: #000000;
+            color: var(--c-black);
         }
     }
     label {

@@ -53,14 +53,13 @@ h2 {
 .notif {
     position: fixed;
     bottom: -41px;
-    background-color: var(--c-black);
-    color: var(--c-white);
+    background-color: var(--c-white);
+    color: var(--c-black);
     left: 50%;
     transform: translateX(-50%);
-    min-width: 300px;
-    padding: 10px 15px;
+    padding: 9px 15px;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 20px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.1s ease-in-out;

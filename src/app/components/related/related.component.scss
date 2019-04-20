@@ -8,7 +8,7 @@
         transform: translateY(-50%);
         z-index: 1;
         -webkit-appearance: none;
-        background: rgba(0, 0, 0, 0.3);
+        background: var(--c-dark-gray);
         height: 30px;
         width: 30px;
         border-radius: 50%;

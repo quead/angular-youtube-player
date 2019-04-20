@@ -1,6 +1,6 @@
 app-about {
     .app-content {
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: var(--c-dark-gray);
         padding: 10px 20px;
         border-radius: 5px;
         p {
