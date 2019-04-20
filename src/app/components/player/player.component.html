@@ -78,7 +78,7 @@
   </div>
     <div class="player-background" [ngClass]="{'active': isFullscreen }">
         <div class="player-background-container">
-            <div class="youtube-player">
+            <div class="youtube-player" [ngClass]="{'disabled': globals.isTempSessionActive}">
                 <youtube-iframe></youtube-iframe>
             </div>
             <div *ngIf="isFullscreen" class="background-playlist">

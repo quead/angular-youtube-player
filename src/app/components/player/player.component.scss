@@ -85,6 +85,7 @@
 
 
 .youtube-player {
+    position: relative;
     &-cover {
         height: 140px;
         width: 140px;
@@ -117,7 +118,7 @@
                 opacity: 1;
             }
             &.disabled {
-                opacity: 0.4;
+                display: none;
             }
         }
         .toggle-fullscreen {
@@ -150,6 +151,16 @@
                 opacity: 1;
             }
         }
+    }
+    &.disabled:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
     }
 }
 
