@@ -41,7 +41,7 @@ You must change inside **src/app/environments/environment.ts** your path to your
 
 **For building the app**
 
-1. Install [angular-cli 1.7.3+](https://github.com/angular/angular-cli "Angular Cli")
+1. Install [angular-cli 7.3.7+](https://github.com/angular/angular-cli "Angular Cli")
 
 `npm install -g @angular/cli`
 
@@ -178,9 +178,10 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
+- *List of users joined in the session **(in v2.6)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.9)***
-- *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
+- *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
 
 #### Roadmap to 4.0
 - Integrating YouTube account subscriptions/playlist **(in v3.0)**
