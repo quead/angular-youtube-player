@@ -7,7 +7,11 @@ import { AppRoutingModule } from './app.router';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
+import {
+	NguCarouselModule,
+	NguCarouselConfig,
+	NguCarousel
+} from '@ngu/carousel';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -34,45 +38,43 @@ import { VideoItemComponent } from './components/player/video-item/video-item.co
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NguCarouselModule,
-    AppRoutingModule,
-    DragDropModule,
-    SocketIoModule.forRoot(config)
-  ],
-  declarations: [
-    AppComponent,
-    SettingsComponent,
-    SearchComponent,
-    AboutComponent,
-    HistoryComponent,
-    CategoryComponent,
-    PlayerComponent,
-    PlaylistComponent,
-    RelatedComponent,
-    RoomComponent,
-    YoutubeIframeComponent,
-    ButtonsComponent,
-    VideoItemComponent
-  ],
-  bootstrap: [ AppComponent ],
-  providers: [
-    SessionManagerService,
-    PlayerComponent,
-    PlaylistComponent,
-    YoutubeGetVideo,
-    PlaylistControlService,
-    SharedService,
-    GlobalsService,
-    NguCarouselConfig,
-    NguCarousel,
-    ButtonsComponent
-  ]
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		ReactiveFormsModule,
+		FormsModule,
+		NguCarouselModule,
+		AppRoutingModule,
+		DragDropModule,
+		SocketIoModule.forRoot(config)
+	],
+	declarations: [
+		AppComponent,
+		SettingsComponent,
+		SearchComponent,
+		AboutComponent,
+		HistoryComponent,
+		CategoryComponent,
+		PlayerComponent,
+		PlaylistComponent,
+		RelatedComponent,
+		RoomComponent,
+		YoutubeIframeComponent,
+		ButtonsComponent,
+		VideoItemComponent
+	],
+	bootstrap: [AppComponent],
+	providers: [
+		SessionManagerService,
+		PlayerComponent,
+		PlaylistComponent,
+		YoutubeGetVideo,
+		PlaylistControlService,
+		SharedService,
+		GlobalsService,
+		NguCarouselConfig,
+		NguCarousel,
+		ButtonsComponent
+	]
 })
-
-export class AppModule { }
-
+export class AppModule {}

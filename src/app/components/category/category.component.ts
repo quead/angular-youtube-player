@@ -4,62 +4,60 @@ import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+	selector: 'app-category',
+	templateUrl: './category.component.html',
+	styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
+	loading = true;
 
-  loading = true;
+	constructor(
+		private youtube: YoutubeGetVideo,
+		private shared: SharedService,
+		public globals: GlobalsService
+	) {}
 
-  constructor(
-    private youtube: YoutubeGetVideo,
-    private shared: SharedService,
-    public globals: GlobalsService,
-  ) {
-  }
+	ngOnInit() {
+		this.initTrending();
+	}
 
-  ngOnInit() {
-    this.initTrending();
-  }
+	initTrending() {
+		this.youtube.categories().then(catData => {
+			this.globals.categories = catData;
+			this.loading = false;
+		});
+	}
 
-  initTrending() {
-    this.youtube.categories().then(catData => {
-        this.globals.categories = catData;
-        this.loading = false;
-    });
-  }
+	categoryChanged(event: Event) {
+		const category = event.target['value'];
+		if (category !== 'all') {
+			this.globals.currentCategory = category;
+			this.getCategories();
+		} else {
+			this.resetCategories();
+		}
+	}
 
-  categoryChanged(event: Event) {
-    const category = event.target['value'];
-    if (category !== 'all') {
-        this.globals.currentCategory = category;
-        this.getCategories();
-    } else {
-        this.resetCategories();
-    }
-  }
+	getCategories() {
+		this.youtube.categories().then(catData => {
+			this.globals.categories = catData;
+			this.loading = true;
+			this.getCategoriesVideos(this.globals.currentCategory);
+		});
+	}
 
-  getCategories() {
-    this.youtube.categories().then(catData => {
-        this.globals.categories = catData;
-        this.loading = true;
-        this.getCategoriesVideos(this.globals.currentCategory);
-    });
-  }
+	async getCategoriesVideos(val: string) {
+		const res2 = await this.youtube.videoCategories(val);
+		this.shared.convertVideoObject(res2['items'], 'feedVideos');
+		this.loading = false;
+	}
 
-  async getCategoriesVideos(val: string) {
-    const res2 = await this.youtube.videoCategories(val);
-    this.shared.convertVideoObject(res2['items'], 'feedVideos');
-    this.loading = false;
-  }
-
-  resetCategories() {
-    this.loading = true;
-    this.globals.currentCategory = 'all';
-    this.globals.feedVideos = null;
-    this.shared.initFeed().then(() => {
-        this.loading = false;
-    });
-  }
+	resetCategories() {
+		this.loading = true;
+		this.globals.currentCategory = 'all';
+		this.globals.feedVideos = null;
+		this.shared.initFeed().then(() => {
+			this.loading = false;
+		});
+	}
 }

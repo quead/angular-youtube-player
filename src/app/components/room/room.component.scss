@@ -1,29 +1,29 @@
 app-room {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 15px;
-    p {
-        margin: 2px 0;
-    }
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 15px;
+	p {
+		margin: 2px 0;
+	}
 }
 
 .session-section {
-    margin-bottom: 20px;
-    input[type="text"] {
-        background: transparent;
-        border: 1px solid #e4e4e4;
-        border-radius: 3px;
-        padding: 8px 10px;
-        font-size: 14px;
-    }
-    .session-key-block {
-        display: block;
-        margin: 0 auto 10px;
-        label {
-            margin-right: 5px;
-        }
-        input {
-            width: 100%;
-        }
-    }
+	margin-bottom: 20px;
+	input[type='text'] {
+		background: transparent;
+		border: 1px solid #e4e4e4;
+		border-radius: 3px;
+		padding: 8px 10px;
+		font-size: 14px;
+	}
+	.session-key-block {
+		display: block;
+		margin: 0 auto 10px;
+		label {
+			margin-right: 5px;
+		}
+		input {
+			width: 100%;
+		}
+	}
 }

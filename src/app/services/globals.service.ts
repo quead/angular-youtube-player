@@ -5,50 +5,48 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GlobalsService {
+	relatedVideos: Array<VideoModel> = [];
+	feedVideos: Array<VideoModel>;
+	playlistVideos: Array<VideoModel> = [];
+	historyVideos: Array<VideoModel> = [];
+	searchedVideos: Array<VideoModel>;
 
-  relatedVideos: Array<VideoModel> = [];
-  feedVideos: Array<VideoModel>;
-  playlistVideos: Array<VideoModel> = [];
-  historyVideos: Array<VideoModel> = [];
-  searchedVideos: Array<VideoModel>;
+	currentState = -1;
+	currentVideo: VideoModel;
+	shareLink: string;
+	currentPlaylistItem: number;
 
-  currentState = -1;
-  currentVideo: VideoModel;
-  shareLink: string;
-  currentPlaylistItem: number;
+	categories: any;
+	currentCategory = 'all';
+	categoriesBlocked = ['19', '22', '25', '27', '29'];
+	channel: any;
 
-  categories: any;
-  currentCategory = 'all';
-  categoriesBlocked = ['19', '22', '25', '27', '29'];
-  channel: any;
+	videoItemIDvalue: any;
 
-  videoItemIDvalue: any;
+	isLogged = false;
+	isLoading = true;
+	thumbnails = true;
+	listGrid = false;
+	repeatMode = true;
+	isTempSessionActive = false;
+	sessionValue: string;
+	localStorageVersion = environment.storageVersion;
 
-  isLogged = false;
-  isLoading = true;
-  thumbnails = true;
-  listGrid = false;
-  repeatMode = true;
-  isTempSessionActive = false;
-  sessionValue: string;
-  localStorageVersion = environment.storageVersion;
+	regionCode: string;
+	apiKey: string;
+	numSearchRes: number;
+	numRelatedRes: number;
 
-  regionCode: string;
-  apiKey: string;
-  numSearchRes: number;
-  numRelatedRes: number;
+	settings: SettingsModel;
+	player: any;
+	myScrollContainer: ElementRef;
 
-  settings: SettingsModel;
-  player: any;
-  myScrollContainer: ElementRef;
+	constructor() {}
 
-  constructor() { }
-
-  getCurrentSessionKeys() {
-    return {
-      session: localStorage.getItem('session_key'),
-      tempSession: this.sessionValue
-    };
-  }
-
+	getCurrentSessionKeys() {
+		return {
+			session: localStorage.getItem('session_key'),
+			tempSession: this.sessionValue
+		};
+	}
 }

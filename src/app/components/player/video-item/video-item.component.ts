@@ -3,21 +3,17 @@ import { VideoModel } from '../../../models/video.model';
 import { GlobalsService } from '../../../services/globals.service';
 
 @Component({
-  selector: 'app-video-item',
-  templateUrl: './video-item.component.html',
-  styleUrls: ['./video-item.component.scss'],
-  encapsulation: ViewEncapsulation.None
+	selector: 'app-video-item',
+	templateUrl: './video-item.component.html',
+	styleUrls: ['./video-item.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class VideoItemComponent implements OnInit {
-  @Input('videoItem') videoItem: VideoModel;
-  @Input('videoIndex') videoIndex: number;
-  @Input('listID') listID: number;
+	@Input('videoItem') videoItem: VideoModel;
+	@Input('videoIndex') videoIndex: number;
+	@Input('listID') listID: number;
 
-  constructor(
-    public globals: GlobalsService
-  ) { }
+	constructor(public globals: GlobalsService) {}
 
-  ngOnInit() {
-  }
-
+	ngOnInit() {}
 }

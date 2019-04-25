@@ -1,51 +1,58 @@
 .btn {
-    display: inline-block;
-    color: var(--c-white);
-    font-size: $f-14;
-    font-weight: 400;
-    line-height: 1.25;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 9px 15px;
-    text-decoration: none;
-    transition: all .1s ease-out;
-    outline: 0;
-    line-height: 1;
-    .fa {
-        margin-right: 8px;
-        font-size: $f-10;
-        top: -1px;
-        position: relative;
-    }
-    &-round {
-        border-radius: 50px;
-    }
+	display: inline-block;
+	color: var(--c-white);
+	font-size: $f-14;
+	font-weight: 400;
+	line-height: 1.25;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 9px 15px;
+	text-decoration: none;
+	transition: all 0.1s ease-out;
+	outline: 0;
+	line-height: 1;
 
-    &-link {
-        background-color: transparent;
-        color: rgba(#232228, 0.3);
-        &:hover {
-            color: rgba(#232228, 0.6);
-        }
-        &:active {
-            color: var(--c-primary-inverse);
-        }
-    }
+	.fa {
+		margin-right: 8px;
+		font-size: $f-10;
+		top: -1px;
+		position: relative;
+	}
 
-    &-primary {
-        background-color: var(--c-primary);
-        color: var(--c-white);
-        &:active {
-            background-color: var(--c-primary-active);
-        }
-    }
-    &-secondary {
-        background-color: var(--c-secondary);
-        &:active {
-            background-color: darken(#1a85fd, 17%);
-        }
-    }
+	&-round {
+		border-radius: 50px;
+	}
+
+	&-link {
+		background-color: transparent;
+		color: rgba(#232228, 0.3);
+
+		&:hover {
+			color: rgba(#232228, 0.6);
+		}
+
+		&:active {
+			color: var(--c-primary-inverse);
+		}
+	}
+
+	&-primary {
+		background-color: var(--c-primary);
+		color: var(--c-white);
+
+		&:active {
+			background-color: var(--c-primary-active);
+		}
+	}
+
+	&-secondary {
+		background-color: var(--c-secondary);
+
+		&:active {
+			background-color: darken(#1a85fd, 17%);
+		}
+	}
 }
