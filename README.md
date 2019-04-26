@@ -56,6 +56,7 @@ Angular YouTube Player 2.5
 - Cleaned the project to avoid using a lot of dependencies
 - Fix the issue when you change the region didn't updated the player
 - Improved UX for playlist
+- Added client name to identify each users in the room
 
 Angular YouTube Player 2.4
 - Switched from firebase to json through socket.io and private server

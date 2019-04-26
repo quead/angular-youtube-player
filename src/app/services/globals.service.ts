@@ -5,6 +5,8 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GlobalsService {
+	clientName: string;
+
 	relatedVideos: Array<VideoModel> = [];
 	feedVideos: Array<VideoModel>;
 	playlistVideos: Array<VideoModel> = [];

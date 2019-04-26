@@ -2,6 +2,7 @@
   <h2>Room</h2>
   <button type="button" class="video-item-head-btn" (click)="showModal()"><span class="fa fa-cog"></span>Manage</button>
 </div>
+<p>Your name: {{globals.clientName}}</p>
 <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
 <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
 <p>Access control: 

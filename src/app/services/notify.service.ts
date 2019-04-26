@@ -31,7 +31,9 @@ export class NotifyService {
 		31: 'Someone leaved your room.',
 		32: 'You joined in the room.',
 		33: 'You left the room.',
-		34: 'Room changed'
+		34: 'Room changed.',
+		35: 'The chosen name already exists. We choose one for you.',
+		36: 'You left username empty. We choose one for you.'
 	};
 
 	constructor() {}

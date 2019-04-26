@@ -45,6 +45,7 @@ export class PlayerComponent implements OnInit {
 		// Where app is loaded
 		this.shared.preventOldSettings();
 		this.shared.getSettings();
+		this.room.join();
 		this.setDefaultPlayer();
 
 		this.socket.on('event_trigger', data => {
@@ -147,7 +148,6 @@ export class PlayerComponent implements OnInit {
 
 	// Init app
 	setDefaultPlayer() {
-		this.room.join();
 		this.shared.initFeed().then(() => {
 			this.globals.currentVideo = this.globals.feedVideos[0];
 			this.globals.shareLink =
