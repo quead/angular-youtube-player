@@ -16,6 +16,7 @@ export class RoomComponent implements OnInit {
 	modal = false;
 	modalRoom = false;
 	sessionKeyInput: any;
+	clientNameInput: any;
 
 	constructor(
 		private notify: NotifyService,
@@ -78,6 +79,14 @@ export class RoomComponent implements OnInit {
 			this.room.join();
 			this.closeModal();
 			this.notify.triggerNotify(34);
+		}
+		if (this.clientNameInput) {
+			this.clientNameInput = this.clientNameInput.trim();
+			this.socket.emit('change_username', {name: this.clientNameInput}, data => {
+				console.log(data);
+				// this.closeModal();
+			});
+			
 		}
 	}
 

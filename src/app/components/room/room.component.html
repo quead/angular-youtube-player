@@ -31,9 +31,13 @@
                 <span class="fa fa-lock"></span> Listen only
             </ng-container>
           </p>
+          <div class="session-key-block">
+              <label for="client-name-input">Change name <small>(optional)</small>:</label>
+              <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput" placeholder="{{globals.clientName}}" />
+          </div>
           <div class="session-section" *ngIf="!this.globals.isTempSessionActive">
             <div class="session-key-block">
-              <label for="session-key-input">Change Room:</label>
+              <label for="session-key-input">Change Room <small>(optional)</small>:</label>
               <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
             </div>
           </div>
@@ -43,7 +47,7 @@
         </button>
         <div class="modal-buttons">
           <ng-container *ngIf="!this.globals.isTempSessionActive">
-            <button type="submit" class="btn btn-secondary">Change session</button>
+            <button type="submit" class="btn btn-secondary">Save</button>
           </ng-container>
           <ng-container *ngIf="this.globals.isTempSessionActive">
               <button type="button" class="btn btn-primary" (click)="leave()">Leave</button>
