@@ -34,9 +34,21 @@ export class RoomComponent implements OnInit {
 			this.shared.findPlaylistItem();
 		});
 
-		this.socket.on('alert_notify', id => {
-			console.log('Join / leave notify not working atm');
+		this.socket.on('user_left', ({name, clients}) => {
+			console.log(clients);
+			this.globals.clients = clients;
+			if (name !== localStorage.getItem('clientName')) {
+				this.notify.triggerNotify(31);
+			}
 		});
+		
+		this.socket.on('user_joined', ({name, clients}) => {
+			console.log(clients);
+			this.globals.clients = clients;
+			if (name !== localStorage.getItem('clientName')) {
+				this.notify.triggerNotify(30);
+			}
+		})
 	}
 
 	closeModal() {

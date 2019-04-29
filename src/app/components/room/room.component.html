@@ -13,6 +13,14 @@
         <span class="fa fa-lock"></span> Listen only
     </ng-container>
 </p>
+<div>
+  <p>Users in this room:</p>
+  <ng-container *ngIf="globals.clients">
+    <p *ngFor="let client of globals.clients">
+      {{client.name}}
+    </p>
+  </ng-container>
+</div>
 
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>

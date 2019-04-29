@@ -1,11 +1,13 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { VideoModel } from '../models/video.model';
+import { ClientModel } from '../models/client.model';
 import { SettingsModel } from '../models/settings.model';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GlobalsService {
 	clientName: string;
+	clients: Array<ClientModel>;
 
 	relatedVideos: Array<VideoModel> = [];
 	feedVideos: Array<VideoModel>;

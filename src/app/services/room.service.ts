@@ -24,12 +24,11 @@ export class RoomService {
 				this.socket.emit('join_session', {session: this.globals.sessionValue, name: localStorage.getItem('clientName')}, ({client, status}) => {
 					switch(status) {
 						case 'USERNAME_EXIST':
-						this.notify.triggerNotify(35);
+						console.log('you joined with used name');
 						case 'USERNAME_EMPTY':
-						this.notify.triggerNotify(36);
+						console.log('you joined with empty name');
 						case 'USERNAME_OK':
 						this.shared.updateClientName(client.name);
-						this.notify.triggerNotify(37);
 						default:
 						break;
 					}

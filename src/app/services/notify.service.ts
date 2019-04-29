@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class NotifyService {
 	defaults = {
 		enabled: false,
-		message: 'No message'
+		message: 'No message',
 	};
 
 	// Playlist 0 - 10
