@@ -82,9 +82,15 @@ export class RoomComponent implements OnInit {
 		}
 		if (this.clientNameInput) {
 			this.clientNameInput = this.clientNameInput.trim();
-			this.socket.emit('change_username', {name: this.clientNameInput}, data => {
-				console.log(data);
-				// this.closeModal();
+			this.socket.emit('change_username', {name: this.clientNameInput}, ({data, status}) => {
+				if (status === 'USERNAME_OK') {
+					this.shared.updateClientName(data.name);
+					this.notify.triggerNotify(37);
+				} else {
+					this.notify.triggerNotify(38);
+				}
+				this.clientNameInput = '';
+				this.closeModal();
 			});
 			
 		}

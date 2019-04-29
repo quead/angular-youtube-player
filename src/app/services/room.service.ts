@@ -22,13 +22,16 @@ export class RoomService {
 			if (res === 'OK') {
 				// If session exist we can bring him in the session
 				this.socket.emit('join_session', {session: this.globals.sessionValue, name: localStorage.getItem('clientName')}, ({client, status}) => {
-					this.globals.clientName = client.name;
-					localStorage.setItem('clientName', client.name);
-					if (status === 'USERNAME_EXIST') {
+					switch(status) {
+						case 'USERNAME_EXIST':
 						this.notify.triggerNotify(35);
-					}
-					if (status === 'USERNAME_EMPTY') {
+						case 'USERNAME_EMPTY':
 						this.notify.triggerNotify(36);
+						case 'USERNAME_OK':
+						this.shared.updateClientName(client.name);
+						this.notify.triggerNotify(37);
+						default:
+						break;
 					}
 				});
 				this.shared.findPlaylistItem();

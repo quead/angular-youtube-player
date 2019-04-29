@@ -140,6 +140,11 @@ export class SharedService {
 		}
 	}
 
+	updateClientName(name: string) {
+		this.globals.clientName = name;
+		localStorage.setItem('clientName', name);
+	}
+
 	getVideoFromList(i: number, listIndex: number) {
 		let videoSelected;
 
