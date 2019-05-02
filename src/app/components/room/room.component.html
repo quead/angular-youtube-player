@@ -5,6 +5,7 @@
 <p>Your name: {{globals.clientName}}</p>
 <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
 <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
+<p *ngIf="globals.clients">Users in the room: {{globals.clients.length}}</p>
 <p>Access control: 
     <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
         <span class="fa fa-unlock"></span> Unlocked
@@ -13,14 +14,6 @@
         <span class="fa fa-lock"></span> Listen only
     </ng-container>
 </p>
-<div>
-  <p>Users in this room:</p>
-  <ng-container *ngIf="globals.clients">
-    <p *ngFor="let client of globals.clients">
-      {{client.name}}
-    </p>
-  </ng-container>
-</div>
 
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
@@ -39,14 +32,18 @@
                 <span class="fa fa-lock"></span> Listen only
             </ng-container>
           </p>
-          <div class="session-key-block">
+          <div class="session-section">
               <label for="client-name-input">Change name <small>(optional)</small>:</label>
               <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput" placeholder="{{globals.clientName}}" />
           </div>
-          <div class="session-section" *ngIf="!this.globals.isTempSessionActive">
-            <div class="session-key-block">
+          <div class="session-section">
+            <div class="session-key-block" *ngIf="!this.globals.isTempSessionActive">
               <label for="session-key-input">Change Room <small>(optional)</small>:</label>
               <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
+            </div>
+            <div *ngIf="this.globals.isTempSessionActive" class="session-locked-block">
+              <p>You are joined into: {{globals.getCurrentSessionKeys().tempSession}}</p>
+              <button type="button" class="btn btn-small btn-round btn-primary" (click)="leave()">Leave</button>
             </div>
           </div>
         </div>
@@ -54,12 +51,7 @@
           <span class="fa fa-times"></span>
         </button>
         <div class="modal-buttons">
-          <ng-container *ngIf="!this.globals.isTempSessionActive">
-            <button type="submit" class="btn btn-secondary">Save</button>
-          </ng-container>
-          <ng-container *ngIf="this.globals.isTempSessionActive">
-              <button type="button" class="btn btn-primary" (click)="leave()">Leave</button>
-          </ng-container>
+          <button type="submit" class="btn btn-secondary">Save</button>
           <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>
         </div>
     </form>

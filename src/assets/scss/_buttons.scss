@@ -39,6 +39,10 @@
 		}
 	}
 
+	&-small {
+		padding: 6px 12px;
+	}
+
 	&-primary {
 		background-color: var(--c-primary);
 		color: var(--c-white);

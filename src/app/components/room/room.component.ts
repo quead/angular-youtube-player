@@ -35,7 +35,6 @@ export class RoomComponent implements OnInit {
 		});
 
 		this.socket.on('user_left', ({name, clients}) => {
-			console.log(clients);
 			this.globals.clients = clients;
 			if (name !== localStorage.getItem('clientName')) {
 				this.notify.triggerNotify(31);
@@ -43,7 +42,6 @@ export class RoomComponent implements OnInit {
 		});
 		
 		this.socket.on('user_joined', ({name, clients}) => {
-			console.log(clients);
 			this.globals.clients = clients;
 			if (name !== localStorage.getItem('clientName')) {
 				this.notify.triggerNotify(30);
@@ -94,7 +92,7 @@ export class RoomComponent implements OnInit {
 		}
 		if (this.clientNameInput) {
 			this.clientNameInput = this.clientNameInput.trim();
-			this.socket.emit('change_username', {name: this.clientNameInput}, ({data, status}) => {
+			this.socket.emit('change_username', {name: this.clientNameInput}, ({data, status, clients}) => {
 				if (status === 'USERNAME_OK') {
 					this.shared.updateClientName(data.name);
 					this.notify.triggerNotify(37);
