@@ -14,46 +14,51 @@
         <span class="fa fa-lock"></span> Listen only
     </ng-container>
 </p>
+<ng-container *ngIf="globals.clients">
+  <p *ngFor="let client of globals.clients">
+    {{client.name}}
+  </p>
+</ng-container>
+
 
 <div *ngIf="modal" class="modal-overlay">
   <div class="modal-background-overlay" (click)="closeModal()"></div>
   <div *ngIf="modalRoom" id="manage-playlist" class="modal-container">
     <h2 class="text-center">Manage room</h2>
-    <form name="updateSessionKeyForm" (ngSubmit)="updateKey()" (keydown.enter)="$event.preventDefault()" novalidate>
-        <div class="modal-content">
-          <p>Playlist videos: {{globals.playlistVideos.length}}</p>
-          <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
-          <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
-          <p>Access control: 
-            <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-                <span class="fa fa-unlock"></span> Unlocked
-            </ng-container>
-            <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-                <span class="fa fa-lock"></span> Listen only
-            </ng-container>
-          </p>
-          <div class="session-section">
-              <label for="client-name-input">Change name <small>(optional)</small>:</label>
-              <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput" placeholder="{{globals.clientName}}" />
+      <div class="modal-content">
+        <p>Playlist videos: {{globals.playlistVideos.length}}</p>
+        <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
+        <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
+        <p>Access control: 
+          <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+              <span class="fa fa-unlock"></span> Unlocked
+          </ng-container>
+          <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+              <span class="fa fa-lock"></span> Listen only
+          </ng-container>
+        </p>
+        <div class="session-section">
+            <label for="client-name-input">Change name <small>(optional)</small>:</label>
+            <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput" placeholder="{{globals.clientName}}" />
+            <button type="submit" class="btn btn-round btn-secondary" (click)="updateName()">Update</button>
+        </div>
+        <div class="session-section">
+          <div class="session-key-block" *ngIf="!this.globals.isTempSessionActive">
+            <label for="session-key-input">Change Room <small>(optional)</small>:</label>
+            <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
+            <button type="submit" class="btn btn-round btn-secondary" (click)="updateRoom()">Update</button>
           </div>
-          <div class="session-section">
-            <div class="session-key-block" *ngIf="!this.globals.isTempSessionActive">
-              <label for="session-key-input">Change Room <small>(optional)</small>:</label>
-              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
-            </div>
-            <div *ngIf="this.globals.isTempSessionActive" class="session-locked-block">
-              <p>You are joined into: {{globals.getCurrentSessionKeys().tempSession}}</p>
-              <button type="button" class="btn btn-small btn-round btn-primary" (click)="leave()">Leave</button>
-            </div>
+          <div *ngIf="this.globals.isTempSessionActive" class="session-locked-block">
+            <p>You are joined into: {{globals.getCurrentSessionKeys().tempSession}}</p>
+            <button type="button" class="btn btn-small btn-round btn-primary" (click)="leave()">Leave</button>
           </div>
         </div>
-        <button class="modal-close" (click)="closeModal()">
-          <span class="fa fa-times"></span>
-        </button>
-        <div class="modal-buttons">
-          <button type="submit" class="btn btn-secondary">Save</button>
-          <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>
-        </div>
-    </form>
+      </div>
+      <button class="modal-close" (click)="closeModal()">
+        <span class="fa fa-times"></span>
+      </button>
+      <div class="modal-buttons">
+        <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>
+      </div>
   </div>  
 </div>

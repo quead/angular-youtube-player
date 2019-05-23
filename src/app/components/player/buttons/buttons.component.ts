@@ -10,8 +10,8 @@ import { VideoModel } from '../../../models/video.model';
 	templateUrl: './buttons.component.html'
 })
 export class ButtonsComponent implements OnInit {
-	@Input('listID') listID: number;
-	@Input('videoIndex') videoIndex: number;
+	@Input() listID: number;
+	@Input() videoIndex: number;
 
 	constructor(
 		public globals: GlobalsService,

@@ -28,6 +28,14 @@ export class RoomComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.socket.on('username_changed', ({name, clients}) => {
+			this.globals.clients = clients;
+			this.shared.updateClientName(name);
+			this.notify.triggerNotify(37);
+			this.clientNameInput = '';
+			this.closeModal();
+		});
+
 		this.socket.on('download_playlist', data => {
 			this.globals.playlistVideos =
 				data[this.globals.getCurrentSessionKeys().tempSession].playlist;
@@ -40,13 +48,13 @@ export class RoomComponent implements OnInit {
 				this.notify.triggerNotify(31);
 			}
 		});
-		
+
 		this.socket.on('user_joined', ({name, clients}) => {
 			this.globals.clients = clients;
 			if (name !== localStorage.getItem('clientName')) {
 				this.notify.triggerNotify(30);
 			}
-		})
+		});
 	}
 
 	closeModal() {
@@ -70,7 +78,14 @@ export class RoomComponent implements OnInit {
 		this.room.join();
 	}
 
-	updateKey() {
+	updateName() {
+		if (this.clientNameInput) {
+			this.clientNameInput = this.clientNameInput.trim();
+			this.socket.emit('change_username', {name: this.clientNameInput});
+		}
+	}
+
+	updateRoom() {
 		if (this.sessionKeyInput) {
 			this.sessionKeyInput = this.sessionKeyInput.trim();
 			this.room.leave();
@@ -89,20 +104,6 @@ export class RoomComponent implements OnInit {
 			this.room.join();
 			this.closeModal();
 			this.notify.triggerNotify(34);
-		}
-		if (this.clientNameInput) {
-			this.clientNameInput = this.clientNameInput.trim();
-			this.socket.emit('change_username', {name: this.clientNameInput}, ({data, status, clients}) => {
-				if (status === 'USERNAME_OK') {
-					this.shared.updateClientName(data.name);
-					this.notify.triggerNotify(37);
-				} else {
-					this.notify.triggerNotify(38);
-				}
-				this.clientNameInput = '';
-				this.closeModal();
-			});
-			
 		}
 	}
 

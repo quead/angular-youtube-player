@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
+import { ButtonsComponent } from '../player/buttons/buttons.component';
 import { VideoModel } from '../../models/video.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -22,6 +23,7 @@ export class PlaylistComponent implements OnInit {
 	constructor(
 		public shared: SharedService,
 		public globals: GlobalsService,
+		public buttons: ButtonsComponent,
 		public playlistCTRL: PlaylistControlService
 	) {}
 

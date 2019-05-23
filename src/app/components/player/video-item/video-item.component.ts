@@ -9,9 +9,9 @@ import { GlobalsService } from '../../../services/globals.service';
 	encapsulation: ViewEncapsulation.None
 })
 export class VideoItemComponent implements OnInit {
-	@Input('videoItem') videoItem: VideoModel;
-	@Input('videoIndex') videoIndex: number;
-	@Input('listID') listID: number;
+	@Input() videoItem: VideoModel;
+	@Input() videoIndex: number;
+	@Input() listID: number;
 
 	constructor(public globals: GlobalsService) {}
 

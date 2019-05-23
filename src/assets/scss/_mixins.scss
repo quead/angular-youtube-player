@@ -34,7 +34,7 @@
 
 @function svg-url($svg, $fillColor, $secondColor, $thirdColor) {
 	@if not str-index($svg, xmlns) {
-		$svg: str-replace($svg, '<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+		$svg: str-rep§	6lace($svg, '<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
 	}
 
 	$encoded: '';
