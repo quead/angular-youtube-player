@@ -4,30 +4,14 @@
 	width: 100%;
 	display: flex;
 	align-items: flex-start;
-	&-btn {
-		float: right;
-		background-color: transparent;
-		color: var(--c-wihte);
-		border-radius: 20px;
-		padding: 4px 8px;
-		margin-left: 5px;
+	.btn {
 		text-transform: capitalize;
-		font-size: $f-12;
-		font-weight: 600;
-		border: 1px solid var(--c-white);
-		display: flex;
-		align-items: center;
-		user-select: none;
-		transition: all 0.1s ease-out;
-		&:active {
-			color: var(--c-black);
-			background-color: var(--c-white);
+		.fa {
+			margin-right: 5px;
+			font-size: 12px;
 		}
-		+ .video-item-head-btn {
+		+ .btn {
 			margin-right: 5px;
 		}
-	}
-	.fa {
-		margin-right: 3px;
 	}
 }

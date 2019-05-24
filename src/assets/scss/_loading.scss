@@ -98,8 +98,10 @@
 	margin: 0 auto;
 }
 
-.loading-featured {
+.loading-featured.main-player-loading {
 	height: 205px;
+	margin-top: 20px;
+	margin-bottom: 40px;
 	width: 100%;
 }
 

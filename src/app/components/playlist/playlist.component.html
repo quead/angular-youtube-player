@@ -1,7 +1,7 @@
 <div id="playlist-video-list" class="video-list">
   <div class="video-item-head">
       <h2>Current playlist</h2>
-      <button type="button" class="video-item-head-btn" (click)="shared.clearPlaylist()" *ngIf="!globals.isTempSessionActive"><span class="fa fa-close"></span>clear</button>
+      <button type="button" class="btn btn-small btn-warning" (click)="confirmClear()" *ngIf="!globals.isTempSessionActive"><span class="fa fa-close"></span>clear</button>
   </div>
   <div class="playlist-video-content" #playlistContainer>
     <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">

@@ -68,10 +68,11 @@
 		justify-content: center;
 		transition: all 0.1s ease-in-out;
 		> button {
-			background-color: #252729;
+			background-color: var(--c-dark-gray);
 			color: inherit;
 			height: 30px;
 			width: 30px;
+			flex: 0 0 30px;
 			border-radius: 50%;
 			text-align: center;
 			border: none;

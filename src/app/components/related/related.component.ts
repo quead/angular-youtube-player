@@ -18,7 +18,7 @@ export class RelatedComponent implements OnInit {
 
 	ngOnInit() {
 		this.carouselOne = {
-			grid: { xs: 2, sm: 4, md: 8, lg: 8, all: 0 },
+			grid: { xs: 2, sm: 4, md: 4, lg: 4, all: 0 },
 			slide: 4,
 			speed: 250,
 			loop: true,

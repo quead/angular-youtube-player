@@ -72,15 +72,20 @@
 	border: 2px dashed rgba(255, 255, 255, 0.2);
 }
 
-.playlist_item.cdk-drag-preview {
-	box-sizing: border-box;
-	border-radius: 4px;
-	background: #0c0e11;
-	border: 2px solid rgba(255, 255, 255, 0.15) !important;
-	p {
-		margin: 0;
+.playlist_item {
+	transition: 0.1s all ease-out;
+	&.cdk-drag-preview {
+		box-sizing: border-box;
+		border-radius: 4px;
+		background: #0c0e11;
+		border: 2px solid rgba(255, 255, 255, 0.15) !important;
+		box-shadow: 0px 3px 5px rgba(0,0,0,0.4);
+		p {
+			margin: 0;
+		}
 	}
 }
+
 
 .cdk-drag-placeholder {
 	opacity: 0.2;

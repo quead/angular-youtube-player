@@ -1,5 +1,5 @@
 <div *ngIf="loading" class="app-content">
-  <div class="loading-featured loading-anim"></div>
+  <div class="loading-featured main-player-loading loading-anim"></div>
 </div>
 <ng-container *ngIf="!loading && globals.currentVideo.id">
   <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}">
@@ -13,7 +13,7 @@
             <ng-container *ngIf="!this.globals.isTempSessionActive">
               <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>
             </ng-container>
-          <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
+          <button type="button" class="btn btn-small" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
       </div>
       <div class="player-container">
           <div class="current-video-details">
@@ -66,12 +66,12 @@
           </div>
           <div class="current-video-actions" *ngIf="!globals.thumbnails">
             <ng-container *ngIf="this.globals.isTempSessionActive">
-              <button type="button" class="add-playlist disabled"><span class="fa fa-plus"></span>Add to playlist</button>                
+              <button type="button" class="btn disabled"><span class="fa fa-plus"></span>Add to playlist</button>                
             </ng-container>
             <ng-container *ngIf="!this.globals.isTempSessionActive">
-              <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                
+              <button type="button" class="btn" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                
             </ng-container>
-            <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Show Video</button>  
+            <button type="button" class="btn" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Show Video</button>  
           </div>
       </div>
     </div>
@@ -82,7 +82,7 @@
                 <youtube-iframe></youtube-iframe>
             </div>
             <div *ngIf="isFullscreen" class="background-playlist">
-                <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>
+                <button type="button" class="btn btn-block" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>
                 <app-playlist></app-playlist>
             </div>
         </div>

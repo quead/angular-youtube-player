@@ -1,6 +1,7 @@
 .btn {
 	display: inline-block;
-	color: var(--c-white);
+	background-color: rgba(255,255,255,0.2);
+	color: #ffffff;
 	font-size: $f-14;
 	font-weight: 400;
 	line-height: 1.25;
@@ -8,20 +9,26 @@
 	white-space: nowrap;
 	vertical-align: middle;
 	user-select: none;
-	border: 1px solid transparent;
+	border: none;
+	border-radius: 5px;
 	padding: 9px 15px;
 	text-decoration: none;
 	transition: all 0.1s ease-out;
 	outline: 0;
 	line-height: 1;
-
+	&:active {
+		background-color: #ffffff;
+		color: #000;
+	}
 	.fa {
 		margin-right: 8px;
-		font-size: $f-10;
-		top: -1px;
+		font-size: $f-12;
 		position: relative;
 	}
-
+	&-block {
+		width: 100%;
+		display: block;
+	}
 	&-round {
 		border-radius: 50px;
 	}
@@ -40,15 +47,16 @@
 	}
 
 	&-small {
-		padding: 6px 12px;
+		padding: 5px 10px;
 	}
 
 	&-primary {
-		background-color: var(--c-primary);
-		color: var(--c-white);
+		background-color: rgba(#ff0000, 0.2);
+		color: #ff0000;
 
 		&:active {
-			background-color: var(--c-primary-active);
+			background-color: #ff0000;
+			color: #ffffff;
 		}
 	}
 
@@ -57,6 +65,15 @@
 
 		&:active {
 			background-color: darken(#1a85fd, 17%);
+		}
+	}
+
+	&-warning {
+		color: #f4a43b;
+		background-color: rgba(#f4a43b,0.2);
+		&:active {
+			color: #000000;
+			background-color: #f4a43b;
 		}
 	}
 }

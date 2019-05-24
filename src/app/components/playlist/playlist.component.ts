@@ -31,6 +31,12 @@ export class PlaylistComponent implements OnInit {
 		this.globals.myScrollContainer = this.myScrollContainer;
 	}
 
+	confirmClear() {
+		if (confirm("Are you sure you want to clear the playlist?")) {
+			this.shared.clearPlaylist();
+		}
+	}
+
 	dropPlaylistItem(event: CdkDragDrop<string[]>) {
 		moveItemInArray(
 			this.globals.playlistVideos,
