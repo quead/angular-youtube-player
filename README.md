@@ -14,7 +14,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
-This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [@angular/material](https://material.angular.io/ "angular material").
+This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [@angular/cdk](https://material.angular.io/cdk/categories/ "angular cdk").
 
 This player is compatible only with Chrome/webkit browsers.
 
