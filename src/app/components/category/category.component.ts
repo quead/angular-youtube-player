@@ -9,22 +9,20 @@ import { GlobalsService } from '../../services/globals.service';
 	styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-	loading = true;
 
 	constructor(
 		private youtube: YoutubeGetVideo,
 		private shared: SharedService,
 		public globals: GlobalsService
-	) {}
+	) { }
 
 	ngOnInit() {
-		this.initTrending();
+		this.initCategories();
 	}
 
-	initTrending() {
+	initCategories() {
 		this.youtube.categories().then(catData => {
 			this.globals.categories = catData;
-			this.loading = false;
 		});
 	}
 
@@ -41,7 +39,7 @@ export class CategoryComponent implements OnInit {
 	getCategories() {
 		this.youtube.categories().then(catData => {
 			this.globals.categories = catData;
-			this.loading = true;
+			this.globals.isFeedLoading = true;
 			this.getCategoriesVideos(this.globals.currentCategory);
 		});
 	}
@@ -49,15 +47,15 @@ export class CategoryComponent implements OnInit {
 	async getCategoriesVideos(val: string) {
 		const res2 = await this.youtube.videoCategories(val);
 		this.shared.convertVideoObject(res2['items'], 'feedVideos');
-		this.loading = false;
+		this.globals.isFeedLoading = false;
 	}
 
 	resetCategories() {
-		this.loading = true;
+		this.globals.isFeedLoading = true;
 		this.globals.currentCategory = 'all';
 		this.globals.feedVideos = null;
 		this.shared.initFeed().then(() => {
-			this.loading = false;
+			this.globals.isFeedLoading = false;
 		});
 	}
 }

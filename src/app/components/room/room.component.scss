@@ -24,16 +24,13 @@ app-room {
 		font-size: 14px;
 		width: 100%;
 	}
-	.session-key-block {
-		display: block;
-		margin: 0 auto 10px;
-		label {
-			margin-right: 5px;
-		}
+	.session-form {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
 	}
 	.btn {
-		margin: 10px auto 0;
-		display: inherit;
+		margin-left: 10px;
 	}
 }
 

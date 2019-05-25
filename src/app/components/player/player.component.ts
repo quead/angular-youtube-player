@@ -39,7 +39,7 @@ export class PlayerComponent implements OnInit {
 		private room: RoomService,
 		private playerCTA: ButtonsComponent,
 		private socket: Socket
-	) {}
+	) { }
 
 	ngOnInit() {
 		// Where app is loaded
@@ -73,12 +73,14 @@ export class PlayerComponent implements OnInit {
 	changeState(event: any) {
 		if (event.data) {
 			this.globals.currentState = event.data;
+		} else if (isNaN(event)) {
+			this.globals.currentState = event;
 		}
 		this.videoMaxRange = this.globals.player.getDuration();
 		this.videoCurVolume = this.globals.player.getVolume();
 
 		// https://developers.google.com/youtube/iframe_api_reference#Events
-		switch (event.data) {
+		switch (this.globals.currentState) {
 			// Playing
 			case 1:
 				this.videoMaxFull = this.timeFormat(this.videoMaxRange);
@@ -152,6 +154,7 @@ export class PlayerComponent implements OnInit {
 			this.globals.currentVideo = this.globals.feedVideos[0];
 			this.globals.shareLink =
 				'https://youtu.be/' + this.globals.currentVideo['id'];
+			this.globals.isFeedLoading = false;
 			this.shared.getRelatedVideos().then(() => {
 				this.loading = false;
 				this.globals.isLoading = false;
@@ -280,7 +283,7 @@ export class PlayerComponent implements OnInit {
 		const seconds: number = Math.round((time % 3600) % 60);
 		const value = `${
 			hours > 0 ? (hours < 10 ? '0' : '') + hours + ':' : ''
-		}${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') +
+			}${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') +
 			seconds}`;
 		return value;
 	}

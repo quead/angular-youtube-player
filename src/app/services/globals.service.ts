@@ -29,6 +29,7 @@ export class GlobalsService {
 
 	isLogged = false;
 	isLoading = true;
+	isFeedLoading = true;
 	thumbnails = true;
 	listGrid = false;
 	repeatMode = true;
@@ -45,7 +46,7 @@ export class GlobalsService {
 	player: any;
 	myScrollContainer: ElementRef;
 
-	constructor() {}
+	constructor() { }
 
 	getCurrentSessionKeys() {
 		return {

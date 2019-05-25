@@ -25,10 +25,10 @@ export class RoomComponent implements OnInit {
 		private shared: SharedService,
 		public room: RoomService,
 		private socket: Socket
-	) {}
+	) { }
 
 	ngOnInit() {
-		this.socket.on('username_changed', ({name, clients}) => {
+		this.socket.on('username_changed', ({ name, clients }) => {
 			this.globals.clients = clients;
 			this.shared.updateClientName(name);
 			this.notify.triggerNotify(37);
@@ -42,14 +42,14 @@ export class RoomComponent implements OnInit {
 			this.shared.findPlaylistItem();
 		});
 
-		this.socket.on('user_left', ({name, clients}) => {
+		this.socket.on('user_left', ({ name, clients }) => {
 			this.globals.clients = clients;
 			if (name !== localStorage.getItem('clientName')) {
 				this.notify.triggerNotify(31);
 			}
 		});
 
-		this.socket.on('user_joined', ({name, clients}) => {
+		this.socket.on('user_joined', ({ name, clients }) => {
 			this.globals.clients = clients;
 			if (name !== localStorage.getItem('clientName')) {
 				this.notify.triggerNotify(30);
@@ -81,7 +81,7 @@ export class RoomComponent implements OnInit {
 	updateName() {
 		if (this.clientNameInput) {
 			this.clientNameInput = this.clientNameInput.trim();
-			this.socket.emit('change_username', {name: this.clientNameInput});
+			this.socket.emit('change_username', { name: this.clientNameInput });
 		}
 	}
 
