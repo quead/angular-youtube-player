@@ -5,67 +5,76 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.router';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { DragulaModule } from 'ng2-dragula';
-import { NguCarouselModule, NguCarouselConfig, NguCarousel } from '@ngu/carousel';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import {
+	NguCarouselModule,
+	NguCarouselConfig,
+	NguCarousel
+} from '@ngu/carousel';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { DbCrudService } from './services/db-crud.service';
+import { SessionManagerService } from './services/session-manager.service';
 import { GlobalsService } from './services/globals.service';
 import { SharedService } from './services/shared.service';
 import { YoutubeGetVideo } from './services/youtube.service';
 import { PlaylistControlService } from './services/playlist-control.service';
-import { SettingsComponent } from './components/youtube-settings.component';
-import { SearchComponent } from './components/youtube-search.component';
-import { AboutComponent } from './components/youtube-about.component';
-import { HistoryComponent } from './components/youtube-history.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { SearchComponent } from './components/search/search.component';
+import { AboutComponent } from './components/about/about.component';
+import { HistoryComponent } from './components/history/history.component';
 import { PlayerComponent } from './components/player/player.component';
 
-import { YoutubePlayerModule } from 'ngx-youtube-player';
 import { CategoryComponent } from './components/category/category.component';
 
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
+import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
+import { ButtonsComponent } from './components/player/buttons/buttons.component';
+import { VideoItemComponent } from './components/player/video-item/video-item.component';
 
-const config: SocketIoConfig = { url: 'https://habarnam.io:8888/', options: {} };
+const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    YoutubePlayerModule,
-    FormsModule,
-    DragulaModule.forRoot(),
-    NguCarouselModule,
-    AppRoutingModule,
-    SocketIoModule.forRoot(config)
-  ],
-  declarations: [
-    AppComponent,
-    SettingsComponent,
-    SearchComponent,
-    AboutComponent,
-    HistoryComponent,
-    CategoryComponent,
-    PlayerComponent,
-    PlaylistComponent,
-    RelatedComponent,
-    RoomComponent
-  ],
-  bootstrap: [ AppComponent ],
-  providers: [
-    DbCrudService,
-    PlayerComponent,
-    PlaylistComponent,
-    YoutubeGetVideo,
-    PlaylistControlService,
-    SharedService,
-    GlobalsService,
-    NguCarouselConfig,
-    NguCarousel
-  ]
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		ReactiveFormsModule,
+		FormsModule,
+		NguCarouselModule,
+		AppRoutingModule,
+		DragDropModule,
+		SocketIoModule.forRoot(config)
+	],
+	declarations: [
+		AppComponent,
+		SettingsComponent,
+		SearchComponent,
+		AboutComponent,
+		HistoryComponent,
+		CategoryComponent,
+		PlayerComponent,
+		PlaylistComponent,
+		RelatedComponent,
+		RoomComponent,
+		YoutubeIframeComponent,
+		ButtonsComponent,
+		VideoItemComponent
+	],
+	bootstrap: [AppComponent],
+	providers: [
+		SessionManagerService,
+		PlayerComponent,
+		PlaylistComponent,
+		YoutubeGetVideo,
+		PlaylistControlService,
+		SharedService,
+		GlobalsService,
+		NguCarouselConfig,
+		NguCarousel,
+		ButtonsComponent
+	]
 })
-
-export class AppModule { }
-
+export class AppModule {}

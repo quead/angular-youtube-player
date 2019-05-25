@@ -3,18 +3,18 @@
     Demo
   </a>
   <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player"> 
-    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/h4x3o5k.jpg" style="height: auto; max-width:100%;" />
+    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/HyLDe9j.jpg" style="height: auto; max-width:100%;" />
   </a>
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.4-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.5-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
 [![GitHub stars](https://img.shields.io/github/stars/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/stargazers)
 
-This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-youtube-player](https://github.com/orizens/ng2-youtube-player "ngx youtube player"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [ng2-dragula](https://github.com/valor-software/ng2-dragula "ng2 dragula").
+This is a simple youtube web player based on [angular-cli](https://github.com/angular/angular-cli "Angular Cli"), [ngx-socket-io](https://github.com/rodgc/ngx-socket-io "ngx socket.io"), [@angular/material](https://material.angular.io/ "angular material").
 
 This player is compatible only with Chrome/webkit browsers.
 
@@ -22,39 +22,42 @@ This player is compatible only with Chrome/webkit browsers.
 
 ## How to use
 
-**For Angular and Typescript Development**
+**For development**
 1. Install [NodeJS 8.11.3+](https://nodejs.org/en/download/ "Node JS Download")
-2. Install [angular-cli 1.7.3+](https://github.com/angular/angular-cli "Angular Cli")
 
-`npm install -g @angular/cli`
+2. Download/clone repository then install the player by
 
-3. Download/clone repository then install the player by
+`npm install` in root folder (not in /src)
 
-`npm install` in root folder
+3. Add your youtube api key in **src/app/environments/settings.ts** or inside the app on settings page (when is running)
 
-4. Run the player by
+4. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
 
-`npm start` in root folder
-
-5. Add your youtube api key in settings.json or in the app
+You must change inside **src/app/environments/environment.ts** your path to your server.
 
 6. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
 
-You must change inside **app.modules.ts** your path to your server.
+`npm start` in root folder
 
-**For SASS development**
+**For building the app**
 
-1. Install [Sass](http://sass-lang.com/install "Sass website")
+1. Install [angular-cli 7.3.7+](https://github.com/angular/angular-cli "Angular Cli")
 
-2. Do steps from above
+`npm install -g @angular/cli`
 
-3. Start project by
+2. Run inside the root folder (not in /src)
 
-`npm start`
+Check [angular documentation](https://angular.io/cli/build 'angular cli') for other build options.
 
-4. Edit files from src/assets/scss
+`ng build --prod=true`
 
 ## Changelog
+Angular YouTube Player 2.5
+- Cleaned the project to avoid using a lot of dependencies
+- Fix the issue when you change the region didn't updated the player
+- Improved UX for playlist
+- Added client name to identify each users in the room
+
 Angular YouTube Player 2.4
 - Switched from firebase to json through socket.io and private server
 - Responsive layout
@@ -176,9 +179,10 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
+- *List of users joined in the session **(in v2.6)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.9)***
-- *Room moderators which can add videos, kick roommates, mute roommates, rename room title and description **(in v2.9)***
+- *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
 
 #### Roadmap to 4.0
 - Integrating YouTube account subscriptions/playlist **(in v3.0)**

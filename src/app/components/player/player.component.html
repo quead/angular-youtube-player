@@ -1,5 +1,5 @@
 <div *ngIf="loading" class="app-content">
-  <div class="loading-featured loading-anim"></div>
+  <div class="loading-featured main-player-loading loading-anim"></div>
 </div>
 <ng-container *ngIf="!loading && globals.currentVideo.id">
   <span class="container-cover-bg" [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}">
@@ -13,7 +13,7 @@
             <ng-container *ngIf="!this.globals.isTempSessionActive">
               <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span></button>
             </ng-container>
-          <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
+          <button type="button" class="btn btn-small" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Video</button>  
       </div>
       <div class="player-container">
           <div class="current-video-details">
@@ -36,7 +36,7 @@
             </div>
             <div class="player-buttons" *ngIf="!globals.isTempSessionActive">
                 <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span class="fa fa-backward"></span></button>
-                <button id="play-song" (click)="playPauseVideo()"><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
+                <button id="play-song" (click)="playerCTA.playPauseVideo()"><span class="fa" [ngClass]="globals.currentState === 1 ? 'fa-pause' : 'fa-play' "></span></button>
                 <button id="next-song" (click)="playPlaylistItem('next', globals.currentPlaylistItem)"><span class="fa fa-forward"></span></button>
             </div>
             <div class="current-video-range">
@@ -45,15 +45,16 @@
                   <input type="range" id="youtube-player-range" class="player-range disabled" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange [disabled]="globals.currentState === -1">                  
                 </ng-container>
                 <ng-container *ngIf="!globals.isTempSessionActive">
-                    <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="globals.currentState === -1">                  
-                  </ng-container>
+                  <input type="range" id="youtube-player-range" class="player-range" [ngClass]="videoMaxRange <= 0 ? 'inactive' : 'active'" [value]="videoCurRange" min="0" max="{{videoMaxRange}}" #videoRange (mousedown)="rangeNouseDown()" (mousemove)="rangeMouseMove(videoRange.value)" (mouseup)="rangeMouseUp(videoRange.value)" [disabled]="globals.currentState === -1">                  
+                </ng-container>
+                <span class="time-input-shadow" [ngStyle]="{'left': videoRangePercent +'%'}">{{videoCurFull}}</span>
                 <span class="duration-input-shadow" [ngStyle]="{'width': videoRangePercent + '%'}"></span>
               </div>
               <p class="current-video-range-value">{{videoCurFull}}</p>
               <p class="current-video-range-max-value">{{videoMaxFull}}</p>
             </div>
             <div class="volume-range-value" [ngClass]="videoCurVolume < 1 ? 'inactive' : 'active'">
-              <span class="fa" (click)="toggleHeadSettings(2)" [ngClass]="currentMuteState || videoCurVolume < 1 ? 'fa-volume-off' : 'fa-volume-up'"></span>
+              <span class="fa" (click)="toggleMute()" [ngClass]="currentMuteState || videoCurVolume < 1 ? 'fa-volume-off' : 'fa-volume-up'"></span>
               <div class="volume-input-container">
                 <input type="range" id="youtube-volume-range" class="volume-input" [value]="videoCurVolume" min="0" max="100" #volumeRange (mousemove)="volumeRangeMouseMove()" (mouseup)="volumeRangeMouseUp(volumeRange.value)">
                 <span class="volume-input-shadow" [ngClass]="{'inactive': currentMuteState }" [style.width]="volumeRange.value + '%'"></span>
@@ -65,23 +66,23 @@
           </div>
           <div class="current-video-actions" *ngIf="!globals.thumbnails">
             <ng-container *ngIf="this.globals.isTempSessionActive">
-              <button type="button" class="add-playlist disabled"><span class="fa fa-plus"></span>Add to playlist</button>                
+              <button type="button" class="btn disabled"><span class="fa fa-plus"></span>Add to playlist</button>                
             </ng-container>
             <ng-container *ngIf="!this.globals.isTempSessionActive">
-              <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                
+              <button type="button" class="btn" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span class="fa fa-plus"></span>Add to playlist</button>                
             </ng-container>
-            <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Show Video</button>  
+            <button type="button" class="btn" (click)="toggleFullscreen()"><span class="fa fa-angle-up"></span>Show Video</button>  
           </div>
       </div>
     </div>
   </div>
     <div class="player-background" [ngClass]="{'active': isFullscreen }">
         <div class="player-background-container">
-            <div class="youtube-player">
-                <youtube-player [videoId]="globals.currentVideo.id" (ready)="savePlayer($event)" (change)="onStateChange($event)" [playerVars]="playerVars()"></youtube-player>
+            <div class="youtube-player" [ngClass]="{'disabled': globals.isTempSessionActive}">
+                <youtube-iframe></youtube-iframe>
             </div>
             <div *ngIf="isFullscreen" class="background-playlist">
-                <button type="button" class="toggle-fullscreen" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>
+                <button type="button" class="btn btn-block" (click)="toggleFullscreen()"><span class="fa fa-angle-down"></span>Hide Video</button>
                 <app-playlist></app-playlist>
             </div>
         </div>

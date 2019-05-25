@@ -1,51 +1,81 @@
 .btn {
-    display: inline-block;
-    color: var(--c-white);
-    font-size: $f-14;
-    font-weight: 400;
-    line-height: 1.25;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 9px 15px;
-    text-decoration: none;
-    transition: all .1s ease-out;
-    outline: 0;
-    line-height: 1;
-    .fa {
-        margin-right: 8px;
-        font-size: $f-10;
-        top: -1px;
-        position: relative;
-    }
-    &-round {
-        border-radius: 50px;
-    }
+	display: inline-block;
+	background-color: rgba(255,255,255,0.2);
+	color: #ffffff;
+	font-size: $f-14;
+	font-weight: 400;
+	line-height: 1.25;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	user-select: none;
+	border: none;
+	border-radius: 5px;
+	padding: 9px 15px;
+	text-decoration: none;
+	transition: all 0.1s ease-out;
+	outline: 0;
+	line-height: 1;
+	&:active {
+		background-color: #ffffff;
+		color: #000;
+	}
+	.fa {
+		margin-right: 8px;
+		font-size: $f-12;
+		position: relative;
+	}
+	&-block {
+		width: 100%;
+		display: block;
+	}
+	&-round {
+		border-radius: 50px;
+	}
 
-    &-link {
-        background-color: transparent;
-        color: rgba(#232228, 0.3);
-        &:hover {
-            color: rgba(#232228, 0.6);
-        }
-        &:active {
-            color: var(--c-primary-inverse);
-        }
-    }
+	&-link {
+		background-color: transparent;
+		color: rgba(#232228, 0.3);
 
-    &-primary {
-        background-color: var(--c-primary);
-        color: var(--c-white);
-        &:active {
-            background-color: var(--c-primary-active);
-        }
-    }
-    &-secondary {
-        background-color: var(--c-secondary);
-        &:active {
-            background-color: darken(#1a85fd, 17%);
-        }
-    }
+		&:hover {
+			color: rgba(#232228, 0.6);
+		}
+
+		&:active {
+			color: var(--c-primary-inverse);
+		}
+	}
+
+	&-small {
+		padding: 5px 10px;
+	}
+
+	&-primary {
+		background-color: rgba(#ff0000, 0.2);
+		color: #ff0000;
+
+		&:active {
+			background-color: #ff0000;
+			color: #ffffff;
+		}
+	}
+
+	&-secondary {
+		background-color: rgba(#1a85fd, 0.2);
+		color: #1a85fd;
+
+		&:active {
+			background-color: #1a85fd;
+			color: #ffffff;
+		}
+	}
+
+	&-warning {
+		color: #f4a43b;
+		background-color: rgba(#f4a43b,0.2);
+		&:active {
+			color: #000000;
+			background-color: #f4a43b;
+		}
+	}
 }
