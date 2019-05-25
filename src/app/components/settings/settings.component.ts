@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
 		private globals: GlobalsService,
 		public playerComp: PlayerComponent,
 		private notify: NotifyService
-	) {}
+	) { }
 
 	ngOnInit() {
 		console.log('settings');

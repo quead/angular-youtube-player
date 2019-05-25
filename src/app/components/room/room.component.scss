@@ -45,3 +45,9 @@ app-room {
 		margin-right: 0;
 	}
 }
+
+@media screen and (max-width: 767px) {
+	.room-container {
+		margin-top: 15px;
+	}
+}
