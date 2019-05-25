@@ -41,17 +41,17 @@
           <div class="session-section">
               <label for="client-name-input">Change name <small>(optional)</small>:</label>
               <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput" placeholder="{{globals.clientName}}" />
-              <button type="submit" class="btn btn-round btn-secondary" (click)="updateName()">Update</button>
+              <button type="submit" class="btn btn-secondary" (click)="updateName()">Update</button>
           </div>
           <div class="session-section">
             <div class="session-key-block" *ngIf="!this.globals.isTempSessionActive">
               <label for="session-key-input">Change Room <small>(optional)</small>:</label>
               <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput" placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
-              <button type="submit" class="btn btn-round btn-secondary" (click)="updateRoom()">Update</button>
+              <button type="submit" class="btn btn-secondary" (click)="updateRoom()">Update</button>
             </div>
             <div *ngIf="this.globals.isTempSessionActive" class="session-locked-block">
               <p>You are joined into: {{globals.getCurrentSessionKeys().tempSession}}</p>
-              <button type="button" class="btn btn-small btn-round btn-primary" (click)="leave()">Leave</button>
+              <button type="button" class="btn btn-small btn-primary" (click)="leave()">Leave</button>
             </div>
           </div>
         </div>

@@ -23,7 +23,11 @@ export class RelatedComponent implements OnInit {
 			speed: 250,
 			loop: true,
 			velocity: 0,
-			touch: false
+			touch: false,
+			point: {
+				visible: true,
+				hideOnSingleSlide: true
+			}
 		};
 	}
 }

@@ -61,10 +61,12 @@
 	}
 
 	&-secondary {
-		background-color: var(--c-secondary);
+		background-color: rgba(#1a85fd, 0.2);
+		color: #1a85fd;
 
 		&:active {
-			background-color: darken(#1a85fd, 17%);
+			background-color: #1a85fd;
+			color: #ffffff;
 		}
 	}
 

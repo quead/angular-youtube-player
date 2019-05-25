@@ -28,57 +28,17 @@ export class YoutubeGetVideo {
 			return {  
 				"items":[  
 				   {  
-					  "kind":"",
-					  "etag":"",
 					  "id":"",
 					  "snippet":{  
-						 "publishedAt":"",
-						 "channelId":"",
 						 "title":"Feed videos error",
-						 "description":"",
 						 "thumbnails":{  
-							"default":{  
-							   "url":"https://via.placeholder.com/120x90",
-							   "width":120,
-							   "height":90
-							},
-							"medium":{  
-							   "url":"https://via.placeholder.com/320x180",
-							   "width":320,
-							   "height":180
-							},
 							"high":{  
 							   "url":"https://via.placeholder.com/480x360",
 							   "width":480,
 							   "height":360
 							},
-							"standard":{  
-							   "url":"https://via.placeholder.com/640x480",
-							   "width":640,
-							   "height":480
-							},
-							"maxres":{  
-							   "url":"https://via.placeholder.com/1280x720",
-							   "width":1280,
-							   "height":720
-							}
 						 },
-						 "channelTitle":"",
-						 "categoryId":"",
-						 "liveBroadcastContent":"",
-						 "localized":{  
-							"title":"",
-							"description":""
-						 },
-						 "defaultAudioLanguage":""
 					  },
-					  "statistics":{  
-						 "viewCount":"0",
-						 "likeCount":"0",
-						 "dislikeCount":"0",
-						 "favoriteCount":"0",
-						 "commentCount":"0"
-					  }
 				   }
 				]
 			}
@@ -102,46 +62,18 @@ export class YoutubeGetVideo {
 			return {
 				"items":[
 				   {
-					  "kind":"",
-					  "etag":"",
 					  "id":{
-						 "kind":"",
 						 "videoId":""
 					  },
 					  "snippet":{
-						 "publishedAt":"",
-						 "channelId":"",
 						 "title":"Related video error",
-						 "description":"",
 						 "thumbnails":{
-							"default":{  
-								"url":"https://via.placeholder.com/120x90",
-								"width":120,
-								"height":90
-							 },
-							 "medium":{  
-								"url":"https://via.placeholder.com/320x180",
-								"width":320,
-								"height":180
-							 },
 							 "high":{  
 								"url":"https://via.placeholder.com/480x360",
 								"width":480,
 								"height":360
 							 },
-							 "standard":{  
-								"url":"https://via.placeholder.com/640x480",
-								"width":640,
-								"height":480
-							 },
-							 "maxres":{  
-								"url":"https://via.placeholder.com/1280x720",
-								"width":1280,
-								"height":720
-							}
 						 },
-						 "channelTitle":"",
-						 "liveBroadcastContent":""
 					  }
 				   }
 				]
@@ -166,46 +98,19 @@ export class YoutubeGetVideo {
 			return {
 				"items":[
 				   {
-					  "kind":"",
-					  "etag":"",
 					  "id":{
 						 "kind":"",
 						 "videoId":""
 					  },
 					  "snippet":{
-						 "publishedAt":"",
-						 "channelId":"",
 						 "title":"Search video error",
-						 "description":"",
 						 "thumbnails":{
 							"default":{  
 								"url":"https://via.placeholder.com/120x90",
 								"width":120,
 								"height":90
-							 },
-							 "medium":{  
-								"url":"https://via.placeholder.com/320x180",
-								"width":320,
-								"height":180
-							 },
-							 "high":{  
-								"url":"https://via.placeholder.com/480x360",
-								"width":480,
-								"height":360
-							 },
-							 "standard":{  
-								"url":"https://via.placeholder.com/640x480",
-								"width":640,
-								"height":480
-							 },
-							 "maxres":{  
-								"url":"https://via.placeholder.com/1280x720",
-								"width":1280,
-								"height":720
-							}
+							 }
 						 },
-						 "channelTitle":"",
-						 "liveBroadcastContent":""
 					  }
 				   }
 				]
@@ -228,8 +133,6 @@ export class YoutubeGetVideo {
 			return {  
 				"items":[  
 				   {  
-					  "kind":"",
-					  "etag":"",
 					  "id":"",
 					  "snippet":{  
 						 "channelId":"",
@@ -259,57 +162,16 @@ export class YoutubeGetVideo {
 			return {
 				"items":[
 				   {
-					  "kind":"",
-					  "etag":"",
 					  "id":"",
 					  "snippet":{
-						 "publishedAt":"",
-						 "channelId":"",
-						 "title":"",
-						 "description":"",
+						 "title":"Video Categories",
 						 "thumbnails":{
-							"default":{  
-								"url":"https://via.placeholder.com/120x90",
-								"width":120,
-								"height":90
-							 },
-							 "medium":{  
-								"url":"https://via.placeholder.com/320x180",
-								"width":320,
-								"height":180
-							 },
 							 "high":{  
 								"url":"https://via.placeholder.com/480x360",
 								"width":480,
 								"height":360
 							 },
-							 "standard":{  
-								"url":"https://via.placeholder.com/640x480",
-								"width":640,
-								"height":480
-							 },
-							 "maxres":{  
-								"url":"https://via.placeholder.com/1280x720",
-								"width":1280,
-								"height":720
-							}
 						 },
-						 "channelTitle":"",
-						 "categoryId":"",
-						 "liveBroadcastContent":"",
-						 "defaultLanguage":"",
-						 "localized":{
-							"title":"",
-							"description":""
-						 },
-						 "defaultAudioLanguage":""
-					  },
-					  "statistics":{
-						 "viewCount":"0",
-						 "likeCount":"0",
-						 "dislikeCount":"0",
-						 "favoriteCount":"0",
-						 "commentCount":"0"
 					  }
 				   }
 				]
@@ -332,54 +194,17 @@ export class YoutubeGetVideo {
 			return {
 				"items":[
 				   {
-					  "kind":"",
-					  "etag":"",
 					  "id":"",
 					  "snippet":{
-						 "publishedAt":"",
-						 "channelId":"",
 						 "title":"Stats video error",
-						 "description":"",
 						 "thumbnails":{
-							"default":{  
-								"url":"https://via.placeholder.com/120x90",
-								"width":120,
-								"height":90
-							 },
-							 "medium":{  
-								"url":"https://via.placeholder.com/320x180",
-								"width":320,
-								"height":180
-							 },
 							 "high":{  
 								"url":"https://via.placeholder.com/480x360",
 								"width":480,
 								"height":360
-							 },
-							 "standard":{  
-								"url":"https://via.placeholder.com/640x480",
-								"width":640,
-								"height":480
-							 },
-							 "maxres":{  
-								"url":"https://via.placeholder.com/1280x720",
-								"width":1280,
-								"height":720
-							}
+							 }
 						 },
-						 "channelTitle":"",
-						 "categoryId":"0",
-						 "liveBroadcastContent":"",
-						 "defaultLanguage":"",
-						 "defaultAudioLanguage":""
 					  },
-					  "statistics":{
-						 "viewCount":"0",
-						 "likeCount":"0",
-						 "dislikeCount":"0",
-						 "favoriteCount":"0",
-						 "commentCount":"0"
-					  }
 				   }
 				]
 			};
