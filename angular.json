@@ -119,7 +119,7 @@
       }
     }
   },
-  "defaultProject": "a2-youtube",
+  "defaultProject": "angular-youtube-player",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
