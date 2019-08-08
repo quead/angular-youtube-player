@@ -58,9 +58,10 @@ h2 {
 
 .notif {
 	position: fixed;
-	bottom: -41px;
+	top: -41px;
 	background-color: var(--c-white);
 	color: var(--c-black);
+	box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.2);
 	left: 50%;
 	transform: translateX(-50%);
 	padding: 9px 15px;
@@ -75,7 +76,7 @@ h2 {
 		display: inline-block;
 	}
 	&.active {
-		bottom: 21px;
+		top: 51px;
 		opacity: 1;
 		visibility: visible;
 	}
@@ -168,4 +169,10 @@ h2 {
 		width: 70%;
 		border-radius: 30px;
 	}
+}
+
+.app-container {
+	background-color: rgba(0,0,0,0.6);
+	padding: 15px;
+	border-radius: 5px;
 }

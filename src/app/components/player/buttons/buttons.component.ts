@@ -43,6 +43,7 @@ export class ButtonsComponent implements OnInit {
 				}
 			});
 		}
+		this.globals.searchOverlay = false;
 	}
 
 	onClickVideo(i: number, list: number) {
@@ -53,6 +54,7 @@ export class ButtonsComponent implements OnInit {
 		} else {
 			this.getVideo(this.shared.getVideoFromList(i, list));
 		}
+		this.globals.searchOverlay = false;
 	}
 
 	getVideo(data: VideoModel) {

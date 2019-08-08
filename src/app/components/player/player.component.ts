@@ -71,11 +71,8 @@ export class PlayerComponent implements OnInit {
 	}
 
 	changeState(event: any) {
-		if (event.data) {
-			this.globals.currentState = event.data;
-		} else if (isNaN(event)) {
-			this.globals.currentState = event;
-		}
+		this.globals.currentState = event.data;
+
 		this.videoMaxRange = this.globals.player.getDuration();
 		this.videoCurVolume = this.globals.player.getVolume();
 

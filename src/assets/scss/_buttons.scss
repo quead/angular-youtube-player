@@ -19,6 +19,7 @@
 	&:active {
 		background-color: #ffffff;
 		color: #000;
+		box-shadow: 0 0 0 4px rgba(#ffffff, 0.3);
 	}
 	.fa {
 		margin-right: 8px;
@@ -57,6 +58,7 @@
 		&:active {
 			background-color: #ff0000;
 			color: #ffffff;
+			box-shadow: 0 0 0 4px rgba(#ff0000, 0.3);
 		}
 	}
 
@@ -67,6 +69,7 @@
 		&:active {
 			background-color: #1a85fd;
 			color: #ffffff;
+			box-shadow: 0 0 0 4px rgba(#1a85fd, 0.3);
 		}
 	}
 
@@ -76,6 +79,7 @@
 		&:active {
 			color: #000000;
 			background-color: #f4a43b;
+			box-shadow: 0 0 0 4px rgba(#f4a43b, 0.3);
 		}
 	}
 }
