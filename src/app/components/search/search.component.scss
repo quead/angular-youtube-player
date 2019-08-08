@@ -112,6 +112,13 @@
 	}
 }
 
+.search-overlay {
+	display: none;
+	&.active {
+		display: block;
+	}
+}
+
 .search-list.arrow-up {
 	position: absolute;
 	top: 40px;

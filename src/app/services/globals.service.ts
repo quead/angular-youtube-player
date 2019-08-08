@@ -34,6 +34,7 @@ export class GlobalsService {
 	listGrid = false;
 	repeatMode = true;
 	isTempSessionActive = false;
+	searchOverlay = false;
 	sessionValue: string;
 	localStorageVersion = environment.storageVersion;
 
