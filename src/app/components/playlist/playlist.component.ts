@@ -12,7 +12,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 	styleUrls: ['./playlist.component.scss']
 })
 export class PlaylistComponent implements OnInit {
-	@ViewChild('playlistContainer') private myScrollContainer: ElementRef;
+	@ViewChild('playlistContainer', { static: true }) private myScrollContainer: ElementRef;
 
 	tempPlaylist: Array<VideoModel> = [];
 
