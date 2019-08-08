@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
 
 	constructor(
 		private youtube: YoutubeGetVideo,
-		private globals: GlobalsService,
+		public globals: GlobalsService,
 		private shared: SharedService
 	) {}
 
