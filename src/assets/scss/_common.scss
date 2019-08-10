@@ -38,16 +38,8 @@
 	border-bottom: 7px solid var(--c-black);
 }
 
-.fa-color-danger {
-	color: var(--c-primary);
-}
-
-.fa-color-info {
-	color: var(--c-secondary);
-}
-
 h2 {
-	margin: 0 0 15px;
+	margin: 0;
 	padding: 0;
 	font-weight: 600;
 	font-size: $f-22;
@@ -59,13 +51,16 @@ h2 {
 .notif {
 	position: fixed;
 	top: -41px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	background-color: var(--c-white);
 	color: var(--c-black);
-	box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
 	left: 50%;
 	transform: translateX(-50%);
-	padding: 9px 15px;
-	text-align: center;
+	padding: 10px 20px;
 	border-radius: 20px;
 	opacity: 0;
 	visibility: hidden;
@@ -74,6 +69,10 @@ h2 {
 	p {
 		margin: 0;
 		display: inline-block;
+	}
+	.icon {
+		margin-right: 8px;
+		font-size: 18px;
 	}
 	&.active {
 		top: 51px;
@@ -111,8 +110,8 @@ h2 {
 	transform: translate(50%, -50%);
 	width: 400px;
 	border-radius: 3px;
-	padding-top: 30px;
-	padding-bottom: 40px;
+	padding-top: 50px;
+	padding-bottom: 10px;
 	animation: loading-modal 0.2s 1;
 	overflow-y: auto;
 	max-height: 100%;
@@ -122,7 +121,7 @@ h2 {
 }
 
 .modal-content {
-	padding: 0 20px;
+	padding: 15px 20px;
 	h3 {
 		margin-bottom: 5px;
 	}
@@ -144,7 +143,6 @@ h2 {
 	border: none;
 	transition: all 0.1s ease-out;
 	span {
-		font-size: $f-18;
 		color: rgba(0, 0, 0, 0.6);
 		&:active {
 			color: var(--c-black);
@@ -155,8 +153,6 @@ h2 {
 .modal-buttons {
 	display: block;
 	width: 100%;
-	position: absolute;
-	bottom: 0;
 	.btn {
 		display: block;
 		margin: 5px auto;
@@ -175,4 +171,50 @@ h2 {
 	background-color: rgba(0,0,0,0.6);
 	padding: 15px;
 	border-radius: 5px;
+}
+
+.app-head {
+	margin-bottom: 15px;
+}
+
+select {
+	option {
+		color: var(--c-black);
+	}
+}
+
+select,
+input[type='text'] {
+	-webkit-appearance: none;
+	display: block;
+	padding: 10px 15px;
+	margin: 0;
+	outline: 0;
+	position: relative;
+	background-color: transparent;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: var(--c-white);
+	border-radius: 3px;
+	font-size: 14px;
+	z-index: 1;
+	transition: all 0.2s ease-out;
+	outline: 0;
+
+	&::-webkit-input-placeholder {
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	&:focus {
+		border-color: rgba(255, 255, 255, 0.6);
+		box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.2);
+
+		+ .search-icon {
+			color: rgba(255, 255, 255, 0.6);
+		}
+	}
+	&:disabled {
+		background-color: var(--c-base);
+		cursor: no-drop;
+		user-select: none;
+	}
 }

@@ -1,0 +1,14 @@
+.badge {
+    background-color: rgba(#ffffff, 0.1);
+    color: #ffffff;
+    padding: 2px 5px;
+    margin: 0;
+    font-size: 12px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    
+    &-container {
+        display: flex;
+        margin: 5px 0;
+    }
+}

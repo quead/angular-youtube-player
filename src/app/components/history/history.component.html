@@ -3,7 +3,7 @@
 </div>
 <div class="app-content">
     <div class="history-video-content">
-        <div *ngIf="globals.historyVideos.length === 0" class="video-list-info">
+        <div *ngIf="globals.historyVideos.length === 0" class="app-container">
             No history
         </div>
         <div *ngFor="let historyVideo of globals.historyVideos; let i = index" [attr.data-index]="i" class="video-item">

@@ -8,7 +8,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.5.1-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.5.2-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
@@ -52,6 +52,9 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 `ng build --prod=true`
 
 ## Changelog
+Angular YouTube Player 2.5.2
+- Add category badge to feed videos and current video
+
 Angular YouTube Player 2.5.1
 - Upgrade angular to LTS (from 7 to 8)
 - Fixed repeat mode

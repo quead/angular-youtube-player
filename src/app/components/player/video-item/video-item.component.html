@@ -1,10 +1,11 @@
 <div [attr.data-index]="videoIndex" class="video-item">
-  <div class="video-item-info">
-    <div *ngIf="globals.thumbnails" class="video-item-image" [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
-    <div class="video-item-content">
-      <p class="video-item-title">{{videoItem.title}}</p>
-      <p class="video-item-autor">{{videoItem.channelTitle}}</p>
+    <div class="video-item-info">
+        <div *ngIf="globals.thumbnails" class="video-item-image"
+            [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
+        <div class="video-item-content">
+            <p class="video-item-title">{{videoItem.title}}</p>
+            <p class="video-item-autor">{{videoItem.channelTitle}}</p>
+        </div>
+        <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
     </div>
-    <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
-  </div>
 </div>

@@ -34,6 +34,7 @@ import { RoomComponent } from './components/room/room.component';
 import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
 import { VideoItemComponent } from './components/player/video-item/video-item.component';
+import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -61,7 +62,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		RoomComponent,
 		YoutubeIframeComponent,
 		ButtonsComponent,
-		VideoItemComponent
+		VideoItemComponent,
+		CategoryBadgeComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [
@@ -74,7 +76,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		GlobalsService,
 		NguCarouselConfig,
 		NguCarousel,
-		ButtonsComponent
+		ButtonsComponent,
+		CategoryBadgeComponent
 	]
 })
 export class AppModule {}

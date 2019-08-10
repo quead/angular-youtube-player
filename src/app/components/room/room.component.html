@@ -1,7 +1,7 @@
 <div class="room-container app-container">
   <div class="video-item-head">
     <h2>Room</h2>
-    <button type="button" class="btn btn-small" (click)="showModal()"><span class="fa fa-cog"></span>Manage</button>
+    <button type="button" class="btn btn-small" (click)="showModal()"><span class="icon icon-mr ion-ios-settings"></span>Manage</button>
   </div>
   <p>Your name: {{globals.clientName}}</p>
   <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
@@ -9,10 +9,10 @@
   <p *ngIf="globals.clients">Users in the room: {{globals.clients.length}}</p>
   <p>Access control:
     <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-      <span class="fa fa-unlock"></span> Unlocked
+      <span class="icon icon-md ion-ios-unlock"></span> Unlocked
     </ng-container>
     <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-      <span class="fa fa-lock"></span> Listen only
+      <span class="icon icon-md ion-ios-lock"></span> Listen only
     </ng-container>
   </p>
 
@@ -26,10 +26,10 @@
         <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
         <p>Access control:
           <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-            <span class="fa fa-unlock"></span> Unlocked
+            <span class="icon icon-md ion-ios-unlock"></span> Unlocked
           </ng-container>
           <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-            <span class="fa fa-lock"></span> Listen only
+            <span class="icon icon-md ion-ios-lock"></span> Listen only
           </ng-container>
         </p>
         <div class="session-section">
@@ -59,7 +59,7 @@
         </div>
       </div>
       <button class="modal-close" (click)="closeModal()">
-        <span class="fa fa-times"></span>
+        <span class="icon icon-xl ion-ios-close"></span>
       </button>
       <div class="modal-buttons">
         <button type="button" class="btn btn-link" (click)="closeModal()">Close</button>

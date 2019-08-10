@@ -8,7 +8,7 @@
 }
 
 .loading-anim {
-	background:#16191f;
+	background-color: var(--c-base);
 	background-size: 800px 104px;
 	border-radius: 6px;
 }
@@ -43,7 +43,7 @@
 }
 
 .loading-feed-list {
-	height: 130px;
+	height: 200px;
 	width: calc(33.333% - 10px);
 	display: block;
 	margin: 0 5px 10px;

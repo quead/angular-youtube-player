@@ -1,5 +1,5 @@
 .btn {
-	display: inline-block;
+	display: inline-flex;
 	background-color: rgba(255,255,255,0.2);
 	color: #ffffff;
 	font-size: $f-14;
@@ -7,7 +7,7 @@
 	line-height: 1.25;
 	text-align: center;
 	white-space: nowrap;
-	vertical-align: middle;
+	align-items: center;
 	user-select: none;
 	border: none;
 	border-radius: 5px;
@@ -20,11 +20,6 @@
 		background-color: #ffffff;
 		color: #000;
 		box-shadow: 0 0 0 4px rgba(#ffffff, 0.3);
-	}
-	.fa {
-		margin-right: 8px;
-		font-size: $f-12;
-		position: relative;
 	}
 	&-block {
 		width: 100%;
@@ -62,6 +57,17 @@
 		}
 	}
 
+	&-inverse {
+		background-color: #ffffff;
+		color: #000000;
+
+		&:active {
+			background-color: #000000;
+			color: #ffffff;
+			box-shadow: 0 0 0 4px rgba(#000000, 0.3);
+		}
+	}
+
 	&-secondary {
 		background-color: rgba(#1a85fd, 0.2);
 		color: #1a85fd;
@@ -76,6 +82,7 @@
 	&-warning {
 		color: #f4a43b;
 		background-color: rgba(#f4a43b,0.2);
+
 		&:active {
 			color: #000000;
 			background-color: #f4a43b;

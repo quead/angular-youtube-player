@@ -3314,6 +3314,11 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
+ionicons@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.6.2.tgz#5a835b4faf9ba602b3315b9649df0750715b0f6d"
+  integrity sha512-OGQO/GCKFwHh5lX9wYzgfLjuj2rnQavixVgK3iv8nm7tcgYQVHw7MNNwNHY4H97ZlKiVx3qj4X5Txv9fx95oBw==
+
 ip-regex@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ip-regex/-/ip-regex-2.1.0.tgz#fa78bf5d2e6913c911ce9f819ee5146bb6d844e9"

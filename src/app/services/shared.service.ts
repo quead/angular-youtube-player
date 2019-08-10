@@ -206,6 +206,7 @@ export class SharedService {
 					tempObject.channelId = obj.snippet.channelId;
 				}
 				if (obj.snippet.categoryId) {
+					console.log(obj.snippet);
 					tempObject.categoryId = obj.snippet.categoryId;
 				}
 				if (obj.snippet.thumbnails.default) {
@@ -261,6 +262,7 @@ export class SharedService {
 				break;
 			}
 			case 'feedVideos': {
+				tempVideos.pop();
 				this.globals.feedVideos = tempVideos;
 				break;
 			}

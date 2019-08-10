@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
 
 	initCategories() {
 		this.youtube.categories().then(catData => {
-			this.globals.categories = catData;
+			this.converFilterObject(catData);
 		});
 	}
 
@@ -36,9 +36,24 @@ export class CategoryComponent implements OnInit {
 		}
 	}
 
+	converFilterObject(catData: Object) {
+		let categoryArray = [];
+		let categoryObject = {};
+		
+		catData["items"].map(category => {
+			categoryObject["id"] = category.id;
+			categoryObject["title"] = category.snippet.title;
+			categoryObject["assignable"] = category.snippet.assignable;
+			categoryArray.push(categoryObject);
+			categoryObject = {};
+		});
+
+		this.globals.categories = categoryArray;
+	}
+
 	getCategories() {
 		this.youtube.categories().then(catData => {
-			this.globals.categories = catData;
+			this.converFilterObject(catData);
 			this.globals.isFeedLoading = true;
 			this.getCategoriesVideos(this.globals.currentCategory);
 		});

@@ -1,0 +1,7 @@
+<ng-container *ngIf="globals.categories">
+    <div class="badge-container">
+        <ng-container *ngFor="let category of globals.categories">
+            <p *ngIf="category.id === categoryID" class="badge">{{category.title}}</p>
+        </ng-container>
+    </div>
+</ng-container>
