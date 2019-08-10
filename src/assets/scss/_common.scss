@@ -25,9 +25,9 @@
 }
 
 .hide-input {
-	position: absolute;
-	left: -9999px;
-	top: -9999px;
+	position: absolute !important;
+	left: -9999px !important;
+	top: -9999px !important;
 }
 
 .arrow-up {
