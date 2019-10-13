@@ -21,7 +21,7 @@
         <ng-container *ngIf="!globals.isLoading">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
                 <div class="playlist_item" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
-                    [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" cdkDrag>
+                    [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag>
                     <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="playlist_item-image"
                         [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
                     <div style="overflow: hidden;">

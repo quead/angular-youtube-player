@@ -84,7 +84,7 @@
 
 .cdk-drag-placeholder {
 	opacity: 0.2;
-	transition: all 0.1s ease-out;
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .cdk-drag-animating {
