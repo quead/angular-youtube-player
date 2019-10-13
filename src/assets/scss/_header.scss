@@ -43,10 +43,10 @@ header {
 
 .logo-svg {
 	display: block;
-	@include icon-svg(logo, 111px, 25px, red, white, white);
+	@include icon-svg(logo, 111px, 25px, white, white, #17171d);
 	transition: all 0.1s ease-out;
 	&:hover {
-		@include icon-svg(logo, 111px, 25px, white, white, #17171d);
+		@include icon-svg(logo, 111px, 25px, red, white, white);
 	}
 }
 
