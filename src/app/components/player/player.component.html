@@ -9,14 +9,6 @@
         <div class="player">
             <div *ngIf="globals.thumbnails" class="youtube-player-cover"
                 [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
-                <ng-container *ngIf="this.globals.isTempSessionActive">
-                    <button type="button" class="add-playlist disabled"><span
-                            class="icon icon-md ion-ios-add"></span></button>
-                </ng-container>
-                <ng-container *ngIf="!this.globals.isTempSessionActive">
-                    <button type="button" class="add-playlist" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span
-                            class="icon icon-md ion-ios-add"></span></button>
-                </ng-container>
                 <button type="button" class="btn btn-inverse btn-small" (click)="toggleFullscreen()"><span
                         class="icon icon-mr ion-ios-arrow-up"></span>Video</button>
             </div>
@@ -27,11 +19,12 @@
                         <p class="current-video-channel">{{globals.currentVideo.channelTitle}}</p>
                         <app-category-badge [categoryID]="globals.currentVideo.categoryId"></app-category-badge>
                         <div class="current-video-stats">
-                            <p class="stats-views">{{globals.currentVideo.stats.views | number:'1.0'}}</p>
+                            <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
+                                {{globals.currentVideo.stats.views | shortNum}}</p>
                             <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>
-                                {{globals.currentVideo.stats.likes | number:'1.0'}}</p>
+                                {{globals.currentVideo.stats.likes | shortNum}}</p>
                             <p class="stats-dislikes"><span class="icon ion-ios-thumbs-down"></span>
-                                {{globals.currentVideo.stats.dislikes | number:'1.0'}}</p>
+                                {{globals.currentVideo.stats.dislikes | shortNum}}</p>
                         </div>
                     </div>
                 </div>
@@ -44,6 +37,10 @@
                         <button id="next-song"><span class="icon icon-md ion-ios-skip-forward"></span></button>
                     </div>
                     <div class="player-buttons" *ngIf="!globals.isTempSessionActive">
+                        <ng-container *ngIf="!this.globals.isTempSessionActive">
+                            <button type="button" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span
+                                    class="icon icon-md ion-ios-add"></span></button>
+                        </ng-container>
                         <button id="previous-song" (click)="playPlaylistItem('prev', globals.currentPlaylistItem)"><span
                                 class="icon icon-md ion-ios-skip-backward"></span></button>
                         <button id="play-song" (click)="playerCTA.playPauseVideo()"><span class="icon icon-md"
@@ -90,14 +87,6 @@
                         [value]="globals.shareLink" (click)="shared.copyShareLink(shareInput.select())" readonly>
                 </div>
                 <div class="current-video-actions" *ngIf="!globals.thumbnails">
-                    <ng-container *ngIf="this.globals.isTempSessionActive">
-                        <button type="button" class="btn disabled"><span class="icon icon-md ion-ios-add"></span>Add to
-                            playlist</button>
-                    </ng-container>
-                    <ng-container *ngIf="!this.globals.isTempSessionActive">
-                        <button type="button" class="btn" (click)="playlistCTRL.addPlaylistItem(0, 3)"><span
-                                class="icon icon-md icon-mr ion-ios-add"></span>Add to playlist</button>
-                    </ng-container>
                     <button type="button" class="btn" (click)="toggleFullscreen()"><span
                             class="icon icon-mr ion-ios-arrow-up"></span>Show Video</button>
                 </div>

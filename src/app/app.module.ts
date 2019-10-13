@@ -36,6 +36,7 @@ import { ButtonsComponent } from './components/player/buttons/buttons.component'
 import { VideoItemComponent } from './components/player/video-item/video-item.component';
 import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ShortNumPipe } from './pipes/short-num.pipe';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -65,7 +66,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		ButtonsComponent,
 		VideoItemComponent,
 		CategoryBadgeComponent,
-		ModalComponent
+		ModalComponent,
+		ShortNumPipe
 	],
 	bootstrap: [AppComponent],
 	providers: [

@@ -26,11 +26,12 @@
                         <p class="video-item-title">{{feedVideo.title}}</p>
                         <p class="video-item-autor">{{feedVideo.channelTitle}}</p>
                         <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-                            <p class="stats-views">{{feedVideo.stats.views | number:'1.0'}}</p>
+                            <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
+                                {{feedVideo.stats.views | shortNum}}</p>
                             <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>
-                                {{feedVideo.stats.likes | number:'1.0'}}</p>
+                                {{feedVideo.stats.likes | shortNum}}</p>
                             <p class="stats-dislikes"><span class="icon ion-ios-thumbs-down"></span>
-                                {{feedVideo.stats.dislikes | number:'1.0'}}</p>
+                                {{feedVideo.stats.dislikes | shortNum}}</p>
                         </div>
                     </div>
                 </div>

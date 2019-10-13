@@ -32,12 +32,13 @@
 	position: relative;
 	color: var(--c-white);
 
+
 	.search-icon {
 		position: absolute;
 		display: flex;
 		align-items: center;
 		top: 50%;
-		left: 10px;
+		left: 20px;
 		font-size: 18px;
 		transform: translateY(-50%);
 		color: rgba(255, 255, 255, 0.2);
@@ -48,7 +49,10 @@
 
 	input[type="text"] {
 		width: 100%;
-		padding: 10px 40px 10px 35px;
+		padding: 13px 40px 13px 40px;
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 30px;
+		border-width: 2px;
 	}
 
 	.form-group {

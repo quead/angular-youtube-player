@@ -92,10 +92,9 @@ input[type='text'] {
 	display: block;
 	padding: 10px 15px;
 	margin: 0;
-	outline: 0;
 	position: relative;
 	background-color: transparent;
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	border: 2px solid rgba(255, 255, 255, 0.2);
 	color: var(--c-white);
 	border-radius: 3px;
 	font-size: 14px;
@@ -104,15 +103,15 @@ input[type='text'] {
 	outline: 0;
 
 	&::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(255, 255, 255, 0.8);
 	}
 
 	&:focus {
-		border-color: rgba(255, 255, 255, 0.6);
+		border-color: rgba(255, 255, 255, 0.8);
 		box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.2);
 
 		+ .search-icon {
-			color: rgba(255, 255, 255, 0.6);
+			color: rgba(255, 255, 255, 0.8);
 		}
 	}
 	&:disabled {

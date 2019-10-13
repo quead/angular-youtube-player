@@ -102,34 +102,6 @@
 		transition: all 0.1s ease-out;
 		position: relative;
 
-		.add-playlist {
-			position: absolute;
-			right: -10px;
-			top: -10px;
-			-webkit-appearance: none;
-			background-color: var(--c-white);
-			color: var(--c-base);
-			border: none;
-			height: 25px;
-			width: 25px;
-			padding: 0;
-			border-radius: 50%;
-			opacity: 1;
-			transition: all 0.1s ease-out;
-
-			&:not(.disabled):hover {
-				opacity: 0.8;
-			}
-
-			&:not(.disabled):active {
-				opacity: 1;
-			}
-
-			&.disabled {
-				display: none;
-			}
-		}
-
 		.btn {
 			position: absolute;
 			left: 50%;

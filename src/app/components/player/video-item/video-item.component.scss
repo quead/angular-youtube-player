@@ -11,8 +11,9 @@
 		margin: 0;
 	}
 	&-autor {
-		font-size: 12px;
+		font-size: 14px;
 		color: var(--c-white);
+		font-weight: 800;
 	}
 	&-image {
 		display: block;
@@ -114,4 +115,9 @@
 			display: inline-block;
 		}
 	}
+}
+
+.video-item-details .icon,
+.current-video-stats .icon {
+	font-size: 14px;
 }
