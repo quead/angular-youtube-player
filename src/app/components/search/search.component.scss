@@ -120,14 +120,13 @@
 
 	&::-webkit-scrollbar {
 		width: 6px;
-		background-color: #08080a;
+		background-color: var(--c-box);
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: rgba(#fff, 0.3);
 
 		&:hover {
-			background-color: rgba(#fff, 0.6);
+			background-color: var(--c-white);
 		}
 	}
 }

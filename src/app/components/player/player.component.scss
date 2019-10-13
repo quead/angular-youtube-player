@@ -496,8 +496,8 @@
 	button {
 		margin-right: 10px;
 		&:not(.disabled):active {
-			background-color: #ffffff;
-			color: #000000;
+			background-color: var(--c-white);
+			color: var(--c-black);
 		}
 
 		&.disabled {

@@ -56,7 +56,7 @@ h2 {
 	justify-content: center;
 	background-color: var(--c-white);
 	color: var(--c-black);
-	font-size: 16px;
+	font-size: 14px;
 	box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
 	left: 50%;
 	transform: translateX(-50%);
@@ -92,19 +92,22 @@ h2 {
 }
 
 .modal-background-overlay {
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.6);
 	position: absolute;
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
+	pointer-events: none;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 	left: 0;
 	top: 0;
 }
 
 .modal-container {
 	position: absolute;
-	background-color: var(--c-white);
-	color: var(--c-black);
+	background-color: var(--c-box);
+	color: var(--c-white);
 	top: 50%;
 	right: 50%;
 	transform: translate(50%, -50%);
@@ -143,9 +146,11 @@ h2 {
 	border: none;
 	transition: all 0.1s ease-out;
 	span {
-		color: rgba(0, 0, 0, 0.6);
-		&:active {
-			color: var(--c-black);
+		color: var(--c-white);
+		opacity: 1;
+		&:active,
+		&:hover {
+			opacity: 0.8;
 		}
 	}
 }
@@ -157,7 +162,6 @@ h2 {
 		display: block;
 		margin: 5px auto;
 		padding: 15px;
-		border: none;
 		text-transform: uppercase;
 		font-weight: 600;
 		padding: 13px 10px;
@@ -168,7 +172,7 @@ h2 {
 }
 
 .app-container {
-	background-color: rgba(0,0,0,0.6);
+	background-color: var(--c-box);
 	padding: 15px;
 	border-radius: 5px;
 }

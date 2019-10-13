@@ -16,10 +16,10 @@ app-room {
 	input[type='text'] {
 		border: 1px solid #e4e4e4;
 		width: 100%;
-		color: #000000;
+		color: var(--c-white);
 		
 		&::-webkit-input-placeholder {
-			color: rgba(0, 0, 0, 0.6);
+			color: rgba(255, 255, 255, 0.6);
 		}
 		
 		&:focus {

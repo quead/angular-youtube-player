@@ -53,13 +53,13 @@
             <label>You are joined into:</label>
             <div class="session-form">
               <input type="text" value="{{globals.getCurrentSessionKeys().tempSession}}" disabled="disabled" />
-              <button type="button" class="btn btn-primary" (click)="leave()">Leave</button>
+              <button type="button" class="btn" (click)="leave()">Leave</button>
             </div>
           </ng-container>
         </div>
       </div>
       <button class="modal-close" (click)="closeModal()">
-        <span class="icon icon-xl ion-ios-close"></span>
+        <span class="icon icon-xl ion-ios-close-circle-outline"></span>
       </button>
       <div class="modal-buttons">
         <button type="button" class="btn btn-link" (click)="closeModal()">Close</button>

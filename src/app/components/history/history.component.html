@@ -1,9 +1,9 @@
-<div class="app-head">
-    <h2>History</h2>
-</div>
-<div class="app-content">
+<div class="app-content app-container">
+    <div class="app-head">
+        <h2>History</h2>
+    </div>
     <div class="history-video-content">
-        <div *ngIf="globals.historyVideos.length === 0" class="app-container">
+        <div *ngIf="globals.historyVideos.length === 0">
             No history
         </div>
         <div *ngFor="let historyVideo of globals.historyVideos; let i = index" [attr.data-index]="i" class="video-item">

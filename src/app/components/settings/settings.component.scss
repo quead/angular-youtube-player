@@ -6,7 +6,7 @@
 	&:before {
 		content: '';
 		display: block;
-		background-color: #191f27;
+		background-color: var(--c-black);
 		height: 20px;
 		width: 40px;
 		border-radius: 50px;
@@ -27,8 +27,7 @@
 	}
 }
 
-input[type='checkbox']:checked,
-input[type='radio']:checked {
+.round-checkbox:checked {
 	+ label .round-check {
 		&:before {
 			background-color: var(--c-success);
@@ -53,7 +52,6 @@ input[type='radio']:checked {
 
 .settingsForm {
 	margin-top: 0;
-	margin-bottom: 20px;
 	background-color: rgba(0, 0, 0, 0.3);
 	padding: 15px;
 	border-radius: 5px;
@@ -78,6 +76,9 @@ input[type='radio']:checked {
 		margin-bottom: 5px;
 		margin-left: auto;
 		display: inherit;
+	}
+	+ .settingsForm {
+		margin-top: 20px;
 	}
 }
 
