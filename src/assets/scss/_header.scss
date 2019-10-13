@@ -43,10 +43,33 @@ header {
 
 .logo-svg {
 	display: block;
-	@include icon-svg(logo, 111px, 25px, white, white, #17171d);
+	@include icon-svg(logo, 111px, 25px, white, white, #000000);
 	transition: all 0.1s ease-out;
 	&:hover {
 		@include icon-svg(logo, 111px, 25px, red, white, white);
+	}
+}
+
+.github-svg {
+	display: block;
+	@include icon-svg(github, 70px, 70px, #000, #fff, #fff);
+	opacity: 0.4;
+	transition: all 0.1s ease-out;
+}
+
+#github {
+	text-indent: -99999px;
+	overflow: hidden;
+	width: 70px;
+	height: 70px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	
+	&:hover {
+		.github-svg {
+			opacity: 0.8;
+		}
 	}
 }
 

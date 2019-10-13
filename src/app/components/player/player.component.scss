@@ -18,7 +18,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(to bottom, var(--c-base) 0%,rgba(255, 255, 255, 0) 30%,rgba(255, 255, 255, 0) 70%,var(--c-base) 100%);
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 60%,var(--c-base) 100%);
 		backdrop-filter: blur(40px);
 		-webkit-backdrop-filter: blur(40px);
 	}
