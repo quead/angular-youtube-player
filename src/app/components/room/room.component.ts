@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 import { NotifyService } from '../../services/notify.service';
 import { GlobalsService } from '../../services/globals.service';
 import { SessionManagerService } from '../../services/session-manager.service';
 import { SharedService } from '../../services/shared.service';
 import { RoomService } from '../../services/room.service';
-import { Socket } from 'ngx-socket-io';
 
 @Component({
 	selector: 'app-room',
@@ -13,8 +13,8 @@ import { Socket } from 'ngx-socket-io';
 	encapsulation: ViewEncapsulation.None
 })
 export class RoomComponent implements OnInit {
-	modal = false;
-	modalRoom = false;
+	modalActive: boolean = false;
+	modalActiveClass: boolean = false;
 	sessionKeyInput: any;
 	clientNameInput: any;
 
@@ -33,7 +33,7 @@ export class RoomComponent implements OnInit {
 			this.shared.updateClientName(name);
 			this.notify.triggerNotify(37);
 			this.clientNameInput = '';
-			this.closeModal();
+			this.shouldOpenModal(false);
 		});
 
 		this.socket.on('download_playlist', data => {
@@ -57,14 +57,18 @@ export class RoomComponent implements OnInit {
 		});
 	}
 
-	closeModal() {
-		this.modal = false;
-		this.modalRoom = false;
-	}
-
-	showModal() {
-		this.modal = true;
-		this.modalRoom = true;
+	shouldOpenModal(agreed: boolean) {
+		if (agreed) {
+			this.modalActive = true;
+			setTimeout(() => {
+				this.modalActiveClass = true;
+			}, 100);
+		} else {
+			this.modalActiveClass = false;
+			setTimeout(() => {
+				this.modalActive = false;
+			}, 100);
+		}
 	}
 
 	leave() {
@@ -102,7 +106,7 @@ export class RoomComponent implements OnInit {
 			}
 
 			this.room.join();
-			this.closeModal();
+			this.shouldOpenModal(false);
 			this.notify.triggerNotify(34);
 		}
 	}

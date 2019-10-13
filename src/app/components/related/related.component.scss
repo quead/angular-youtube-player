@@ -12,12 +12,6 @@
 		color: var(--c-white);
 		border: none;
 		cursor: pointer;
-		&:hover {
-			background: rgba(0, 0, 0, 0.6);
-		}
-		&:active {
-			background: rgba(0, 0, 0, 0.9);
-		}
 	}
 	.leftRs {
 		left: 0;

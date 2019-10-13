@@ -55,6 +55,7 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
 - UI updates
+- New modal component
 
 Angular YouTube Player 2.5.1
 - Upgrade angular to LTS (from 7 to 8)

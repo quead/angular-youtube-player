@@ -1,69 +1,123 @@
 <div class="room-container app-container">
-  <div class="video-item-head">
-    <h2>Room</h2>
-    <button type="button" class="btn btn-small" (click)="showModal()"><span class="icon icon-mr ion-ios-settings"></span>Manage</button>
-  </div>
-  <p>Your name: {{globals.clientName}}</p>
-  <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
-  <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
-  <p *ngIf="globals.clients">Users in the room: {{globals.clients.length}}</p>
-  <p>Access control:
-    <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-      <span class="icon icon-md ion-ios-unlock"></span> Unlocked
-    </ng-container>
-    <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-      <span class="icon icon-md ion-ios-lock"></span> Listen only
-    </ng-container>
-  </p>
+    <div class="video-item-head">
+        <h2>Room</h2>
+        <button type="button" class="btn btn-small" (click)="shouldOpenModal(true)"><span
+                class="ic` icon-mr ion-ios-settings"></span>Manage</button>
+    </div>
+    <p>Your name: {{globals.clientName}}</p>
+    <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
+    <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
+    <p *ngIf="globals.clients">Users in the room: {{globals.clients.length}}</p>
+    <p>Access control:
+        <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+            <span class="icon icon-md ion-ios-unlock"></span> Unlocked
+        </ng-container>
+        <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+            <span class="icon icon-md ion-ios-lock"></span> Listen only
+        </ng-container>
+    </p>
+</div>
 
-  <div *ngIf="modal" class="modal-overlay">
-    <div class="modal-background-overlay" (click)="closeModal()"></div>
-    <div *ngIf="modalRoom" id="manage-playlist" class="modal-container">
-      <h2 class="text-center">Manage room</h2>
-      <div class="modal-content">
+<app-modal [isActive]="modalActive" [isActiveClass]="modalActiveClass" (openModal)="shouldOpenModal($event)">
+    <h2 class="text-center">Manage room</h2>
+    <div class="modal-content">
         <p>Playlist videos: {{globals.playlistVideos.length}}</p>
         <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
         <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
         <p>Access control:
-          <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-            <span class="icon icon-md ion-ios-unlock"></span> Unlocked
-          </ng-container>
-          <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-            <span class="icon icon-md ion-ios-lock"></span> Listen only
-          </ng-container>
+            <ng-container
+                *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+                <span class="icon icon-md ion-ios-unlock"></span> Unlocked
+            </ng-container>
+            <ng-container
+                *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+                <span class="icon icon-md ion-ios-lock"></span> Listen only
+            </ng-container>
         </p>
         <div class="session-section">
-          <label for="client-name-input">Change name <small>(optional)</small>:</label>
-          <div class="session-form">
-            <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput"
-              placeholder="{{globals.clientName}}" />
-            <button type="submit" class="btn btn-secondary" (click)="updateName()">Update</button>
-          </div>
+            <label for="client-name-input">Change name <small>(optional)</small>:</label>
+            <div class="session-form">
+                <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput"
+                    placeholder="{{globals.clientName}}" />
+                <button type="submit" class="btn btn-secondary" (click)="updateName()">Update</button>
+            </div>
         </div>
         <div class="session-section">
-          <ng-container *ngIf="!this.globals.isTempSessionActive">
-            <label for="session-key-input">Change Room <small>(optional)</small>:</label>
-            <div class="session-form">
-              <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput"
-                placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
-              <button type="submit" class="btn btn-secondary" (click)="updateRoom()">Update</button>
-            </div>
-          </ng-container>
-          <ng-container *ngIf="this.globals.isTempSessionActive">
-            <label>You are joined into:</label>
-            <div class="session-form">
-              <input type="text" value="{{globals.getCurrentSessionKeys().tempSession}}" disabled="disabled" />
-              <button type="button" class="btn" (click)="leave()">Leave</button>
-            </div>
-          </ng-container>
+            <ng-container *ngIf="!this.globals.isTempSessionActive">
+                <label for="session-key-input">Change Room <small>(optional)</small>:</label>
+                <div class="session-form">
+                    <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput"
+                        placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
+                    <button type="submit" class="btn btn-secondary" (click)="updateRoom()">Update</button>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="this.globals.isTempSessionActive">
+                <label>You are joined into:</label>
+                <div class="session-form">
+                    <input type="text" value="{{globals.getCurrentSessionKeys().tempSession}}"
+                        disabled="disabled" />
+                    <button type="button" class="btn" (click)="leave()">Leave</button>
+                </div>
+            </ng-container>
         </div>
-      </div>
-      <button class="modal-close" (click)="closeModal()">
-        <span class="icon icon-xl ion-ios-close-circle-outline"></span>
-      </button>
-      <div class="modal-buttons">
-        <button type="button" class="btn btn-link" (click)="closeModal()">Close</button>
-      </div>
+        <div class="modal-buttons">
+            <button type="button" class="btn btn-link" (click)="shouldOpenModal(false)">Cancel</button>
+        </div>
     </div>
-  </div>
-</div>
+</app-modal>
+<!-- 
+<app-modal *ngIf="modal">
+    <div class="modal-overlay">
+        <div class="modal-background-overlay" (click)="closeModal()"></div>
+        <div *ngIf="modalRoom" id="manage-playlist" class="modal-container">
+            <h2 class="text-center">Manage room</h2>
+            <div class="modal-content">
+                <p>Playlist videos: {{globals.playlistVideos.length}}</p>
+                <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
+                <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
+                <p>Access control:
+                    <ng-container
+                        *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+                        <span class="icon icon-md ion-ios-unlock"></span> Unlocked
+                    </ng-container>
+                    <ng-container
+                        *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+                        <span class="icon icon-md ion-ios-lock"></span> Listen only
+                    </ng-container>
+                </p>
+                <div class="session-section">
+                    <label for="client-name-input">Change name <small>(optional)</small>:</label>
+                    <div class="session-form">
+                        <input type="text" id="client-name-input" name="clientInput" [(ngModel)]="clientNameInput"
+                            placeholder="{{globals.clientName}}" />
+                        <button type="submit" class="btn btn-secondary" (click)="updateName()">Update</button>
+                    </div>
+                </div>
+                <div class="session-section">
+                    <ng-container *ngIf="!this.globals.isTempSessionActive">
+                        <label for="session-key-input">Change Room <small>(optional)</small>:</label>
+                        <div class="session-form">
+                            <input type="text" id="session-key-input" name="sessionKey" [(ngModel)]="sessionKeyInput"
+                                placeholder="{{globals.getCurrentSessionKeys().tempSession}}" />
+                            <button type="submit" class="btn btn-secondary" (click)="updateRoom()">Update</button>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="this.globals.isTempSessionActive">
+                        <label>You are joined into:</label>
+                        <div class="session-form">
+                            <input type="text" value="{{globals.getCurrentSessionKeys().tempSession}}"
+                                disabled="disabled" />
+                            <button type="button" class="btn" (click)="leave()">Leave</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <button class="modal-close" (click)="closeModal()">
+                <span class="icon icon-xl ion-ios-close-circle-outline"></span>
+            </button>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-link" (click)="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</app-modal> -->

@@ -63,23 +63,24 @@
         </ng-container>
     </div>
 </div>
-<div *ngIf="modal" class="modal-overlay">
-    <div class="modal-background-overlay" (click)="closeModal()"></div>
-    <div *ngIf="modalPlaylist && globals.playlistVideos[modalPlaylistItem]" class="modal-container text-center">
-        <h2>Do you want to remove this item from the playlist?</h2>
-        <div class="modal-content">
-            <ng-container *ngIf="globals.thumbnails">
-                <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}"
-                    alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
-            </ng-container>
-            <p>{{globals.playlistVideos[modalPlaylistItem].title}}</p>
-        </div>
-        <button class="modal-close" (click)="closeModal()">
-            <span class="icon icon-xl ion-ios-close-circle-outline"></span>
-        </button>
+<app-modal [isActive]="modalActive" [isActiveClass]="modalActiveClass" (openModal)="shouldOpenModal($event)">
+    <div class="text-center">
+        <ng-container *ngIf="globals.playlistVideos[modalPlaylistItem]">
+            <h2>Do you want to remove this item from the playlist?</h2>
+            <div class="modal-content">
+                <ng-container *ngIf="globals.thumbnails">
+                    <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}"
+                        alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
+                </ng-container>
+                <p>{{globals.playlistVideos[modalPlaylistItem].title}}</p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!globals.playlistVideos[modalPlaylistItem]">
+            There is an error
+        </ng-container>
         <div class="modal-buttons">
             <button type="button" class="btn btn-outline" (click)="confirmModal()">Confirm</button>
-            <button type="button" class="btn btn-link" (click)="closeModal()">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="shouldOpenModal(false)">Cancel</button>
         </div>
     </div>
-</div>
+</app-modal>

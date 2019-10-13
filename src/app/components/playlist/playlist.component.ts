@@ -16,8 +16,8 @@ export class PlaylistComponent implements OnInit {
 
 	tempPlaylist: Array<VideoModel> = [];
 
-	modal = false;
-	modalPlaylist = false;
+	modalActive = false;
+	modalActiveClass = false;
 	modalPlaylistItem: number;
 
 	constructor(
@@ -25,7 +25,7 @@ export class PlaylistComponent implements OnInit {
 		public globals: GlobalsService,
 		public buttons: ButtonsComponent,
 		public playlistCTRL: PlaylistControlService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.globals.myScrollContainer = this.myScrollContainer;
@@ -46,19 +46,27 @@ export class PlaylistComponent implements OnInit {
 		this.shared.checkPlaylist();
 	}
 
-	closeModal() {
-		this.modal = false;
-		this.modalPlaylist = false;
-	}
-
 	showPlaylistModal(i: number) {
-		this.modal = true;
-		this.modalPlaylist = true;
 		this.modalPlaylistItem = i;
+		this.shouldOpenModal(true);
 	}
 
 	confirmModal() {
 		this.playlistCTRL.removePlaylistItem(this.modalPlaylistItem);
-		this.modal = false;
+		this.shouldOpenModal(false);
+	}
+
+	shouldOpenModal(agreed: boolean) {
+		if (agreed) {
+			this.modalActive = true;
+			setTimeout(() => {
+				this.modalActiveClass = true;
+			}, 100);
+		} else {
+			this.modalActiveClass = false;
+			setTimeout(() => {
+				this.modalActive = false;
+			}, 100);
+		}
 	}
 }

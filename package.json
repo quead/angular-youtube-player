@@ -12,13 +12,12 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.803.9",
+    "@angular-devkit/build-angular": "~0.803.9",
     "@angular/cdk": "^8.2.3",
     "@angular/common": "^8.2.10",
     "@angular/compiler": "^8.2.10",
     "@angular/core": "^8.2.10",
     "@angular/forms": "^8.2.10",
-    "@angular/http": "^7.2.13",
     "@angular/platform-browser": "^8.2.10",
     "@angular/platform-browser-dynamic": "^8.2.10",
     "@angular/router": "^8.2.10",
@@ -26,11 +25,11 @@
     "core-js": "^2.5.7",
     "hammerjs": "^2.0.8",
     "ionicons": "^4.6.2",
-    "ngx-socket-io": "^2.1.1",
+    "ngx-socket-io": "^3.0.1",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.4.0",
-    "tslib": "^1.9.0",
-    "zone.js": "^0.9.1"
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular/cli": "^8.3.9",
@@ -39,7 +38,7 @@
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
-    "codelyzer": "~4.5.0",
+    "codelyzer": "^5.0.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.1",

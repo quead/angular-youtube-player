@@ -35,6 +35,7 @@ import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-ifra
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
 import { VideoItemComponent } from './components/player/video-item/video-item.component';
 import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -63,7 +64,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		YoutubeIframeComponent,
 		ButtonsComponent,
 		VideoItemComponent,
-		CategoryBadgeComponent
+		CategoryBadgeComponent,
+		ModalComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [
