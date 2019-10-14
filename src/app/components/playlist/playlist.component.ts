@@ -1,10 +1,11 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { SharedService } from '../../services/shared.service';
 import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
+import { ModalService } from '../../services/modal.service';
 import { ButtonsComponent } from '../player/buttons/buttons.component';
 import { VideoModel } from '../../models/video.model';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-playlist',
@@ -16,15 +17,14 @@ export class PlaylistComponent implements OnInit {
 
 	tempPlaylist: Array<VideoModel> = [];
 
-	modalActive = false;
-	modalActiveClass = false;
 	modalPlaylistItem: number;
 
 	constructor(
 		public shared: SharedService,
 		public globals: GlobalsService,
 		public buttons: ButtonsComponent,
-		public playlistCTRL: PlaylistControlService
+		public playlistCTRL: PlaylistControlService,
+		private modal: ModalService
 	) { }
 
 	ngOnInit() {
@@ -48,25 +48,11 @@ export class PlaylistComponent implements OnInit {
 
 	showPlaylistModal(i: number) {
 		this.modalPlaylistItem = i;
-		this.shouldOpenModal(true);
+		this.modal.shouldOpenModal(true);
 	}
 
 	confirmModal() {
 		this.playlistCTRL.removePlaylistItem(this.modalPlaylistItem);
-		this.shouldOpenModal(false);
-	}
-
-	shouldOpenModal(agreed: boolean) {
-		if (agreed) {
-			this.modalActive = true;
-			setTimeout(() => {
-				this.modalActiveClass = true;
-			}, 100);
-		} else {
-			this.modalActiveClass = false;
-			setTimeout(() => {
-				this.modalActive = false;
-			}, 100);
-		}
+		this.modal.shouldOpenModal(false);
 	}
 }

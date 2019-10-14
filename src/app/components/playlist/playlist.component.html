@@ -21,7 +21,9 @@
         <ng-container *ngIf="!globals.isLoading">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
                 <div class="playlist_item" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
-                    [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i" cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag [cdkDragDisabled]="globals.playlistVideos.length <= 1">
+                    [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i"
+                    cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
+                    [cdkDragDisabled]="globals.playlistVideos.length <= 1">
                     <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="playlist_item-image"
                         [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
                     <div style="overflow: hidden;">
@@ -63,7 +65,7 @@
         </ng-container>
     </div>
 </div>
-<app-modal [isActive]="modalActive" [isActiveClass]="modalActiveClass" (openModal)="shouldOpenModal($event)">
+<app-modal>
     <div class="text-center">
         <ng-container *ngIf="globals.playlistVideos[modalPlaylistItem]">
             <h2>Do you want to remove this item from the playlist?</h2>
@@ -80,7 +82,7 @@
         </ng-container>
         <div class="modal-buttons">
             <button type="button" class="btn btn-outline" (click)="confirmModal()">Confirm</button>
-            <button type="button" class="btn btn-link" (click)="shouldOpenModal(false)">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="modal.shouldOpenModal(false)">Cancel</button>
         </div>
     </div>
 </app-modal>

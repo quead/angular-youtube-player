@@ -5,6 +5,7 @@ import { GlobalsService } from '../../services/globals.service';
 import { SessionManagerService } from '../../services/session-manager.service';
 import { SharedService } from '../../services/shared.service';
 import { RoomService } from '../../services/room.service';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
 	selector: 'app-room',
@@ -24,6 +25,7 @@ export class RoomComponent implements OnInit {
 		private session: SessionManagerService,
 		private shared: SharedService,
 		public room: RoomService,
+		private modal: ModalService,
 		private socket: Socket
 	) { }
 
@@ -33,7 +35,7 @@ export class RoomComponent implements OnInit {
 			this.shared.updateClientName(name);
 			this.notify.triggerNotify(37);
 			this.clientNameInput = '';
-			this.shouldOpenModal(false);
+			this.modal.shouldOpenModal(false);
 		});
 
 		this.socket.on('download_playlist', data => {
@@ -55,20 +57,6 @@ export class RoomComponent implements OnInit {
 				this.notify.triggerNotify(30);
 			}
 		});
-	}
-
-	shouldOpenModal(agreed: boolean) {
-		if (agreed) {
-			this.modalActive = true;
-			setTimeout(() => {
-				this.modalActiveClass = true;
-			}, 100);
-		} else {
-			this.modalActiveClass = false;
-			setTimeout(() => {
-				this.modalActive = false;
-			}, 100);
-		}
 	}
 
 	leave() {
@@ -106,7 +94,7 @@ export class RoomComponent implements OnInit {
 			}
 
 			this.room.join();
-			this.shouldOpenModal(false);
+			this.modal.shouldOpenModal(false);
 			this.notify.triggerNotify(34);
 		}
 	}

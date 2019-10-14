@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'app-modal',
@@ -7,16 +7,12 @@ import { Component, OnInit, Output, Input, EventEmitter, ViewEncapsulation } fro
     encapsulation: ViewEncapsulation.None
 })
 export class ModalComponent implements OnInit {
-    @Input() isActive: boolean = false;
-    @Input() isActiveClass: boolean = false;
-    @Output() openModal = new EventEmitter<boolean>();
+    public modalActive: boolean = false;
+    public modalActiveClass: boolean = false;
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    close() {
-        this.openModal.emit(false);
-    }
 }

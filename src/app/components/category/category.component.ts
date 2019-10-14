@@ -39,7 +39,7 @@ export class CategoryComponent implements OnInit {
 	converFilterObject(catData: Object) {
 		let categoryArray = [];
 		let categoryObject = {};
-		
+
 		catData["items"].map(category => {
 			categoryObject["id"] = category.id;
 			categoryObject["title"] = category.snippet.title;
@@ -60,7 +60,7 @@ export class CategoryComponent implements OnInit {
 	}
 
 	async getCategoriesVideos(val: string) {
-		const res2 = await this.youtube.videoCategories(val);
+		const res2 = await this.youtube.feedVideos(val);
 		this.shared.convertVideoObject(res2['items'], 'feedVideos');
 		this.globals.isFeedLoading = false;
 	}

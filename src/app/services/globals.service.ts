@@ -10,7 +10,7 @@ export class GlobalsService {
 	clients: Array<ClientModel>;
 
 	relatedVideos: Array<VideoModel> = [];
-	feedVideos: Array<VideoModel>;
+	feedVideos: Array<VideoModel> = [];
 	playlistVideos: Array<VideoModel> = [];
 	historyVideos: Array<VideoModel> = [];
 	searchedVideos: Array<VideoModel>;
@@ -42,6 +42,7 @@ export class GlobalsService {
 	apiKey: string;
 	numSearchRes: number;
 	numRelatedRes: number;
+	nextPageToken: string;
 
 	settings: SettingsModel;
 	player: any;

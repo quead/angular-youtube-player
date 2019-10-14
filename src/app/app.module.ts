@@ -13,6 +13,7 @@ import {
 	NguCarousel
 } from '@ngu/carousel';
 import { environment } from '../environments/environment';
+import { ShortNumPipe } from './pipes/short-num.pipe';
 
 import { AppComponent } from './app.component';
 import { SessionManagerService } from './services/session-manager.service';
@@ -35,8 +36,9 @@ import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-ifra
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
 import { VideoItemComponent } from './components/player/video-item/video-item.component';
 import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
+
 import { ModalComponent } from './components/modal/modal.component';
-import { ShortNumPipe } from './pipes/short-num.pipe';
+import { ModalService } from './services/modal.service';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -78,10 +80,12 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		PlaylistControlService,
 		SharedService,
 		GlobalsService,
+		ModalService,
+		ModalComponent,
 		NguCarouselConfig,
 		NguCarousel,
 		ButtonsComponent,
 		CategoryBadgeComponent
 	]
 })
-export class AppModule {}
+export class AppModule { }
