@@ -24,7 +24,7 @@ export class RoomComponent implements OnInit {
 		private session: SessionManagerService,
 		private shared: SharedService,
 		public room: RoomService,
-		private modal: ModalService,
+		public modal: ModalService,
 		private socket: Socket
 	) { }
 

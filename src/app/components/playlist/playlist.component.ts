@@ -24,7 +24,7 @@ export class PlaylistComponent implements OnInit {
 		public globals: GlobalsService,
 		public buttons: ButtonsComponent,
 		public playlistCTRL: PlaylistControlService,
-		private modal: ModalService
+		public modal: ModalService
 	) { }
 
 	ngOnInit() {
