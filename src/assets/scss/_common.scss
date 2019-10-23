@@ -73,7 +73,7 @@ h2 {
 .app-container {
 	background-color: var(--c-box);
 	padding: 15px;
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 }
 
 .app-head {
@@ -96,7 +96,7 @@ input[type='text'] {
 	background-color: transparent;
 	border: 2px solid rgba(255, 255, 255, 0.2);
 	color: var(--c-white);
-	border-radius: 3px;
+	border-radius: calc(var(--border-radius) / 2);
 	font-size: 14px;
 	z-index: 1;
 	transition: all 0.2s ease-out;

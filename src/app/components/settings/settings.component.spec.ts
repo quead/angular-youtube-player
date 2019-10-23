@@ -15,26 +15,36 @@ import { YoutubeGetVideo } from '../../services/youtube.service';
 import { SessionManagerService } from '../../services/session-manager.service';
 
 describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
-  const config: SocketIoConfig = { url: environment.serverURL, options: {} };
+	let component: SettingsComponent;
+	let fixture: ComponentFixture<SettingsComponent>;
+	const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, SocketIoModule.forRoot(config)],
-      declarations: [ SettingsComponent ],
-      providers: [ PlayerComponent, ButtonsComponent, PlaylistControlService, SharedService, GlobalsService, SessionManagerService, YoutubeGetVideo, HttpClient, HttpHandler ]
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			imports: [ReactiveFormsModule, FormsModule, SocketIoModule.forRoot(config)],
+			declarations: [SettingsComponent],
+			providers: [
+				PlayerComponent,
+				ButtonsComponent,
+				PlaylistControlService,
+				SharedService,
+				GlobalsService,
+				SessionManagerService,
+				YoutubeGetVideo,
+				HttpClient,
+				HttpHandler
+			]
+		})
+			.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(SettingsComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

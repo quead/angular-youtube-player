@@ -37,13 +37,13 @@ export class CategoryComponent implements OnInit {
 	}
 
 	converFilterObject(catData: Object) {
-		let categoryArray = [];
+		const categoryArray = [];
 		let categoryObject = {};
 
-		catData["items"].map(category => {
-			categoryObject["id"] = category.id;
-			categoryObject["title"] = category.snippet.title;
-			categoryObject["assignable"] = category.snippet.assignable;
+		catData['items'].map(category => {
+			categoryObject['id'] = category.id;
+			categoryObject['title'] = category.snippet.title;
+			categoryObject['assignable'] = category.snippet.assignable;
 			categoryArray.push(categoryObject);
 			categoryObject = {};
 		});

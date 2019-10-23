@@ -103,9 +103,10 @@
 
 .search-list.arrow-up {
 	position: absolute;
-	top: 40px;
+	top: 47px;
 	left: 50%;
 	transform: translateX(-50%);
+	z-index: 10;
 }
 
 #search-video-list {
@@ -113,9 +114,9 @@
 	max-height: 430px;
 	background-color: var(--c-base);
 	position: absolute;
-	top: 47px;
+	top: 54px;
 	padding: 0 10px 10px;
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 
 	.video-item {
 		background: transparent;
@@ -124,11 +125,10 @@
 
 	&::-webkit-scrollbar {
 		width: 6px;
-		background-color: var(--c-box);
+		background-color: transparent;
 	}
 
 	&::-webkit-scrollbar-thumb {
-
 		&:hover {
 			background-color: var(--c-white);
 		}

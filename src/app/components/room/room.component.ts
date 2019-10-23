@@ -14,8 +14,7 @@ import { ModalService } from '../../services/modal.service';
 	encapsulation: ViewEncapsulation.None
 })
 export class RoomComponent implements OnInit {
-	modalActive: boolean = false;
-	modalActiveClass: boolean = false;
+	modalID = 'room-modal';
 	sessionKeyInput: any;
 	clientNameInput: any;
 
@@ -35,7 +34,7 @@ export class RoomComponent implements OnInit {
 			this.shared.updateClientName(name);
 			this.notify.triggerNotify(37);
 			this.clientNameInput = '';
-			this.modal.shouldOpenModal(false);
+			this.modal.close(this.modalID);
 		});
 
 		this.socket.on('download_playlist', data => {
@@ -94,7 +93,7 @@ export class RoomComponent implements OnInit {
 			}
 
 			this.room.join();
-			this.modal.shouldOpenModal(false);
+			this.modal.close(this.modalID);
 			this.notify.triggerNotify(34);
 		}
 	}

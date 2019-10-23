@@ -11,11 +11,11 @@ import { PlaylistControlService } from './services/playlist-control.service';
 })
 export class AppComponent implements OnInit {
 	@ViewChild('videoItemIDvalue', { static: true }) videoItemIDvalue: ElementRef;
-	@HostListener("window:scroll", ["$event"])
+	@HostListener('window:scroll', ['$event'])
 	onWindowScroll() {
-		let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-		let max = document.documentElement.scrollHeight;
-		if (pos == max) {
+		const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+		const max = document.documentElement.scrollHeight;
+		if (pos === max) {
 			console.log('End of page');
 			// To check if is on homepage and implement virtual scroll
 			// this.shared.initFeed('', this.globals.nextPageToken)

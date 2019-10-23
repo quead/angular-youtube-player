@@ -12,7 +12,6 @@
 			padding: 0;
 			position: relative;
 			overflow: hidden;
-			border-radius: 3px;
 			&-details {
 				text-align: center;
 				margin-top: 5px;
@@ -29,7 +28,7 @@
 				height: 200px;
 				background-size: 160% auto;
 				background-repeat: no-repeat;
-				background-position: center center;
+				background-position: bottom center;
 				transition: all 0.1s ease-in-out;
 			}
 			&-content {

@@ -6,6 +6,7 @@
 	padding: 0;
 	position: relative;
 	transition: all 0.1s ease-in-out;
+	border-radius: var(--border-radius);
 	h2 {
 		font-size: 14px;
 		margin: 0;
@@ -23,7 +24,7 @@
 		background-position: center center;
 		margin-right: 10px;
 		transition: all 0.1s ease-out;
-		border-radius: 6px;
+		border-radius: var(--border-radius);
 	}
 	.video-item-details {
 		display: flex;
@@ -51,6 +52,8 @@
 		position: relative;
 		z-index: 1;
 		width: 100%;
+		overflow: hidden;
+		border-radius: var(--border-radius);
 	}
 	&-settings {
 		color: var(--c-white);

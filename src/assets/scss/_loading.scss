@@ -10,7 +10,7 @@
 .loading-anim {
 	background-color: var(--c-base);
 	background-size: 800px 104px;
-	border-radius: 6px;
+	border-radius: var(--border-radius);
 }
 
 .loading-list {

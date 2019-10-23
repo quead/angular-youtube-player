@@ -9,18 +9,18 @@ export class YoutubeGetVideo {
 	private videoDetails = 'part=snippet,contentDetails,statistics';
 	private feedDetails = '&chart=mostPopular';
 	private defaultObject = {
-		"items": [
+		'items': [
 			{
-				"id": {
-					"videoId": ""
+				'id': {
+					'videoId': ''
 				},
-				"snippet": {
-					"title": "Video error",
-					"thumbnails": {
-						"high": {
-							"url": "https://via.placeholder.com/480x360",
-							"width": 480,
-							"height": 360
+				'snippet': {
+					'title': 'Video error',
+					'thumbnails': {
+						'high': {
+							'url': 'https://via.placeholder.com/480x360',
+							'width': 480,
+							'height': 360
 						},
 					},
 				}
@@ -28,16 +28,16 @@ export class YoutubeGetVideo {
 		]
 	};
 	private defaultFeedObject = {
-		"items": [
+		'items': [
 			{
-				"id": "",
-				"snippet": {
-					"title": "Feed videos error",
-					"thumbnails": {
-						"high": {
-							"url": "https://via.placeholder.com/480x360",
-							"width": 480,
-							"height": 360
+				'id': '',
+				'snippet': {
+					'title': 'Feed videos error',
+					'thumbnails': {
+						'high': {
+							'url': 'https://via.placeholder.com/480x360',
+							'width': 480,
+							'height': 360
 						},
 					},
 				},
@@ -61,7 +61,7 @@ export class YoutubeGetVideo {
 				)
 				.pipe(map(response => response))
 				.toPromise();
-			this.globals.nextPageToken = res["nextPageToken"];
+			this.globals.nextPageToken = res['nextPageToken'];
 			return res;
 		} catch {
 			return this.defaultFeedObject;
@@ -117,13 +117,13 @@ export class YoutubeGetVideo {
 			return res;
 		} catch {
 			return {
-				"items": [
+				'items': [
 					{
-						"id": "",
-						"snippet": {
-							"channelId": "",
-							"title": "Categorry error",
-							"assignable": true
+						'id': '',
+						'snippet': {
+							'channelId': '',
+							'title': 'Categorry error',
+							'assignable': true
 						}
 					}
 				]

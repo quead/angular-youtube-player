@@ -1,7 +1,7 @@
 <div class="room-container app-container">
     <div class="video-item-head">
         <h2>Room</h2>
-        <button type="button" class="btn btn-small" (click)="modal.shouldOpenModal(true)"><span
+        <button type="button" class="btn btn-small" (click)="modal.open(modalID)"><span
                 class="icon icon-mr ion-ios-settings"></span>Manage</button>
     </div>
     <p>Your name: {{globals.clientName}}</p>
@@ -18,7 +18,7 @@
     </p>
 </div>
 
-<app-modal>
+<app-modal [id]="modalID">
     <h2 class="text-center">Manage room</h2>
     <div class="modal-content">
         <p>Playlist videos: {{globals.playlistVideos.length}}</p>
@@ -60,7 +60,7 @@
             </ng-container>
         </div>
         <div class="modal-buttons">
-            <button type="button" class="btn btn-link" (click)="modal.shouldOpenModal(false)">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="modal.close(modalID)">Cancel</button>
         </div>
     </div>
 </app-modal>

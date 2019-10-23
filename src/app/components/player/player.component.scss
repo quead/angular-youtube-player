@@ -2,6 +2,7 @@
 	background-position: center center;
 	background-size: 140% auto;
 	opacity: 0.8;
+	filter: blur(50px);
 	position: absolute;
 	left: -50px;
     top: -110px;
@@ -9,19 +10,6 @@
 	right: 0;
 	bottom: 0;
 	z-index: 0;
-	transition: all 0.1s ease-out;
-	&:before {
-		content: "";
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 60%,var(--c-base) 100%);
-		backdrop-filter: blur(40px);
-		-webkit-backdrop-filter: blur(40px);
-	}
 }
 
 .player-background {
@@ -94,7 +82,7 @@
 		height: 140px;
 		width: 140px;
 		flex: 0 0 140px;
-		border-radius: 3px;
+		border-radius: var(--border-radius);
 		background-size: cover;
 		background-position: center center;
 		background-repeat: no-repeat;
@@ -321,14 +309,14 @@
 	height: 3px;
 	background-color: rgba(255, 255, 255, 0.1);
 	width: 100%;
-	border-radius: 20px;
+	border-radius: calc(var(--border-radius) * 2);
 
 	.time-input-shadow {
 		position: absolute;
 		transform: translateX(-25px);
 		background-color: black;
 		padding: 2px 8px;
-		border-radius: 5px;
+		border-radius: var(--border-radius);
 		top: -30px;
 		opacity: 0;
 		visibility: hidden;

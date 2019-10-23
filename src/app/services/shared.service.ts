@@ -69,9 +69,6 @@ export class SharedService {
 
 	async initFeed(category?: string, token?: string) {
 		try {
-			if (this.globals.feedVideos) {
-				console.log("performance issue, init feed");
-			}
 			const res = await this.youtube.feedVideos(category, token);
 			this.convertVideoObject(res['items'], 'feedVideos');
 		} catch { }

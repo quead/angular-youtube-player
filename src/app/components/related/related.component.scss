@@ -51,9 +51,7 @@
 			background-repeat: no-repeat;
 			background-size: 160% auto;
 			margin: 0 0 10px;
-		}
-		&-settings {
-			border-radius: 3px;
+			border-radius: var(--border-radius);
 		}
 		&:hover {
 			.video-item-image {

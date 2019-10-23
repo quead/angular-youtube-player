@@ -65,7 +65,7 @@
         </ng-container>
     </div>
 </div>
-<app-modal>
+<app-modal [id]="modalID">
     <div class="text-center">
         <ng-container *ngIf="globals.playlistVideos[modalPlaylistItem]">
             <h2>Do you want to remove this item from the playlist?</h2>
@@ -82,7 +82,7 @@
         </ng-container>
         <div class="modal-buttons">
             <button type="button" class="btn btn-outline" (click)="confirmModal()">Confirm</button>
-            <button type="button" class="btn btn-link" (click)="modal.shouldOpenModal(false)">Cancel</button>
+            <button type="button" class="btn btn-link" (click)="modal.close(modalID)">Cancel</button>
         </div>
     </div>
 </app-modal>

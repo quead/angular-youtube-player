@@ -33,7 +33,7 @@
 	transform: translate(50%, -50%);
     max-width: 450px;
     min-width: 320px;
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	overflow-y: auto;
     max-height: 100%;
     transition: all 0.1s ease-out;
@@ -85,7 +85,7 @@
 		padding: 13px 10px;
 		font-size: 12px;
 		width: 70%;
-		border-radius: 30px;
+		border-radius: calc(var(--border-radius) * 3);
 	}
 }
 

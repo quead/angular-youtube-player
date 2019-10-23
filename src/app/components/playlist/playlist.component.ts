@@ -16,8 +16,8 @@ export class PlaylistComponent implements OnInit {
 	@ViewChild('playlistContainer', { static: true }) private myScrollContainer: ElementRef;
 
 	tempPlaylist: Array<VideoModel> = [];
-
 	modalPlaylistItem: number;
+	modalID = 'playlist-modal';
 
 	constructor(
 		public shared: SharedService,
@@ -32,7 +32,7 @@ export class PlaylistComponent implements OnInit {
 	}
 
 	confirmClear() {
-		if (confirm("Are you sure you want to clear the playlist?")) {
+		if (confirm('Are you sure you want to clear the playlist?')) {
 			this.shared.clearPlaylist();
 		}
 	}
@@ -48,11 +48,11 @@ export class PlaylistComponent implements OnInit {
 
 	showPlaylistModal(i: number) {
 		this.modalPlaylistItem = i;
-		this.modal.shouldOpenModal(true);
+		this.modal.open(this.modalID);
 	}
 
 	confirmModal() {
 		this.playlistCTRL.removePlaylistItem(this.modalPlaylistItem);
-		this.modal.shouldOpenModal(false);
+		this.modal.close(this.modalID);
 	}
 }
