@@ -3,7 +3,7 @@
     Demo
   </a>
   <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player"> 
-    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/HyLDe9j.jpg" style="height: auto; max-width:100%;" />
+    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/HPPdUMC.jpg" style="height: auto; max-width:100%;" />
   </a>
 </p>
 
