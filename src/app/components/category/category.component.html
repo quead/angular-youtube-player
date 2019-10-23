@@ -1,40 +1,42 @@
 <div class="app-content app-container">
-  <div class="video-item-head">
-    <h2>Trending</h2>
-    <div class="categories" *ngIf="globals.categories">
-      <label for="select-category"><span class="fa fa-angle-down"></span></label>
-      <select id="select-category" [ngModel]="globals.currentCategory" (change)="categoryChanged($event)">
-        <option value="all">General</option>
-        <ng-container *ngFor="let category of globals.categories.items">
-          <option *ngIf="category.snippet.assignable && globals.categoriesBlocked.indexOf(category.id) === -1"
-            [value]="category.id">{{category.snippet.title}}</option>
-        </ng-container>
-      </select>
-    </div>
-  </div>
-  <div class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
-    <ng-container *ngIf="globals.isFeedLoading">
-      <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
-    </ng-container>
-    <ng-container *ngIf="!globals.isFeedLoading">
-      <div *ngFor="let feedVideo of globals.feedVideos; let i = index"
-        [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
-        <div class="video-item-info">
-          <div *ngIf="globals.thumbnails" class="video-item-image"
-            [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
-          <div class="video-item-content">
-            <p class="video-item-title">{{feedVideo.title}}</p>
-            <p class="video-item-autor">{{feedVideo.channelTitle}}</p>
-            <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-              <p class="stats-views"><span class="fa fa-eye"></span> {{feedVideo.stats.views | number:'1.0'}}</p>
-              <p class="stats-likes"><span class="fa fa-thumbs-up"></span> {{feedVideo.stats.likes | number:'1.0'}}</p>
-              <p class="stats-dislikes"><span class="fa fa-thumbs-down"></span>
-                {{feedVideo.stats.dislikes | number:'1.0'}}</p>
-            </div>
-          </div>
+    <div class="video-item-head">
+        <h2>Trending</h2>
+        <div class="categories" *ngIf="globals.categories">
+            <label for="select-category"><span class="icon ion-ios-arrow-down"></span></label>
+            <select id="select-category" [ngModel]="globals.currentCategory" (change)="categoryChanged($event)">
+                <option value="all">General</option>
+                <ng-container *ngFor="let category of globals.categories">
+                    <option *ngIf="category.assignable && globals.categoriesBlocked.indexOf(category.id) === -1" [value]="category.id">{{category.title}}</option>
+                </ng-container>
+            </select>
         </div>
-        <app-buttons [videoIndex]="i" [listID]="0"></app-buttons>
-      </div>
-    </ng-container>
-  </div>
+    </div>
+    <div class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
+        <ng-container *ngIf="globals.isFeedLoading">
+            <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
+        </ng-container>
+        <ng-container *ngIf="!globals.isFeedLoading">
+            <div *ngFor="let feedVideo of globals.feedVideos; let i = index"
+                [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
+                <div class="video-item-info">
+                    <div *ngIf="globals.thumbnails" class="video-item-image"
+                        [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
+                    <div class="video-item-content">
+                        <app-category-badge [categoryID]="feedVideo.categoryId"></app-category-badge>
+                        <p class="video-item-title">{{feedVideo.title}}</p>
+                        <p class="video-item-autor">{{feedVideo.channelTitle}}</p>
+                        <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
+                            <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
+                                {{feedVideo.stats.views | shortNum}}</p>
+                            <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>
+                                {{feedVideo.stats.likes | shortNum}}</p>
+                            <p class="stats-dislikes"><span class="icon ion-ios-thumbs-down"></span>
+                                {{feedVideo.stats.dislikes | shortNum}}</p>
+                        </div>
+                    </div>
+                </div>
+                <app-buttons [videoIndex]="i" [listID]="0"></app-buttons>
+            </div>
+        </ng-container>
+    </div>
 </div>

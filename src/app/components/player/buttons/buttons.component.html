@@ -1,16 +1,17 @@
 <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
-  <button class="video-item-play" (click)="onClickVideo(videoIndex, listID)">
-    <span class="fa " [ngClass]="globals.currentVideo.id === shared.getVideoFromList(videoIndex, listID)['id'] && globals.currentState === 1 ? 'fa-pause' : 'fa-play'"></span>
-  </button>
-  <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
-    <span class="fa fa-share-alt"></span>
-  </button>
-  <button class="video-item-add" (click)="playlistCTRL.addPlaylistItem(videoIndex, listID)">
-    <span class="fa fa-plus"></span>
-  </button>
+    <button class="video-item-play" (click)="onClickVideo(videoIndex, listID)">
+        <span class="icon icon-md"
+            [ngClass]="globals.currentVideo.id === shared.getVideoFromList(videoIndex, listID)['id'] && globals.currentState === 1 ? 'ion-ios-pause' : 'ion-ios-play'"></span>
+    </button>
+    <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
+        <span class="icon icon-md ion-ios-share-alt"></span>
+    </button>
+    <button class="video-item-add" (click)="playlistCTRL.addPlaylistItem(videoIndex, listID)">
+        <span class="icon icon-lg ion-ios-add"></span>
+    </button>
 </div>
 <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
-  <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
-      <span class="fa fa-share-alt"></span>
+    <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
+        <span class="icon icon-md ion-ios-share-alt"></span>
     </button>
 </div>

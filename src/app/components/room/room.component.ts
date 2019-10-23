@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 import { NotifyService } from '../../services/notify.service';
 import { GlobalsService } from '../../services/globals.service';
 import { SessionManagerService } from '../../services/session-manager.service';
 import { SharedService } from '../../services/shared.service';
 import { RoomService } from '../../services/room.service';
-import { Socket } from 'ngx-socket-io';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
 	selector: 'app-room',
@@ -13,8 +14,7 @@ import { Socket } from 'ngx-socket-io';
 	encapsulation: ViewEncapsulation.None
 })
 export class RoomComponent implements OnInit {
-	modal = false;
-	modalRoom = false;
+	modalID = 'room-modal';
 	sessionKeyInput: any;
 	clientNameInput: any;
 
@@ -24,6 +24,7 @@ export class RoomComponent implements OnInit {
 		private session: SessionManagerService,
 		private shared: SharedService,
 		public room: RoomService,
+		public modal: ModalService,
 		private socket: Socket
 	) { }
 
@@ -33,7 +34,7 @@ export class RoomComponent implements OnInit {
 			this.shared.updateClientName(name);
 			this.notify.triggerNotify(37);
 			this.clientNameInput = '';
-			this.closeModal();
+			this.modal.close(this.modalID);
 		});
 
 		this.socket.on('download_playlist', data => {
@@ -55,16 +56,6 @@ export class RoomComponent implements OnInit {
 				this.notify.triggerNotify(30);
 			}
 		});
-	}
-
-	closeModal() {
-		this.modal = false;
-		this.modalRoom = false;
-	}
-
-	showModal() {
-		this.modal = true;
-		this.modalRoom = true;
 	}
 
 	leave() {
@@ -102,7 +93,7 @@ export class RoomComponent implements OnInit {
 			}
 
 			this.room.join();
-			this.closeModal();
+			this.modal.close(this.modalID);
 			this.notify.triggerNotify(34);
 		}
 	}

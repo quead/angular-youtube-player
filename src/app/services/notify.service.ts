@@ -20,7 +20,7 @@ export class NotifyService {
 		4: 'The Video is already in the playlist.',
 		5: 'The playlist from the cloud was updated.',
 		6: 'The playlist from the cloud cannot be updated.',
-		7: 'Playlist from the cloud was downloaded.',
+		7: 'Downloaded playlist from the cloud.',
 		8: 'The room does not exist so you could not get any info.',
 		10: 'Please check external settings.',
 		20: 'Copied',

@@ -1,0 +1,13 @@
+<ng-container *ngIf="modalActive">
+    <div class="modal" [ngClass]="{'active': modalActiveClass}">
+        <div class="modal-overlay">
+            <div class="modal-background-overlay" (click)="close()"></div>
+            <div class="modal-container">
+                <button class="modal-close" (click)="close()">
+                    <span class="icon icon-xl ion-ios-close-circle-outline"></span>
+                </button>
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</ng-container>

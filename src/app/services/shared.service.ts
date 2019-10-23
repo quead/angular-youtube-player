@@ -13,7 +13,7 @@ export class SharedService {
 		private globals: GlobalsService,
 		private session: SessionManagerService,
 		private notify: NotifyService
-	) {}
+	) { }
 
 	guid() {
 		return Math.floor((1 + Math.random()) * 0x10000)
@@ -29,7 +29,7 @@ export class SharedService {
 				);
 				this.convertVideoObject(res['items'], 'relatedVideos');
 			}
-		} catch {}
+		} catch { }
 	}
 
 	getSettings() {
@@ -58,7 +58,7 @@ export class SharedService {
 			localStorage.length === 1 ||
 			!localStorage.getItem('version') ||
 			parseInt(localStorage.getItem('version'), 10) <
-				this.globals.localStorageVersion
+			this.globals.localStorageVersion
 		) {
 			console.log('Updating localstorage...');
 			localStorage.clear();
@@ -67,13 +67,11 @@ export class SharedService {
 		}
 	}
 
-	async initFeed() {
+	async initFeed(category?: string, token?: string) {
 		try {
-			if (!this.globals.feedVideos) {
-				const res = await this.youtube.feedVideos();
-				this.convertVideoObject(res['items'], 'feedVideos');
-			}
-		} catch {}
+			const res = await this.youtube.feedVideos(category, token);
+			this.convertVideoObject(res['items'], 'feedVideos');
+		} catch { }
 	}
 
 	updateLocalStorageSettings() {
@@ -102,7 +100,7 @@ export class SharedService {
 		if (
 			localStorage.getItem('version') === null ||
 			parseInt(localStorage.getItem('version'), 10) <
-				this.globals.localStorageVersion
+			this.globals.localStorageVersion
 		) {
 			localStorage.setItem(
 				'version',
@@ -261,6 +259,7 @@ export class SharedService {
 				break;
 			}
 			case 'feedVideos': {
+				tempVideos.pop();
 				this.globals.feedVideos = tempVideos;
 				break;
 			}

@@ -16,7 +16,6 @@ nav {
 		display: block;
 		text-decoration: none;
 		color: rgba(255, 255, 255, 0.5);
-		font-size: $f-14;
 		-webkit-user-drag: none;
 		position: relative;
 		transition: all 0.1s ease-out;
@@ -27,10 +26,6 @@ nav {
 		&.is-active,
 		&:active {
 			color: var(--c-white);
-
-			.fa {
-				color: var(--c-white);
-			}
 
 			.description {
 				text-shadow: none;

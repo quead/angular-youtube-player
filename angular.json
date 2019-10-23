@@ -21,12 +21,19 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/assets/scss/main.scss"
+              "src/assets/scss/main.scss",
+              "./node_modules/ionicons/dist/scss/ionicons.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -71,7 +78,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/assets/scss/main.scss"
+              "src/assets/scss/main.scss",
+              "./node_modules/ionicons/dist/scss/ionicons.scss"
             ],
             "assets": [
               "src/assets",

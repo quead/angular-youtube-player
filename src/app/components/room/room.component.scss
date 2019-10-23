@@ -13,13 +13,15 @@ app-room {
 
 .session-section {
 	margin-bottom: 10px;
-	input[type='text'] {
-		background: transparent;
-		border: 1px solid #e4e4e4;
-		border-radius: 3px;
-		padding: 8px 10px;
-		font-size: 14px;
-		width: 100%;
+	input[type='text'] {		
+		&::-webkit-input-placeholder {
+			color: rgba(255, 255, 255, 0.6);
+		}
+		
+		&:focus {
+			border-color: rgba(#1a85fd, 0.8);
+			box-shadow: 0px 0px 0px 4px rgba(#1a85fd, 0.2);
+		}
 	}
 	.session-form {
 		display: flex;
@@ -41,6 +43,35 @@ app-room {
 		margin-left: auto;
 		margin-right: 0;
 	}
+}
+
+.room-info-container {
+    display: flex;
+	justify-content: space-around;
+}
+
+.room-info {
+	display: flex;
+	align-items: center;	
+}
+
+.room-info-icon {
+	margin-right: 10px;
+}
+
+.room-info-icon span {
+    font-size: 28px;
+}
+
+.room-info-number {
+    font-size: 18px;
+	font-weight: 600;
+	line-height: 1;
+}
+
+.room-info-title {
+    opacity: 0.4;
+    font-weight: 300;
 }
 
 @media screen and (max-width: 767px) {

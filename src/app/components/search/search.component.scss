@@ -32,16 +32,27 @@
 	position: relative;
 	color: var(--c-white);
 
+
 	.search-icon {
 		position: absolute;
+		display: flex;
+		align-items: center;
 		top: 50%;
-		left: 10px;
+		left: 20px;
 		font-size: 18px;
 		transform: translateY(-50%);
 		color: rgba(255, 255, 255, 0.2);
 		cursor: pointer;
 		z-index: 2;
 		transition: all 0.1s ease-out;
+	}
+
+	input[type="text"] {
+		width: 100%;
+		padding: 13px 40px 13px 40px;
+		background-color: rgba(0, 0, 0, 0.3);
+		border-radius: 30px;
+		border-width: 2px;
 	}
 
 	.form-group {
@@ -51,35 +62,6 @@
 
 	.input-group {
 		position: relative;
-	}
-
-	input[type='text'] {
-		border: none;
-		display: block;
-		width: 100%;
-		padding: 10px 40px 10px 35px;
-		margin: 0;
-		outline: 0;
-		position: relative;
-		background-color: transparent;
-		border: 2px solid rgba(255, 255, 255, 0.2);
-		color: var(--c-white);
-		border-radius: 5px;
-		font-size: 14px;
-		z-index: 1;
-		transition: all 0.2s ease-out;
-
-		&::-webkit-input-placeholder {
-			color: rgba(255, 255, 255, 0.6);
-		}
-
-		&:focus {
-			border-color: rgba(255, 255, 255, 0.6);
-
-			+ .search-icon {
-				color: rgba(255, 255, 255, 0.6);
-			}
-		}
 	}
 
 	.clear-button {
@@ -121,19 +103,20 @@
 
 .search-list.arrow-up {
 	position: absolute;
-	top: 40px;
+	top: 47px;
 	left: 50%;
 	transform: translateX(-50%);
+	z-index: 10;
 }
 
 #search-video-list {
 	z-index: 10;
 	max-height: 430px;
-	background-color: #14151b;
+	background-color: var(--c-base);
 	position: absolute;
-	top: 47px;
+	top: 54px;
 	padding: 0 10px 10px;
-	border-radius: 5px;
+	border-radius: var(--border-radius);
 
 	.video-item {
 		background: transparent;
@@ -142,14 +125,12 @@
 
 	&::-webkit-scrollbar {
 		width: 6px;
-		background-color: #08080a;
+		background-color: transparent;
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: rgba(#fff, 0.3);
-
 		&:hover {
-			background-color: rgba(#fff, 0.6);
+			background-color: var(--c-white);
 		}
 	}
 }

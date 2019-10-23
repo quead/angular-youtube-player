@@ -1,30 +1,25 @@
 .btn {
-	display: inline-block;
+	display: inline-flex;
 	background-color: rgba(255,255,255,0.2);
-	color: #ffffff;
+	color: var(--c-white);
 	font-size: $f-14;
 	font-weight: 400;
 	line-height: 1.25;
 	text-align: center;
 	white-space: nowrap;
-	vertical-align: middle;
+	align-items: center;
 	user-select: none;
 	border: none;
-	border-radius: 5px;
-	padding: 9px 15px;
+	border-radius: calc(var(--border-radius) / 2);
+	padding: 10px 15px;
 	text-decoration: none;
 	transition: all 0.1s ease-out;
 	outline: 0;
 	line-height: 1;
 	&:active {
-		background-color: #ffffff;
-		color: #000;
+		background-color: var(--c-white);
+		color: var(--c-black);
 		box-shadow: 0 0 0 4px rgba(#ffffff, 0.3);
-	}
-	.fa {
-		margin-right: 8px;
-		font-size: $f-12;
-		position: relative;
 	}
 	&-block {
 		width: 100%;
@@ -36,14 +31,16 @@
 
 	&-link {
 		background-color: transparent;
-		color: rgba(#232228, 0.3);
+		color: rgba(#fff, 0.3);
 
 		&:hover {
-			color: rgba(#232228, 0.6);
+			color: rgba(#fff, 0.6);
 		}
 
 		&:active {
-			color: var(--c-primary-inverse);
+			background-color: transparent;
+			color: var(--c-white);
+			box-shadow: none;
 		}
 	}
 
@@ -57,8 +54,19 @@
 
 		&:active {
 			background-color: #ff0000;
-			color: #ffffff;
+			color: var(--c-white);
 			box-shadow: 0 0 0 4px rgba(#ff0000, 0.3);
+		}
+	}
+
+	&-inverse {
+		background-color: var(--c-white);
+		color: var(--c-black);
+
+		&:active {
+			background-color: var(--c-black);
+			color: var(--c-white);
+			box-shadow: 0 0 0 4px rgba(#000000, 0.3);
 		}
 	}
 
@@ -68,7 +76,7 @@
 
 		&:active {
 			background-color: #1a85fd;
-			color: #ffffff;
+			color: var(--c-white);
 			box-shadow: 0 0 0 4px rgba(#1a85fd, 0.3);
 		}
 	}
@@ -76,10 +84,22 @@
 	&-warning {
 		color: #f4a43b;
 		background-color: rgba(#f4a43b,0.2);
+
 		&:active {
-			color: #000000;
+			color: var(--c-black);
 			background-color: #f4a43b;
 			box-shadow: 0 0 0 4px rgba(#f4a43b, 0.3);
+		}
+	}
+
+	&-outline {
+		background-color: transparent;
+		border: 3px solid var(--c-white);
+
+		&:hover,
+		&:active {
+			background-color: var(--c-white);
+			color: var(--c-black);
 		}
 	}
 }

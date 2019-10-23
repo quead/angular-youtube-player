@@ -13,6 +13,7 @@ import {
 	NguCarousel
 } from '@ngu/carousel';
 import { environment } from '../environments/environment';
+import { ShortNumPipe } from './pipes/short-num.pipe';
 
 import { AppComponent } from './app.component';
 import { SessionManagerService } from './services/session-manager.service';
@@ -34,6 +35,10 @@ import { RoomComponent } from './components/room/room.component';
 import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
 import { VideoItemComponent } from './components/player/video-item/video-item.component';
+import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
+
+import { ModalComponent } from './components/modal/modal.component';
+import { ModalService } from './services/modal.service';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -61,7 +66,10 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		RoomComponent,
 		YoutubeIframeComponent,
 		ButtonsComponent,
-		VideoItemComponent
+		VideoItemComponent,
+		CategoryBadgeComponent,
+		ModalComponent,
+		ShortNumPipe
 	],
 	bootstrap: [AppComponent],
 	providers: [
@@ -72,9 +80,12 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		PlaylistControlService,
 		SharedService,
 		GlobalsService,
+		ModalService,
+		ModalComponent,
 		NguCarouselConfig,
 		NguCarousel,
-		ButtonsComponent
+		ButtonsComponent,
+		CategoryBadgeComponent
 	]
 })
-export class AppModule {}
+export class AppModule { }

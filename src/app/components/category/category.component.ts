@@ -6,7 +6,7 @@ import { GlobalsService } from '../../services/globals.service';
 @Component({
 	selector: 'app-category',
 	templateUrl: './category.component.html',
-	styleUrls: ['./category.component.scss']
+	styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
 
@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
 
 	initCategories() {
 		this.youtube.categories().then(catData => {
-			this.globals.categories = catData;
+			this.converFilterObject(catData);
 		});
 	}
 
@@ -36,16 +36,31 @@ export class CategoryComponent implements OnInit {
 		}
 	}
 
+	converFilterObject(catData: Object) {
+		const categoryArray = [];
+		let categoryObject = {};
+
+		catData['items'].map(category => {
+			categoryObject['id'] = category.id;
+			categoryObject['title'] = category.snippet.title;
+			categoryObject['assignable'] = category.snippet.assignable;
+			categoryArray.push(categoryObject);
+			categoryObject = {};
+		});
+
+		this.globals.categories = categoryArray;
+	}
+
 	getCategories() {
 		this.youtube.categories().then(catData => {
-			this.globals.categories = catData;
+			this.converFilterObject(catData);
 			this.globals.isFeedLoading = true;
 			this.getCategoriesVideos(this.globals.currentCategory);
 		});
 	}
 
 	async getCategoriesVideos(val: string) {
-		const res2 = await this.youtube.videoCategories(val);
+		const res2 = await this.youtube.feedVideos(val);
 		this.shared.convertVideoObject(res2['items'], 'feedVideos');
 		this.globals.isFeedLoading = false;
 	}
