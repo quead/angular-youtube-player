@@ -45,6 +45,35 @@ app-room {
 	}
 }
 
+.room-info-container {
+    display: flex;
+	justify-content: space-around;
+}
+
+.room-info {
+	display: flex;
+	align-items: center;	
+}
+
+.room-info-icon {
+	margin-right: 10px;
+}
+
+.room-info-icon span {
+    font-size: 28px;
+}
+
+.room-info-number {
+    font-size: 18px;
+	font-weight: 600;
+	line-height: 1;
+}
+
+.room-info-title {
+    opacity: 0.4;
+    font-weight: 300;
+}
+
 @media screen and (max-width: 767px) {
 	.room-container {
 		margin-top: 15px;

@@ -4,18 +4,29 @@
         <button type="button" class="btn btn-small" (click)="modal.open(modalID)"><span
                 class="icon icon-mr ion-ios-settings"></span>Manage</button>
     </div>
-    <p>Your name: {{globals.clientName}}</p>
-    <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
-    <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
-    <p *ngIf="globals.clients">Users in the room: {{globals.clients.length}}</p>
-    <p>Access control:
-        <ng-container *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
-            <span class="icon icon-md ion-ios-unlock"></span> Unlocked
-        </ng-container>
-        <ng-container *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
-            <span class="icon icon-md ion-ios-lock"></span> Listen only
-        </ng-container>
-    </p>
+    <div class="room-info-container">
+        <div class="room-info">
+            <span class="room-info-icon"><span class="icon " [ngClass]="globals.isSameSessionKey() ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
+            <div>
+                <p class="room-info-number">{{(globals.isSameSessionKey()) ? "Unlocked" : "Listen Only"}}</p>
+                <p class="room-info-title">Room Status</p>
+            </div>
+        </div>
+        <div class="room-info" *ngIf="globals.clients">
+            <span class="room-info-icon"><span class="icon ion-ios-people"></span></span>
+            <div>
+                <p class="room-info-number">{{globals.clients.length}}</p>
+                <p class="room-info-title">Users</p>
+            </div>
+        </div>
+        <div class="room-info" *ngIf="globals.clients">
+            <span class="room-info-icon"><span class="icon ion-ios-play-circle"></span></span>
+            <div>
+                <p class="room-info-number">{{globals.playlistVideos.length}}</p>
+                <p class="room-info-title">Videos</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <app-modal [id]="modalID">
