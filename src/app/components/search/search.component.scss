@@ -18,10 +18,10 @@
 
 	&::-webkit-scrollbar-thumb {
 		border-radius: 20px;
-		background-color: rgba(var(--c-white), 0.1);
+		background-color: rgba(var(--c-white), 0.3);
 
 		&:hover {
-			background-color: rgba(var(--c-white), 0.4);
+			background-color: rgba(var(--c-white), 0.6);
 		}
 	}
 }

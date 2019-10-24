@@ -5,7 +5,6 @@ app-room {
 .room-container {
 	display: inline-block;
 	width: 100%;
-	margin-bottom: 15px;
 	p {
 		margin: 2px 0;
 	}
@@ -53,7 +52,22 @@ app-room {
 
 .room-info {
 	display: flex;
-	align-items: center;	
+	align-items: center;
+	padding: 10px;
+	&.clickable {
+		cursor: pointer;
+		background-color: rgba(var(--c-white), 0.05);
+		border-radius: var(--border-radius);
+		> .icon {
+			margin-left: 10px;
+		}
+		&:hover {
+			background-color: rgba(var(--c-white), 0.04);
+		}
+		&:active {
+			background-color: rgba(var(--c-black), 0.5);
+		}
+	}
 }
 
 .room-info-icon {
@@ -73,6 +87,45 @@ app-room {
 .room-info-title {
     opacity: 0.4;
     font-weight: 300;
+}
+
+.guest {
+	margin: 5px 0;
+}
+
+.guests-container {
+	max-height: 0;
+	overflow: hidden;
+	transition: var(--default-transition);
+	display: flex;
+	opacity: 0;
+}
+
+.guests-list {
+	overflow: auto;
+	max-height: 165px;
+	&::-webkit-scrollbar-track {
+		border-radius: 2px;
+	}
+
+	&::-webkit-scrollbar {
+		width: 8px;
+		background-color: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 20px;
+		background-color: rgba(var(--c-white), 0.3);
+
+		&:hover {
+			background-color: rgb(var(--c-white));
+		}
+	}
+}
+
+.guests-container.active {
+	max-height: 250px;
+	opacity: 1;
 }
 
 @media screen and (max-width: 767px) {

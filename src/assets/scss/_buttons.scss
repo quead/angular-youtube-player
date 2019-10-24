@@ -49,13 +49,17 @@
 	}
 
 	&-primary {
-		background-color: rgba(var(--primary), 0.2);
-		color: var(--primary);
+		background-color: rgba(var(--c-primary), 0.2);
+		color: rgb(var(--c-primary));
 
-		&:active {
-			background-color: var(--primary);
+		&:hover {
+			background-color: rgb(var(--c-primary));
 			color: rgb(var(--c-white));
-			box-shadow: 0 0 0 4px rgba(var(--primary), 0.3);
+		}
+		&:active {
+			background-color: rgb(var(--c-primary));
+			color: rgb(var(--c-white));
+			box-shadow: 0 0 0 4px rgba(var(--c-primary), 0.3);
 		}
 	}
 

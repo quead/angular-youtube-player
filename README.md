@@ -8,7 +8,7 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.5.2-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.6.0-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
@@ -52,6 +52,9 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 `ng build --prod=true`
 
 ## Changelog
+Angular YouTube Player 2.6.0
+- List of guests in the session
+
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
 - UI updates
@@ -189,9 +192,8 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- *List of users joined in the session **(in v2.6)***
 - *Set private/public room **(in v2.7)***
-- *List of public rooms **(in v2.9)***
+- *List of public rooms **(in v2.8)***
 - *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
 
 #### Roadmap to 4.0
@@ -201,7 +203,7 @@ Angular YouTube Player 1.0.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
-- Temporary removed theme function
+- Themes temporary removed 
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

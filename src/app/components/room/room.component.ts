@@ -18,6 +18,8 @@ export class RoomComponent implements OnInit {
 	sessionKeyInput: any;
 	clientNameInput: any;
 
+	showGuests = false;
+
 	constructor(
 		private notify: NotifyService,
 		public globals: GlobalsService,
@@ -56,6 +58,10 @@ export class RoomComponent implements OnInit {
 				this.notify.triggerNotify(30);
 			}
 		});
+	}
+
+	toggleGuests() {
+		this.showGuests = !this.showGuests;
 	}
 
 	leave() {
