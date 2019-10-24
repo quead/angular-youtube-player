@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
 	videoCurRange = 0;
 	videoMaxRange = 0;
 
+	timeoutBuffering: any;
 	videoRangePercent = 0;
 	videoRangeMouseActive = false;
 	volumeRangeMouseActive = false;
@@ -47,8 +48,10 @@ export class PlayerComponent implements OnInit {
 		this.shared.getSettings();
 		this.room.join();
 		this.setDefaultPlayer();
+		clearTimeout(this.timeoutBuffering);
 
 		this.socket.on('event_trigger', data => {
+			console.log(data);
 			switch (data.eventName) {
 				case 'playVideo':
 					this.playerCTA.triggerPlayPauseVideo();
@@ -64,6 +67,10 @@ export class PlayerComponent implements OnInit {
 					break;
 				case 'isBuffering':
 					// Need a solution when is buffering for one to keep in sync
+					this.globals.player.pauseVideo();
+					this.timeoutBuffering = setTimeout(() => {
+						this.globals.player.playVideo();
+					}, 500);
 					break;
 				default:
 			}

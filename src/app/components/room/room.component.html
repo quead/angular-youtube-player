@@ -6,9 +6,10 @@
     </div>
     <div class="room-info-container">
         <div class="room-info">
-            <span class="room-info-icon"><span class="icon " [ngClass]="globals.isSameSessionKey() ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
+            <span class="room-info-icon"><span class="icon "
+                    [ngClass]="globals.isTempSessionActive ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
             <div>
-                <p class="room-info-number">{{(globals.isSameSessionKey()) ? "Unlocked" : "Listen Only"}}</p>
+                <p class="room-info-number">{{(globals.isTempSessionActive) ? "Unlocked" : "Listen Only"}}</p>
                 <p class="room-info-title">Room Status</p>
             </div>
         </div>
