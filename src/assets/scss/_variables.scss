@@ -40,51 +40,31 @@
 	src: url('https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff');
 }
 
-// Font sizes
-$f-8: 8px;
-$f-9: 9px;
-$f-10: 10px;
-$f-11: 11px;
-$f-12: 12px;
-$f-13: 13px;
-$f-14: 14px;
-$f-16: 16px;
-$f-18: 18px;
-$f-20: 20px;
-$f-22: 22px;
-$f-24: 24px;
-$f-26: 26px;
-$f-28: 28px;
-$f-30: 30px;
-$f-32: 32px;
-
-// If you don't use darken and other sass functions use this
 :root {
-	--c-base: #000000;
-	--c-box: #111111;
-	--c-primary: red;
-	--c-primary-active: #d42222;
-	--c-primary-active-focus: #bb2222;
-	--c-primary-inverse: #27272d;
+	--c-base: 0, 0, 0;
+	--c-box: 17, 17, 17;
+	--c-primary: 255, 0, 0;
+	--c-primary-active: 212, 34, 34;
+	--c-primary-active-focus: 187, 34, 34;
 
-	--c-danger: red;
-	--c-danger-active: #d30000;
-	--c-secondary: #1a85fd;
-	--c-secondary-active: darken(#1a85fd, 17%);
-	--c-success: #32d74b;
-	--c-success-active: #35c759;
-	--c-warning: #ffd609;
-	--c-warning-active: #ffcc00;
+	--c-danger: 255, 0, 0;
+	--c-danger-active: 212, 34, 34;
+	--c-secondary: 26, 133, 253;
+	--c-secondary-active: 2, 91, 191;
+	--c-success: 50, 215, 75;
+	--c-success-active: 50, 215, 75;
+	--c-warning: 244, 164, 59;
 
-	--c-gray: #8e8e93;
-	--c-soft-white: #c3c5c8;
-	--c-light-gray: rgba(255, 255, 255, 0.4);
-
-	--c-dark-gray: rgba(0, 0, 0, 0.3);
-	--c-white: #ffffff;
-	--c-black: #000000;
+	--c-white: 255, 255, 255;
+	--c-black: 0, 0, 0;
 
 	--border-radius: 10px;
+
+	--font-small: 12px;
+	--font-medium: 14px;
+	--font-large: 16px;
+
+	--default-transition: all 0.1s ease-out;
 }
 
 $svgIcons: (

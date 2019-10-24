@@ -24,15 +24,15 @@
 	height: 0px;
 	border-left: 7px solid transparent;
 	border-right: 7px solid transparent;
-	border-bottom: 7px solid var(--c-black);
+	border-bottom: 7px solid rgb(var(--c-black));
 }
 
 h2 {
 	margin: 0;
 	padding: 0;
 	font-weight: 600;
-	font-size: $f-22;
-	line-height: $f-22;
+	font-size: 22px;
+	line-height: 22px;
 	display: inline-block;
 	width: 100%;
 }
@@ -43,17 +43,17 @@ h2 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--c-white);
-	color: var(--c-black);
-	font-size: 14px;
-	box-shadow: 0 5px 10px 10px rgba(0, 0, 0, 0.1);
+	background-color: rgb(var(--c-white));
+	color: rgb(var(--c-black));
+	font-size: var(--font-medium);
+	box-shadow: 0 5px 10px 10px rgba(var(--c-black), 0.1);
 	left: 50%;
 	transform: translateX(-50%);
 	padding: 10px 20px;
 	border-radius: 20px;
 	opacity: 0;
 	visibility: hidden;
-	transition: all 0.1s ease-in-out;
+	transition: var(--default-transition);
 	z-index: 9999;
 	p {
 		margin: 0;
@@ -71,7 +71,7 @@ h2 {
 }
 
 .app-container {
-	background-color: var(--c-box);
+	background-color: rgb(var(--c-box));
 	padding: 15px;
 	border-radius: var(--border-radius);
 }
@@ -82,7 +82,7 @@ h2 {
 
 select {
 	option {
-		color: var(--c-black);
+		color: rgb(var(--c-black));
 	}
 }
 
@@ -94,28 +94,28 @@ input[type='text'] {
 	margin: 0;
 	position: relative;
 	background-color: transparent;
-	border: 2px solid rgba(255, 255, 255, 0.2);
-	color: var(--c-white);
+	border: 2px solid rgba(var(--c-white), 0.2);
+	color: rgb(var(--c-white));
 	border-radius: calc(var(--border-radius) / 2);
-	font-size: 14px;
+	font-size: var(--font-medium);
 	z-index: 1;
-	transition: all 0.2s ease-out;
+	transition: var(--default-transition);
 	outline: 0;
 
 	&::-webkit-input-placeholder {
-		color: rgba(255, 255, 255, 0.8);
+		color: rgba(var(--c-white), 0.8);
 	}
 
 	&:focus {
-		border-color: rgba(255, 255, 255, 0.8);
-		box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.2);
+		border-color: rgba(var(--c-white), 0.8);
+		box-shadow: 0px 0px 0px 4px rgba(var(--c-white), 0.2);
 
 		+ .search-icon {
-			color: rgba(255, 255, 255, 0.8);
+			color: rgba(var(--c-white), 0.8);
 		}
 	}
 	&:disabled {
-		background-color: var(--c-base);
+		background-color: rgb(var(--c-base));
 		cursor: no-drop;
 		user-select: none;
 	}

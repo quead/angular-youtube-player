@@ -11,11 +11,11 @@ html {
 
 body {
 	position: relative;
-	background-color: var(--c-base);
+	background-color: rgb(var(--c-base));
 	font-family: 'San Francisco';
-	color: var(--c-white);
+	color: rgb(var(--c-white));
 	font-weight: 400;
-	font-size: $f-14;
+	font-size: var(--font-medium);
 	line-height: 1.5;
 	margin: 0;
 	padding: 0;
@@ -30,10 +30,10 @@ button {
 }
 
 a {
-	color: var(--c-primary);
+	color: rgb(var(--c-primary));
 
 	&:active {
-		color: var(--c-primary-active);
+		color: rgb(var(--c-primary-active));
 	}
 }
 

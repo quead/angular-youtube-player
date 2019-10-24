@@ -12,8 +12,9 @@ export class VideoItemComponent implements OnInit {
 	@Input() videoItem: VideoModel;
 	@Input() videoIndex: number;
 	@Input() listID: number;
+	@Input() additionalClass: string;
 
-	constructor(public globals: GlobalsService) {}
+	constructor(public globals: GlobalsService) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 }

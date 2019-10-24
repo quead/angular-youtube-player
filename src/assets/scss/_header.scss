@@ -30,7 +30,7 @@ header {
 	position: relative;
 	margin: 0 auto;
 	cursor: pointer;
-	transition: all 0.1s ease-out;
+	transition: var(--default-transition);
 	small {
 		position: absolute;
 		left: calc(100% + 5px);
@@ -44,7 +44,7 @@ header {
 .logo-svg {
 	display: block;
 	@include icon-svg(logo, 111px, 25px, white, white, #000000);
-	transition: all 0.1s ease-out;
+	transition: var(--default-transition);
 	&:hover {
 		@include icon-svg(logo, 111px, 25px, red, white, white);
 	}
@@ -54,7 +54,7 @@ header {
 	display: block;
 	@include icon-svg(github, 70px, 70px, #000, #fff, #fff);
 	opacity: 0.8;
-	transition: all 0.1s ease-out;
+	transition: var(--default-transition);
 	filter: contrast(0.8);
 }
 

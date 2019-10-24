@@ -1,19 +1,19 @@
 .video-item {
 	display: flex;
 	align-items: center;
-	background-color: var(--c-dark-gray);
-	color: var(--c-white);
+	background-color: rgba(var(--black), 0.3);
+	color: rgb(var(--c-white));
 	padding: 0;
 	position: relative;
-	transition: all 0.1s ease-in-out;
+	transition: var(--default-transition);
 	border-radius: var(--border-radius);
 	h2 {
-		font-size: 14px;
+		font-size: var(--font-medium);
 		margin: 0;
 	}
 	&-autor {
-		font-size: 14px;
-		color: var(--c-white);
+		font-size: var(--font-medium);
+		color: rgb(var(--c-white));
 		font-weight: 800;
 	}
 	&-image {
@@ -23,14 +23,14 @@
 		background-size: 200% auto;
 		background-position: center center;
 		margin-right: 10px;
-		transition: all 0.1s ease-out;
+		transition: var(--default-transition);
 		border-radius: var(--border-radius);
 	}
 	.video-item-details {
 		display: flex;
-		color: var(--c-white);
+		color: rgb(var(--c-white));
 		font-weight: 400;
-		font-size: 14px;
+		font-size: var(--font-medium);
 		p {
 			margin: 0 15px 0 0;
 		}
@@ -56,7 +56,7 @@
 		border-radius: var(--border-radius);
 	}
 	&-settings {
-		color: var(--c-white);
+		color: rgb(var(--c-white));
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -68,9 +68,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.1s ease-in-out;
+		transition: var(--default-transition);
 		> button {
-			background-color: var(--c-black);
+			background-color: rgb(var(--c-black));
 			color: inherit;
 			height: 30px;
 			width: 30px;
@@ -82,15 +82,15 @@
 			display: flex;
 			margin: 0 5px;
 			padding: 0;
-			transition: all 0.1s ease-in-out;
+			transition: var(--default-transition);
 			&:hover {
-				color: var(--c-black);
-				background-color: var(--c-white);
+				color: rgb(var(--c-black));
+				background-color: rgb(var(--c-white));
 			}
 			&:active {
-				color: var(--c-black);
-				background-color: var(--c-white);
-				box-shadow: 0 0 0 4px rgba(#ffffff, 0.3);
+				color: rgb(var(--c-black));
+				background-color: rgb(var(--c-white));
+				box-shadow: 0 0 0 4px rgba(var(--c-white), 0.3);
 			}
 		}
 	}
@@ -101,8 +101,8 @@
 		text-transform: uppercase;
 		font-size: 10px;
 		line-height: 16px;
-		border: 1px solid var(--c-primary);
-		color: var(--c-primary);
+		border: 1px solid rgb(var(--c-primary));
+		color: rgb(var(--c-primary));
 		display: none;
 		padding: 0 5px;
 		font-weight: 600 !important;
@@ -122,5 +122,5 @@
 
 .video-item-details .icon,
 .current-video-stats .icon {
-	font-size: 14px;
+	font-size: var(--font-medium);
 }

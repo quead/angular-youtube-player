@@ -1,5 +1,5 @@
 #related-video-list {
-	color: var(--c-white);
+	color: rgb(var(--c-white));
 	margin: 0 0 15px;
 	.leftRs,
 	.rightRs {
@@ -9,7 +9,7 @@
 		z-index: 1;
 		-webkit-appearance: none;
 		background: transparent;
-		color: var(--c-white);
+		color: rgb(var(--c-white));
 		border: none;
 		cursor: pointer;
 	}
@@ -39,7 +39,7 @@
 		padding: 0;
 		background: transparent;
 		p {
-			color: var(--c-white);
+			color: rgb(var(--c-white));
 		}
 		&-info {
 			flex-wrap: wrap;

@@ -29,13 +29,13 @@
 				background-size: 160% auto;
 				background-repeat: no-repeat;
 				background-position: bottom center;
-				transition: all 0.1s ease-in-out;
+				transition: var(--default-transition);
 			}
 			&-content {
 				margin: 0;
 				position: absolute;
 				bottom: 0;
-				background-color: rgba(#000000, 0.6);
+				background-color: rgba(var(--c-black), 0.6);
 				-webkit-backdrop-filter: blur(30px);
 				backdrop-filter: blur(30px);
 				padding: 5px 10px 10px;

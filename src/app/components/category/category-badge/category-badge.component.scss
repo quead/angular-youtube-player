@@ -1,9 +1,9 @@
 .badge {
-    background-color: rgba(#ffffff, 0.1);
-    color: var(--c-white);
+    background-color: rgba(var(--c-white), 0.1);
+    color: rgb(var(--c-white));
     padding: 2px 5px;
     margin: 0;
-    font-size: 12px;
+    font-size: var(--font-small);
     border-radius: 3px;
     text-transform: uppercase;
     
