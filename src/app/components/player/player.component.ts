@@ -48,10 +48,8 @@ export class PlayerComponent implements OnInit {
 		this.shared.getSettings();
 		this.room.join();
 		this.setDefaultPlayer();
-		clearTimeout(this.timeoutBuffering);
 
 		this.socket.on('event_trigger', data => {
-			console.log(data);
 			switch (data.eventName) {
 				case 'playVideo':
 					this.playerCTA.triggerPlayPauseVideo();
@@ -70,7 +68,8 @@ export class PlayerComponent implements OnInit {
 					this.globals.player.pauseVideo();
 					this.timeoutBuffering = setTimeout(() => {
 						this.globals.player.playVideo();
-					}, 500);
+						clearTimeout(this.timeoutBuffering);
+					}, 2000);
 					break;
 				default:
 			}
@@ -112,11 +111,7 @@ export class PlayerComponent implements OnInit {
 				if (this.globals.repeatMode) {
 					if (this.globals.playlistVideos.length) {
 						this.shared.findPlaylistItem();
-						if (this.globals.currentPlaylistItem < 0) {
-							this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-						} else {
-							this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-						}
+						this.playPlaylistItem('next', this.globals.currentPlaylistItem);
 						if (this.globals.playlistVideos.length === 1) {
 							this.globals.player.playVideo();
 						}

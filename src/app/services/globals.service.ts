@@ -50,6 +50,10 @@ export class GlobalsService {
 
 	constructor() { }
 
+	isSameSesssion() {
+		return this.getCurrentSessionKeys().session === this.getCurrentSessionKeys().tempSession;
+	}
+
 	getCurrentSessionKeys() {
 		return {
 			session: localStorage.getItem('session_key'),

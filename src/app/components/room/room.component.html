@@ -7,9 +7,9 @@
     <div class="room-info-container">
         <div class="room-info">
             <span class="room-info-icon"><span class="icon "
-                    [ngClass]="globals.isTempSessionActive ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
+                    [ngClass]="globals.isSameSesssion() ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
             <div>
-                <p class="room-info-number">{{(globals.isTempSessionActive) ? "Unlocked" : "Listen Only"}}</p>
+                <p class="room-info-number">{{(globals.isSameSesssion()) ? "Unlocked" : "Listen Only"}}</p>
                 <p class="room-info-title">Room Status</p>
             </div>
         </div>
@@ -38,11 +38,11 @@
         <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
         <p>Access control:
             <ng-container
-                *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+                *ngIf="globals.isSameSesssion()">
                 <span class="icon icon-md ion-ios-unlock"></span> Unlocked
             </ng-container>
             <ng-container
-                *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+                *ngIf="!globals.isSameSesssion()">
                 <span class="icon icon-md ion-ios-lock"></span> Listen only
             </ng-container>
         </p>
