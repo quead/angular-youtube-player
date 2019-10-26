@@ -31,15 +31,15 @@ This player is compatible only with Chrome/webkit browsers.
 
 3. Add your youtube api key in **src/app/environments/settings.ts** or inside the app on settings page (when is running)
 
-4. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+4. Start your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+
+`npm install && npm start` in root folder
+
+5. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
 
 You must change inside **src/app/environments/environment.ts** your path to your server.
 
-6. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
-
-`npm start` in root folder
-
-**For building the app**
+**To build the app**
 
 1. Install [angular-cli 7.3.7+](https://github.com/angular/angular-cli "Angular Cli")
 
