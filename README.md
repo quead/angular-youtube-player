@@ -35,9 +35,9 @@ This player is compatible only with Chrome/webkit browsers.
 
 You must change inside **src/app/environments/environment.ts** your path to your server.
 
-6. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+6. Start your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
 
-`npm start` in root folder
+`npm install && npm start` in root folder
 
 **For building the app**
 
