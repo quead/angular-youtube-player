@@ -12,7 +12,7 @@
             </div>
         </div>
     </ng-container>
-    <ng-container *ngIf="!globals.isLoading && globals.relatedVideos.length > 0">
+    <div *ngIf="!globals.isLoading && globals.relatedVideos.length > 0" class="video-list">
         <ngu-carousel [inputs]="carouselOne" [dataSource]="globals.relatedVideos">
             <ngu-item *nguCarouselDef="let relatedVideo; let i = index;">
                 <div class="video">
@@ -22,5 +22,5 @@
             <button NguCarouselPrev class='leftRs'><i class="icon icon-lg ion-ios-arrow-dropleft-circle"></i></button>
             <button NguCarouselNext class='rightRs'><i class="icon icon-lg ion-ios-arrow-dropright-circle"></i></button>
         </ngu-carousel>
-    </ng-container>
+    </div>
 </div>

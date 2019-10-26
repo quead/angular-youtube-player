@@ -4,7 +4,7 @@
         <button type="button" class="btn btn-small btn-warning" (click)="confirmClear()"
             *ngIf="!globals.isTempSessionActive"><span class="icon icon-mr icon-md ion-ios-close"></span>clear</button>
     </div>
-    <div class="playlist-video-content" #playlistContainer>
+    <div class="playlist-video-content video-list" #playlistContainer>
         <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
             <div class="text-center-block">
                 Playlist is empty.

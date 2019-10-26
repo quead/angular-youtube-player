@@ -47,10 +47,11 @@
     }
 }
 
+.video-list:hover,
 .video-grid:hover {
     .video {
         opacity: 0.4;
-        
+
         &:hover {
             opacity: 1;
         }
