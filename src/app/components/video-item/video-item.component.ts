@@ -12,10 +12,10 @@ export class VideoItemComponent implements OnInit {
 	@Input() videoItem: VideoModel;
 	@Input() videoIndex: number;
 	@Input() listID: number;
-	@Input() isPlaylist?: boolean = false;
-	@Input() videoType?: string = "list";
-	@Input() size?: string = "medium";
-	@Input() additionalClass?: string = "";
+	@Input() isPlaylist = false;
+	@Input() videoType = 'list';
+	@Input() size = 'medium';
+	@Input() additionalClass = '';
 
 	constructor(public globals: GlobalsService) { }
 
@@ -35,5 +35,5 @@ export class VideoItemComponent implements OnInit {
 	// small
 	// medium
 	// large
-	ngOnInit() {}
+	ngOnInit() { }
 }

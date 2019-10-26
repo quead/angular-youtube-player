@@ -15,7 +15,7 @@ import { VideoModel } from '../../../models/video.model';
 export class ButtonsComponent implements OnInit {
 	@Input() listID: number;
 	@Input() videoIndex: number;
-	@Input() isPlaylist?: boolean = false;
+	@Input() isPlaylist = false;
 
 	constructor(
 		public globals: GlobalsService,
@@ -86,7 +86,7 @@ export class ButtonsComponent implements OnInit {
 
 	showPlaylistModal(videoIndex: number) {
 		this.globals.modalPlaylistItem = videoIndex;
-		this.modal.open("playlist-modal");
+		this.modal.open('playlist-modal');
 	}
 
 	playVideo(data: VideoModel) {
