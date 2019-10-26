@@ -112,16 +112,11 @@
 #search-video-list {
 	z-index: 10;
 	max-height: 430px;
-	background-color: rgb(var(--c-base));
+	background-color: rgb(var(--c-box));
 	position: absolute;
 	top: 54px;
-	padding: 0 10px 10px;
+	padding: 10px;
 	border-radius: var(--border-radius);
-
-	.video-item {
-		background: transparent;
-		margin-top: 10px;
-	}
 
 	&::-webkit-scrollbar {
 		width: 6px;

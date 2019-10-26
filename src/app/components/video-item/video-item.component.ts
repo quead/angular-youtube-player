@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { VideoModel } from '../../../models/video.model';
-import { GlobalsService } from '../../../services/globals.service';
+import { VideoModel } from '../../models/video.model';
+import { GlobalsService } from '../../services/globals.service';
 
 @Component({
 	selector: 'app-video-item',
@@ -11,10 +11,22 @@ import { GlobalsService } from '../../../services/globals.service';
 export class VideoItemComponent implements OnInit {
 	@Input() videoItem: VideoModel;
 	@Input() videoIndex: number;
+	@Input() videoType?: string = "list";
 	@Input() listID: number;
-	@Input() additionalClass: string;
+	@Input() additionalClass?: string = "";
 
 	constructor(public globals: GlobalsService) { }
 
-	ngOnInit() { }
+	// List ID
+	// 0 - feed
+	// 1 - searched
+	// 2 - related
+	// 3 - playlists
+	// 4 - history
+
+	// Video Types - defaults to list
+	// enhanced - usually used for feed
+	// list
+	// grid
+	ngOnInit() {}
 }

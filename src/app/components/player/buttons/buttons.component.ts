@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { GlobalsService } from '../../../services/globals.service';
 import { SharedService } from '../../../services/shared.service';
 import { PlaylistControlService } from '../../../services/playlist-control.service';
@@ -7,7 +7,9 @@ import { VideoModel } from '../../../models/video.model';
 
 @Component({
 	selector: 'app-buttons',
-	templateUrl: './buttons.component.html'
+	templateUrl: './buttons.component.html',
+	styleUrls: ['./buttons.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class ButtonsComponent implements OnInit {
 	@Input() listID: number;

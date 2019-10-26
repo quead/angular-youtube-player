@@ -32,29 +32,29 @@
 	.ngucarouselPointDefault {
 		display: none;
 	}
-	.video-item {
-		margin: 0 5px;
-		padding: 0;
-		background: transparent;
-		p {
-			color: rgb(var(--c-white));
-		}
-		&-info {
-			flex-wrap: wrap;
-			width: 100%;
-		}
-		&-image {
-			width: 100%;
-			height: 110px;
-			background-repeat: no-repeat;
-			background-size: 160% auto;
-			margin: 0 0 10px;
-			border-radius: var(--border-radius);
-		}
-		&:hover {
-			.video-item-image {
-				background-size: 135% auto;
-			}
-		}
-	}
+	// .video-item {
+	// 	margin: 0 5px;
+	// 	padding: 0;
+	// 	background: transparent;
+	// 	p {
+	// 		color: rgb(var(--c-white));
+	// 	}
+	// 	&-info {
+	// 		flex-wrap: wrap;
+	// 		width: 100%;
+	// 	}
+	// 	&-image {
+	// 		width: 100%;
+	// 		height: 110px;
+	// 		background-repeat: no-repeat;
+	// 		background-size: 160% auto;
+	// 		margin: 0 0 10px;
+	// 		border-radius: var(--border-radius);
+	// 	}
+	// 	&:hover {
+	// 		.video-item-image {
+	// 			background-size: 135% auto;
+	// 		}
+	// 	}
+	// }
 }

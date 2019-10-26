@@ -15,7 +15,9 @@
     <ng-container *ngIf="!globals.isLoading && globals.relatedVideos.length > 0">
         <ngu-carousel [inputs]="carouselOne" [dataSource]="globals.relatedVideos">
             <ngu-item *nguCarouselDef="let relatedVideo; let i = index;">
-                <app-video-item [videoIndex]="i" [videoItem]="relatedVideo" [listID]="2"></app-video-item>
+                <div class="video">
+                    <app-video-item [videoIndex]="i" [videoItem]="relatedVideo" [listID]="2" videoType="grid"></app-video-item>
+                </div>
             </ngu-item>
             <button NguCarouselPrev class='leftRs'><i class="icon icon-lg ion-ios-arrow-dropleft-circle"></i></button>
             <button NguCarouselNext class='rightRs'><i class="icon icon-lg ion-ios-arrow-dropright-circle"></i></button>
