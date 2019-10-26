@@ -47,8 +47,18 @@
     }
 }
 
-.video:hover {
+.video-grid:hover {
+    .video {
+        opacity: 0.4;
+        
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
 
+.video:hover {
+    
     .video-item-settings {
         opacity: 1;
         visibility: visible;
