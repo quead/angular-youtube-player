@@ -18,7 +18,7 @@ This is a simple youtube web player based on [angular-cli](https://github.com/an
 
 This player is compatible only with Chrome/webkit browsers.
 
-*The project status is beta.*
+*The project status is RC (release candidate).*
 
 ## How to use
 
