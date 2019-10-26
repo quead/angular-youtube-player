@@ -54,6 +54,7 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 ## Changelog
 Angular YouTube Player 2.6.0
 - List of guests in the session
+- Minor issues fixed (RC)
 
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
@@ -192,6 +193,7 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
+- *Release a stable version **(in v2.6.9)***
 - *Set private/public room **(in v2.7)***
 - *List of public rooms **(in v2.8)***
 - *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
