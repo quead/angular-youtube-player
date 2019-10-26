@@ -11,14 +11,21 @@
             </select>
         </div>
     </div>
-    <div class="feed-video-list video-list" [ngClass]="{'grid-list': !globals.listGrid }">
+    <div class="feed-video-list video-list">
         <ng-container *ngIf="globals.isFeedLoading">
             <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
         </ng-container>
         <ng-container *ngIf="!globals.isFeedLoading">
-            <div *ngFor="let feedVideo of globals.feedVideos; let i = index" class="video">
-                <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="enhanced"></app-video-item>
-            </div>
+            <ng-container *ngIf="!globals.listGrid">
+                <div *ngFor="let feedVideo of globals.feedVideos; let i = index" class="video">
+                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="enhanced"></app-video-item>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="globals.listGrid">
+                <div *ngFor="let feedVideo of globals.feedVideos; let i = index" class="video">
+                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="list"></app-video-item>
+                </div>
+            </ng-container>
             <!-- <div *ngFor="let feedVideo of globals.feedVideos; let i = index"
                 [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
                 <div class="video-item-info">
