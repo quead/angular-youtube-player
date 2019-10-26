@@ -18,7 +18,7 @@
                         <p class="current-video-name">{{globals.currentVideo.title}}</p>
                         <p class="current-video-channel">{{globals.currentVideo.channelTitle}}</p>
                         <app-category-badge [categoryID]="globals.currentVideo.categoryId"></app-category-badge>
-                        <div class="current-video-stats">
+                        <div class="stats-container">
                             <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
                                 {{globals.currentVideo.stats.views | shortNum}}</p>
                             <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>

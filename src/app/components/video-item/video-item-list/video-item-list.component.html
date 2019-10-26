@@ -1,1 +1,9 @@
-<p>video-item-list works!</p>
+<div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0">
+    <div *ngIf="globals.thumbnails" class="video-item_image"
+        [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
+    <div class="video-item_content">
+        <p class="video-item_title">{{videoItem.title}}</p>
+        <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
+    </div>
+    <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
+</div>

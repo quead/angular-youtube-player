@@ -11,7 +11,7 @@
             </select>
         </div>
     </div>
-    <div class="feed-video-list video-list">
+    <div class="feed-video-list" [ngClass]="{'video-grid': !globals.listGrid}">
         <ng-container *ngIf="globals.isFeedLoading">
             <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
         </ng-container>
@@ -26,27 +26,6 @@
                     <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="list"></app-video-item>
                 </div>
             </ng-container>
-            <!-- <div *ngFor="let feedVideo of globals.feedVideos; let i = index"
-                [ngClass]="{'hidden-thumbnails': !globals.thumbnails }" [attr.data-index]="i" class="video-item">
-                <div class="video-item-info">
-                    <div *ngIf="globals.thumbnails" class="video-item-image"
-                        [ngStyle]="{'background-image': 'url(' + feedVideo.thumbnails.medium +')'}"></div>
-                    <div class="video-item-content">
-                        <app-category-badge [categoryID]="feedVideo.categoryId"></app-category-badge>
-                        <p class="video-item-title">{{feedVideo.title}}</p>
-                        <p class="video-item-autor">{{feedVideo.channelTitle}}</p>
-                        <div class="video-item-details" *ngIf="feedVideo.id?.length > 0">
-                            <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
-                                {{feedVideo.stats.views | shortNum}}</p>
-                            <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>
-                                {{feedVideo.stats.likes | shortNum}}</p>
-                            <p class="stats-dislikes"><span class="icon ion-ios-thumbs-down"></span>
-                                {{feedVideo.stats.dislikes | shortNum}}</p>
-                        </div>
-                    </div>
-                </div>
-                <app-buttons [videoIndex]="i" [listID]="0"></app-buttons>
-            </div> -->
         </ng-container>
     </div>
 </div>

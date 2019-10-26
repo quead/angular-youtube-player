@@ -181,22 +181,6 @@
 		color: rgb(var(--c-black));
 	}
 	
-	&-stats {
-		display: flex;
-		width: 100%;
-		margin: 5px 0;
-	
-		p {
-			margin-top: 0;
-			margin-bottom: 0;
-			color: rgb(var(--c-white));
-		}
-	
-		p + p {
-			margin-left: 15px;
-		}
-	}
-	
 	&-share {
 		display: flex;
 		width: 100%;

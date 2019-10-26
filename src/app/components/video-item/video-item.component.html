@@ -1,14 +1,5 @@
-<!-- <div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0">
-    <div *ngIf="globals.thumbnails" class="video-item_image"
-        [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
-    <div class="video-item_content">
-        <p class="video-item_title">{{videoItem.title}}</p>
-        <p class="video-item_autor">{{videoItem.channelTitle}}</p>
-    </div>
-    <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
-</div> -->
-<div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0" [ngSwitch]="videoType">
-    <app-video-item-list *ngSwitchCase="'list'"></app-video-item-list>
-    <app-video-item-grid *ngSwitchCase="'grid'"></app-video-item-grid>
-    <app-video-item-enhanced *ngSwitchCase="'enhanced'"></app-video-item-enhanced>
-</div>
+<ng-container [ngSwitch]="videoType">
+    <app-video-item-list *ngSwitchCase="'list'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID"></app-video-item-list>
+    <app-video-item-grid *ngSwitchCase="'grid'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID"></app-video-item-grid>
+    <app-video-item-enhanced *ngSwitchCase="'enhanced'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID"></app-video-item-enhanced>
+</ng-container>

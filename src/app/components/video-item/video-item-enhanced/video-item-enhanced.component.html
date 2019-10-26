@@ -1,1 +1,18 @@
-<p>video-item-enhanced works!</p>
+<div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0">
+    <div *ngIf="globals.thumbnails" class="video-item_image"
+        [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
+    <div class="video-item_content">
+        <app-category-badge [categoryID]="videoItem.categoryId"></app-category-badge>
+        <p class="video-item_title">{{videoItem.title}}</p>
+        <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
+        <div class="stats-container" *ngIf="videoItem.id?.length > 0">
+            <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
+                {{videoItem.stats.views | shortNum}}</p>
+            <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>
+                {{videoItem.stats.likes | shortNum}}</p>
+            <p class="stats-dislikes"><span class="icon ion-ios-thumbs-down"></span>
+                {{videoItem.stats.dislikes | shortNum}}</p>
+        </div>
+    </div>
+    <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
+</div>
