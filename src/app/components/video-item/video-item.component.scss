@@ -4,6 +4,9 @@
 	width: 100%;
 	border-radius: var(--border-radius);
 	overflow: hidden;
+	&.small {
+		margin: 0;
+	}
 }
 
 .video-item {
@@ -58,11 +61,6 @@
 		padding: 0 5px;
 		font-weight: 600 !important;
 	}
-	// &.active {
-	// 	.video-item-hint {
-	// 		display: inline-block;
-	// 	}
-	// }
 }
 
 .video-item-details .icon,

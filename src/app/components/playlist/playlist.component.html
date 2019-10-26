@@ -1,5 +1,5 @@
-<div id="playlist-video-list" class="video-list app-container">
-    <div class="video-item-head">
+<div id="playlist-video-list" class="app-container">
+    <div class="app-head">
         <h2>Current playlist</h2>
         <button type="button" class="btn btn-small btn-warning" (click)="confirmClear()"
             *ngIf="!globals.isTempSessionActive"><span class="icon icon-mr icon-md ion-ios-close"></span>clear</button>
@@ -22,7 +22,7 @@
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
                 <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
                 [cdkDragDisabled]="globals.playlistVideos.length <= 1">
-                    <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true"></app-video-item>
+                    <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true" size="small"></app-video-item>
                 </div>
             </div>
         </ng-container>

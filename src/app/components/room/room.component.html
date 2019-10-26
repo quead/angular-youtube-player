@@ -1,5 +1,5 @@
 <div class="room-container app-container">
-    <div class="video-item-head">
+    <div class="app-head">
         <h2>Room</h2>
         <button type="button" class="btn btn-small" (click)="modal.open(modalID)"><span
                 class="icon icon-mr ion-ios-settings"></span>Manage</button>
@@ -34,7 +34,7 @@
 
 <div *ngIf="globals.clients" class="guests-container" [ngClass]="{'active': showGuests}">
     <div class="app-container">
-        <div class="video-item-head">
+        <div class="app-head">
             <h2>Guests in the room</h2>
             <button type="button" class="btn btn-small" (click)="toggleGuests()"><span
                     class="icon icon-mr ion-ios-arrow-up"></span>Hide</button>

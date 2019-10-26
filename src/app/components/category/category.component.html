@@ -1,5 +1,5 @@
-<div class="app-content app-container">
-    <div class="video-item-head">
+<div class="app-container">
+    <div class="app-head">
         <h2>Trending</h2>
         <div class="categories" *ngIf="globals.categories">
             <label for="select-category"><span class="icon ion-ios-arrow-down"></span></label>
@@ -11,7 +11,7 @@
             </select>
         </div>
     </div>
-    <div class="feed-video-list" [ngClass]="{'video-grid': !globals.listGrid}">
+    <div [ngClass]="{'video-grid': !globals.listGrid}">
         <ng-container *ngIf="globals.isFeedLoading">
             <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
         </ng-container>

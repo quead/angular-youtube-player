@@ -14,6 +14,7 @@ export class VideoItemComponent implements OnInit {
 	@Input() listID: number;
 	@Input() isPlaylist?: boolean = false;
 	@Input() videoType?: string = "list";
+	@Input() size?: string = "medium";
 	@Input() additionalClass?: string = "";
 
 	constructor(public globals: GlobalsService) { }
@@ -29,5 +30,10 @@ export class VideoItemComponent implements OnInit {
 	// enhanced - usually used for feed
 	// list
 	// grid
+
+	// Video sizes - only for list atm
+	// small
+	// medium
+	// large
 	ngOnInit() {}
 }

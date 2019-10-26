@@ -79,7 +79,18 @@ h2 {
 }
 
 .app-head {
-	margin-bottom: 15px;
+	position: relative;
+	margin: 0 0 15px;
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	.btn {
+		text-transform: capitalize;
+
+		+ .btn {
+			margin-right: 5px;
+		}
+	}
 }
 
 select {
