@@ -6,8 +6,11 @@
     <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
         <span class="icon icon-md ion-ios-share-alt"></span>
     </button>
-    <button class="video-item-add" (click)="playlistCTRL.addPlaylistItem(videoIndex, listID)">
+    <button class="video-item-add" (click)="playlistCTRL.addPlaylistItem(videoIndex, listID)" *ngIf="!isPlaylist">
         <span class="icon icon-lg ion-ios-add"></span>
+    </button>
+    <button class="video-item-remove" (click)="showPlaylistModal(videoIndex)" *ngIf="isPlaylist">
+        <span class="icon icon-lg ion-ios-close"></span>
     </button>
 </div>
 <div class="video-item-settings" *ngIf="globals.isTempSessionActive">

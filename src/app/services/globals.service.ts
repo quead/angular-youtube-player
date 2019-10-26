@@ -19,6 +19,7 @@ export class GlobalsService {
 	currentVideo: VideoModel;
 	shareLink: string;
 	currentPlaylistItem: number;
+	modalPlaylistItem: number;
 
 	categories: any;
 	currentCategory = 'all';

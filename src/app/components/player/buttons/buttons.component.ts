@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { GlobalsService } from '../../../services/globals.service';
 import { SharedService } from '../../../services/shared.service';
+import { ModalService } from '../../../services/modal.service';
 import { PlaylistControlService } from '../../../services/playlist-control.service';
 import { Socket } from 'ngx-socket-io';
 import { VideoModel } from '../../../models/video.model';
@@ -14,10 +15,12 @@ import { VideoModel } from '../../../models/video.model';
 export class ButtonsComponent implements OnInit {
 	@Input() listID: number;
 	@Input() videoIndex: number;
+	@Input() isPlaylist?: boolean = false;
 
 	constructor(
 		public globals: GlobalsService,
 		public shared: SharedService,
+		public modal: ModalService,
 		private playlistCTRL: PlaylistControlService,
 		private socket: Socket
 	) {}
@@ -81,9 +84,16 @@ export class ButtonsComponent implements OnInit {
 		});
 	}
 
+	showPlaylistModal(videoIndex: number) {
+		this.globals.modalPlaylistItem = videoIndex;
+		this.modal.open("playlist-modal");
+	}
+
 	playVideo(data: VideoModel) {
 		this.shared.addHistoryVideo(data);
 		this.globals.player.loadVideoById(data.id);
 		this.shared.findPlaylistItem();
 	}
+
+
 }

@@ -48,16 +48,16 @@
 			overflow: hidden;
 		}
 	}
-	// &-hint {
-	// 	text-transform: uppercase;
-	// 	font-size: 10px;
-	// 	line-height: 16px;
-	// 	border: 1px solid rgb(var(--c-primary));
-	// 	color: rgb(var(--c-primary));
-	// 	display: none;
-	// 	padding: 0 5px;
-	// 	font-weight: 600 !important;
-	// }
+	&_hint {
+		text-transform: uppercase;
+		font-size: 10px;
+		line-height: 16px;
+		border: 1px solid rgb(var(--c-primary));
+		color: rgb(var(--c-primary));
+		display: inline-block;
+		padding: 0 5px;
+		font-weight: 600 !important;
+	}
 	// &.active {
 	// 	.video-item-hint {
 	// 		display: inline-block;

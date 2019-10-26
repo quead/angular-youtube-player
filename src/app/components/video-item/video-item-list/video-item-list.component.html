@@ -2,8 +2,21 @@
     <div *ngIf="globals.thumbnails" class="video-item_image"
         [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
     <div class="video-item_content">
+        <ng-container *ngIf="isPlaylist">
+            <ng-container *ngIf="globals.currentPlaylistItem === videoIndex && globals.currentState === 1">
+                <p class="video-item_hint"><span class="icon icon-mr ion-ios-play"></span>Playing</p>
+            </ng-container>
+            <ng-container
+                *ngIf="globals.currentPlaylistItem === videoIndex && globals.currentState !== 1 && globals.currentState !== -1">
+                <p class="video-item_hint"><span class="icon icon-mr ion-ios-pause"></span>Paused</p>
+            </ng-container>
+            <ng-container *ngIf="globals.currentPlaylistItem === videoIndex && globals.currentState === -1">
+                <p class="video-item_hint"><span class="icon icon-mr ion-ios-square"></span>Not started
+                </p>
+            </ng-container>
+        </ng-container>
         <p class="video-item_title">{{videoItem.title}}</p>
         <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
     </div>
-    <app-buttons [videoIndex]="videoIndex" [listID]="listID"></app-buttons>
+    <app-buttons [videoIndex]="videoIndex" [listID]="listID" [isPlaylist]="isPlaylist"></app-buttons>
 </div>
