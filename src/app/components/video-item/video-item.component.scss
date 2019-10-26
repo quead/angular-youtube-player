@@ -4,6 +4,8 @@
 	width: 100%;
 	border-radius: var(--border-radius);
 	overflow: hidden;
+	position: relative;
+	
 	&.small {
 		margin: 0;
 	}
@@ -51,6 +53,7 @@
 			overflow: hidden;
 		}
 	}
+
 	&_hint {
 		text-transform: uppercase;
 		font-size: 10px;
@@ -60,6 +63,19 @@
 		display: inline-block;
 		padding: 0 5px;
 		font-weight: 600 !important;
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		background-color: rgb(var(--c-black));
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		opacity: 0;
+		visibility: hidden;
 	}
 }
 

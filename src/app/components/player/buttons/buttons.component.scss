@@ -11,7 +11,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--default-transition);
+}
+
+.video-item-actions {
+    background-color: rgb(var(--c-black));
+    display: flex;
+    border-radius: calc(var(--border-radius) * 3);
 
     >button {
         background-color: rgb(var(--c-black));
@@ -24,7 +29,6 @@
         align-items: center;
         justify-content: center;
         display: flex;
-        margin: 0 5px;
         padding: 0;
         transition: var(--default-transition);
 
@@ -37,11 +41,24 @@
             color: rgb(var(--c-black));
             background-color: rgb(var(--c-white));
             box-shadow: 0 0 0 4px rgba(var(--c-white), 0.3);
+            z-index: 1;
+            position: relative;
         }
     }
 }
 
-.video:hover .video-item-settings {
-    opacity: 1;
-    visibility: visible;
+.video:hover {
+
+    .video-item-settings {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .video-item:before,
+    .video-item-grid:before {
+        background-color: rgb(var(--c-white));
+        opacity: 0.05;
+        visibility: visible;
+        z-index: 1;
+    }
 }
