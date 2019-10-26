@@ -39,7 +39,7 @@ This player is compatible only with Chrome/webkit browsers.
 
 You must change inside **src/app/environments/environment.ts** your path to your server.
 
-**For building the app**
+**To build the app**
 
 1. Install [angular-cli 7.3.7+](https://github.com/angular/angular-cli "Angular Cli")
 
