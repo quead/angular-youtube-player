@@ -1,4 +1,4 @@
-<div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0">
+<div [attr.data-index]="videoIndex" class="video-item" autofocus="true" tabindex="0" [ngClass]="{'thumbnails-inactive': !globals.thumbnails}">
     <div *ngIf="globals.thumbnails" class="video-item_image"
         [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
     <div class="video-item_content">

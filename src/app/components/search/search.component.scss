@@ -117,6 +117,8 @@
 	top: 54px;
 	padding: 10px;
 	border-radius: var(--border-radius);
+	display: flex;
+    flex-wrap: wrap;
 
 	&::-webkit-scrollbar {
 		width: 6px;

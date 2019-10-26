@@ -21,7 +21,7 @@
         <ng-container *ngIf="!globals.isLoading">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
                 <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
-                [cdkDragDisabled]="globals.playlistVideos.length <= 1">
+                [cdkDragDisabled]="globals.playlistVideos.length <= 1 || globals.isTempSessionActive">
                     <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true" size="small"></app-video-item>
                 </div>
             </div>
