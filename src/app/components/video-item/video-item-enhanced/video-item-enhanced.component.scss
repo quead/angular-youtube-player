@@ -1,7 +1,7 @@
 .video-item {
     display: block;
     padding: 0;
-    height: 230px;
+    height: 320px;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -17,16 +17,19 @@
         width: 100%;
         height: 100%;
         background-repeat: no-repeat;
-        background-size: 180% auto;
+        background-size: 250% auto;
         background-position: center 100%;
     }
 
     &_content {
         position: absolute;
         bottom: -1px;
-        background-color: rgba(var(--c-black),.6);
-        backdrop-filter: blur(30px);
+        right: -1px;
+        left: -1px;
+        background-color: rgba(var(--c-black),.3);
+        backdrop-filter: blur(40px);
         padding: 5px 10px 10px;
+        width: auto;
     }
 
     .stats-container {
