@@ -72,10 +72,18 @@ app-room {
 
 .room-info-icon {
 	margin-right: 10px;
+	border: 2px solid rgb(var(--c-white));
+	font-size: 12px;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .room-info-icon span {
-    font-size: 28px;
+    font-size: 18px;
 }
 
 .room-info-number {

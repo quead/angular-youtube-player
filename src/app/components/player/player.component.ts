@@ -65,11 +65,11 @@ export class PlayerComponent implements OnInit {
 					break;
 				case 'isBuffering':
 					// Need a solution when is buffering for one to keep in sync
-					this.globals.player.pauseVideo();
-					this.timeoutBuffering = setTimeout(() => {
-						this.globals.player.playVideo();
-						clearTimeout(this.timeoutBuffering);
-					}, 2000);
+					// this.globals.player.pauseVideo();
+					// this.timeoutBuffering = setTimeout(() => {
+					// 	this.globals.player.playVideo();
+					// 	clearTimeout(this.timeoutBuffering);
+					// }, 500);
 					break;
 				default:
 			}
