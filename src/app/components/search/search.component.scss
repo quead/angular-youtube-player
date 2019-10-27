@@ -53,6 +53,10 @@
 		background-color: rgba(var(--c-black), 0.3);
 		border-radius: 30px;
 		border-width: 2px;
+
+		&:focus + .icon {
+			color: rgb(var(--c-white));
+		}
 	}
 
 	.form-group {

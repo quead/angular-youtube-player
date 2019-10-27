@@ -42,6 +42,7 @@ import { ModalService } from './services/modal.service';
 import { VideoItemEnhancedComponent } from './components/video-item/video-item-enhanced/video-item-enhanced.component';
 import { VideoItemGridComponent } from './components/video-item/video-item-grid/video-item-grid.component';
 import { VideoItemListComponent } from './components/video-item/video-item-list/video-item-list.component';
+import { PlayerMiniComponent } from './components/player-mini/player-mini.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -75,7 +76,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		ShortNumPipe,
 		VideoItemEnhancedComponent,
 		VideoItemGridComponent,
-		VideoItemListComponent
+		VideoItemListComponent,
+		PlayerMiniComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [
