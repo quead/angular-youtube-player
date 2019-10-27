@@ -32,13 +32,12 @@
 	position: relative;
 	color: rgb(var(--c-white));
 
-
 	.search-icon {
 		position: absolute;
 		display: flex;
 		align-items: center;
 		top: 50%;
-		left: 20px;
+		left: 15px;
 		font-size: 18px;
 		transform: translateY(-50%);
 		color: rgba(var(--c-white), 0.2);
@@ -49,12 +48,12 @@
 
 	input[type="text"] {
 		width: 100%;
-		padding: 13px 40px 13px 40px;
-		background-color: rgba(var(--c-black), 0.3);
-		border-radius: 30px;
+		padding: 12px 35px;
+		border-radius: var(--border-radius);
+		background-color: rgba(var(--c-white), 0.05);
 		border-width: 2px;
 
-		&:focus + .icon {
+		&:focus + .search-icon {
 			color: rgb(var(--c-white));
 		}
 	}
@@ -72,7 +71,7 @@
 		border: none;
 		font-size: var(--font-small);
 		background: transparent;
-		color: rgba(var(--c-white), 0.6);
+		color: rgb(var(--c-white));
 		padding: 0;
 		margin: 0;
 		cursor: pointer;

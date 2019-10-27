@@ -55,7 +55,7 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 Angular YouTube Player 2.6.0
 - List of guests in the session
 - Minor issues fixed (RC)
-- Add first version of mini player when you scroll
+- Add mini player when you scroll
 
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
