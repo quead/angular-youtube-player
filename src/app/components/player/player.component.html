@@ -1,7 +1,7 @@
-<div *ngIf="loading">
+<div *ngIf="globals.loadingState.player">
     <div class="loading-featured main-player-loading loading-anim"></div>
 </div>
-<ng-container *ngIf="!loading && globals.currentVideo.id">
+<ng-container *ngIf="!globals.loadingState.player">
     <span class="container-cover-bg"
         [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.medium +')'}">
     </span>

@@ -2,7 +2,7 @@
     <div class="video-item-actions">
         <button class="video-item-play" (click)="onClickVideo(videoIndex, listID)">
             <span class="icon icon-md"
-                [ngClass]="globals.currentVideo.id === shared.getVideoFromList(videoIndex, listID)['id'] && globals.currentState === 1 ? 'ion-ios-pause' : 'ion-ios-play'"></span>
+                [ngClass]="isThisVideoCurrent(videoIndex, listID) && globals.currentState === 1 ? 'ion-ios-pause' : 'ion-ios-play'"></span>
         </button>
         <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
             <span class="icon icon-md ion-ios-share-alt"></span>

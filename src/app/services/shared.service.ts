@@ -28,6 +28,7 @@ export class SharedService {
 					this.globals.currentVideo['id']
 				);
 				this.convertVideoObject(res['items'], 'relatedVideos');
+				this.globals.loadingState.related = false;
 			}
 		} catch { }
 	}
