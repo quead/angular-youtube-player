@@ -19,7 +19,7 @@
             </div>
             <div [ngClass]="{'hide': !globals.settings.form_settings.repeat.visible}" class="form-group">
                 <input (change)="checkInputs()" type="checkbox" id="setting-repeat" class="round-checkbox"
-                    formControlName="fcList" />
+                    formControlName="fcRepeat" />
                 <label for="setting-repeat">{{globals.settings.form_settings.repeat.name}}<span
                         class="round-check"></span></label>
             </div>
