@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
 
 	constructor(
 		private shared: SharedService,
-		private globals: GlobalsService,
+		public globals: GlobalsService,
 		public playerComp: PlayerComponent,
 		private notify: NotifyService
 	) { }
