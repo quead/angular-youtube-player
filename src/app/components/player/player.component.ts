@@ -30,8 +30,6 @@ export class PlayerComponent implements OnInit {
 	videoCurFull = '00:00';
 	videoMaxFull = '00:00';
 
-	loading = true;
-
 	constructor(
 		public globals: GlobalsService,
 		public shared: SharedService,
@@ -150,18 +148,20 @@ export class PlayerComponent implements OnInit {
 	// Init app
 	setDefaultPlayer() {
 		this.shared.initFeed().then(() => {
-			this.globals.currentVideo = this.globals.feedVideos[0];
-			this.globals.shareLink =
-				'https://youtu.be/' + this.globals.currentVideo['id'];
-			this.globals.isFeedLoading = false;
-			this.shared.getRelatedVideos().then(() => {
-				this.loading = false;
-				this.globals.isLoading = false;
-			});
+			this.globals.loadingState.feed = false;
+			this.initCurrentVideo();
+			this.shared.getRelatedVideos();
 			this.shared.findPlaylistItem();
 			this.cueVideoWhenRegionChanged();
 		});
 		this.shared.setLocalVersion();
+	}
+
+	initCurrentVideo() {
+		this.globals.currentVideo = this.globals.feedVideos[0];
+		this.globals.shareLink =
+			'https://youtu.be/' + this.globals.currentVideo['id'];
+		this.globals.loadingState.player = false;
 	}
 
 	// ---------------- Player controls ----------------

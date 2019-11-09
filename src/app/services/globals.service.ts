@@ -29,8 +29,13 @@ export class GlobalsService {
 	videoItemIDvalue: any;
 
 	isLogged = false;
-	isLoading = true;
-	isFeedLoading = true;
+	loadingState = {
+		feed: true,
+		related: true,
+		playlist: true,
+		settings: true,
+		player: true
+	};
 	thumbnails = true;
 	listGrid = false;
 	repeatMode = true;

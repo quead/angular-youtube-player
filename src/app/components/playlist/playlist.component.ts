@@ -5,7 +5,6 @@ import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { ModalService } from '../../services/modal.service';
 import { ButtonsComponent } from '../player/buttons/buttons.component';
-import { VideoModel } from '../../models/video.model';
 
 @Component({
 	selector: 'app-playlist',

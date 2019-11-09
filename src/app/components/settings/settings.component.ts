@@ -13,7 +13,6 @@ import { NumberVal } from '../../services/validators.service';
 	styleUrls: ['settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-	loading = true;
 
 	internalSettings: FormGroup;
 	externalSettings: FormGroup;
@@ -94,7 +93,7 @@ export class SettingsComponent implements OnInit {
 		this.shared.getSettings();
 		this.initExternalForm();
 		this.initInternalForm();
-		this.loading = false;
+		this.globals.loadingState.settings = false;
 	}
 
 	externalSave() {
