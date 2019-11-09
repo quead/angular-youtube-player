@@ -16,7 +16,9 @@
     </div>
 </div>
 <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
-    <button class="video-item-play" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
-        <span class="icon icon-md ion-ios-share-alt"></span>
-    </button>
+    <div class="video-item-actions">
+        <button class="video-item-share" (click)="shared.onCopyVideoItemLink(videoIndex, listID)">
+            <span class="icon icon-md ion-ios-share-alt"></span>
+        </button>
+    </div>
 </div>
