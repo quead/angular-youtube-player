@@ -5,7 +5,6 @@ import { GlobalsService } from '../../services/globals.service';
 import { PlaylistControlService } from '../../services/playlist-control.service';
 import { ModalService } from '../../services/modal.service';
 import { ButtonsComponent } from '../player/buttons/buttons.component';
-import { VideoModel } from '../../models/video.model';
 
 @Component({
 	selector: 'app-playlist',
@@ -15,8 +14,6 @@ import { VideoModel } from '../../models/video.model';
 export class PlaylistComponent implements OnInit {
 	@ViewChild('playlistContainer', { static: true }) private myScrollContainer: ElementRef;
 
-	tempPlaylist: Array<VideoModel> = [];
-	modalPlaylistItem: number;
 	modalID = 'playlist-modal';
 
 	constructor(
@@ -46,13 +43,8 @@ export class PlaylistComponent implements OnInit {
 		this.shared.checkPlaylist();
 	}
 
-	showPlaylistModal(i: number) {
-		this.modalPlaylistItem = i;
-		this.modal.open(this.modalID);
-	}
-
 	confirmModal() {
-		this.playlistCTRL.removePlaylistItem(this.modalPlaylistItem);
+		this.playlistCTRL.removePlaylistItem(this.globals.modalPlaylistItem);
 		this.modal.close(this.modalID);
 	}
 }

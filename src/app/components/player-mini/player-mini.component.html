@@ -1,0 +1,17 @@
+<div *ngIf="globals.currentVideo" class="player-mini container" [ngClass]="{'active': setPlayerVisible}">
+    <div *ngIf="globals.thumbnails" class="player-mini_image"
+    [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.default +')'}">
+    </div>
+    <div class="player-mini_buttons" *ngIf="!globals.isTempSessionActive">
+        <button id="previous-song" (click)="player.playPlaylistItem('prev', globals.currentPlaylistItem)"><span
+                class="icon icon-md ion-ios-skip-backward"></span></button>
+        <button id="play-song" (click)="playerCTA.playPauseVideo()"><span class="icon icon-md"
+                [ngClass]="globals.currentState === 1 ? 'ion-ios-pause' : 'ion-ios-play' "></span></button>
+        <button id="next-song" (click)="player.playPlaylistItem('next', globals.currentPlaylistItem)"><span
+                class="icon icon-md ion-ios-skip-forward"></span></button>
+    </div>
+    <div class="player-mini_content">
+        <p class="player-mini_title">{{globals.currentVideo.title}}</p>
+        <p class="player-mini_publisher">{{globals.currentVideo.channelTitle}}</p>
+    </div>
+</div>

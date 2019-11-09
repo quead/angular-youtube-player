@@ -28,7 +28,7 @@ export class NotifyService {
 		22: 'Settings has been saved',
 		23: 'Video Removed from the playlist',
 		30: 'Someone joined in your room.',
-		31: 'Someone leaved your room.',
+		31: 'Someone left your room.',
 		32: 'You joined in the room.',
 		33: 'You left the room.',
 		34: 'Room changed.',

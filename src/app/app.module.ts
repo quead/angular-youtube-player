@@ -34,11 +34,15 @@ import { RelatedComponent } from './components/related/related.component';
 import { RoomComponent } from './components/room/room.component';
 import { YoutubeIframeComponent } from './components/youtube-iframe/youtube-iframe.component';
 import { ButtonsComponent } from './components/player/buttons/buttons.component';
-import { VideoItemComponent } from './components/player/video-item/video-item.component';
+import { VideoItemComponent } from './components/video-item/video-item.component';
 import { CategoryBadgeComponent } from './components/category/category-badge/category-badge.component';
 
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalService } from './services/modal.service';
+import { VideoItemEnhancedComponent } from './components/video-item/video-item-enhanced/video-item-enhanced.component';
+import { VideoItemGridComponent } from './components/video-item/video-item-grid/video-item-grid.component';
+import { VideoItemListComponent } from './components/video-item/video-item-list/video-item-list.component';
+import { PlayerMiniComponent } from './components/player-mini/player-mini.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -69,7 +73,11 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		VideoItemComponent,
 		CategoryBadgeComponent,
 		ModalComponent,
-		ShortNumPipe
+		ShortNumPipe,
+		VideoItemEnhancedComponent,
+		VideoItemGridComponent,
+		VideoItemListComponent,
+		PlayerMiniComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [

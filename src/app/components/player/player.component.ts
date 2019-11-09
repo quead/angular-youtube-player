@@ -16,6 +16,7 @@ export class PlayerComponent implements OnInit {
 	videoCurRange = 0;
 	videoMaxRange = 0;
 
+	timeoutBuffering: any;
 	videoRangePercent = 0;
 	videoRangeMouseActive = false;
 	volumeRangeMouseActive = false;
@@ -28,8 +29,6 @@ export class PlayerComponent implements OnInit {
 
 	videoCurFull = '00:00';
 	videoMaxFull = '00:00';
-
-	loading = true;
 
 	constructor(
 		public globals: GlobalsService,
@@ -64,6 +63,11 @@ export class PlayerComponent implements OnInit {
 					break;
 				case 'isBuffering':
 					// Need a solution when is buffering for one to keep in sync
+					// this.globals.player.pauseVideo();
+					// this.timeoutBuffering = setTimeout(() => {
+					// 	this.globals.player.playVideo();
+					// 	clearTimeout(this.timeoutBuffering);
+					// }, 500);
 					break;
 				default:
 			}
@@ -105,11 +109,7 @@ export class PlayerComponent implements OnInit {
 				if (this.globals.repeatMode) {
 					if (this.globals.playlistVideos.length) {
 						this.shared.findPlaylistItem();
-						if (this.globals.currentPlaylistItem < 0) {
-							this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-						} else {
-							this.playPlaylistItem('next', this.globals.currentPlaylistItem);
-						}
+						this.playPlaylistItem('next', this.globals.currentPlaylistItem);
 						if (this.globals.playlistVideos.length === 1) {
 							this.globals.player.playVideo();
 						}
@@ -137,29 +137,27 @@ export class PlayerComponent implements OnInit {
 		}
 	}
 
-	// Load the video when region is changed
-	cueVideoWhenRegionChanged() {
-		if (this.globals.player) {
-			this.globals.player.cueVideoById(this.globals.currentVideo.id);
-			this.videoRangePercent = 0;
-		}
-	}
-
 	// Init app
 	setDefaultPlayer() {
 		this.shared.initFeed().then(() => {
-			this.globals.currentVideo = this.globals.feedVideos[0];
-			this.globals.shareLink =
-				'https://youtu.be/' + this.globals.currentVideo['id'];
-			this.globals.isFeedLoading = false;
-			this.shared.getRelatedVideos().then(() => {
-				this.loading = false;
-				this.globals.isLoading = false;
-			});
-			this.shared.findPlaylistItem();
-			this.cueVideoWhenRegionChanged();
+			this.globals.loadingState.feed = false;
+			this.initCurrentVideo();
 		});
 		this.shared.setLocalVersion();
+	}
+
+	async initCurrentVideo() {
+		if (this.globals.playlistVideos.length > 0) {
+			await this.shared.getStatsVideos(this.globals.playlistVideos[0].id);
+		} else {
+			this.globals.currentVideo = this.globals.feedVideos[0];
+		}
+		this.globals.shareLink =
+			'https://youtu.be/' + this.globals.currentVideo['id'];
+		this.globals.loadingState.player = false;
+
+		this.shared.findPlaylistItem();
+		this.shared.getRelatedVideos();
 	}
 
 	// ---------------- Player controls ----------------

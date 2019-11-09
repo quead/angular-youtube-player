@@ -1,16 +1,16 @@
-<div id="playlist-video-list" class="video-list app-container">
-    <div class="video-item-head">
+<div id="playlist-video-list" class="app-container">
+    <div class="app-head">
         <h2>Current playlist</h2>
         <button type="button" class="btn btn-small btn-warning" (click)="confirmClear()"
             *ngIf="!globals.isTempSessionActive"><span class="icon icon-mr icon-md ion-ios-close"></span>clear</button>
     </div>
-    <div class="playlist-video-content" #playlistContainer>
-        <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
+    <div class="playlist-video-content video-list" #playlistContainer>
+        <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.loadingState.playlist">
             <div class="text-center-block">
                 Playlist is empty.
             </div>
         </ng-container>
-        <ng-container *ngIf="globals.isLoading">
+        <ng-container *ngIf="globals.loadingState.playlist">
             <div *ngFor="let i of [1,2,3,4,5,6]" class="video-item">
                 <div class="video-item-info loading-video-item">
                     <div class="video-item-image loading-featured loading-anim"></div>
@@ -18,48 +18,13 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="!globals.isLoading">
+        <ng-container *ngIf="!globals.loadingState.playlist">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
-                <div class="playlist_item" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
-                    [ngClass]="globals.currentPlaylistItem === i ? 'active' : ''" [attr.data-index]="i"
+                <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
                     cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
-                    [cdkDragDisabled]="globals.playlistVideos.length <= 1">
-                    <div *ngIf="globals.thumbnails && playlistVideo.thumbnails.default" class="playlist_item-image"
-                        [ngStyle]="{'background-image': 'url(' + playlistVideo.thumbnails.default +')'}"></div>
-                    <div style="overflow: hidden;">
-                        <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === 1">
-                            <p class="playlist_item-hint"><span class="icon icon-mr ion-ios-play"></span>Playing</p>
-                        </ng-container>
-                        <ng-container
-                            *ngIf="globals.currentPlaylistItem === i && globals.currentState !== 1 && globals.currentState !== -1">
-                            <p class="playlist_item-hint"><span class="icon icon-mr ion-ios-pause"></span>Paused</p>
-                        </ng-container>
-                        <ng-container *ngIf="globals.currentPlaylistItem === i && globals.currentState === -1">
-                            <p class="playlist_item-hint"><span class="icon icon-mr ion-ios-square"></span>Not started
-                            </p>
-                        </ng-container>
-                        <p class="playlist_item-title">{{playlistVideo.title}}</p>
-                        <p class="playlist_item-uploader">{{playlistVideo.channelTitle}}</p>
-
-                        <div class="video-item-settings" *ngIf="!globals.isTempSessionActive">
-                            <button class="video-item-play" (click)="buttons.onClickVideo(i, 3)">
-                                <span class="icon icon-md"
-                                    [ngClass]="globals.currentVideo.id === shared.getVideoFromList(i, 3)['id'] && globals.currentState === 1 ? 'ion-ios-pause' : 'ion-ios-play'"></span>
-                            </button>
-                            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
-                                <span class="icon icon-md ion-ios-share-alt"></span>
-                            </button>
-                            <button class="video-item-remove" (click)="showPlaylistModal(i)">
-                                <span class="icon icon-lg ion-ios-close"></span>
-                            </button>
-                        </div>
-                        <div class="video-item-settings" *ngIf="globals.isTempSessionActive">
-                            <button class="video-item-play" (click)="shared.onCopyVideoItemLink(i, 3)">
-                                <span class="icon icon-md ion-ios-share-alt"></span>
-                            </button>
-                        </div>
-
-                    </div>
+                    [cdkDragDisabled]="globals.playlistVideos.length <= 1 || globals.isTempSessionActive">
+                    <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true"
+                        size="small"></app-video-item>
                 </div>
             </div>
         </ng-container>
@@ -67,18 +32,18 @@
 </div>
 <app-modal [id]="modalID">
     <div class="text-center">
-        <ng-container *ngIf="globals.playlistVideos[modalPlaylistItem]">
+        <ng-container *ngIf="globals.playlistVideos[globals.modalPlaylistItem]">
             <h2>Do you want to remove this item from the playlist?</h2>
             <div class="modal-content">
                 <ng-container *ngIf="globals.thumbnails">
-                    <img src="{{ globals.playlistVideos[modalPlaylistItem].thumbnails.medium }}"
-                        alt="{{ globals.playlistVideos[modalPlaylistItem].title }}" />
+                    <img src="{{ globals.playlistVideos[globals.modalPlaylistItem].thumbnails.medium }}"
+                        alt="{{ globals.playlistVideos[globals.modalPlaylistItem].title }}" />
                 </ng-container>
-                <p>{{globals.playlistVideos[modalPlaylistItem].title}}</p>
+                <p>{{globals.playlistVideos[globals.modalPlaylistItem].title}}</p>
             </div>
         </ng-container>
-        <ng-container *ngIf="!globals.playlistVideos[modalPlaylistItem]">
-            There is an error
+        <ng-container *ngIf="!globals.playlistVideos[globals.modalPlaylistItem]">
+            There is a error.
         </ng-container>
         <div class="modal-buttons">
             <button type="button" class="btn btn-outline" (click)="confirmModal()">Confirm</button>

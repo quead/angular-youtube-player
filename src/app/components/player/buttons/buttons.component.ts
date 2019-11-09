@@ -1,26 +1,39 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { GlobalsService } from '../../../services/globals.service';
 import { SharedService } from '../../../services/shared.service';
+import { ModalService } from '../../../services/modal.service';
 import { PlaylistControlService } from '../../../services/playlist-control.service';
 import { Socket } from 'ngx-socket-io';
 import { VideoModel } from '../../../models/video.model';
 
 @Component({
 	selector: 'app-buttons',
-	templateUrl: './buttons.component.html'
+	templateUrl: './buttons.component.html',
+	styleUrls: ['./buttons.component.scss'],
+	encapsulation: ViewEncapsulation.None
 })
 export class ButtonsComponent implements OnInit {
 	@Input() listID: number;
 	@Input() videoIndex: number;
+	@Input() isPlaylist = false;
 
 	constructor(
 		public globals: GlobalsService,
 		public shared: SharedService,
+		public modal: ModalService,
 		private playlistCTRL: PlaylistControlService,
 		private socket: Socket
-	) {}
+	) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
+
+	isThisVideoCurrent(videoIndex: number, listID: number) {
+		if (this.globals.currentVideo) {
+			return (this.globals.currentVideo.id === this.shared.getVideoFromList(videoIndex, listID)['id']);
+		} else {
+			return false;
+		}
+	}
 
 	triggerPlayPauseVideo() {
 		if (this.globals.currentState === 1) {
@@ -77,6 +90,11 @@ export class ButtonsComponent implements OnInit {
 			this.playVideo(data);
 			this.shared.getRelatedVideos();
 		});
+	}
+
+	showPlaylistModal(videoIndex: number) {
+		this.globals.modalPlaylistItem = videoIndex;
+		this.modal.open('playlist-modal');
 	}
 
 	playVideo(data: VideoModel) {

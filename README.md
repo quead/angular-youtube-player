@@ -3,12 +3,12 @@
     Demo
   </a>
   <a href="https://habarnam.io/player/home" target="_blank" title="YouTube Player"> 
-    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/HPPdUMC.jpg" style="height: auto; max-width:100%;" />
+    <img alt="Angular YouTube Player Logo" src="https://i.imgur.com/rcuE2Ao.png" style="height: auto; max-width:100%;" />
   </a>
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.5.2-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Version](https://img.shields.io/badge/Current%20version-v2.6.0-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
@@ -18,7 +18,7 @@ This is a simple youtube web player based on [angular-cli](https://github.com/an
 
 This player is compatible only with Chrome/webkit browsers.
 
-*The project status is beta.*
+*The project status is RC (release candidate).*
 
 ## How to use
 
@@ -31,15 +31,15 @@ This player is compatible only with Chrome/webkit browsers.
 
 3. Add your youtube api key in **src/app/environments/settings.ts** or inside the app on settings page (when is running)
 
-4. To connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+4. Start your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
+
+`npm install && npm start` in root folder
+
+5. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
 
 You must change inside **src/app/environments/environment.ts** your path to your server.
 
-6. Connect to your [server](https://github.com/quead/angular-youtube-server "Angular youtube server")
-
-`npm start` in root folder
-
-**For building the app**
+**To build the app**
 
 1. Install [angular-cli 7.3.7+](https://github.com/angular/angular-cli "Angular Cli")
 
@@ -52,6 +52,12 @@ Check [angular documentation](https://angular.io/cli/build 'angular cli') for ot
 `ng build --prod=true`
 
 ## Changelog
+Angular YouTube Player 2.6.0
+- List of guests in the session
+- Minor issues fixed (RC)
+- Add mini player when you scroll
+- First video from playlist is now the current video
+
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
 - UI updates
@@ -189,9 +195,9 @@ Angular YouTube Player 1.0.0
 - *Room chat **(unversioned)***
 
 #### Roadmap to 3.0
-- *List of users joined in the session **(in v2.6)***
+- *Release a stable version **(in v2.6.9)***
 - *Set private/public room **(in v2.7)***
-- *List of public rooms **(in v2.9)***
+- *List of public rooms **(in v2.8)***
 - *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
 
 #### Roadmap to 4.0
@@ -201,7 +207,7 @@ Angular YouTube Player 1.0.0
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
-- Temporary removed theme function
+- Themes temporary removed 
 
 ## Copyright and License
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

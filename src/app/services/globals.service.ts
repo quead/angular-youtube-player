@@ -19,6 +19,7 @@ export class GlobalsService {
 	currentVideo: VideoModel;
 	shareLink: string;
 	currentPlaylistItem: number;
+	modalPlaylistItem: number;
 
 	categories: any;
 	currentCategory = 'all';
@@ -28,8 +29,13 @@ export class GlobalsService {
 	videoItemIDvalue: any;
 
 	isLogged = false;
-	isLoading = true;
-	isFeedLoading = true;
+	loadingState = {
+		feed: true,
+		related: true,
+		playlist: true,
+		settings: true,
+		player: true
+	};
 	thumbnails = true;
 	listGrid = false;
 	repeatMode = true;
@@ -50,7 +56,7 @@ export class GlobalsService {
 
 	constructor() { }
 
-	isSameSessionKey() {
+	isSameSesssion() {
 		return this.getCurrentSessionKeys().session === this.getCurrentSessionKeys().tempSession;
 	}
 

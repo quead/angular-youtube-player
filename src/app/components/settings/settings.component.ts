@@ -13,14 +13,13 @@ import { NumberVal } from '../../services/validators.service';
 	styleUrls: ['settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-	loading = true;
 
 	internalSettings: FormGroup;
 	externalSettings: FormGroup;
 
 	constructor(
 		private shared: SharedService,
-		private globals: GlobalsService,
+		public globals: GlobalsService,
 		public playerComp: PlayerComponent,
 		private notify: NotifyService
 	) { }
@@ -82,11 +81,7 @@ export class SettingsComponent implements OnInit {
 	save() {
 		this.shared.updateLocalStorageSettings();
 		this.shared.getSettings();
-		if (this.globals.currentState !== 1) {
-			this.playerComp.setDefaultPlayer();
-		} else {
-			this.shared.initFeed();
-		}
+		this.shared.initFeed();
 		this.notify.triggerNotify(22);
 	}
 
@@ -94,7 +89,7 @@ export class SettingsComponent implements OnInit {
 		this.shared.getSettings();
 		this.initExternalForm();
 		this.initInternalForm();
-		this.loading = false;
+		this.globals.loadingState.settings = false;
 	}
 
 	externalSave() {

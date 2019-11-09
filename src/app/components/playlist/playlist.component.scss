@@ -1,98 +1,46 @@
 .playlist {
 	border-radius: 4px;
 	overflow: hidden;
-	color: var(--c-white);
+	color: rgb(var(--c-white));
 	cursor: grab !important;
 	cursor: -moz-grab;
 	cursor: -webkit-grab;
 	border: 2px dashed transparent;
-	transition: all 0.1s ease-out;
-	p {
-		margin: 0;
-	}
-	&_item {
-		box-sizing: border-box;
-		font-size: 14px;
-		position: relative;
-		display: flex;
-		flex-wrap: nowrap;
-		align-items: center;
-		padding: 3px;
-		border: 2px solid transparent;
-		&-image {
-			display: block;
-			height: 65px;
-			width: 70px;
-			flex: 0 0 70px;
-			background-position: center center;
-			margin-right: 10px;
-			transition: all 0.1s ease-out;
-			border-radius: var(--border-radius);
-		}
-		&-uploader,
-		&-title {
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
-			width: 100%;
-		}
-		&-uploader {
-			font-size: 14px;
-			font-weight: 800;
-		}
-		&-hint {
-			display: none;
-			align-items: center;
-			text-transform: uppercase;
-			font-size: 10px;
-			line-height: 16px;
-			border: 1px solid var(--c-primary);
-			color: var(--c-primary);
-			padding: 0 5px;
-			font-weight: 600 !important;
-		}
-		&.active .playlist_item-hint {
-			display: inline-flex;
-		}
-		&:hover .video-item-settings {
-			opacity: 1;
-			visibility: visible;
-		}
-	}
+	transition: var(--default-transition);
+	justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .playlist.cdk-drop-list-dragging {
 	cursor: grabbing !important;
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;
-	border: 2px dashed rgba(255, 255, 255, 0.2);
+	border: 2px dashed rgba(var(--c-white), 0.2);
 }
 
-.playlist_item {
-	transition: 0.1s all ease-out;
-	&.cdk-drag-preview {
-		box-sizing: border-box;
-		border-radius: var(--border-radius);
-		background: var(--c-base);
-		border: 2px solid rgba(255, 255, 255, 0.15) !important;
-		p {
-			margin: 0;
-		}
+.video.cdk-drag-preview {
+	box-sizing: border-box;
+	border-radius: var(--border-radius);
+	background: rgb(var(--c-base));
+	border: 2px solid rgba(var(--c-white), 0.2);
+	p {
+		margin: 0;
 	}
 }
 
 
 .cdk-drag-placeholder {
 	opacity: 0.2;
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+	transition: transform 250ms cubic-bezier(var(--c-black).2, 1);
 }
 
 .cdk-drag-animating {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+	transition: transform 250ms cubic-bezier(var(--c-black).2, 1);
 }
 
-.playlist.cdk-drop-list-dragging .playlist_item:not(.cdk-drag-placeholder) {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+.playlist.cdk-drop-list-dragging .video:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(var(--c-black).2, 1);
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {

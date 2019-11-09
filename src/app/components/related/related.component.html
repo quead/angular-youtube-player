@@ -1,8 +1,8 @@
 <div id="related-video-list" class="app-container">
-    <div class="video-item-head">
+    <div class="app-head">
         <h2>Related Videos</h2>
     </div>
-    <ng-container *ngIf="globals.isLoading">
+    <ng-container *ngIf="globals.loadingState.related">
         <div class="related-video-content">
             <div class="loading-list">
                 <div *ngFor="let i of [0,1,2,3]" class="item loading-box">
@@ -12,13 +12,16 @@
             </div>
         </div>
     </ng-container>
-    <ng-container *ngIf="!globals.isLoading && globals.relatedVideos.length > 0">
+    <div *ngIf="!globals.loadingState.related" class="video-list">
         <ngu-carousel [inputs]="carouselOne" [dataSource]="globals.relatedVideos">
             <ngu-item *nguCarouselDef="let relatedVideo; let i = index;">
-                <app-video-item [videoIndex]="i" [videoItem]="relatedVideo" [listID]="2"></app-video-item>
+                <div class="video">
+                    <app-video-item [videoIndex]="i" [videoItem]="relatedVideo" [listID]="2" videoType="grid">
+                    </app-video-item>
+                </div>
             </ngu-item>
-            <button NguCarouselPrev class='leftRs'><i class="icon icon-lg ion-ios-arrow-dropleft-circle"></i></button>
-            <button NguCarouselNext class='rightRs'><i class="icon icon-lg ion-ios-arrow-dropright-circle"></i></button>
+            <button NguCarouselPrev class='leftRs'><i class="icon icon-lg ion-ios-arrow-round-back"></i></button>
+            <button NguCarouselNext class='rightRs'><i class="icon icon-lg ion-ios-arrow-round-forward"></i></button>
         </ngu-carousel>
-    </ng-container>
+    </div>
 </div>

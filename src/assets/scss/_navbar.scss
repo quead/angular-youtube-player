@@ -15,17 +15,17 @@ nav {
 	a {
 		display: block;
 		text-decoration: none;
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(var(--c-white), 0.5);
 		-webkit-user-drag: none;
 		position: relative;
-		transition: all 0.1s ease-out;
-		font-size: $f-14;
+		transition: var(--default-transition);
+		font-size: var(--font-medium);
 		font-weight: 600;
 		letter-spacing: 0.3px;
 
 		&.is-active,
 		&:active {
-			color: var(--c-white);
+			color: rgb(var(--c-white));
 
 			.description {
 				text-shadow: none;
@@ -51,7 +51,7 @@ nav {
 		}
 
 		a {
-			font-size: 16px;
+			font-size: var(--font-large);
 		}
 	}
 }

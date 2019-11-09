@@ -9,7 +9,7 @@
 }
 
 .modal-background-overlay {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(var(--c-black), 0.6);
 	position: absolute;
 	overflow: hidden;
 	width: 100%;
@@ -20,13 +20,13 @@
     backdrop-filter: blur(10px);
 	left: 0;
     top: 0;
-    transition: all 0.1s ease-out;
+    transition: var(--default-transition);
 }
 
 .modal-container {
 	position: absolute;
-	background-color: var(--c-box);
-    color: var(--c-white);
+	background-color: rgb(var(--c-box));
+    color: rgb(var(--c-white));
     padding: 40px 30px 20px;
 	top: 50%;
 	right: 50%;
@@ -36,7 +36,7 @@
 	border-radius: var(--border-radius);
 	overflow-y: auto;
     max-height: 100%;
-    transition: all 0.1s ease-out;
+    transition: var(--default-transition);
 
     h3,
     h2 {
@@ -62,9 +62,9 @@
 	background: transparent;
 	padding: 0;
 	border: none;
-	transition: all 0.1s ease-out;
+	transition: var(--default-transition);
 	span {
-		color: var(--c-white);
+		color: rgb(var(--c-white));
 		opacity: 1;
 		&:active,
 		&:hover {
@@ -83,7 +83,7 @@
 		text-transform: uppercase;
 		font-weight: 600;
 		padding: 13px 10px;
-		font-size: 12px;
+		font-size: var(--font-small);
 		width: 70%;
 		border-radius: calc(var(--border-radius) * 3);
 	}

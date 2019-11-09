@@ -54,23 +54,23 @@ export class CategoryComponent implements OnInit {
 	getCategories() {
 		this.youtube.categories().then(catData => {
 			this.converFilterObject(catData);
-			this.globals.isFeedLoading = true;
 			this.getCategoriesVideos(this.globals.currentCategory);
 		});
 	}
 
 	async getCategoriesVideos(val: string) {
+		this.globals.loadingState.feed = true;
 		const res2 = await this.youtube.feedVideos(val);
 		this.shared.convertVideoObject(res2['items'], 'feedVideos');
-		this.globals.isFeedLoading = false;
+		this.globals.loadingState.feed = false;
 	}
 
 	resetCategories() {
-		this.globals.isFeedLoading = true;
+		this.globals.loadingState.feed = true;
 		this.globals.currentCategory = 'all';
 		this.globals.feedVideos = null;
 		this.shared.initFeed().then(() => {
-			this.globals.isFeedLoading = false;
+			this.globals.loadingState.feed = false;
 		});
 	}
 }

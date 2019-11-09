@@ -6,7 +6,7 @@
 	&:before {
 		content: '';
 		display: block;
-		background-color: var(--c-black);
+		background-color: rgb(var(--c-black));
 		height: 20px;
 		width: 40px;
 		border-radius: 50px;
@@ -16,7 +16,7 @@
 		content: '';
 		position: absolute;
 		display: block;
-		background-color: var(--c-white);
+		background-color: rgb(var(--c-white));
 		height: 16px;
 		width: 16px;
 		border-radius: 50%;
@@ -30,11 +30,11 @@
 .round-checkbox:checked {
 	+ label .round-check {
 		&:before {
-			background-color: var(--c-success);
+			background-color: rgb(var(--c-success));
 		}
 		&:after {
 			left: 22px;
-			background-color: var(--c-white);
+			background-color: rgb(var(--c-white));
 		}
 	}
 }
@@ -52,7 +52,7 @@
 
 .settingsForm {
 	margin-top: 0;
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(var(--c-black), 0.3);
 	padding: 15px;
 	border-radius: var(--border-radius);
 	input[type='checkbox'],

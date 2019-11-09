@@ -1,5 +1,5 @@
 .icon {
-    font-size: 12px;
+    font-size: var(--font-small);
     line-height: 10px;
     display: inline-block;
     font-family: "Ionicons";
@@ -11,7 +11,6 @@
     line-height: 1;
     text-rendering: auto;
     text-transform: none;
-    speak: none;
 }
 
 .icon-xl {

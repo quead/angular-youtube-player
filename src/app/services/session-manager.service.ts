@@ -9,7 +9,7 @@ export class SessionManagerService {
 		public globals: GlobalsService,
 		private notify: NotifyService,
 		private socket: Socket
-	) {}
+	) { }
 
 	checkSession() {
 		return new Promise(resolve => {
@@ -92,6 +92,7 @@ export class SessionManagerService {
 					const sessionData = data.session[this.globals.sessionValue];
 					if (typeof sessionData === 'object') {
 						this.globals.playlistVideos = sessionData.playlist;
+						this.globals.loadingState.playlist = false;
 						this.notify.triggerNotify(7);
 					}
 					switch (data.status) {

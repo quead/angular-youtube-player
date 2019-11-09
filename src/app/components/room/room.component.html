@@ -1,30 +1,46 @@
 <div class="room-container app-container">
-    <div class="video-item-head">
+    <div class="app-head">
         <h2>Room</h2>
         <button type="button" class="btn btn-small" (click)="modal.open(modalID)"><span
                 class="icon icon-mr ion-ios-settings"></span>Manage</button>
     </div>
     <div class="room-info-container">
         <div class="room-info">
-            <span class="room-info-icon"><span class="icon " [ngClass]="globals.isSameSessionKey() ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
+            <span class="room-info-icon"><span class="icon "
+                    [ngClass]="globals.isSameSesssion() ? 'ion-ios-unlock' : 'ion-ios-lock' "></span></span>
             <div>
-                <p class="room-info-number">{{(globals.isSameSessionKey()) ? "Unlocked" : "Listen Only"}}</p>
+                <p class="room-info-number">{{(globals.isSameSesssion()) ? "Unlocked" : "Listen Only"}}</p>
                 <p class="room-info-title">Room Status</p>
             </div>
         </div>
-        <div class="room-info" *ngIf="globals.clients">
+        <div class="room-info clickable" *ngIf="globals.clients" (click)="toggleGuests()">
             <span class="room-info-icon"><span class="icon ion-ios-people"></span></span>
             <div>
                 <p class="room-info-number">{{globals.clients.length}}</p>
-                <p class="room-info-title">Users</p>
+                <p class="room-info-title">Guests
+                    <span class="icon " [ngClass]="showGuests ? 'ion-ios-arrow-up' : 'ion-ios-arrow-down'"></span>
+                </p>
             </div>
         </div>
-        <div class="room-info" *ngIf="globals.clients">
+        <div class="room-info" *ngIf="globals.playlistVideos">
             <span class="room-info-icon"><span class="icon ion-ios-play-circle"></span></span>
             <div>
                 <p class="room-info-number">{{globals.playlistVideos.length}}</p>
                 <p class="room-info-title">Videos</p>
             </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="globals.clients" class="guests-container" [ngClass]="{'active': showGuests}">
+    <div class="app-container">
+        <div class="app-head">
+            <h2>Guests in the room</h2>
+            <button type="button" class="btn btn-small" (click)="toggleGuests()"><span
+                    class="icon icon-mr ion-ios-arrow-up"></span>Hide</button>
+        </div>
+        <div class="guests-list">
+            <p *ngFor="let guest of globals.clients" class="guest">{{guest.name}}</p>
         </div>
     </div>
 </div>
@@ -36,12 +52,10 @@
         <p>Your room: {{globals.getCurrentSessionKeys().session}}</p>
         <p>Current room: {{globals.getCurrentSessionKeys().tempSession}}</p>
         <p>Access control:
-            <ng-container
-                *ngIf="globals.getCurrentSessionKeys().session === globals.getCurrentSessionKeys().tempSession">
+            <ng-container *ngIf="globals.isSameSesssion()">
                 <span class="icon icon-md ion-ios-unlock"></span> Unlocked
             </ng-container>
-            <ng-container
-                *ngIf="globals.getCurrentSessionKeys().session !== globals.getCurrentSessionKeys().tempSession">
+            <ng-container *ngIf="!globals.isSameSesssion()">
                 <span class="icon icon-md ion-ios-lock"></span> Listen only
             </ng-container>
         </p>
