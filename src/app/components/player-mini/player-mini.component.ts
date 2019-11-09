@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GlobalsService } from "../../services/globals.service";
-import { PlayerComponent } from "../player/player.component";
+import { GlobalsService } from '../../services/globals.service';
+import { PlayerComponent } from '../player/player.component';
 import { ButtonsComponent } from '../player/buttons/buttons.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class PlayerMiniComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	@HostListener("window:scroll", ["$event"])
+	@HostListener('window:scroll', ['$event'])
 	onWindowScroll() {
 		if (window.scrollY > 280) {
 			this.setPlayerVisible = true;

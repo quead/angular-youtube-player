@@ -131,11 +131,11 @@ export class YoutubeGetVideo {
 		}
 	}
 
-	async statsVideos(query: string) {
+	async statsVideos(id: string) {
 		try {
 			const res = await this.http
 				.get(
-					`${this.url}videos?${this.videoDetails}&id=${query}&key=${
+					`${this.url}videos?${this.videoDetails}&id=${id}&key=${
 					this.globals.apiKey
 					}`
 				)

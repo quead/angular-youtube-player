@@ -81,11 +81,7 @@ export class SettingsComponent implements OnInit {
 	save() {
 		this.shared.updateLocalStorageSettings();
 		this.shared.getSettings();
-		if (this.globals.currentState !== 1) {
-			this.playerComp.setDefaultPlayer();
-		} else {
-			this.shared.initFeed();
-		}
+		this.shared.initFeed();
 		this.notify.triggerNotify(22);
 	}
 

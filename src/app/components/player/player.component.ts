@@ -137,31 +137,27 @@ export class PlayerComponent implements OnInit {
 		}
 	}
 
-	// Load the video when region is changed
-	cueVideoWhenRegionChanged() {
-		if (this.globals.player) {
-			this.globals.player.cueVideoById(this.globals.currentVideo.id);
-			this.videoRangePercent = 0;
-		}
-	}
-
 	// Init app
 	setDefaultPlayer() {
 		this.shared.initFeed().then(() => {
 			this.globals.loadingState.feed = false;
 			this.initCurrentVideo();
-			this.shared.getRelatedVideos();
-			this.shared.findPlaylistItem();
-			this.cueVideoWhenRegionChanged();
 		});
 		this.shared.setLocalVersion();
 	}
 
-	initCurrentVideo() {
-		this.globals.currentVideo = this.globals.feedVideos[0];
+	async initCurrentVideo() {
+		if (this.globals.playlistVideos.length > 0) {
+			await this.shared.getStatsVideos(this.globals.playlistVideos[0].id);
+		} else {
+			this.globals.currentVideo = this.globals.feedVideos[0];
+		}
 		this.globals.shareLink =
 			'https://youtu.be/' + this.globals.currentVideo['id'];
 		this.globals.loadingState.player = false;
+
+		this.shared.findPlaylistItem();
+		this.shared.getRelatedVideos();
 	}
 
 	// ---------------- Player controls ----------------

@@ -23,13 +23,11 @@ export class SharedService {
 
 	async getRelatedVideos() {
 		try {
-			if (this.globals.currentVideo) {
-				const res = await this.youtube.relatedVideos(
-					this.globals.currentVideo['id']
-				);
-				this.convertVideoObject(res['items'], 'relatedVideos');
-				this.globals.loadingState.related = false;
-			}
+			const res = await this.youtube.relatedVideos(
+				this.globals.currentVideo['id']
+			);
+			this.convertVideoObject(res['items'], 'relatedVideos');
+			this.globals.loadingState.related = false;
 		} catch { }
 	}
 
@@ -286,8 +284,8 @@ export class SharedService {
 		return true;
 	}
 
-	async getStatsVideos(query: string) {
-		const res = await this.youtube.statsVideos(query);
+	async getStatsVideos(id: string) {
+		const res = await this.youtube.statsVideos(id);
 		this.convertVideoObject(res['items'], 'currentVideo');
 	}
 

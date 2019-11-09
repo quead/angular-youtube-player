@@ -29,7 +29,7 @@ export class ButtonsComponent implements OnInit {
 
 	isThisVideoCurrent(videoIndex: number, listID: number) {
 		if (this.globals.currentVideo) {
-			return (this.globals.currentVideo.id === this.shared.getVideoFromList(videoIndex, listID)['id'])
+			return (this.globals.currentVideo.id === this.shared.getVideoFromList(videoIndex, listID)['id']);
 		} else {
 			return false;
 		}

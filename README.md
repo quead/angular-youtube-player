@@ -56,6 +56,7 @@ Angular YouTube Player 2.6.0
 - List of guests in the session
 - Minor issues fixed (RC)
 - Add mini player when you scroll
+- First video from playlist is now the current video
 
 Angular YouTube Player 2.5.2
 - Add category badge to feed videos and current video
