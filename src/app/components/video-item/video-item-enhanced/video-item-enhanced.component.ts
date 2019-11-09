@@ -11,6 +11,7 @@ export class VideoItemEnhancedComponent implements OnInit {
 	@Input() videoItem: VideoModel;
 	@Input() videoIndex: number;
 	@Input() listID: number;
+	@Input() callBack = () => {};
 
 	constructor(public globals: GlobalsService) { }
 

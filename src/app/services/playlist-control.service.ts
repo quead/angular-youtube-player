@@ -42,7 +42,6 @@ export class PlaylistControlService {
 		} else {
 			this.notify.triggerNotify(4);
 		}
-		this.globals.searchOverlay = false;
 	}
 
 	removePlaylistItem(i: number) {

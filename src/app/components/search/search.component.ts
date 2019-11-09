@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SearchComponent implements OnInit {
 	searchForm: FormGroup;
 	noResults = false;
+	searchOverlay = false;
 
 	constructor(
 		private youtube: YoutubeGetVideo,
@@ -25,7 +26,7 @@ export class SearchComponent implements OnInit {
 	}
 
 	async searchVideo(query: any) {
-		this.globals.searchOverlay = this.searchForm.valid && this.searchForm.controls.searchInput.value.length > 0;
+		this.searchOverlay = this.searchForm.valid && this.searchForm.controls.searchInput.value.length > 0;
 		const res = await this.youtube.searchVideo(query);
 		this.shared.convertVideoObject(res['items'], 'searchedVideos');
 		if (res['items'].length === 0) {

@@ -13,6 +13,7 @@ export class VideoItemListComponent implements OnInit {
 	@Input() listID: number;
 	@Input() isPlaylist = false;
 	@Input() size = 'medium';
+	@Input() callBack = () => {};
 
 	constructor(public globals: GlobalsService) { }
 

@@ -16,6 +16,7 @@ export class ButtonsComponent implements OnInit {
 	@Input() listID: number;
 	@Input() videoIndex: number;
 	@Input() isPlaylist = false;
+	@Input() callBack = () => {};
 
 	constructor(
 		public globals: GlobalsService,
@@ -56,7 +57,6 @@ export class ButtonsComponent implements OnInit {
 				}
 			});
 		}
-		this.globals.searchOverlay = false;
 	}
 
 	onClickVideo(i: number, list: number) {
@@ -67,7 +67,12 @@ export class ButtonsComponent implements OnInit {
 		} else {
 			this.getVideo(this.shared.getVideoFromList(i, list));
 		}
-		this.globals.searchOverlay = false;
+		this.callBack();
+	}
+
+	onAddToPlaylist(videoIndex: number, listID: number) {
+		this.playlistCTRL.addPlaylistItem(videoIndex, listID);
+		this.callBack();
 	}
 
 	getVideo(data: VideoModel) {

@@ -12,6 +12,7 @@ export class VideoItemComponent implements OnInit {
 	@Input() videoItem: VideoModel;
 	@Input() videoIndex: number;
 	@Input() listID: number;
+	@Input() callBack = () => {};
 	@Input() isPlaylist = false;
 	@Input() videoType = 'list';
 	@Input() size = 'medium';
