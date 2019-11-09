@@ -6,24 +6,27 @@
             <select id="select-category" [ngModel]="globals.currentCategory" (change)="categoryChanged($event)">
                 <option value="all">General</option>
                 <ng-container *ngFor="let category of globals.categories">
-                    <option *ngIf="category.assignable && globals.categoriesBlocked.indexOf(category.id) === -1" [value]="category.id">{{category.title}}</option>
+                    <option *ngIf="category.assignable && globals.categoriesBlocked.indexOf(category.id) === -1"
+                        [value]="category.id">{{category.title}}</option>
                 </ng-container>
             </select>
         </div>
     </div>
     <div [ngClass]="!globals.listGrid ? 'video-grid' : 'video-list'">
-        <ng-container *ngIf="globals.isFeedLoading">
+        <ng-container *ngIf="globals.loadingState.feed">
             <div *ngFor="let i of [0,1,2,3,4,5,6,8,9]" class="loading-feed-list loading-anim"></div>
         </ng-container>
-        <ng-container *ngIf="!globals.isFeedLoading">
+        <ng-container *ngIf="!globals.loadingState.feed">
             <ng-container *ngIf="!globals.listGrid">
                 <div *ngFor="let feedVideo of globals.feedVideos; let i = index" class="video">
-                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="enhanced"></app-video-item>
+                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="enhanced">
+                    </app-video-item>
                 </div>
             </ng-container>
             <ng-container *ngIf="globals.listGrid">
                 <div *ngFor="let feedVideo of globals.feedVideos; let i = index" class="video">
-                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="list"></app-video-item>
+                    <app-video-item [videoIndex]="i" [videoItem]="feedVideo" [listID]="0" videoType="list">
+                    </app-video-item>
                 </div>
             </ng-container>
         </ng-container>

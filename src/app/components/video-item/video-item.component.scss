@@ -12,6 +12,17 @@
     }
 }
 
+.video-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .video {
+        width: 32.333%;
+        flex: 0 0 32.333%;
+    }
+}
+
 .video-item {
     display: flex;
     width: 100%;

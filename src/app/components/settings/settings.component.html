@@ -2,21 +2,24 @@
     <div class="app-head">
         <h2>Settings</h2>
     </div>
-    <div *ngIf="!loading">
+    <div *ngIf="!globals.loadingState.settings">
         <form [formGroup]="internalSettings" id="internalSettings" class="settingsForm" novalidate>
             <h3>Internal Settings</h3>
             <div [ngClass]="{'hide': !globals.settings.form_settings.thumbnails.visible}" class="form-group">
-                <input (change)="checkInputs()" type="checkbox" id="setting-thumbnails" class="round-checkbox" formControlName="fcThumbnails" />
+                <input (change)="checkInputs()" type="checkbox" id="setting-thumbnails" class="round-checkbox"
+                    formControlName="fcThumbnails" />
                 <label for="setting-thumbnails">{{globals.settings.form_settings.thumbnails.name}}<span
                         class="round-check"></span></label>
             </div>
             <div [ngClass]="{'hide': !globals.settings.form_settings.listToggle.visible}" class="form-group">
-                <input (change)="checkInputs()" type="checkbox" id="setting-listToggle" class="round-checkbox" formControlName="fcList" />
+                <input (change)="checkInputs()" type="checkbox" id="setting-listToggle" class="round-checkbox"
+                    formControlName="fcList" />
                 <label for="setting-listToggle">{{globals.settings.form_settings.listToggle.name}}<span
                         class="round-check"></span></label>
             </div>
             <div [ngClass]="{'hide': !globals.settings.form_settings.repeat.visible}" class="form-group">
-                <input (change)="checkInputs()" type="checkbox" id="setting-repeat" class="round-checkbox" formControlName="fcList" />
+                <input (change)="checkInputs()" type="checkbox" id="setting-repeat" class="round-checkbox"
+                    formControlName="fcList" />
                 <label for="setting-repeat">{{globals.settings.form_settings.repeat.name}}<span
                         class="round-check"></span></label>
             </div>
@@ -25,7 +28,7 @@
             <h3>External Settings</h3>
             <div class="form-group form-select">
                 <label for="val-trending">Set trending country</label>
-                <select  id="val-trending" class="form-field" formControlName="fcRegion">
+                <select id="val-trending" class="form-field" formControlName="fcRegion">
                     <option value="US">United States</option>
                     <option value="GB">United Kingdom</option>
                     <option value="RO">Romania</option>

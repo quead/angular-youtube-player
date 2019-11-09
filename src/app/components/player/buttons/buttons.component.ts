@@ -23,9 +23,17 @@ export class ButtonsComponent implements OnInit {
 		public modal: ModalService,
 		private playlistCTRL: PlaylistControlService,
 		private socket: Socket
-	) {}
+	) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
+
+	isThisVideoCurrent(videoIndex: number, listID: number) {
+		if (this.globals.currentVideo) {
+			return (this.globals.currentVideo.id === this.shared.getVideoFromList(videoIndex, listID)['id'])
+		} else {
+			return false;
+		}
+	}
 
 	triggerPlayPauseVideo() {
 		if (this.globals.currentState === 1) {
@@ -94,6 +102,4 @@ export class ButtonsComponent implements OnInit {
 		this.globals.player.loadVideoById(data.id);
 		this.shared.findPlaylistItem();
 	}
-
-
 }

@@ -5,12 +5,12 @@
             *ngIf="!globals.isTempSessionActive"><span class="icon icon-mr icon-md ion-ios-close"></span>clear</button>
     </div>
     <div class="playlist-video-content video-list" #playlistContainer>
-        <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.isLoading">
+        <ng-container *ngIf="globals.playlistVideos.length === 0 && !globals.loadingState.playlist">
             <div class="text-center-block">
                 Playlist is empty.
             </div>
         </ng-container>
-        <ng-container *ngIf="globals.isLoading">
+        <ng-container *ngIf="globals.loadingState.playlist">
             <div *ngFor="let i of [1,2,3,4,5,6]" class="video-item">
                 <div class="video-item-info loading-video-item">
                     <div class="video-item-image loading-featured loading-anim"></div>
@@ -18,11 +18,13 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="!globals.isLoading">
+        <ng-container *ngIf="!globals.loadingState.playlist">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
-                <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
-                [cdkDragDisabled]="globals.playlistVideos.length <= 1 || globals.isTempSessionActive">
-                    <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true" size="small"></app-video-item>
+                <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
+                    cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
+                    [cdkDragDisabled]="globals.playlistVideos.length <= 1 || globals.isTempSessionActive">
+                    <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true"
+                        size="small"></app-video-item>
                 </div>
             </div>
         </ng-container>
@@ -41,7 +43,7 @@
             </div>
         </ng-container>
         <ng-container *ngIf="!globals.playlistVideos[globals.modalPlaylistItem]">
-            There is an error
+            There is a error.
         </ng-container>
         <div class="modal-buttons">
             <button type="button" class="btn btn-outline" (click)="confirmModal()">Confirm</button>
