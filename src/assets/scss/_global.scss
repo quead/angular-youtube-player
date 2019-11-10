@@ -1,5 +1,7 @@
 * {
 	box-sizing: border-box;
+	-webkit-app-region: no-drag;
+	user-select: none;
 }
 
 body,
@@ -45,15 +47,5 @@ app {
 	&-search {
 		width: 100%;
 		margin-left: 40px;
-	}
-
-	&-component-player {
-		display: block;
-		position: relative;
-
-		> div {
-			position: relative;
-			z-index: 2;
-		}
 	}
 }
