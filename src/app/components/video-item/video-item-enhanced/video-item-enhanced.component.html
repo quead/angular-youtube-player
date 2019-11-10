@@ -3,7 +3,7 @@
         [ngStyle]="{'background-image': 'url(' + videoItem.thumbnails.high +')'}"></div>
     <div class="video-item_content">
         <app-category-badge [categoryID]="videoItem.categoryId"></app-category-badge>
-        <p class="video-item_title">{{videoItem.title}}</p>
+        <p class="video-item_title" [innerHTML]="videoItem.title"></p>
         <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
         <div class="stats-container" *ngIf="videoItem.id?.length > 0">
             <p class="stats-views"><span class="icon ion-ios-play-circle"></span>

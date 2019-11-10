@@ -38,7 +38,7 @@
                     <img src="{{ globals.playlistVideos[globals.modalPlaylistItem].thumbnails.medium }}"
                         alt="{{ globals.playlistVideos[globals.modalPlaylistItem].title }}" />
                 </ng-container>
-                <p>{{globals.playlistVideos[globals.modalPlaylistItem].title}}</p>
+                <p [innerHTML]="globals.playlistVideos[globals.modalPlaylistItem].title"></p>
             </div>
         </ng-container>
         <ng-container *ngIf="!globals.playlistVideos[globals.modalPlaylistItem]">

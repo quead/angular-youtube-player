@@ -15,7 +15,7 @@
                 </p>
             </ng-container>
         </ng-container>
-        <p class="video-item_title">{{videoItem.title}}</p>
+        <p class="video-item_title" [innerHTML]="videoItem.title"></p>
         <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
     </div>
     <app-buttons [videoIndex]="videoIndex" [listID]="listID" [isPlaylist]="isPlaylist" [callBack]="callBack"></app-buttons>
