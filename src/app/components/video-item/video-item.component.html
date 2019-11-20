@@ -1,8 +1,9 @@
 <ng-container [ngSwitch]="videoType">
     <app-video-item-list *ngSwitchCase="'list'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID"
-        [isPlaylist]="isPlaylist" [size]="size"></app-video-item-list>
-    <app-video-item-grid *ngSwitchCase="'grid'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID">
+        [isPlaylist]="isPlaylist" [size]="size" [callBack]="callBack"></app-video-item-list>
+    <app-video-item-grid *ngSwitchCase="'grid'" [videoItem]="videoItem" [videoIndex]="videoIndex" [listID]="listID"
+        [callBack]="callBack">
     </app-video-item-grid>
     <app-video-item-enhanced *ngSwitchCase="'enhanced'" [videoItem]="videoItem" [videoIndex]="videoIndex"
-        [listID]="listID"></app-video-item-enhanced>
+        [listID]="listID" [callBack]="callBack"></app-video-item-enhanced>
 </ng-container>

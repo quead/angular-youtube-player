@@ -9,7 +9,7 @@
         <div class="player">
             <div *ngIf="globals.thumbnails" class="youtube-player-cover"
                 [ngStyle]="{'background-image': 'url(' + globals.currentVideo.thumbnails.high +')'}">
-                <button type="button" class="btn btn-inverse btn-small" (click)="toggleFullscreen()"><span
+                <button type="button" class="btn btn-inverse btn-small btn-round" (click)="toggleFullscreen()"><span
                         class="icon icon-mr ion-ios-arrow-up"></span>Video</button>
             </div>
             <div class="player-container">

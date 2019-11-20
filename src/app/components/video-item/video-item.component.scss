@@ -5,7 +5,6 @@
     border-radius: var(--border-radius);
     overflow: hidden;
     position: relative;
-    transition: var(--default-transition);
 
     &.small {
         margin: 0;
@@ -31,7 +30,6 @@
     color: rgb(var(--c-white));
     padding: 5px;
     position: relative;
-    transition: var(--default-transition);
     outline: 0;
 
     &_image {

@@ -20,8 +20,7 @@
         </ng-container>
         <ng-container *ngIf="!globals.loadingState.playlist">
             <div cdkDropList class="playlist" (cdkDropListDropped)="dropPlaylistItem($event)">
-                <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index"
-                    cdkDragLockAxis="y" cdkDragBoundary=".playlist" cdkDrag
+                <div class="video" *ngFor="let playlistVideo of globals.playlistVideos; let i = index" cdkDrag
                     [cdkDragDisabled]="globals.playlistVideos.length <= 1 || globals.isTempSessionActive">
                     <app-video-item [videoIndex]="i" [videoItem]="playlistVideo" [listID]="3" [isPlaylist]="true"
                         size="small"></app-video-item>
@@ -39,7 +38,7 @@
                     <img src="{{ globals.playlistVideos[globals.modalPlaylistItem].thumbnails.medium }}"
                         alt="{{ globals.playlistVideos[globals.modalPlaylistItem].title }}" />
                 </ng-container>
-                <p>{{globals.playlistVideos[globals.modalPlaylistItem].title}}</p>
+                <p [innerHTML]="globals.playlistVideos[globals.modalPlaylistItem].title"></p>
             </div>
         </ng-container>
         <ng-container *ngIf="!globals.playlistVideos[globals.modalPlaylistItem]">
