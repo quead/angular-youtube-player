@@ -24,7 +24,6 @@ export class GlobalsService {
 	categories: any;
 	currentCategory = 'all';
 	categoriesBlocked = ['19', '22', '25', '27', '29'];
-	channel: any;
 
 	videoItemIDvalue: any;
 
