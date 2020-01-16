@@ -8,6 +8,7 @@ export class NotifyService {
 		enabled: false,
 		message: 'No message',
 	};
+	timer: any;
 
 	// Playlist 0 - 10
 	// Settings 10 - 20
@@ -38,11 +39,12 @@ export class NotifyService {
 		38: 'The name is empty or is used.'
 	};
 
-	constructor() {}
+	constructor() { }
 
 	triggerNotify(messageCode: number) {
 		this.defaults.enabled = true;
 		this.defaults.message = this.copies[messageCode];
-		setTimeout(() => (this.defaults.enabled = false), 3000);
+		clearTimeout(this.timer);
+		this.timer = setTimeout(() => (this.defaults.enabled = false), 3000);
 	}
 }
