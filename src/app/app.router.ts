@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { HistoryComponent } from './components/history/history.component';
 import { AboutComponent } from './components/about/about.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { CategoryComponent } from './components/category/category.component';
+import { FeedComponent } from './components/feed/feed.component';
 
 const routes: Routes = [
-	{ path: 'home', component: CategoryComponent },
+	{ path: 'home', component: FeedComponent },
 	{ path: 'history', component: HistoryComponent },
 	{ path: 'about', component: AboutComponent },
 	{ path: 'settings', component: SettingsComponent },
@@ -17,4 +17,4 @@ const routes: Routes = [
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
