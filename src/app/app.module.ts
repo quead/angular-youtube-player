@@ -43,6 +43,7 @@ import { VideoItemEnhancedComponent } from './components/video-item/video-item-e
 import { VideoItemGridComponent } from './components/video-item/video-item-grid/video-item-grid.component';
 import { VideoItemListComponent } from './components/video-item/video-item-list/video-item-list.component';
 import { PlayerMiniComponent } from './components/player-mini/player-mini.component';
+import { FeedComponent } from './components/feed/feed.component';
 
 const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 
@@ -77,7 +78,8 @@ const config: SocketIoConfig = { url: environment.serverURL, options: {} };
 		VideoItemEnhancedComponent,
 		VideoItemGridComponent,
 		VideoItemListComponent,
-		PlayerMiniComponent
+		PlayerMiniComponent,
+		FeedComponent
 	],
 	bootstrap: [AppComponent],
 	providers: [
