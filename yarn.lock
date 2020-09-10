@@ -10,34 +10,34 @@
     "@angular-devkit/core" "8.3.23"
     rxjs "6.4.0"
 
-"@angular-devkit/architect@0.803.28":
-  version "0.803.28"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.803.28.tgz#f5f05d429aaa6a4d6a6cfe5546b41d18726463ef"
-  integrity sha512-+2fMwMintkZ7e1Yu8UKVVL8I8pJoPuVjKf0bXxFDaWUMHmgLjYPKXg+QZKdPj5FF+TfmOc+q2LJxVlC4wPeUAg==
+"@angular-devkit/architect@0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.803.29.tgz#0399969087ac77876b8e429cb26eebd20596607b"
+  integrity sha512-yHBud/fZHTelX24yjQg5lefZrfIebruoFTGeOwF0JdX8+KiHcTIxS4LOnUTYriasfHarcHRFXBAV/bRm+wv5ow==
   dependencies:
-    "@angular-devkit/core" "8.3.28"
+    "@angular-devkit/core" "8.3.29"
     rxjs "6.4.0"
 
-"@angular-devkit/build-angular@~0.803.27":
-  version "0.803.28"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.803.28.tgz#2b25ac6c60b86eeff5c9e0ca0f5f0aee9e74ddc8"
-  integrity sha512-BW2R2W8rq8IKYFtlZNAXirKZnQT2HPde2asQFkjUTfwo4E+/zH0cLR42Crp0MARa38vM3xNhnkoVUKpuTtGHEg==
+"@angular-devkit/build-angular@~0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-0.803.29.tgz#4cc2ecb7c4ca48389f05d1e05d4708f82c8c7767"
+  integrity sha512-XAgfP1gi0rEJ3oVt+8ipvS5RfPNbeK5r2n8Ll2H3xkKjU0p1PN8+S6/0XVBtmMfeQ06SJWEAKFcAYqrxXhVTzw==
   dependencies:
-    "@angular-devkit/architect" "0.803.28"
-    "@angular-devkit/build-optimizer" "0.803.28"
-    "@angular-devkit/build-webpack" "0.803.28"
-    "@angular-devkit/core" "8.3.28"
+    "@angular-devkit/architect" "0.803.29"
+    "@angular-devkit/build-optimizer" "0.803.29"
+    "@angular-devkit/build-webpack" "0.803.29"
+    "@angular-devkit/core" "8.3.29"
     "@babel/core" "7.8.7"
     "@babel/preset-env" "7.8.7"
-    "@ngtools/webpack" "8.3.28"
-    ajv "6.10.2"
+    "@ngtools/webpack" "8.3.29"
+    ajv "6.12.3"
     autoprefixer "9.6.1"
     browserslist "4.10.0"
     cacache "12.0.2"
     caniuse-lite "1.0.30001035"
     circular-dependency-plugin "5.2.0"
     clean-css "4.2.1"
-    copy-webpack-plugin "6.0.2"
+    copy-webpack-plugin "6.0.3"
     core-js "3.6.4"
     coverage-istanbul-loader "2.0.3"
     file-loader "4.2.0"
@@ -80,10 +80,10 @@
     webpack-subresource-integrity "1.1.0-rc.6"
     worker-plugin "3.2.0"
 
-"@angular-devkit/build-optimizer@0.803.28":
-  version "0.803.28"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.803.28.tgz#69e81a7d2c55b5f8cbdb9305c0c8fcc0a4700fa9"
-  integrity sha512-Mn7gLiaiokXF2wIJkrVSN81cZ2SP9ETHnjDuQ+rn+J44pAeCu9yOwRrr1SPaf2XGCjrXWtglq29YR41V/D+zrg==
+"@angular-devkit/build-optimizer@0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.803.29.tgz#91c033e6ab3313d338ec9c3d4c40d64ce1b324bc"
+  integrity sha512-E/MXtKc3oaP7UvQm0g4ayfH8ImEoQnRWseKD4jjYG6TbTIqfIyHCZRcKIr3svY28hzASbro5IZI6SugG+llvFw==
   dependencies:
     loader-utils "1.2.3"
     source-map "0.7.3"
@@ -91,13 +91,13 @@
     typescript "3.5.3"
     webpack-sources "1.4.3"
 
-"@angular-devkit/build-webpack@0.803.28":
-  version "0.803.28"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.803.28.tgz#52268ce206d489599f499381669720d2f212402e"
-  integrity sha512-TnEi8Y76HObq+ls2q0IIM2zZtf9HlrIcrcR/6QY/MidJGINO7dJlLY1W0eH4HzQjaJB5pXZ6XScQIXVK5sHpRw==
+"@angular-devkit/build-webpack@0.803.29":
+  version "0.803.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-webpack/-/build-webpack-0.803.29.tgz#ceaee658f0b71a0fee4f10b574b49e192d333a7c"
+  integrity sha512-3dJ3iEGU6AFT8VFTe72T9uNLobfd18Sq5Hz22UCCYji9K3ZyVc/bn5uXVVX+/Yj91MFtXuhOjLj7Z+XDeNy+OQ==
   dependencies:
-    "@angular-devkit/architect" "0.803.28"
-    "@angular-devkit/core" "8.3.28"
+    "@angular-devkit/architect" "0.803.29"
+    "@angular-devkit/core" "8.3.29"
     rxjs "6.4.0"
 
 "@angular-devkit/core@8.3.23":
@@ -111,12 +111,12 @@
     rxjs "6.4.0"
     source-map "0.7.3"
 
-"@angular-devkit/core@8.3.28":
-  version "8.3.28"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.28.tgz#0a733132821d916788a8ed34eff0f9149a9f3a15"
-  integrity sha512-tM0oPjzftJMdfuAuZF2EspVKtJyhtS2IQ02S7eKTZqkh5p/oVv710aND2D2IN5qdFrzpUSearx6D+Mr/Jo8jrA==
+"@angular-devkit/core@8.3.29":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.29.tgz#3477edd6458653f83e6d78684b100c1bef81382f"
+  integrity sha512-4jdja9QPwR6XG14ZSunyyOWT3nE2WtZC5IMDIBZADxujXvhzOU0n4oWpy6/JVHLUAxYNNgzLz+/LQORRWndcPg==
   dependencies:
-    ajv "6.10.2"
+    ajv "6.12.3"
     fast-json-stable-stringify "2.0.0"
     magic-string "0.25.3"
     rxjs "6.4.0"
@@ -1085,12 +1085,12 @@
   resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha1-JlIL8Jq+SlZEzVQU43ElqJVCQd0=
 
-"@ngtools/webpack@8.3.28":
-  version "8.3.28"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-8.3.28.tgz#3164cd136a6c4fd884edee52a731633bfbb86d65"
-  integrity sha512-AZsiGNRQRxuNcZX8tW95rhKtXwL6lfhyFAoLoRQY0ILrk24famDSBjUtnMcGMH92rzO1RLjlPOEhsVnFvsrjNA==
+"@ngtools/webpack@8.3.29":
+  version "8.3.29"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-8.3.29.tgz#7b6984cdccd633dd687e9413a89a2d9e1360f76c"
+  integrity sha512-7uB7dlAHR7RmxcQCYidnWRR1tFRJq7CzI+MM3725ibAvi4HnM5viC/HnKRTK7V+3iS1C0l0u0Gyo/769NsUDTQ==
   dependencies:
-    "@angular-devkit/core" "8.3.28"
+    "@angular-devkit/core" "8.3.29"
     enhanced-resolve "4.1.0"
     rxjs "6.4.0"
     tree-kill "1.2.2"
@@ -1886,7 +1886,7 @@ ajv@6.10.2, ajv@^6.1.0, ajv@^6.10.2, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^6.12.2:
+ajv@6.12.3, ajv@^6.12.2:
   version "6.12.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
   integrity sha512-4K0cK3L1hsqk9xIb2z9vs/XU+PGJZ9PNpJRDS9YLzmNdX6jmVPfamLvTJr0aDAusnHyCHO6MjzlkAsgtqp9teA==
@@ -3231,21 +3231,21 @@ copy-descriptor@^0.1.0:
   resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
-copy-webpack-plugin@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-6.0.2.tgz#10efc6ad219a61acbf2f5fb50af83da38431bc34"
-  integrity sha512-9Gm8X0c6eXlKnmltMPFCBeGOKjtcRIyTt4VaO3k1TkNgVTe5Ov2lYsYVuyLp0kp8DItO3apewflM+1GYgh6V2Q==
+copy-webpack-plugin@6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-6.0.3.tgz#2b3d2bfc6861b96432a65f0149720adbd902040b"
+  integrity sha512-q5m6Vz4elsuyVEIUXr7wJdIdePWTubsqVbEMvf1WQnHGv0Q+9yPRu7MtYFPt+GBOXRav9lvIINifTQ1vSCs+eA==
   dependencies:
     cacache "^15.0.4"
-    fast-glob "^3.2.2"
+    fast-glob "^3.2.4"
     find-cache-dir "^3.3.1"
     glob-parent "^5.1.1"
     globby "^11.0.1"
     loader-utils "^2.0.0"
     normalize-path "^3.0.0"
-    p-limit "^2.3.0"
+    p-limit "^3.0.1"
     schema-utils "^2.7.0"
-    serialize-javascript "^3.1.0"
+    serialize-javascript "^4.0.0"
     webpack-sources "^1.4.3"
 
 core-js-compat@^3.6.2:
@@ -4082,9 +4082,9 @@ event-loop-spinner@^2.0.0:
     tslib "^1.10.0"
 
 eventemitter3@^4.0.0:
-  version "4.0.0"
-  resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/eventemitter3/-/eventemitter3-4.0.0.tgz#d65176163887ee59f386d64c82610b696a4a74eb"
-  integrity sha1-1lF2FjiH7lnzhtZMgmELaWpKdOs=
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
+  integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
 
 events@^3.0.0:
   version "3.1.0"
@@ -4236,7 +4236,7 @@ fast-deep-equal@^3.1.1:
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
-fast-glob@^3.0.3, fast-glob@^3.1.1, fast-glob@^3.2.2:
+fast-glob@^3.0.3, fast-glob@^3.1.1, fast-glob@^3.2.2, fast-glob@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.4.tgz#d20aefbf99579383e7f3cc66529158c9b98554d3"
   integrity sha512-kr/Oo6PX51265qeuCYsyGypiO5uJFgBS0jksyG7FUeCyQzNwYnzrNIMR1NXfkZXsMYXYLRAHgISHBz8gQcxKHQ==
@@ -4415,11 +4415,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.9.0"
-  resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/follow-redirects/-/follow-redirects-1.9.0.tgz#8d5bcdc65b7108fe1508649c79c12d732dcedb4f"
-  integrity sha1-jVvNxltxCP4VCGScecEtcy3O208=
-  dependencies:
-    debug "^3.0.0"
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
+  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -5007,9 +5005,9 @@ http-proxy-middleware@0.19.1:
     micromatch "^3.1.10"
 
 http-proxy@^1.13.0, http-proxy@^1.17.0:
-  version "1.18.0"
-  resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/http-proxy/-/http-proxy-1.18.0.tgz#dbe55f63e75a347db7f3d99974f2692a314a6a3a"
-  integrity sha1-2+VfY+daNH2389mZdPJpKjFKajo=
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.18.1.tgz#401541f0534884bbf95260334e72f88ee3976549"
+  integrity sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==
   dependencies:
     eventemitter3 "^4.0.0"
     follow-redirects "^1.0.0"
@@ -7288,6 +7286,13 @@ p-limit@^2.3.0:
   dependencies:
     p-try "^2.0.0"
 
+p-limit@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-3.0.2.tgz#1664e010af3cadc681baafd3e2a437be7b0fb5fe"
+  integrity sha512-iwqZSOoWIW+Ew4kAGUlN16J4M7OB3ysMLSZtnhmqx7njIHFPlxWBX8xo3lVTyFVq6mI/lL9qt2IsN1sHwaxJkg==
+  dependencies:
+    p-try "^2.0.0"
+
 p-locate@^3.0.0:
   version "3.0.0"
   resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/p-locate/-/p-locate-3.0.0.tgz#322d69a05c0264b25997d9f40cd8a891ab0064a4"
@@ -8250,7 +8255,7 @@ require-main-filename@^2.0.0:
 
 requires-port@^1.0.0:
   version "1.0.0"
-  resolved "http://artifactory.server.traveljigsaw.com/artifactory/api/npm/npm-virtual/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
 resolve-alpn@^1.0.0:
@@ -8583,6 +8588,13 @@ serialize-javascript@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-3.1.0.tgz#8bf3a9170712664ef2561b44b691eafe399214ea"
   integrity sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
+  dependencies:
+    randombytes "^2.1.0"
+
+serialize-javascript@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-4.0.0.tgz#b525e1238489a5ecfc42afacc3fe99e666f4b1aa"
+  integrity sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
   dependencies:
     randombytes "^2.1.0"
 
