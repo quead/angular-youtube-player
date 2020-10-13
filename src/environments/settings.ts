@@ -19,7 +19,7 @@ export const defaultSettings = {
 	api_settings: {
 		key: {
 			name: 'Api key',
-			value: 'AIzaSyDcMvWlqPTHg7rHm-CTVXJwpaVGXKu7cBc'
+			value: 'AIzaSyASwFWd3iHLurS9bYHBcLIzwg286Owbkq0'
 		},
 		region: {
 			name: 'Country trending',
