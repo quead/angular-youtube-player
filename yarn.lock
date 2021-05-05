@@ -5769,16 +5769,16 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ngx-socket-io@^3.0.1:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/ngx-socket-io/-/ngx-socket-io-3.2.0.tgz#afd9e6f8937e4b6d4cf2492e29cc8f01cc5d1b44"
-  integrity sha512-gxphw9yiHvnCavZutCRG6JCYNeguIon5Fxo4+8VCnMThtEy45vrZ3UmczR1ZH9vjJTkoaAS8YtqG8TdqDu5DkQ==
+ngx-socket-io@^3.3.0:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ngx-socket-io/-/ngx-socket-io-3.3.1.tgz#1e8b812d9430d09f3b0cce15999fdd85301f7c73"
+  integrity sha512-4454qTM1a1yKeQvNmXvJKcrjtqyaDLO9piMjOw4fbSJrCtF1TuUcbRQNB3NKSeLpNQPMcfnw66yRuPgNS2FblQ==
   dependencies:
     core-js "^3.0.0"
     reflect-metadata "^0.1.10"
     socket.io "^2.2.0"
     socket.io-client "^2.2.0"
-    tslib "^1.9.0"
+    tslib "^2.0.0"
     zone.js "^0.10.1"
 
 nice-try@^1.0.4:
