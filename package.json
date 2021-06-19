@@ -28,7 +28,7 @@
     "ngx-socket-io": "^3.0.1",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.4.0",
-    "tslib": "^2.0.0",
+    "tslib": "^2.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
