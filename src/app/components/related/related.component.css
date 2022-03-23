@@ -1,0 +1,48 @@
+#related-video-list .leftRs,
+#related-video-list .rightRs {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  -webkit-appearance: none;
+  background: transparent;
+  color: rgb(var(--c-white));
+  background-color: rgb(var(--c-black));
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: var(--default-transition);
+}
+#related-video-list .leftRs:hover,
+#related-video-list .rightRs:hover {
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+}
+#related-video-list .leftRs:active,
+#related-video-list .rightRs:active {
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+  box-shadow: 0 0 0 3px rgba(var(--c-white), 0.3);
+}
+#related-video-list .leftRs {
+  left: 20px;
+}
+#related-video-list .rightRs {
+  right: 20px;
+}
+#related-video-list .ngucarousel {
+  position: relative;
+  margin: 0 -10px;
+  padding: 0 30px;
+}
+#related-video-list .ngucarousel-inner {
+  margin: 0 -15px;
+  padding: 0 10px;
+}
+#related-video-list .ngu-touch-container {
+  overflow: hidden;
+}
+#related-video-list .ngucarouselPointDefault {
+  display: none;
+}

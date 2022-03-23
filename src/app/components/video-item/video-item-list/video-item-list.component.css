@@ -1,0 +1,5 @@
+.video-item.small .video-item_image {
+  height: 60px;
+  width: 60px;
+  flex: 0 0 60px;
+}

@@ -5,7 +5,7 @@
         <app-category-badge [categoryID]="videoItem.categoryId"></app-category-badge>
         <p class="video-item_title" [innerHTML]="videoItem.title"></p>
         <p class="video-item_publisher">{{videoItem.channelTitle}}</p>
-        <div class="stats-container" *ngIf="videoItem.id?.length > 0">
+        <div class="stats-container" *ngIf="videoItem.id">
             <p class="stats-views"><span class="icon ion-ios-play-circle"></span>
                 {{videoItem.stats.views | shortNum}}</p>
             <p class="stats-likes"><span class="icon ion-ios-thumbs-up"></span>

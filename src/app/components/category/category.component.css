@@ -1,0 +1,11 @@
+.categories {
+  display: flex;
+  position: relative;
+}
+
+.categories label {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+}
