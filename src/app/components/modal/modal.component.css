@@ -1,0 +1,98 @@
+.modal-overlay {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+.modal-background-overlay {
+  background-color: rgba(var(--c-black), 0.6);
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  left: 0;
+  top: 0;
+  transition: var(--default-transition);
+}
+.modal-container {
+  position: absolute;
+  background-color: rgb(var(--c-box));
+  color: rgb(var(--c-white));
+  padding: 40px 30px 20px;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  max-width: 450px;
+  min-width: 320px;
+  border-radius: var(--border-radius);
+  overflow-y: auto;
+  max-height: 100%;
+  transition: var(--default-transition);
+}
+.modal-container h3,
+.modal-container h2 {
+  margin-bottom: 20px;
+}
+.modal-content {
+  padding: 0;
+}
+.modal-content img {
+  width: 200px;
+  height: auto;
+}
+.modal-content p {
+  margin: 5px 0;
+}
+.modal-close {
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  background: transparent;
+  padding: 0;
+  border: none;
+  transition: var(--default-transition);
+}
+.modal-close span {
+  color: rgb(var(--c-white));
+  opacity: 1;
+}
+.modal-close span:active,
+.modal-close span:hover {
+  opacity: 0.8;
+}
+.modal-buttons {
+  display: block;
+  width: 100%;
+}
+.modal-buttons .btn {
+  display: block;
+  margin: 5px auto;
+  padding: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 13px 10px;
+  font-size: var(--font-small);
+  width: 70%;
+  border-radius: calc(var(--border-radius) * 3);
+}
+.modal .modal-container {
+  top: 60%;
+  opacity: 0;
+}
+.modal .modal-background-overlay {
+  opacity: 0;
+}
+.modal.active .modal-container {
+  top: 50%;
+  opacity: 1;
+}
+.modal.active .modal-background-overlay {
+  opacity: 1;
+}

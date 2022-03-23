@@ -1,60 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { YoutubeGetVideo } from '../../services/youtube.service';
-import { GlobalsService } from '../../services/globals.service';
-import { SharedService } from '../../services/shared.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { GlobalsService } from 'src/app/services/globals.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { YoutubeService } from 'src/app/services/youtube.service';
 
 @Component({
-	selector: 'app-search',
-	templateUrl: 'search.component.html',
-	styleUrls: ['search.component.scss']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-	searchForm: FormGroup;
-	noResults = false;
-	searchOverlay = false;
+  searchForm!: FormGroup;
+  noResults = false;
+  searchOverlay = false;
 
-	constructor(
-		private youtube: YoutubeGetVideo,
-		public globals: GlobalsService,
-		private shared: SharedService
-	) {}
+  constructor(
+    private youtube: YoutubeService,
+    public globals: GlobalsService,
+    private shared: SharedService
+  ) {}
 
-	ngOnInit() {
-		console.log('search');
-		this.initSearchInput();
-	}
+  ngOnInit() {
+    console.log('search');
+    this.initSearchInput();
+  }
 
-	async searchVideo(query: any) {
-		this.searchOverlay = this.searchForm.valid && this.searchForm.controls.searchInput.value.length > 0;
-		const res = await this.youtube.searchVideo(query);
-		this.shared.convertVideoObject(res['items'], 'searchedVideos');
-		if (res['items'].length === 0) {
-			this.noResults = true;
-		} else {
-			this.noResults = false;
-		}
-	}
+  async searchVideo(query: any) {
+    this.searchOverlay =
+      this.searchForm.valid &&
+      this.searchForm.controls['searchInput'].value.length > 0;
+    // TODO
+    const res: any = await this.youtube.searchVideo(query);
+    console.log('>>>>>>>>', res);
+    this.shared.convertVideoObject(res['items'], 'searchedVideos');
+    if (res['items'].length === 0) {
+      this.noResults = true;
+    } else {
+      this.noResults = false;
+    }
+  }
 
-	initSearchInput() {
-		this.searchForm = new FormGroup({
-			searchInput: new FormControl('', [
-				Validators.required,
-				Validators.minLength(1)
-			])
-		});
+  initSearchInput() {
+    this.searchForm = new FormGroup({
+      searchInput: new FormControl('', [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+    });
 
-		this.searchForm.valueChanges.subscribe(form => {
-			this.searchVideo(form.searchInput);
-		});
-	}
+    this.searchForm.valueChanges.subscribe((form) => {
+      this.searchVideo(form.searchInput);
+    });
+  }
 
-	clearSearch() {
-		this.searchForm.reset();
-		this.globals.searchedVideos = null;
-	}
+  clearSearch() {
+    this.searchForm.reset();
+    this.globals.searchedVideos = [];
+  }
 
-	onSubmit(event: Event) {
-		event.preventDefault();
-	}
+  onSubmit(event: Event) {
+    event.preventDefault();
+  }
 }

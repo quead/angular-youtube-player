@@ -1,0 +1,711 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* --- variables.scss --- */
+
+/* --- Fonts --- */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 100;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff");
+}
+
+/** Thin */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 200;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff");
+}
+
+/** Regular */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+/** Medium */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 500;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-medium-webfont.woff");
+}
+
+/** Semi Bold */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 600;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff");
+}
+
+/** Bold */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 700;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+}
+
+:root {
+  --c-base: 0, 0, 0;
+  --c-box: 17, 17, 17;
+  --c-primary: 255, 0, 0;
+  --c-primary-active: 212, 34, 34;
+  --c-primary-active-focus: 187, 34, 34;
+
+  --c-danger: 255, 0, 0;
+  --c-danger-active: 212, 34, 34;
+  --c-secondary: 26, 133, 253;
+  --c-secondary-active: 2, 91, 191;
+  --c-success: 50, 215, 75;
+  --c-success-active: 50, 215, 75;
+  --c-warning: 244, 164, 59;
+
+  --c-white: 255, 255, 255;
+  --c-black: 0, 0, 0;
+
+  --border-radius: 10px;
+
+  --font-small: 12px;
+  --font-medium: 14px;
+  --font-large: 16px;
+
+  --default-transition: all 0.1s ease-out;
+}
+
+/* --- end variables.scss --- */
+
+/* --- global.scss --- */
+
+* {
+  box-sizing: border-box;
+  -webkit-app-region: no-drag;
+  user-select: none;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+body {
+  position: relative;
+  background-color: rgb(var(--c-base));
+  font-family: "San Francisco";
+  color: rgb(var(--c-white));
+  font-weight: 400;
+  font-size: var(--font-medium);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  -webkit-app-region: no-drag;
+}
+a,
+button {
+  -webkit-app-region: no-drag;
+  outline: 0;
+  cursor: pointer;
+}
+a {
+  color: rgb(var(--c-primary));
+}
+a:active {
+  color: rgb(var(--c-primary-active));
+}
+p {
+  margin: 0;
+}
+app-search {
+  width: 100%;
+  margin-left: 40px;
+}
+
+/* --- end global.scss --- */
+
+/* --- buttons.scss --- */
+
+.btn {
+  display: inline-flex;
+  background-color: rgba(var(--c-white), 0.2);
+  color: rgb(var(--c-white));
+  font-size: var(--font-medium);
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  align-items: center;
+  user-select: none;
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: var(--default-transition);
+  outline: 0;
+  line-height: 1;
+}
+.btn:active {
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+  box-shadow: 0 0 0 4px rgba(var(--c-white), 0.3);
+}
+.btn-block {
+  width: 100%;
+  display: block;
+}
+.btn-round {
+  border-radius: 50px;
+}
+.btn-link {
+  background-color: transparent;
+  color: rgba(var(--c-white), 0.3);
+}
+.btn-link:hover {
+  color: rgba(var(--c-white), 0.6);
+}
+.btn-link:active {
+  background-color: transparent;
+  color: rgb(var(--c-white));
+  box-shadow: none;
+}
+.btn-small {
+  padding: 5px 10px;
+}
+.btn-primary {
+  background-color: rgba(var(--c-primary), 0.2);
+  color: rgb(var(--c-primary));
+}
+.btn-primary:hover {
+  background-color: rgb(var(--c-primary));
+  color: rgb(var(--c-white));
+}
+.btn-primary:active {
+  background-color: rgb(var(--c-primary));
+  color: rgb(var(--c-white));
+  box-shadow: 0 0 0 4px rgba(var(--c-primary), 0.3);
+}
+.btn-inverse {
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+}
+.btn-inverse:active {
+  background-color: rgb(var(--c-black));
+  color: rgb(var(--c-white));
+  box-shadow: 0 0 0 4px rgba(var(--c-black), 0.3);
+}
+.btn-secondary {
+  background-color: rgba(var(--c-secondary), 0.2);
+  color: rgb(var(--c-secondary));
+}
+.btn-secondary:active {
+  background-color: rgb(var(--c-secondary));
+  color: rgb(var(--c-white));
+  box-shadow: 0 0 0 4px rgba(var(--c-secondary), 0.3);
+}
+.btn-warning {
+  color: rgb(var(--c-warning));
+  background-color: rgba(var(--c-warning), 0.2);
+}
+.btn-warning:active {
+  color: rgb(var(--c-black));
+  background-color: rgb(var(--c-warning));
+  box-shadow: 0 0 0 4px rgba(var(--c-warning), 0.3);
+}
+.btn-outline {
+  background-color: transparent;
+  border: 3px solid rgb(var(--c-white));
+}
+.btn-outline:hover,
+.btn-outline:active {
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+}
+
+/* --- end buttons.scss --- */
+
+/* --- grid.scss --- */
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+@media (max-width: 575px) {
+  .container {
+    width: auto;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    width: 540px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+.col {
+  position: relative;
+}
+@media screen and (min-width: 768px) {
+  .col-1 {
+    width: 100%;
+  }
+  .col-2 {
+    width: 25%;
+  }
+  .col-3 {
+    width: 33.3333%;
+  }
+  .col-4 {
+    width: 50%;
+  }
+  .col-5 {
+    width: 66.6666%;
+    padding-left: 15px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .col-1,
+  .col-3,
+  .col-5 {
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+}
+
+/* --- end grid.scss --- */
+
+/* --- common.scss --- */
+
+@keyframes fadeIn {
+  0% {
+    top: -41px;
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  50% {
+    top: 51px;
+    opacity: 0.5;
+    transform: translateX(-50%) scale(0.9);
+  }
+  100% {
+    top: 51px;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+.text-center {
+  text-align: center;
+  justify-content: center;
+}
+.text-center-block {
+  text-align: center;
+  justify-content: center;
+  padding: 15px 0;
+}
+.hide {
+  display: none;
+}
+.hide-input {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+.arrow-up {
+  width: 0px;
+  height: 0px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid rgb(var(--c-box));
+}
+h2 {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 22px;
+  display: inline-block;
+  width: 100%;
+}
+.notif {
+  position: fixed;
+  top: -41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(var(--c-white));
+  color: rgb(var(--c-black));
+  font-size: var(--font-medium);
+  box-shadow: 0 5px 10px 10px rgba(var(--c-black), 0.1);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--default-transition);
+  z-index: 9999;
+}
+.notif p {
+  margin: 0;
+  display: inline-block;
+}
+.notif .icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+.notif.active {
+  top: 51px;
+  opacity: 1;
+  visibility: visible;
+  animation-duration: 0.2s;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
+}
+.app-container {
+  background-color: rgb(var(--c-box));
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+  width: 100%;
+}
+.app-head {
+  position: relative;
+  margin: 0 0 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.app-head .btn {
+  text-transform: capitalize;
+}
+.app-head .btn + .btn {
+  margin-right: 5px;
+}
+select option {
+  color: rgb(var(--c-black));
+}
+select,
+input[type="text"] {
+  -webkit-appearance: none;
+  display: block;
+  padding: 10px 15px;
+  margin: 0;
+  position: relative;
+  background-color: transparent;
+  border: 2px solid rgba(var(--c-white), 0.2);
+  color: rgb(var(--c-white));
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: var(--font-medium);
+  z-index: 1;
+  transition: var(--default-transition);
+  outline: 0;
+}
+select::-webkit-input-placeholder,
+input[type="text"]::-webkit-input-placeholder {
+  color: rgba(var(--c-white), 0.8);
+}
+select:focus,
+input[type="text"]:focus {
+  border-color: rgba(var(--c-white), 0.8);
+  box-shadow: 0px 0px 0px 4px rgba(var(--c-white), 0.2);
+}
+select:focus + .search-icon,
+input[type="text"]:focus + .search-icon {
+  color: rgba(0, 1, 0);
+}
+select:disabled,
+input[type="text"]:disabled {
+  background-color: rgb(var(--c-base));
+  cursor: no-drop;
+  user-select: none;
+}
+
+/* --- end common.scss --- */
+
+/* --- icons.scss --- */
+
+.icon {
+  font-size: var(--font-small);
+  line-height: 10px;
+  display: inline-block;
+  font-family: "Ionicons";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-rendering: auto;
+  text-transform: none;
+}
+.icon-xl {
+  font-size: 32px;
+  line-height: 24px;
+}
+.icon-lg {
+  font-size: 24px;
+  line-height: 18px;
+}
+.icon-md {
+  font-size: 16px;
+  line-height: 14px;
+}
+.icon-mr {
+  margin-right: 5px;
+}
+.icon-ml {
+  margin-left: 5px;
+}
+
+/* --- end icons.scss --- */
+
+/* --- header.scss --- */
+
+header {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  padding: 10px 0;
+  position: relative;
+  z-index: 3;
+}
+@media (max-width: 575px) {
+  header {
+    width: auto;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  header {
+    width: 540px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  header {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  header {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  header {
+    width: 1140px;
+  }
+}
+#logo {
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: var(--default-transition);
+}
+#logo small {
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 0;
+}
+#logo a {
+  -webkit-user-drag: none;
+}
+
+/* TODO */
+.logo-svg {
+  display: block;
+}
+.github-svg {
+  display: block;
+  opacity: 0.8;
+  transition: var(--default-transition);
+  filter: contrast(0.8);
+}
+/* END TODO */
+#github {
+  text-indent: -99999px;
+  overflow: hidden;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+#github:hover .github-svg {
+  opacity: 1;
+}
+@media screen and (max-width: 767px) {
+  header {
+    flex-wrap: wrap;
+    padding: 20px 15px;
+  }
+  header #logo {
+    margin: 0 auto 0 0;
+  }
+  app-search {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+}
+
+/* --- end header.scss --- */
+
+/* --- navbar.scss --- */
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+nav li {
+  padding-left: 0;
+  list-style: none;
+  margin-left: 15px;
+}
+nav a {
+  display: block;
+  text-decoration: none;
+  color: rgba(var(--c-white), 0.5);
+  -webkit-user-drag: none;
+  position: relative;
+  transition: var(--default-transition);
+  font-size: var(--font-medium);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+nav a.is-active,
+nav a:active {
+  color: rgb(var(--c-white));
+}
+nav a.is-active .description,
+nav a:active .description {
+  text-shadow: none;
+}
+@media screen and (min-width: 768px) {
+  nav {
+    margin-left: 45px;
+  }
+}
+@media screen and (max-width: 767px) {
+  nav {
+    width: 100%;
+    margin-top: 15px;
+  }
+  nav ul {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  nav ul li {
+    margin: 0 5px;
+  }
+  nav a {
+    font-size: var(--font-large);
+  }
+}
+
+/* --- end navbar.scss --- */
+
+/* --- loading.scss --- */
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -800px 0;
+  }
+  100% {
+    background-position: 800px 0;
+  }
+}
+.loading-anim {
+  background-color: rgb(var(--c-base));
+  background-size: 800px 104px;
+  border-radius: var(--border-radius);
+}
+.loading-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding: 0 25px;
+}
+.loading-list .loading-small-box {
+  margin-top: 10px;
+}
+.loading-list .loading-box:last-child {
+  margin-right: 0;
+}
+.loading-video-item {
+  display: flex;
+  margin-bottom: 5px;
+}
+.loading-video-item .loading-featured {
+  height: 70px;
+  width: 80px;
+  margin-right: 0;
+}
+.loading-video-item .loading-medium-box {
+  height: 70px;
+  margin-left: 10px;
+}
+.loading-feed-list {
+  height: 320px;
+  width: calc(33.333% - 10px);
+  display: block;
+  margin: 0 5px 10px;
+}
+.loading-box {
+  height: 156px;
+  width: 100%;
+  margin-right: 10px;
+}
+.loading-medium-box {
+  height: 110px;
+  width: 100%;
+  margin: 0 auto;
+}
+.loading-small-box {
+  height: 30px;
+  width: 100%;
+  margin: 0 auto;
+}
+.loading-featured.main-player-loading {
+  height: 205px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .loading-feed-list {
+    width: calc(50% - 10px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .loading-feed-list {
+    width: calc(100% - 10px);
+    height: 190px;
+  }
+  .loading-list {
+    height: 155px;
+    flex-wrap: wrap;
+  }
+  .loading-list .loading-box {
+    width: 147px;
+    margin-right: 10px;
+  }
+  .loading-list .loading-box:nth-child(4) {
+    margin-right: 0;
+  }
+}
+
+/* --- end loading.scss --- */

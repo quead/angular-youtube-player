@@ -1,0 +1,123 @@
+app-room {
+  display: block;
+}
+.room-container {
+  display: inline-block;
+  width: 100%;
+}
+.room-container p {
+  margin: 2px 0;
+}
+.session-section {
+  margin-bottom: 10px;
+}
+.session-section input[type="text"]::-webkit-input-placeholder {
+  color: rgba(var(--c-white), 0.6);
+}
+.session-section input[type="text"]:focus {
+  border-color: rgba(var(--c-secondary), 0.8);
+  box-shadow: 0px 0px 0px 4px rgba(var(--c-secondary), 0.2);
+}
+.session-section .session-form {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.session-section .btn {
+  margin-left: 10px;
+}
+.session-locked-block {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 8px 0;
+}
+.session-locked-block .btn {
+  margin-left: auto;
+  margin-right: 0;
+}
+.room-info-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.room-info {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.room-info.clickable {
+  cursor: pointer;
+  background-color: rgba(var(--c-white), 0.05);
+  border-radius: var(--border-radius);
+}
+.room-info.clickable > .icon {
+  margin-left: 10px;
+}
+.room-info.clickable:hover {
+  background-color: rgba(var(--c-white), 0.04);
+}
+.room-info.clickable:active {
+  background-color: rgba(var(--c-black), 0.5);
+}
+.room-info-icon {
+  margin-right: 10px;
+  border: 2px solid rgb(var(--c-white));
+  font-size: 12px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.room-info-icon span {
+  font-size: 18px;
+}
+.room-info-number {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+.room-info-title {
+  opacity: 0.4;
+  font-weight: 300;
+}
+.guest {
+  margin: 5px 0;
+}
+.guests-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: var(--default-transition);
+  display: flex;
+  opacity: 0;
+}
+.guests-list {
+  overflow: auto;
+  max-height: 165px;
+}
+.guests-list::-webkit-scrollbar-track {
+  border-radius: 2px;
+}
+.guests-list::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+.guests-list::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: rgba(var(--c-white), 0.3);
+}
+.guests-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--c-white));
+}
+.guests-container.active {
+  max-height: 250px;
+  opacity: 1;
+}
+@media screen and (max-width: 767px) {
+  .room-container {
+    margin-top: 15px;
+  }
+}

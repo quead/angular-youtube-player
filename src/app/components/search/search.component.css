@@ -1,0 +1,113 @@
+.video-list {
+  width: 100%;
+  overflow-y: auto;
+}
+.video-list-info {
+  text-align: center;
+  margin: 5px;
+}
+.video-list::-webkit-scrollbar-track {
+  border-radius: 2px;
+}
+.video-list::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+.video-list::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: rgba(var(--c-white), 0.3);
+}
+.video-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(var(--c-white), 0.6);
+}
+#main-search {
+  width: 100%;
+  display: block;
+  position: relative;
+  color: rgb(var(--c-white));
+}
+#main-search .search-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 50%;
+  left: 15px;
+  font-size: 18px;
+  transform: translateY(-50%);
+  color: rgba(var(--c-white), 0.2);
+  cursor: pointer;
+  z-index: 2;
+  transition: var(--default-transition);
+}
+#main-search input[type="text"] {
+  width: 100%;
+  padding: 12px 35px;
+  border-radius: var(--border-radius);
+  background-color: rgba(var(--c-white), 0.05);
+  border-width: 2px;
+}
+#main-search input[type="text"]:focus + .search-icon {
+  color: rgb(var(--c-white));
+}
+#main-search .form-group {
+  position: relative;
+  z-index: 10;
+}
+#main-search .input-group {
+  position: relative;
+}
+#main-search .clear-button {
+  border: none;
+  font-size: var(--font-small);
+  background: transparent;
+  color: rgb(var(--c-white));
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  z-index: 2;
+  outline: 0;
+  transition: var(--default-transition);
+}
+#main-search.ng-invalid .clear-button {
+  transform: translateY(-50%) scale(0);
+}
+#main-search .settings {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+.search-overlay {
+  display: none;
+}
+.search-overlay.active {
+  display: block;
+}
+.search-list.arrow-up {
+  position: absolute;
+  top: 47px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+#search-video-list {
+  z-index: 10;
+  max-height: 430px;
+  background-color: rgb(var(--c-box));
+  position: absolute;
+  top: 54px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-wrap: wrap;
+}
+#search-video-list::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+#search-video-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--c-white));
+}

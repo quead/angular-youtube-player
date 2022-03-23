@@ -8,8 +8,9 @@
 </p>
 
 # About Player
-[![Version](https://img.shields.io/badge/Current%20version-v2.6.1-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
-[![Angular version](https://img.shields.io/badge/Angular%20version-10.1.5-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+
+[![Version](https://img.shields.io/badge/Current%20version-v2.6.2-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
+[![Angular version](https://img.shields.io/badge/Angular%20version-13.2.0-brightgreen.svg?style=flat)](https://github.com/quead/angular-youtube-player)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/quead/angular-youtube-player/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/quead/angular-youtube-player.svg)](https://github.com/quead/angular-youtube-player/network)
@@ -19,12 +20,13 @@ This is a simple youtube web player based on [angular-cli](https://github.com/an
 
 This player is compatible only with Chrome/webkit browsers.
 
-*The project status is RC (release candidate).*
+_The project status is RC (release candidate)._
 
 ## How to use
 
 **For development**
-1. Install [NodeJS 12.19.0+](https://nodejs.org/en/download/ "Node JS Download")
+
+1. Install [NodeJS 16.14.0+](https://nodejs.org/en/download/ "Node JS Download")
 
 2. Download/clone repository then install the player by
 
@@ -48,34 +50,40 @@ You must change inside **src/app/environments/environment.ts** your path to your
 
 2. Run inside the root folder (not in /src)
 
-Check [angular documentation](https://angular.io/cli/build 'angular cli') for other build options.
+Check [angular documentation](https://angular.io/cli/build "angular cli") for other build options.
 
 `ng build --prod=true`
 
 ## Changelog
+
 Angular YouTube Player 2.6.0
+
 - List of guests in the session
 - Minor issues fixed (RC)
 - Add mini player when you scroll
 - First video from playlist is now the current video
 
 Angular YouTube Player 2.5.2
+
 - Add category badge to feed videos and current video
 - UI updates
 - New modal component
 
 Angular YouTube Player 2.5.1
+
 - Upgrade angular to LTS (from 7 to 8)
 - Fixed repeat mode
 - Update layout for playlist / related videos
 
 Angular YouTube Player 2.5
+
 - Cleaned the project to avoid using a lot of dependencies
 - Fix the issue when you change the region didn't updated the player
 - Improved UX for playlist
 - Added client name to identify each users in the room
 
 Angular YouTube Player 2.4
+
 - Switched from firebase to json through socket.io and private server
 - Responsive layout
 - Sync player in session
@@ -84,6 +92,7 @@ Angular YouTube Player 2.4
 - You can't export/import anymore from .JSON file
 
 Angular YouTube Player 2.3.3
+
 - Fixed bugs after refactoring
 - Added session key for playlist which you can upload to cloud and download from cloud (integrated with firebase)
 - Layout update
@@ -91,15 +100,18 @@ Angular YouTube Player 2.3.3
 - Carousel added for related videos (used [ngu-carousel](https://github.com/sheikalthaf/ngu-carousel))
 
 Angular YouTube Player 2.3
+
 - Updating to LTS angular
 - Refactoring entire app services and components
 - Improved speed performance and fixed major bugs
 - New way to loading the app
 
 Angular YouTube Player 2.2
+
 - Sort playlist by drag and drop (used [ng2-dragula](https://valor-software.com/ng2-dragula/ "NG2 Dragula"))
 
 Angular YouTube Player 2.1
+
 - Categories with videos like (music, gaming, autos, films, sports, etc.)
 - Refactoring code
 - Search on specific region
@@ -107,18 +119,22 @@ Angular YouTube Player 2.1
 - UX improvements
 
 Angular YouTube Player 2.0.1
+
 - Import & export youtube playlist as .JSON file
 
 Angular YouTube Player 2.0
+
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
 
 Angular YouTube Player 1.9.2
+
 - UX improvements and fixes
 - Preparing files for 2.0
 
 Angular YouTube Player 1.9.1
+
 - Get settings.json for localstorage if your localstorage is empty
 - The playlist automatically saving, if is empty it will be populated with related videos
 - Toggle light/dark theme mode
@@ -129,6 +145,7 @@ Angular YouTube Player 1.9.1
 - Performance, UI and UX improvements and fixes
 
 Angular YouTube Player 1.9
+
 - Add/remove items from playlist, first time when is initialized It is prepopulated with related videos
 - Next/prev video from your playlist
 - Moved history to separate page
@@ -136,6 +153,7 @@ Angular YouTube Player 1.9
 - Small fixes
 
 Angular YouTube Player 1.7
+
 - Added featured video as first video from trending
 - Notifications for important actions you do
 - Removed debugging mode
@@ -143,26 +161,30 @@ Angular YouTube Player 1.7
 - Improved UI/UX for lists
 
 Angular YouTube Player 1.6
+
 - Video details for current video and trending videos like number of views, likes and dislikes
 - Share link for current video
 - Added new setting for hiding all thumbnails
 - Custom player buttons shows now only when you hide video
 
 Angular YouTube Player 1.4
+
 - History of your watched videos
 - Small fixes
 
 Angular YouTube Player 1.3
- - Show/hide video player
- - Repeat video
- - Grid/list mode for trending videos
+
+- Show/hide video player
+- Repeat video
+- Grid/list mode for trending videos
 - **Settings (you can set default from "assets/settings.json", soon will be directly from settings)**
-- *Change country for trending videos (currently only three countries, US, UK and RO)*
-- *Max results show in search (0 to 50)*
-- *YOUR_API Key*
-- *Max related videos (0 to 50)*
+- _Change country for trending videos (currently only three countries, US, UK and RO)_
+- _Max results show in search (0 to 50)_
+- _YOUR_API Key_
+- _Max related videos (0 to 50)_
 
 Angular YouTube Player 1.2
+
 - Introducing trending videos, currently default trending videos are from United States
 - Refactoring the code
 - Adding routes for future components which it will show in left navbar
@@ -171,44 +193,55 @@ Angular YouTube Player 1.2
 - Update the design to match the new features
 
 Angular YouTube Player 1.1
+
 - Adding mute/unmute functionality
 - Improved user interface and user experience
-- Adding settings functionality, the settings will get from ***assets/settings.json***
+- Adding settings functionality, the settings will get from **_assets/settings.json_**
 
 **Settings**
-- *Show/hide debugging features*
-- *Show/hide thumbnails in search*
+
+- _Show/hide debugging features_
+- _Show/hide thumbnails in search_
 
 Angular YouTube Player 1.0.2
+
 - Change volume on your video
 - Related videos
 
 Angular YouTube Player 1.0.0
+
 - Search and play video from youtube
 - Play/pause video
 - Change time of your video that you want to listen
 
 ## Future features
+
 #### Backlog
+
 - iOS 8+ / android 5+ app **(unversioned)**
 
 **Rooms**
-- *Room chat **(unversioned)***
+
+- \*Room chat **(unversioned)\***
 
 #### Roadmap to 3.0
-- *Release a stable version **(in v2.6.9)***
-- *Set private/public room **(in v2.7)***
-- *List of public rooms **(in v2.8)***
-- *Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)***
+
+- \*Release a stable version **(in v2.6.9)\***
+- \*Set private/public room **(in v2.7)\***
+- \*List of public rooms **(in v2.8)\***
+- \*Room moderators which can add videos, kick roommates, mute roommates **(in v2.9)\***
 
 #### Roadmap to 4.0
+
 - Integrating YouTube account subscriptions/playlist **(in v3.0)**
 
 #### Removed features
+
 - Global hotkeys for application in desktop (play/pause/next/prev, for keyboards with media buttons)
 - Adding support for NW.js to export the app for desktop compatible: Windows x64, Linux x64
 - Auto updating the app (desktop version)
-- Themes temporary removed 
+- Themes temporary removed
 
 ## Copyright and License
+
 Copyright [quead](https://github.com/quead) under the [MIT license](LICENSE).

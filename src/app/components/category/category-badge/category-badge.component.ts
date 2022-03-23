@@ -1,19 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { GlobalsService } from '../../../services/globals.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/app/services/globals.service';
 
 @Component({
-	selector: 'app-category-badge',
-	templateUrl: './category-badge.component.html',
-	styleUrls: ['./category-badge.component.scss'],
+  selector: 'app-category-badge',
+  templateUrl: './category-badge.component.html',
+  styleUrls: ['./category-badge.component.css'],
 })
 export class CategoryBadgeComponent implements OnInit {
-	@Input() categoryID: number;
+  @Input()
+  categoryID!: string;
 
-	constructor(
-		public globals: GlobalsService
-	) { }
+  constructor(public globals: GlobalsService) {}
 
-	ngOnInit() {
-	}
-
+  ngOnInit(): void {}
 }
